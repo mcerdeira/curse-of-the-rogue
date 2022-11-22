@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://sprites/playerback_spr_1.png" type="Texture" id=7]
 [ext_resource path="res://sprites/playerback_spr_3.png" type="Texture" id=8]
 [ext_resource path="res://sprites/playerback_spr_0.png" type="Texture" id=9]
+[ext_resource path="res://sprites/player_shadow.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -28,13 +29,18 @@ animations = [ {
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 4 )
 
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( 0, 15 )
+texture = ExtResource( 10 )
+
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+smoothing_enabled = true
