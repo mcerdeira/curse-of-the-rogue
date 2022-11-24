@@ -13,34 +13,44 @@ position = Vector2( 512, 303 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
-[node name="pos0" parent="EnemySpawn" index="0"]
-position = Vector2( 167, 113 )
+[node name="pos0" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 537, 490 )
 
-[node name="pos1" parent="EnemySpawn" index="1"]
-position = Vector2( 131, 472 )
+[node name="pos1" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 147, 286 )
 
-[node name="pos2" parent="EnemySpawn" index="2"]
-position = Vector2( 887, 510 )
+[node name="pos2" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 196, 98 )
 
-[node name="pos3" parent="EnemySpawn" index="3"]
-position = Vector2( 877, 105 )
+[node name="pos3" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 498, 67 )
 
-[node name="pos4" parent="EnemySpawn" index="4"]
-position = Vector2( 379, 65 )
+[node name="pos4" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 896, 250 )
 
-[node name="pos5" parent="EnemySpawn" index="5"]
-position = Vector2( 123, 287 )
+[node name="pos5" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 867, 445 )
 
-[node name="pos6" parent="EnemySpawn" index="6"]
-position = Vector2( 890, 296 )
+[node name="pos6" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 151, 469 )
 
-[node name="pos7" parent="EnemySpawn" index="7"]
-position = Vector2( 664, 81 )
+[node name="pos7" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 840, 94 )
 
-[node name="pos8" parent="EnemySpawn" index="8"]
-position = Vector2( 360, 525 )
+[node name="pos8" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 676, 152 )
 
-[node name="pos9" parent="EnemySpawn" index="9"]
-position = Vector2( 679, 526 )
+[node name="pos9" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 347, 153 )
 
-[editable path="EnemySpawn"]
+[node name="pos10" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 357, 346 )
+
+[node name="pos11" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 714, 302 )
+
+[node name="pos12" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 294, 490 )
+
+[node name="pos13" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 697, 459 )
