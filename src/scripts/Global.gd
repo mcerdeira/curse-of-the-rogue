@@ -5,7 +5,41 @@ var CURRENT_FLOOR = 1
 var ENEMY_SPAWN_TIMER_TOTAL = 3
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 
-var FLOOR_WAVES = [-1, 1, 1, 1, 1, 1, 1, 1] #TODO: Poner los valores correctos
+var FLOOR_WAVES = [-1, 1, 1, 2, 2, 3, 3, 4]
+var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
+
+var BOSS_HEADS = {
+	"Pig" : {
+		"name": tr("Pig"),
+		"dialog": tr("You are going to die!"),
+	},
+	"Demon": {
+		"name": tr("Demon"),
+		"dialog": tr("I'll drag you to hell!")
+	}
+}
+
+var BOSS_BODIES = {
+	"Pig" : {
+		"name": tr("pigglet"),
+		"movement": "random",
+	},
+	"Demon": {
+		"name": tr("demonic"),
+		"movement": "chase",
+	}
+}
+
+var BOSS_ELEMENTS = {
+	"Fire" : {
+		"name": tr("of fire"),
+		"weapon": "balls_of_fire",
+	},
+	"Ice": {
+		"name": tr("of ice"),
+		"weapon": "ice_zones",
+	}
+}
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]
