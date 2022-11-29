@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
+var life = 3
 var speed = 150
 var melee_rate_total = 0.7
 var melee_rate = 0
@@ -7,6 +8,9 @@ var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var primary_wheapon = ""
 var secondary_wheapon = ""
+
+func _ready():
+	add_to_group("players")
 
 func _physics_process(delta):
 	var left = Input.is_action_pressed("left")
