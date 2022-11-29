@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 #Boss type
-var HEAD = ""
-var BODY = ""
-var WEAPON = ""
+var DIALOG = ""
+var MOVEMENT = ""
+var ELEMENT = ""
 
 # Difficultu vars
 var HEALTH = 10
