@@ -4,21 +4,31 @@ var iamasign_ttl = 0.9
 var iamasign = true
 var speed = 0
 var player_chase = null
+var particle = preload("res://scenes/particle2.tscn")
 
 func _ready():
 	$shadow.visible = false
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
 
+func emit():
+	var p = particle.instance()
+	get_parent().add_child(p)
+	p.set_position(to_global(p.position))
+	p = particle.instance()
+	get_parent().add_child(p)
+	p.set_position(to_global(p.position))
+
 func _physics_process(delta):
 	if !iamasign:
-		$shadow.visible = true
-		find_player()
 		enemy_behaviour()
 	else:
 		if iamasign_ttl > 0:
 			iamasign_ttl -= 1 * delta
 		if iamasign_ttl <= 0:
+			$shadow.visible = true
+			emit()
+			find_player()
 			set_type()
 			iamasign = false
 			
@@ -49,4 +59,5 @@ func hit(dmg:= 1):
 
 func die():
 	if !iamasign:
+		emit()
 		queue_free()
