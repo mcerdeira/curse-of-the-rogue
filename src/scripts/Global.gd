@@ -8,6 +8,12 @@ var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 var FLOOR_WAVES = [-1, 1, 1, 2, 2, 3, 3, 4]
 var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 
+var primary_wheapon = ""
+var attack_rate = 0
+var attack = 0
+var speed = 0
+var health = 0
+
 var BOSS_HEADS = {
 	"Pig" : {
 		"name": tr("Pig"),

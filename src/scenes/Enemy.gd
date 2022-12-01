@@ -6,11 +6,13 @@ var speed = 0
 var player_chase = null
 
 func _ready():
+	$shadow.visible = false
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
 
 func _physics_process(delta):
 	if !iamasign:
+		$shadow.visible = true
 		find_player()
 		enemy_behaviour()
 	else:

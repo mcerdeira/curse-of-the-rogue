@@ -1,18 +1,25 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
-var life = 3
+var health = 3
 var speed = 150
-var melee_rate_total = 0.7
+var melee_rate_total = 1
 var melee_rate = 0
+var attack = 1
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
-var primary_wheapon = ""
+var primary_wheapon = "Whip"
 var secondary_wheapon = ""
 
 func _ready():
 	add_to_group("players")
 
 func _physics_process(delta):
+	Global.primary_wheapon = primary_wheapon
+	Global.attack_rate = melee_rate_total
+	Global.attack = attack
+	Global.speed = speed
+	Global.health = health
+	
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")
 	var down = Input.is_action_pressed("down")
@@ -20,8 +27,11 @@ func _physics_process(delta):
 	var action1 = Input.is_action_pressed("action1")
 	var action2 = Input.is_action_pressed("action2")
 	
+	$lbl_melee.text = str(round(melee_rate * 10))
+	
 	if melee_rate >= 0:
 		melee_rate -= 1 * delta
+		melee_rate = max(0, melee_rate)
 	
 	var move = (left or right or up or down)
 	
