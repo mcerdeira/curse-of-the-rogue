@@ -22,7 +22,7 @@ func spawn_enemy():
 	for i in range(count):
 		randomize()
 		positions.shuffle()
-		var p = positions[0]
+		var p = positions.pop_front()
 		
 		var enemy_inst = enemy.instance()
 		get_parent().add_child(enemy_inst)
