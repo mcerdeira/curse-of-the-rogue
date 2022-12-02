@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var life = 0
+var dmg = 1
 var iamasign_ttl = 0.9
 var iamasign = true
 var speed = 0
@@ -61,3 +62,7 @@ func die():
 	if !iamasign:
 		emit()
 		queue_free()
+
+func _on_area_body_entered(body):
+	if body.is_in_group("players"):
+		body.hit(dmg)

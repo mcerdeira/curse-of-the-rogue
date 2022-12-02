@@ -5,6 +5,8 @@ var speed = 150
 var melee_rate_total = 1
 var melee_rate = 0
 var attack = 1
+var inv_time = 0
+var inv_time_total = 1.2
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var primary_wheapon = "Whip"
@@ -12,13 +14,26 @@ var secondary_wheapon = ""
 
 func _ready():
 	add_to_group("players")
-
+	
+func hit(dmg):
+	if inv_time <= 0:
+		inv_time = inv_time_total
+		health -= dmg
+		if health <= 0:
+			die()
+	
+func die():
+	pass
+	
 func _physics_process(delta):
 	Global.primary_wheapon = primary_wheapon
 	Global.attack_rate = melee_rate_total
 	Global.attack = attack
 	Global.speed = speed
 	Global.health = health
+	
+	if inv_time > 0:
+		inv_time -= 1 * delta
 	
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")
