@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -16, -18 ), Vector2( 15, -18 ) ]
+"values": [ Vector2( -16, -20 ), Vector2( 15, -20 ) ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -63,11 +63,11 @@ current = true
 smoothing_enabled = true
 
 [node name="melee_bar" type="Sprite" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -18 )
 texture = ExtResource( 11 )
 
 [node name="melee_bar2" type="Sprite" parent="."]
-position = Vector2( -16, -18 )
+position = Vector2( 15, -20 )
 texture = ExtResource( 12 )
 centered = false
 
