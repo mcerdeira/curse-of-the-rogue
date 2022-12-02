@@ -27,11 +27,15 @@ func _physics_process(delta):
 	var action1 = Input.is_action_pressed("action1")
 	var action2 = Input.is_action_pressed("action2")
 	
-	$lbl_melee.text = str(round(melee_rate * 10))
-	
-	if melee_rate >= 0:
+	if melee_rate > 0:
+		$melee_bar.visible = true
+		$melee_bar2.visible = true
+		$melee_progress.play("default")
 		melee_rate -= 1 * delta
 		melee_rate = max(0, melee_rate)
+	else:
+		$melee_bar.visible = false
+		$melee_bar2.visible = false
 	
 	var move = (left or right or up or down)
 	

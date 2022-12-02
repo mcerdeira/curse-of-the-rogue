@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://sprites/playerback_spr_3.png" type="Texture" id=8]
 [ext_resource path="res://sprites/playerback_spr_0.png" type="Texture" id=9]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=10]
-[ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://sprites/melee_barr.png" type="Texture" id=11]
+[ext_resource path="res://sprites/melee_barr2.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -27,9 +28,20 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
-size = 8
-font_data = ExtResource( 11 )
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("melee_bar2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16, -18 ), Vector2( 15, -18 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 4 )
@@ -50,11 +62,14 @@ playing = true
 current = true
 smoothing_enabled = true
 
-[node name="lbl_melee" type="Label" parent="."]
-margin_left = -7.0
-margin_top = -22.0
-margin_right = 9.0
-margin_bottom = -14.0
-custom_fonts/font = SubResource( 3 )
-text = "00"
-align = 1
+[node name="melee_bar" type="Sprite" parent="."]
+position = Vector2( 0, -16 )
+texture = ExtResource( 11 )
+
+[node name="melee_bar2" type="Sprite" parent="."]
+position = Vector2( -16, -18 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="melee_progress" type="AnimationPlayer" parent="."]
+anims/default = SubResource( 3 )
