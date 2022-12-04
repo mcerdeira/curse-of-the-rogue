@@ -67,7 +67,6 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

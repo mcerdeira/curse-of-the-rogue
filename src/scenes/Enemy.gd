@@ -51,8 +51,11 @@ func enemy_behaviour(delta):
 			impulse = null
 	
 	if !dead and hit_ttl <= 0:
-		var player_direction = (player_chase.position - self.position).normalized()
-		move_and_slide(speed * player_direction)
+		if !player_chase.dead:
+			var player_direction = (player_chase.position - self.position).normalized()
+			move_and_slide(speed * player_direction)
+		else:
+			$sprite.playing = false
 	
 	if impulse:
 		move_and_slide((-speed*5) * impulse)

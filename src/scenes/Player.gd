@@ -48,6 +48,8 @@ func _physics_process(delta):
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
 			impulse = null
+			if health <= 0:
+				die()
 	
 	if inv_time > 0:
 		inv_togg += 1 * delta
@@ -60,8 +62,6 @@ func _physics_process(delta):
 			inv_time = 0
 			$sprite.animation = "default"
 			$sprite.visible = true
-			if health <= 0:
-				die()
 	
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")
@@ -116,7 +116,7 @@ func _physics_process(delta):
 	else:
 		movement = move_and_slide(movement, Vector2.UP)
 	
-	if move:
+	if move and inv_time <= 0:
 		if up:
 			$sprite.animation = "back"
 		else:
