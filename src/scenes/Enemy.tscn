@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -6,9 +6,26 @@
 [ext_resource path="res://sprites/scorpion_spr_2.png" type="Texture" id=4]
 [ext_resource path="res://sprites/warning_sign1.png" type="Texture" id=5]
 [ext_resource path="res://sprites/warning_sign2.png" type="Texture" id=6]
-[ext_resource path="res://sprites/player_shadow.png" type="Texture" id=7]
+[ext_resource path="res://sprites/scorpion_shadow.png" type="Texture" id=7]
+[ext_resource path="res://sprites/skele_spr_0.png" type="Texture" id=8]
+[ext_resource path="res://sprites/skele_spr_2.png" type="Texture" id=9]
+[ext_resource path="res://sprites/skele_spr_1.png" type="Texture" id=10]
+[ext_resource path="res://sprites/skele_shadow.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "scorpion",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "skeleton",
+"speed": 5.0
+} ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -20,6 +37,11 @@ animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "sign",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "skeleton",
 "speed": 5.0
 } ]
 
@@ -37,14 +59,14 @@ visible = false
 [node name="collider" type="CollisionShape2D" parent="area"]
 shape = SubResource( 1 )
 
-[node name="shadow" type="Sprite" parent="."]
-position = Vector2( 0, 11 )
-scale = Vector2( 0.75, 0.7 )
-texture = ExtResource( 7 )
+[node name="shadow" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+animation = "scorpion"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "scorpion"
+frame = 1
 playing = true
 
 [node name="collider2" type="CollisionShape2D" parent="."]

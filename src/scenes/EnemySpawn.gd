@@ -5,16 +5,17 @@ var enemy = preload("res://scenes/Enemy.tscn")
 var min_count = 3
 
 func _physics_process(delta):
-	current_timer -= 1 * delta
-	if !first_time:
-		if current_timer > 1:
-			if get_tree().get_nodes_in_group("enemies").size() == 0:
-				current_timer = 1
-	
-	if current_timer <= 0:
-		first_time = false
-		current_timer = Global.reset_spawn_timer()
-		spawn_enemy()
+	if !Global.GAME_OVER:
+		current_timer -= 1 * delta
+		if !first_time:
+			if current_timer > 1:
+				if get_tree().get_nodes_in_group("enemies").size() == 0:
+					current_timer = 1
+		
+		if current_timer <= 0:
+			first_time = false
+			current_timer = Global.reset_spawn_timer()
+			spawn_enemy()
 		
 func spawn_enemy():
 	var positions = get_children()

@@ -8,6 +8,8 @@ var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 var FLOOR_WAVES = [-1, 1, 1, 2, 2, 3, 3, 4]
 var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 
+var GAME_OVER = false
+
 var primary_wheapon = ""
 var attack_rate = 0
 var attack = 0

@@ -33,6 +33,7 @@ func hit(dmg, origin):
 func die():
 	$sprite.animation = "dead"
 	dead = true
+	Global.GAME_OVER = true
 	
 func _physics_process(delta):
 	Global.primary_wheapon = primary_wheapon
