@@ -6,6 +6,10 @@ var iamasign = true
 var speed = 0
 var player_chase = null
 var particle = preload("res://scenes/particle2.tscn")
+var dead = false
+var impulse = null
+var hit_ttl = 0
+var hit_ttl_total = 0.2
 
 func _ready():
 	$shadow.visible = false
@@ -22,7 +26,7 @@ func emit():
 
 func _physics_process(delta):
 	if !iamasign:
-		enemy_behaviour()
+		enemy_behaviour(delta)
 	else:
 		if iamasign_ttl > 0:
 			iamasign_ttl -= 1 * delta
@@ -36,10 +40,25 @@ func _physics_process(delta):
 func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 			
-func enemy_behaviour():
+func enemy_behaviour(delta):
 	face_player()
-	var player_direction = (player_chase.position - self.position).normalized()
-	move_and_slide(speed * player_direction)
+	if hit_ttl > 0:
+		$sprite.playing = false
+		hit_ttl -= 1 * delta
+		if hit_ttl <= 0:
+			hit_ttl = 0
+			$sprite.playing = true
+			impulse = null
+	
+	if !dead and hit_ttl <= 0:
+		var player_direction = (player_chase.position - self.position).normalized()
+		move_and_slide(speed * player_direction)
+	
+	if impulse:
+		move_and_slide((-speed*5) * impulse)
+	
+	if dead and hit_ttl <= 0:
+		die()
 	
 func face_player():
 	if position.x > player_chase.position.x:
@@ -52,11 +71,13 @@ func set_type():
 	speed = 100
 	life = 1
 	
-func hit(dmg:= 1):
+func hit(origin, dmg:= 1):
 	if !iamasign:
 		life -= dmg
+		hit_ttl = hit_ttl_total
+		impulse = (origin.position - self.position).normalized()
 		if life <= 0:
-			die()
+			dead = true
 
 func die():
 	if !iamasign:

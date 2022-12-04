@@ -1,5 +1,6 @@
 extends Area2D
 var hit = false
+var dmg = 1
 
 func _ready():
 	$sprite.speed_scale = 4
@@ -11,4 +12,4 @@ func _on_sprite_animation_finished():
 func _on_Whip_area_entered(area):
 	if !hit and area.is_in_group("enemies"):
 		hit = true
-		area.get_parent().hit()
+		area.get_parent().hit(get_parent(), dmg)
