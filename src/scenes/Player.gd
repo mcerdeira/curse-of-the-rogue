@@ -5,25 +5,34 @@ var speed = 150
 var melee_rate_total = 1
 var melee_rate = 0
 var attack = 1
+var hit_ttl = 0
+var hit_ttl_total = 0.2
 var inv_time = 0
 var inv_time_total = 1.2
+var inv_togg_total = 0.1
+var inv_togg = 0
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var primary_wheapon = "Whip"
 var secondary_wheapon = ""
+var impulse = null
+var dead = false
 
 func _ready():
 	add_to_group("players")
 	
-func hit(dmg):
+func hit(dmg, origin):
 	if inv_time <= 0:
+		$sprite.animation = "hit"
+		impulse = (origin.position - self.position).normalized()
 		inv_time = inv_time_total
+		hit_ttl = hit_ttl_total
+		inv_togg = 0
 		health -= dmg
-		if health <= 0:
-			die()
 	
 func die():
-	pass
+	$sprite.animation = "dead"
+	dead = true
 	
 func _physics_process(delta):
 	Global.primary_wheapon = primary_wheapon
@@ -32,8 +41,27 @@ func _physics_process(delta):
 	Global.speed = speed
 	Global.health = health
 	
+	if dead:
+		return
+	
+	if hit_ttl > 0:		
+		hit_ttl -= 1 * delta
+		if hit_ttl <= 0:
+			impulse = null
+	
 	if inv_time > 0:
+		inv_togg += 1 * delta
+		if inv_togg >= inv_togg_total:
+			inv_togg = 0
+			$sprite.visible = !$sprite.visible
+		
 		inv_time -= 1 * delta
+		if inv_time <= 0:
+			inv_time = 0
+			$sprite.animation = "default"
+			$sprite.visible = true
+			if health <= 0:
+				die()
 	
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")
@@ -82,8 +110,11 @@ func _physics_process(delta):
 		movement.y = speed
 	elif up:
 		movement.y = -speed
-	
-	movement = move_and_slide(movement, Vector2.UP)
+		
+	if impulse:
+		move_and_slide((-speed*2) * impulse)
+	else:
+		movement = move_and_slide(movement, Vector2.UP)
 	
 	if move:
 		if up:
