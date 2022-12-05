@@ -92,13 +92,10 @@ margin_bottom = 299.0
 custom_fonts/font = SubResource( 2 )
 text = "YOU DIED"
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 512, 303 )
-
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 
 [node name="MegaRay" parent="." instance=ExtResource( 11 )]
-position = Vector2( 512, 589 )
+position = Vector2( 512, 592 )
 rotation = -3.14159
 
 [node name="MegaRay2" parent="." instance=ExtResource( 11 )]
@@ -113,6 +110,9 @@ position = Vector2( 17, 208 )
 [node name="MegaRayH2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1005, 400 )
 rotation = 3.14159
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 512, 303 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 

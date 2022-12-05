@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/EnemyGroup.gd" type="Script" id=2]
+
+[node name="EnemyGroup" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -31, -16 )
+enemy_type = "bat"
+
+[node name="Enemy3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 44, -16 )
+enemy_type = "bat"
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 6, 31 )
+enemy_type = "bat"

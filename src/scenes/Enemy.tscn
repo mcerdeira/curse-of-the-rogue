@@ -78,8 +78,7 @@ animation = "bat"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "bat"
-frame = 1
+animation = "scorpion"
 playing = true
 
 [node name="collider2" type="CollisionShape2D" parent="."]

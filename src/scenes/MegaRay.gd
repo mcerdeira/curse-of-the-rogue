@@ -22,6 +22,7 @@ func _physics_process(delta):
 		shoot_delay -= 1 * delta
 		if shoot_delay <= shoot_delay_total / 2:
 			$sprite.playing = true
+			$sprite2.playing = true
 		
 		if shoot_delay <= 0:
 			shoot_delay = shoot_delay_total
@@ -31,6 +32,8 @@ func _physics_process(delta):
 		if shooting <= 0:
 			$sprite.playing = false
 			$sprite.frame = 0
+			$sprite2.playing = false
+			$sprite2.frame = 0
 			area_on(false)
 
 func shoot():

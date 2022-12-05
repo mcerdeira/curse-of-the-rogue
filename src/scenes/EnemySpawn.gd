@@ -2,6 +2,7 @@ extends Node2D
 var current_timer = 0.5
 var first_time = true
 var enemy = preload("res://scenes/Enemy.tscn")
+var bat_group = preload("res://scenes/EnemyGroup.tscn")
 var min_count = 3
 
 func _physics_process(delta):
@@ -31,8 +32,15 @@ func spawn_enemy():
 		randomize()
 		positions.shuffle()
 		var p = positions.pop_front()
-		
-		var enemy_inst = enemy.instance()
+		var type  = Global.pick_random(["scorpion", "bat", "skeleton"])
+		var enemy_inst = null
+
+		if type == "bat":
+			enemy_inst = bat_group.instance()
+		else:
+			enemy_inst = enemy.instance()
+			enemy_inst.enemy_type = type
+			
 		get_parent().add_child(enemy_inst)
 		enemy_inst.set_position(to_global(p.position))
 		enemy_inst.spawner = self

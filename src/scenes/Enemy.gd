@@ -3,6 +3,7 @@ var life = 0
 var dmg = 0
 var iamasign_ttl = 0.9
 var iamasign = true
+var impulse_speed = 100
 var speed = 0
 var speed_total = 0
 var point_chase = null
@@ -13,7 +14,7 @@ var dead = false
 var impulse = null
 var hit_ttl = 0
 var hit_ttl_total = 0.2
-var enemy_type = ""
+export var enemy_type = ""
 var shoot_ttl = 0
 var shoot_ttl_total = 0
 var shoot_type = false
@@ -28,7 +29,8 @@ func _ready():
 
 func emit():
 	var p = particle.instance()
-	get_parent().add_child(p)
+	var root = get_node("/root")
+	root.add_child(p)
 	p.set_position(to_global(p.position))
 	p = particle.instance()
 	get_parent().add_child(p)
@@ -43,7 +45,7 @@ func _physics_process(delta):
 		if iamasign_ttl <= 0:
 			emit()
 			find_player()
-			set_type()
+			set_type(enemy_type)
 			$shadow.visible = true
 			$shadow.animation = enemy_type
 			iamasign = false
@@ -60,6 +62,8 @@ func shoot():
 
 func enemy_behaviour(delta):
 	if Global.GAME_OVER:
+		if dead:
+			die()
 		$sprite.playing = false
 		return
 		
@@ -110,7 +114,7 @@ func enemy_behaviour(delta):
 				move_and_slide(speed * direction)
 	
 	if impulse:
-		move_and_slide((-speed*5) * impulse)
+		move_and_slide((-impulse_speed*5) * impulse)
 	
 	if dead and hit_ttl <= 0:
 		die()
@@ -121,18 +125,19 @@ func face_player():
 	else:
 		$sprite.scale.x = -1
 	
-func set_type():
-	enemy_type = Global.pick_random(["scorpion", "skeleton", "bat"])
+func set_type(_type):
+	enemy_type = _type
+	
 	$sprite.animation = enemy_type
 	if enemy_type == "bat":
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
-		speed = 200
-		speed_total = 200
+		speed = 0
+		speed_total = 0
 		life = 1
 		dmg = 1
-		chase_player = false
+		chase_player = true
 		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
@@ -143,6 +148,7 @@ func set_type():
 		life = 1
 		dmg = 1
 		chase_player = true
+		
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
