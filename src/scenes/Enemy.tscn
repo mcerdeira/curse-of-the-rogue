@@ -21,6 +21,11 @@
 animations = [ {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
+"name": "bat",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
 "name": "scorpion",
 "speed": 5.0
 }, {
@@ -69,11 +74,12 @@ shape = SubResource( 1 )
 
 [node name="shadow" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-animation = "scorpion"
+animation = "bat"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "sign"
+animation = "bat"
+frame = 1
 playing = true
 
 [node name="collider2" type="CollisionShape2D" parent="."]

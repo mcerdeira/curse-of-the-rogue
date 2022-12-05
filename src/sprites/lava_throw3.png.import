@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lava.png-e15d5cd1272bee718fb1f766834013e8.stex"
+path="res://.import/lava_throw3.png-f38c16ad38f07bbcd1513fcbe274508e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/lava.png"
-dest_files=[ "res://.import/lava.png-e15d5cd1272bee718fb1f766834013e8.stex" ]
+source_file="res://sprites/lava_throw3.png"
+dest_files=[ "res://.import/lava_throw3.png-f38c16ad38f07bbcd1513fcbe274508e.stex" ]
 
 [params]
 

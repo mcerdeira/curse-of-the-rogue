@@ -95,24 +95,24 @@ text = "YOU DIED"
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 303 )
 
+[node name="Walls" parent="." instance=ExtResource( 2 )]
+
 [node name="MegaRay" parent="." instance=ExtResource( 11 )]
-position = Vector2( 512, 560 )
+position = Vector2( 512, 589 )
 rotation = -3.14159
 
 [node name="MegaRay2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 304, 48 )
+position = Vector2( 304, 19 )
 
 [node name="MegaRay3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 720, 48 )
+position = Vector2( 720, 19 )
 
 [node name="MegaRayH" parent="." instance=ExtResource( 12 )]
-position = Vector2( 48, 208 )
+position = Vector2( 17, 208 )
 
 [node name="MegaRayH2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 976, 401 )
+position = Vector2( 1005, 400 )
 rotation = 3.14159
-
-[node name="Walls" parent="." instance=ExtResource( 2 )]
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
