@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://sprites/hourglass.png" type="Texture" id=8]
 [ext_resource path="res://sprites/character_place.png.png" type="Texture" id=9]
 [ext_resource path="res://sprites/skull.png" type="Texture" id=10]
+[ext_resource path="res://scenes/MegaRay.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/MegaRayH.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
@@ -93,12 +95,29 @@ text = "YOU DIED"
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 303 )
 
+[node name="MegaRay" parent="." instance=ExtResource( 11 )]
+position = Vector2( 512, 560 )
+rotation = -3.14159
+
+[node name="MegaRay2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 304, 48 )
+
+[node name="MegaRay3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 720, 48 )
+
+[node name="MegaRayH" parent="." instance=ExtResource( 12 )]
+position = Vector2( 48, 208 )
+
+[node name="MegaRayH2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 976, 401 )
+rotation = 3.14159
+
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
 [node name="pos0" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 496, 536 )
+position = Vector2( 437, 517 )
 
 [node name="pos1" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 147, 286 )
@@ -107,7 +126,7 @@ position = Vector2( 147, 286 )
 position = Vector2( 196, 98 )
 
 [node name="pos3" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 498, 67 )
+position = Vector2( 557, 155 )
 
 [node name="pos4" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 896, 250 )
@@ -146,7 +165,7 @@ position = Vector2( 664, 320 )
 position = Vector2( 232, 368 )
 
 [node name="pos16" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 504, 176 )
+position = Vector2( 467, 135 )
 
 [node name="pos17" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 520, 424 )

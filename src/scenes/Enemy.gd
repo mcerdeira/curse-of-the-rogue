@@ -122,8 +122,18 @@ func face_player():
 		$sprite.scale.x = -1
 	
 func set_type():
-	enemy_type = Global.pick_random(["scorpion", "skeleton"])
+	enemy_type = Global.pick_random(["scorpion", "skeleton", "bat"])
 	$sprite.animation = enemy_type
+	if enemy_type == "bat":
+		shoot_ttl_total = 0
+		shoot_ttl = shoot_ttl_total
+		shoot_type = false
+		speed = 200
+		speed_total = 200
+		life = 1
+		dmg = 1
+		chase_player = false
+		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
