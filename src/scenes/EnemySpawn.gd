@@ -16,6 +16,13 @@ func _physics_process(delta):
 			first_time = false
 			current_timer = Global.reset_spawn_timer()
 			spawn_enemy()
+			
+func get_random_point():
+	randomize()
+	var positions = get_children()
+	positions.shuffle()
+	var p = positions.pop_front()
+	return p
 		
 func spawn_enemy():
 	var positions = get_children()
@@ -28,3 +35,4 @@ func spawn_enemy():
 		var enemy_inst = enemy.instance()
 		get_parent().add_child(enemy_inst)
 		enemy_inst.set_position(to_global(p.position))
+		enemy_inst.spawner = self

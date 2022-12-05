@@ -5,6 +5,7 @@ var iamasign_ttl = 0.9
 var iamasign = true
 var speed = 0
 var speed_total = 0
+var point_chase = null
 var player_chase = null
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
@@ -17,6 +18,8 @@ var shoot_ttl = 0
 var shoot_ttl_total = 0
 var shoot_type = false
 var stop_moving = 0
+var spawner = null
+var chase_player = true
 
 func _ready():
 	$shadow.visible = false
@@ -57,6 +60,7 @@ func shoot():
 
 func enemy_behaviour(delta):
 	if Global.GAME_OVER:
+		$sprite.playing = false
 		return
 		
 	if speed < speed_total:
@@ -72,7 +76,13 @@ func enemy_behaviour(delta):
 			stop_moving = 1
 		
 		if shoot_ttl <= 0:
+			if !chase_player:
+				point_chase = spawner.get_random_point()
+				
 			shoot_ttl = shoot_ttl_total
+			if Global.pick_random([true, false]):
+				shoot_ttl = 0.1
+			
 			shoot()
 	
 	if hit_ttl > 0:
@@ -84,12 +94,20 @@ func enemy_behaviour(delta):
 			impulse = null
 	
 	if !dead and hit_ttl <= 0:
-		if !player_chase.dead:
-			var player_direction = (player_chase.position - self.position).normalized()
+		if chase_player:
+			var direction = (player_chase.position - self.position).normalized()
+			if player_chase.position.distance_to(position) <= 2:
+				stop_moving = 1
+						
 			if stop_moving <= 0:
-				move_and_slide(speed * player_direction)
+				move_and_slide(speed * direction)
 		else:
-			$sprite.playing = false
+			if point_chase == null:
+				point_chase = spawner.get_random_point()
+				
+			var direction = (point_chase.position - self.position).normalized()
+			if stop_moving <= 0:
+				move_and_slide(speed * direction)
 	
 	if impulse:
 		move_and_slide((-speed*5) * impulse)
@@ -114,6 +132,7 @@ func set_type():
 		speed_total = 200
 		life = 1
 		dmg = 1
+		chase_player = true
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
@@ -122,6 +141,7 @@ func set_type():
 		speed_total = 80
 		life = 2
 		dmg = 2
+		chase_player = Global.pick_random([true, false])
 		
 func hit(origin, dmg:= 1):
 	if !iamasign:
