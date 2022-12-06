@@ -9,11 +9,15 @@ func _ready():
 	$game_over.visible = false
 	
 func _draw():
-	for i in range(Global.health):
-		draw_texture(full_hearts, to_local(Vector2(20 * i, 10)))
+	var w = 30
+	for i in range(Global.health_total):
+		if Global.health > i:
+			draw_texture(full_hearts, to_local(Vector2(10 + (w * i), 10)))
+		else:
+			draw_texture(empty_hearts, to_local(Vector2(10 + (w * i), 10)))
 		
 	for i in range(Global.shield):
-		draw_texture(shield_hearts, to_local(Vector2(20 * (Global.health + i), 10)))
+		draw_texture(shield_hearts, to_local(Vector2(w * (Global.health + i), 10)))
 
 func update_health():
 	update()
@@ -36,9 +40,9 @@ func _physics_process(delta):
 		$combo.text = "x " + str(Global.current_combo)
 	else:
 		$combo.text = ""
-		
-	$hud_weapon.text = str(space) + Global.primary_wheapon
 	
+	$primary_weapon.animation = Global.primary_weapon
+	$secondary_weapon.animation = Global.secondary_weapon
 	$hud_speed.text =  str(space) + str(Global.speed)
 	$hud_attack.text = str(space) + str(Global.attack)
 	$hud_melee_speed.text = str(space) + str(Global.attack_rate)

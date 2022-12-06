@@ -14,10 +14,12 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
-var primary_wheapon = ""
+var primary_weapon = ""
+var secondary_weapon = ""
 var attack_rate = 0
 var attack = 0
 var speed = 0
+var health_total = 0
 var health = 0
 var shield = 0
 
@@ -54,6 +56,25 @@ var BOSS_ELEMENTS = {
 	}
 }
 
+func _ready():
+	initialize()
+
+func initialize():
+	GAME_OVER = false
+
+	current_combo = 0
+	combo_time = 0
+	combo_time_total = 2.3
+
+	primary_weapon = ""
+	secondary_weapon = ""
+	attack_rate = 0
+	attack = 0
+	speed = 0
+	health_total = 0
+	health = 0
+	shield = 0
+
 func sustain():
 	combo_time = 0.5
 
@@ -77,6 +98,7 @@ func _input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 	if event.is_action_pressed("restart_game"):
+		initialize()
 		get_tree().reload_current_scene()
 	if event.is_action_pressed("quit_game"):
 		get_tree().quit()

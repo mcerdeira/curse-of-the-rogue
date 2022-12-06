@@ -13,7 +13,7 @@ func _ready():
 	if !Global.pick_random([false, false, true]):
 		queue_free()
 	else:
-		shoot_delay_total = Global.pick_random([5, 8, 10])
+		shoot_delay_total = 8
 		shoot_delay = shoot_delay_total
 		area_on(false)
 
@@ -47,4 +47,5 @@ func _on_area_body_entered(body):
 
 func _on_area_area_entered(area):
 	if area.is_in_group("enemies"):
-		area.get_parent().hit(get_parent(), dmg, "megaray")
+		if !area.get_parent().flying:
+			area.get_parent().hit(null, dmg, "megaray")

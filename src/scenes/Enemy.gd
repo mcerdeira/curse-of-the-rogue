@@ -21,6 +21,7 @@ var shoot_type = false
 var stop_moving = 0
 var spawner = null
 var chase_player = true
+var flying = false
 
 func _ready():
 	$shadow.visible = false
@@ -62,7 +63,7 @@ func enemy_behaviour(delta):
 	if Global.GAME_OVER:
 		if dead:
 			die()
-		$sprite.playing = false
+		$sprite.playing = flying
 		return
 		
 	if speed < speed_total:
@@ -136,6 +137,7 @@ func set_type(_type):
 		life = 1
 		dmg = 1
 		chase_player = true
+		flying = true
 		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
@@ -146,6 +148,7 @@ func set_type(_type):
 		life = 1
 		dmg = 1
 		chase_player = true
+		flying = false
 		
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
@@ -156,12 +159,14 @@ func set_type(_type):
 		life = 2
 		dmg = 2
 		chase_player = Global.pick_random([true, false])
+		flying = false
 		
 func hit(origin, dmg, from):
 	if !iamasign:
 		life -= dmg
 		hit_ttl = hit_ttl_total
-		impulse = (origin.position - self.position).normalized()
+		if origin:
+			impulse = (origin.position - self.position).normalized()
 		if life <= 0:
 			if from == "player":
 				Global.add_combo()

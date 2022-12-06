@@ -1,7 +1,8 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
-var shield = 2
-var health = 3
+var shield = 0
+var health_total = 3
+var health = health_total
 var speed = 150
 var melee_rate_total = 1
 var melee_rate = 0
@@ -14,8 +15,8 @@ var inv_togg_total = 0.1
 var inv_togg = 0
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
-var primary_wheapon = "Whip"
-var secondary_wheapon = ""
+var primary_weapon = "Whip"
+var secondary_weapon = "Empty"
 var impulse = null
 var dead = false
 
@@ -36,6 +37,9 @@ func hit(dmg, origin):
 			shield = 0
 			dmg -= shield
 		
+		Global.combo_time = 0
+		Global.current_combo = 0
+		
 		health -= dmg
 		var HUD = get_node("../CanvasLayer/HUD")
 		HUD.update_health()
@@ -46,12 +50,14 @@ func die():
 	Global.GAME_OVER = true
 	
 func _physics_process(delta):
-	Global.primary_wheapon = primary_wheapon
+	Global.primary_weapon = primary_weapon
+	Global.secondary_weapon = secondary_weapon
 	Global.attack_rate = melee_rate_total
 	Global.attack = attack
 	Global.speed = speed
 	Global.health = health
 	Global.shield = shield
+	Global.health_total = health_total
 	
 	if dead:
 		return
@@ -95,6 +101,9 @@ func _physics_process(delta):
 	var move = (left or right or up or down)
 	
 	movement = Vector2.ZERO
+	
+	if action2:
+		pass
 	
 	if action1 and melee_rate <= 0:
 		if !is_instance_valid(whip_inst):

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/suit_hearts.png-3fc6fa76578f2579d1c62b5b52aecb77.stex"
+path="res://.import/suit_hearts2.png-fb24ae4c2ac44ea4377a01a03e7a9ca4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/suit_hearts.png"
-dest_files=[ "res://.import/suit_hearts.png-3fc6fa76578f2579d1c62b5b52aecb77.stex" ]
+source_file="res://sprites/suit_hearts2.png"
+dest_files=[ "res://.import/suit_hearts2.png-fb24ae4c2ac44ea4377a01a03e7a9ca4.stex" ]
 
 [params]
 
