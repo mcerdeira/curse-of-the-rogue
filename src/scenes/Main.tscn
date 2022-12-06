@@ -32,17 +32,7 @@ font_data = ExtResource( 3 )
 [node name="HUD" type="Node2D" parent="CanvasLayer"]
 position = Vector2( -18, 29 )
 script = ExtResource( 5 )
-
-[node name="hud_health" type="Label" parent="CanvasLayer/HUD"]
-margin_top = -11.0
-margin_right = 96.0
-margin_bottom = -3.0
-custom_fonts/font = SubResource( 1 )
-text = "       : "
-
-[node name="SuitHearts" type="Sprite" parent="CanvasLayer/HUD/hud_health"]
-position = Vector2( 45, 4 )
-texture = ExtResource( 6 )
+full_hearts = ExtResource( 6 )
 
 [node name="hud_attack" type="Label" parent="CanvasLayer/HUD"]
 margin_top = 4.0

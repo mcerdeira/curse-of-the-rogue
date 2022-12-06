@@ -19,6 +19,7 @@ var attack_rate = 0
 var attack = 0
 var speed = 0
 var health = 0
+var shield = 0
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -75,6 +76,10 @@ func next_floor():
 func _input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
+	if event.is_action_pressed("restart_game"):
+		get_tree().reload_current_scene()
+	if event.is_action_pressed("quit_game"):
+		get_tree().quit()
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

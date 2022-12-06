@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
+var shield = 2
 var health = 3
 var speed = 150
 var melee_rate_total = 1
@@ -28,7 +29,16 @@ func hit(dmg, origin):
 		inv_time = inv_time_total
 		hit_ttl = hit_ttl_total
 		inv_togg = 0
+		if shield >= dmg:
+			shield -= dmg
+			dmg = 0
+		elif shield < dmg and shield != 0:
+			shield = 0
+			dmg -= shield
+		
 		health -= dmg
+		var HUD = get_node("../CanvasLayer/HUD")
+		HUD.update_health()
 	
 func die():
 	$sprite.animation = "dead"
@@ -41,6 +51,7 @@ func _physics_process(delta):
 	Global.attack = attack
 	Global.speed = speed
 	Global.health = health
+	Global.shield = shield
 	
 	if dead:
 		return
