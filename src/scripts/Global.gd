@@ -10,6 +10,10 @@ var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 
 var GAME_OVER = false
 
+var current_combo = 0
+var combo_time = 0
+var combo_time_total = 2.3
+
 var primary_wheapon = ""
 var attack_rate = 0
 var attack = 0
@@ -48,6 +52,13 @@ var BOSS_ELEMENTS = {
 		"weapon": "ice_zones",
 	}
 }
+
+func sustain():
+	combo_time = 0.5
+
+func add_combo():
+	combo_time = combo_time_total
+	current_combo += 1
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]

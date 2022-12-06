@@ -28,13 +28,11 @@ func _ready():
 	$area.add_to_group("enemies")
 
 func emit():
-	var p = particle.instance()
-	var root = get_node("/root")
-	root.add_child(p)
-	p.set_position(to_global(p.position))
-	p = particle.instance()
-	get_parent().add_child(p)
-	p.set_position(to_global(p.position))
+	for i in range(1):
+		var p = particle.instance()
+		var root = get_node("/root")
+		root.add_child(p)
+		p.set_position(to_global(p.position))
 
 func _physics_process(delta):
 	if !iamasign:
@@ -159,13 +157,18 @@ func set_type(_type):
 		dmg = 2
 		chase_player = Global.pick_random([true, false])
 		
-func hit(origin, dmg:= 1):
+func hit(origin, dmg, from):
 	if !iamasign:
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		impulse = (origin.position - self.position).normalized()
 		if life <= 0:
+			if from == "player":
+				Global.add_combo()
 			dead = true
+		else:
+			if from == "player":
+				Global.sustain()
 
 func die():
 	if !iamasign:

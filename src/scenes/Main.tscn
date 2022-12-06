@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -19,6 +19,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 56
 font_data = ExtResource( 3 )
 
 [node name="Main" type="Node2D"]
@@ -91,6 +95,13 @@ margin_right = 706.0
 margin_bottom = 299.0
 custom_fonts/font = SubResource( 2 )
 text = "YOU DIED"
+
+[node name="combo" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 778.0
+margin_top = 43.0
+margin_right = 1002.0
+margin_bottom = 107.0
+custom_fonts/font = SubResource( 3 )
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 
