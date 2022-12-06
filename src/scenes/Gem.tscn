@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sprites/small_gem_0.png" type="Texture" id=1]
+[ext_resource path="res://sprites/small_gem_1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/small_gem_2.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Gem.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.0
+
+[node name="Gem" type="Area2D"]
+script = ExtResource( 4 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 1
+playing = true
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_Gem_body_entered"]

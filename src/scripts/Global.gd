@@ -14,6 +14,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var gems = 0
 var primary_weapon = ""
 var secondary_weapon = ""
 var attack_rate = 0
@@ -74,6 +75,7 @@ func initialize():
 	health_total = 0
 	health = 0
 	shield = 0
+	gems = 0
 
 func sustain():
 	combo_time = 0.5

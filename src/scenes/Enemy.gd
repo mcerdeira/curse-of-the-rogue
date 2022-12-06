@@ -10,6 +10,7 @@ var point_chase = null
 var player_chase = null
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
+var Gem = preload("res://scenes/Gem.tscn")
 var dead = false
 var impulse = null
 var hit_ttl = 0
@@ -29,8 +30,17 @@ func _ready():
 	$area.add_to_group("enemies")
 
 func emit():
-	for i in range(1):
+	for i in range(2):
 		var p = particle.instance()
+		var root = get_node("/root")
+		root.add_child(p)
+		p.set_position(to_global(p.position))
+		
+func drop_gem():
+	var count = 1
+	
+	for i in range(count):
+		var p = Gem.instance()
 		var root = get_node("/root")
 		root.add_child(p)
 		p.set_position(to_global(p.position))
@@ -177,6 +187,8 @@ func hit(origin, dmg, from):
 
 func die():
 	if !iamasign:
+		if Global.pick_random([true, false]):
+			drop_gem()
 		emit()
 		queue_free()
 

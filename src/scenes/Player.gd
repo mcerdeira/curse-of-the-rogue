@@ -23,6 +23,9 @@ var dead = false
 func _ready():
 	add_to_group("players")
 	
+func add_gem(count):
+	Global.gems += count
+	
 func hit(dmg, origin):
 	if inv_time <= 0:
 		$sprite.animation = "hit"
