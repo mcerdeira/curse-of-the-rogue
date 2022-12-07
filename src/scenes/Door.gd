@@ -1,16 +1,26 @@
 extends Area2D
-export var type = "normal"
+export var type = "next"
+var particle = preload("res://scenes/particle2.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	add_to_group("doors")
+	$lbl.visible = false
+	$lbl.text = trad_type()
 
+func trad_type():
+	if type == "next":
+		return "Floor " + str(Global.CURRENT_FLOOR + 1)
+	elif type == "shop":
+		return "Shop"
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func emit():
+	for i in range(2):
+		var p = particle.instance()
+		var root = get_node("/root/Main")
+		root.add_child(p)
+		p.global_position = global_position
+		
+func open_door():
+	$lbl.visible = true
+	$sprite.animation = "opened"
+	emit()

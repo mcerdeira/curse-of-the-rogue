@@ -99,9 +99,9 @@ texture = ExtResource( 8 )
 
 [node name="hud_combo_count" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
-margin_top = 149.0
+margin_top = 150.0
 margin_right = 97.0
-margin_bottom = 157.0
+margin_bottom = 158.0
 custom_fonts/font = SubResource( 1 )
 text = "  COMBO:"
 
@@ -157,12 +157,12 @@ position = Vector2( 1005, 400 )
 rotation = 3.14159
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 512, 303 )
+position = Vector2( 512, 544 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
 [node name="pos0" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 437, 517 )
+position = Vector2( 400, 504 )
 
 [node name="pos1" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 147, 286 )
@@ -238,6 +238,15 @@ position = Vector2( 720, 64 )
 
 [node name="pos25" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 624, 520 )
+
+[node name="pos26" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 504, 328 )
+
+[node name="pos27" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 424, 272 )
+
+[node name="pos28" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 592, 320 )
 
 [node name="DoorNext" parent="." instance=ExtResource( 17 )]
 position = Vector2( 424, 78 )

@@ -1,14 +1,28 @@
 extends Area2D
 var gem_count = 1
 var particle = preload("res://scenes/particle2.tscn")
+var taken = false
 
 func _ready():
 	add_to_group("collectables")
-
+	
+func _physics_process(delta):
+	if taken:
+		$sprite.scale.x += 350 * delta
+		$sprite.scale.y -= 50 * delta
+		$sprite.playing = false
+		$sprite.frame = 1
+		if $sprite.scale.x > 30:
+			queue_free()
+			
+		if $sprite.scale.y <= 0:
+			$sprite.scale.y = 0.1
+			
 func _on_Gem_body_entered(body):
-	if body.is_in_group("players"):
-		body.add_gem(gem_count)
-		queue_free()
+	if !taken:
+		if body.is_in_group("players"):
+			taken = true
+			body.add_gem(gem_count)
 
 func _destroy():
 	emit()

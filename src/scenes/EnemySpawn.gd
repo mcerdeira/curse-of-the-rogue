@@ -28,6 +28,10 @@ func get_random_point():
 	return p
 	
 func spawn_chest_and_stuff():
+	var doors = get_tree().get_nodes_in_group("doors")
+	for d in doors:
+		d.open_door()
+	
 	var player = get_tree().get_nodes_in_group("players")[0]
 	var positions = get_children()
 	var last_pos = 999999999
