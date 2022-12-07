@@ -1,5 +1,7 @@
 extends Node
 
+var LOGIC_PAUSE = false
+
 var TOTAL_FLOORS = 7
 var CURRENT_FLOOR = 1
 var ENEMY_SPAWN_TIMER_TOTAL = 10
@@ -7,6 +9,12 @@ var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 
 var FLOOR_WAVES = [-1, 2, 2, 3, 3, 4, 4, 5]
 var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
+var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
+var FLOOR_ENEMIES = [
+	-1,
+	["scorpion", "bat"], 
+	["scorpion", "bat", "skeleton"]
+]
 
 var GAME_OVER = false
 var FLOOR_OVER = false
@@ -59,13 +67,22 @@ var BOSS_ELEMENTS = {
 	}
 }
 
+func enemy_by_floor():
+	return FLOOR_ENEMIES[CURRENT_FLOOR]
+
 func _ready():
 	initialize()
+	
+func get_reward_floor():
+	var reward = FLOOR_REWARD[CURRENT_FLOOR]
+	var rnd = pick_random([0, 1, 3, 5, 7, 9])
+	return reward + rnd
 
 func initialize():
 	GAME_OVER = false
 	FLOOR_OVER = false
-
+	LOGIC_PAUSE = false
+	
 	max_combo = 0
 	current_combo = 0
 	combo_time = 0

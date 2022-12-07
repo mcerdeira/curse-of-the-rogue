@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://sprites/chest_open.png" type="Texture" id=1]
+[ext_resource path="res://sprites/chest.png" type="Texture" id=2]
+[ext_resource path="res://scenes/particle_gems.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ChestAnimation.gd" type="Script" id=4]
+[ext_resource path="res://sprites/small_gem_0.png" type="Texture" id=5]
+[ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 6 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="ChestAnimation" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="ColorRect_Frame" type="ColorRect" parent="."]
+margin_left = -244.0
+margin_top = -148.0
+margin_right = 256.0
+margin_bottom = 198.0
+color = Color( 0.184314, 0.168627, 0.0235294, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -242.0
+margin_top = -147.0
+margin_right = 254.0
+margin_bottom = 196.0
+color = Color( 0.101961, 0.0941176, 0.0941176, 1 )
+
+[node name="gems" type="Label" parent="."]
+margin_left = -86.0
+margin_top = 135.0
+margin_right = 122.0
+margin_bottom = 151.0
+custom_fonts/font = SubResource( 2 )
+text = "00 x combos"
+
+[node name="gems_total" type="Label" parent="."]
+margin_left = -11.0
+margin_top = 101.0
+margin_right = 134.0
+margin_bottom = 117.0
+custom_fonts/font = SubResource( 2 )
+text = "= 00"
+
+[node name="SmallGem0" type="Sprite" parent="."]
+position = Vector2( -30, 106 )
+texture = ExtResource( 5 )
+
+[node name="chest" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 1 )
+frame = 1
+speed_scale = 0.5
+playing = true
+
+[node name="particle_gems" parent="." instance=ExtResource( 3 )]
+position = Vector2( -46, -29 )
+infinite = true
+
+[node name="particle_gems2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -36, 39 )
+infinite = true
+
+[node name="particle_gems3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 31, -66 )
+infinite = true
+
+[node name="particle_gems4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 29, 28 )
+infinite = true
+
+[node name="particle_gems5" parent="." instance=ExtResource( 3 )]
+position = Vector2( -29, -68 )
+infinite = true
+
+[node name="particle_gems6" parent="." instance=ExtResource( 3 )]
+position = Vector2( -84, -17 )
+infinite = true
+
+[node name="particle_gems7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 65, -16 )
+infinite = true

@@ -6,6 +6,9 @@ var speed = 0
 var dmg = 0
 var particle = preload("res://scenes/particle2.tscn")
 
+func _ready():
+	add_to_group("enemybullets")
+
 func emit():
 	var p = particle.instance()
 	get_parent().add_child(p)

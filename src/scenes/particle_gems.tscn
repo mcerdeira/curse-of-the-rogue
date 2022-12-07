@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sprites/small_gem_2.png" type="Texture" id=1]
+[ext_resource path="res://scenes/particle2.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=14]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0.0625, 275.412 ), 0.0, 0.0, 0, 0, Vector2( 0.891667, -346.406 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 14 )
+
+[sub_resource type="Curve" id=12]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.9875, 0.327972 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=13]
+curve = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 1.0
+emission_shape = 5
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 0.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 0, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 96, 0 )
+initial_velocity = 72.7
+initial_velocity_random = 0.53
+angular_velocity = 476.69
+angular_velocity_random = 0.64
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel_random = 0.33
+angle_random = 0.58
+angle_curve = SubResource( 15 )
+scale_random = 0.9
+scale_curve = SubResource( 13 )
+
+[node name="particle_gems" type="Particles2D"]
+amount = 3
+explosiveness = 0.5
+process_material = SubResource( 11 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

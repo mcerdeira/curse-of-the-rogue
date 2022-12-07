@@ -7,7 +7,7 @@ var chest = preload("res://scenes/Chest.tscn")
 var min_count = 3
 var WAVE_COUNT = 0
 
-func _physics_process(delta):
+func _physics_process(delta):	
 	if !Global.GAME_OVER and !Global.FLOOR_OVER:
 		current_timer -= 1 * delta
 		if !first_time:
@@ -28,9 +28,19 @@ func get_random_point():
 	return p
 	
 func spawn_chest_and_stuff():
+	var player = get_tree().get_nodes_in_group("players")[0]
+	var positions = get_children()
+	var last_pos = 999999999
+	var chest_pos = null
+	for pos in positions:
+		var p = pos.position.distance_to(player.position)
+		if last_pos > p and p > 32:
+			last_pos = p
+			chest_pos = pos.position
+	
 	var chest_inst = chest.instance()
 	get_parent().add_child(chest_inst)
-	chest_inst.set_position(to_global($pos26.position))
+	chest_inst.set_position(to_global(chest_pos))
 		
 func spawn_enemy():
 	if WAVE_COUNT < Global.get_floor_waves():
@@ -41,7 +51,7 @@ func spawn_enemy():
 			randomize()
 			positions.shuffle()
 			var p = positions.pop_front()
-			var type  = Global.pick_random(["scorpion", "bat", "skeleton"])
+			var type  = Global.pick_random(Global.enemy_by_floor())
 			var enemy_inst = null
 
 			if type == "bat":

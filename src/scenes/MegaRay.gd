@@ -10,6 +10,7 @@ func area_on(val):
 	$area/collider.set_deferred("disabled", !val)
 
 func _ready():
+	z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
 	if !Global.pick_random([false, false, true]):
 		queue_free()
 	else:
@@ -47,6 +48,9 @@ func _on_area_body_entered(body):
 			body.hit(dmg, self)
 
 func _on_area_area_entered(area):
+	if area.is_in_group("collectables"):
+		area._destroy()
+		
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
 			area.get_parent().hit(null, dmg, "megaray")

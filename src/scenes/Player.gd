@@ -65,7 +65,7 @@ func _physics_process(delta):
 	if dead:
 		return
 	
-	if hit_ttl > 0:		
+	if hit_ttl > 0:
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
 			impulse = null
@@ -83,6 +83,9 @@ func _physics_process(delta):
 			inv_time = 0
 			$sprite.animation = "default"
 			$sprite.visible = true
+	
+	if Global.LOGIC_PAUSE:
+		return 
 	
 	var left = Input.is_action_pressed("left")
 	var right = Input.is_action_pressed("right")

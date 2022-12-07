@@ -237,6 +237,3 @@ position = Vector2( 720, 64 )
 
 [node name="pos25" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 624, 520 )
-
-[node name="pos26" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 512, 288 )
