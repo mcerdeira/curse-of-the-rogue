@@ -35,7 +35,7 @@ func emit():
 		var p = particle.instance()
 		var root = get_node("/root/Main")
 		root.add_child(p)
-		p.set_position(to_global(p.position))
+		p.global_position = global_position
 		
 func drop_gem():
 	var count = 1
@@ -44,7 +44,7 @@ func drop_gem():
 		var p = Gem.instance()
 		var root = get_node("/root/Main")
 		root.add_child(p)
-		p.set_position(to_global(p.position))
+		p.global_position = global_position
 
 func _physics_process(delta):
 	if !iamasign:

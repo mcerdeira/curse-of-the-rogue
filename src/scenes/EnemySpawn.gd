@@ -61,7 +61,7 @@ func spawn_enemy():
 				enemy_inst.enemy_type = type
 				
 			get_parent().add_child(enemy_inst)
-			enemy_inst.set_position(to_global(p.position))
+			enemy_inst.global_position = p.global_position
 			enemy_inst.spawner = self
 	else:
 		if !Global.FLOOR_OVER and get_tree().get_nodes_in_group("enemies").size() == 0:

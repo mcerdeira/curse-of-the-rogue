@@ -17,7 +17,7 @@ func _destroy():
 func emit():
 	var p = particle.instance()
 	get_parent().add_child(p)
-	p.set_position(to_global(p.position))
+	p.global_position = global_position
 	p = particle.instance()
 	get_parent().add_child(p)
-	p.set_position(to_global(p.position))
+	p.global_position = global_position
