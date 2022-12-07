@@ -3,7 +3,7 @@ var life = 0
 var dmg = 0
 var iamasign_ttl = 0.9
 var iamasign = true
-var impulse_speed = 100
+var impulse_speed = 120
 var speed = 0
 var speed_total = 0
 var point_chase = null
@@ -23,6 +23,7 @@ var stop_moving = 0
 var spawner = null
 var chase_player = true
 var flying = false
+var is_enemy_group = false
 
 func _ready():
 	$shadow.visible = false
@@ -123,7 +124,7 @@ func enemy_behaviour(delta):
 				move_and_slide(speed * direction)
 	
 	if impulse:
-		move_and_slide((-impulse_speed*5) * impulse)
+		move_and_slide((-impulse_speed) * impulse)
 	
 	z_index = position.y
 	
@@ -150,6 +151,7 @@ func set_type(_type):
 		dmg = 1
 		chase_player = true
 		flying = true
+		is_enemy_group = true
 		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
@@ -161,6 +163,7 @@ func set_type(_type):
 		dmg = 1
 		chase_player = true
 		flying = false
+		is_enemy_group = false
 		
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
@@ -172,11 +175,16 @@ func set_type(_type):
 		dmg = 2
 		chase_player = Global.pick_random([true, false])
 		flying = false
+		is_enemy_group = false
 		
 func hit(origin, dmg, from):
 	if !iamasign:
 		life -= dmg
 		hit_ttl = hit_ttl_total
+		
+		if is_enemy_group:
+			get_parent().stop_moving = 0.5
+		
 		if origin:
 			impulse = (origin.position - self.position).normalized()
 		if life <= 0:

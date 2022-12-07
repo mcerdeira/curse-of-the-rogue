@@ -47,3 +47,4 @@ func _physics_process(delta):
 	$hud_speed.text =  str(space) + str(Global.speed)
 	$hud_attack.text = str(space) + str(Global.attack)
 	$hud_melee_speed.text = str(space) + str(Global.attack_rate)
+	$hud_combo_count.text = "  COMBO: " + str(Global.max_combo)

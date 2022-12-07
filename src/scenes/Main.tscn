@@ -53,10 +53,10 @@ empty_hearts = ExtResource( 13 )
 shield_hearts = ExtResource( 6 )
 
 [node name="hud_attack" type="Label" parent="CanvasLayer/HUD"]
-margin_left = -24.0
-margin_top = 94.0
-margin_right = 72.0
-margin_bottom = 102.0
+margin_left = 1.0
+margin_top = 96.0
+margin_right = 97.0
+margin_bottom = 104.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
 
@@ -65,18 +65,18 @@ position = Vector2( 45, 4 )
 texture = ExtResource( 7 )
 
 [node name="hud_gems" type="Label" parent="CanvasLayer/HUD"]
-margin_left = -24.0
-margin_top = 73.0
-margin_right = 72.0
-margin_bottom = 81.0
+margin_left = 1.0
+margin_top = 75.0
+margin_right = 97.0
+margin_bottom = 83.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
 
 [node name="hud_speed" type="Label" parent="CanvasLayer/HUD"]
-margin_left = -24.0
-margin_top = 113.0
-margin_right = 72.0
-margin_bottom = 121.0
+margin_left = 1.0
+margin_top = 115.0
+margin_right = 97.0
+margin_bottom = 123.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
 
@@ -85,10 +85,10 @@ position = Vector2( 44, 3 )
 texture = ExtResource( 9 )
 
 [node name="hud_melee_speed" type="Label" parent="CanvasLayer/HUD"]
-margin_left = -24.0
-margin_top = 132.0
-margin_right = 72.0
-margin_bottom = 140.0
+margin_left = 1.0
+margin_top = 134.0
+margin_right = 97.0
+margin_bottom = 142.0
 custom_fonts/font = SubResource( 1 )
 text = "       :"
 
@@ -96,23 +96,31 @@ text = "       :"
 position = Vector2( 45, 3 )
 texture = ExtResource( 8 )
 
+[node name="hud_combo_count" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 1.0
+margin_top = 149.0
+margin_right = 97.0
+margin_bottom = 157.0
+custom_fonts/font = SubResource( 1 )
+text = "  COMBO:"
+
 [node name="game_over" type="Label" parent="CanvasLayer/HUD"]
-margin_left = 386.0
-margin_top = 259.0
-margin_right = 706.0
-margin_bottom = 299.0
+margin_left = 411.0
+margin_top = 261.0
+margin_right = 731.0
+margin_bottom = 301.0
 custom_fonts/font = SubResource( 2 )
 text = "YOU DIED"
 
 [node name="combo" type="Label" parent="CanvasLayer/HUD"]
-margin_left = 778.0
-margin_top = 43.0
-margin_right = 1002.0
-margin_bottom = 107.0
+margin_left = 803.0
+margin_top = 45.0
+margin_right = 1027.0
+margin_bottom = 109.0
 custom_fonts/font = SubResource( 3 )
 
 [node name="SmallGem" type="Sprite" parent="CanvasLayer/HUD"]
-position = Vector2( 20, 76 )
+position = Vector2( 45, 78 )
 scale = Vector2( 1, 0.807692 )
 texture = ExtResource( 16 )
 
@@ -229,3 +237,6 @@ position = Vector2( 720, 64 )
 
 [node name="pos25" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 624, 520 )
+
+[node name="pos26" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 512, 288 )

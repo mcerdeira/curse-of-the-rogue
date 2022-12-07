@@ -5,16 +5,17 @@ var CURRENT_FLOOR = 1
 var ENEMY_SPAWN_TIMER_TOTAL = 10
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 
-var FLOOR_WAVES = [-1, 1, 1, 2, 2, 3, 3, 4]
+var FLOOR_WAVES = [-1, 2, 2, 3, 3, 4, 4, 5]
 var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 
 var GAME_OVER = false
+var FLOOR_OVER = false
 
+var max_combo = 0
 var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
-var gems = 0
 var primary_weapon = ""
 var secondary_weapon = ""
 var attack_rate = 0
@@ -23,6 +24,7 @@ var speed = 0
 var health_total = 0
 var health = 0
 var shield = 0
+var gems = 0
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -62,7 +64,9 @@ func _ready():
 
 func initialize():
 	GAME_OVER = false
+	FLOOR_OVER = false
 
+	max_combo = 0
 	current_combo = 0
 	combo_time = 0
 	combo_time_total = 2.3
@@ -83,6 +87,8 @@ func sustain():
 func add_combo():
 	combo_time = combo_time_total
 	current_combo += 1
+	if current_combo > max_combo:
+		max_combo = current_combo
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]
