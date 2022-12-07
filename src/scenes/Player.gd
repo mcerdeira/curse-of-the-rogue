@@ -140,6 +140,8 @@ func _physics_process(delta):
 	else:
 		movement = move_and_slide(movement, Vector2.UP)
 	
+	z_index = position.y
+	
 	if move and inv_time <= 0:
 		if up:
 			$sprite.animation = "back"

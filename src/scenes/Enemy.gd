@@ -32,7 +32,7 @@ func _ready():
 func emit():
 	for i in range(2):
 		var p = particle.instance()
-		var root = get_node("/root")
+		var root = get_node("/root/Main")
 		root.add_child(p)
 		p.set_position(to_global(p.position))
 		
@@ -41,7 +41,7 @@ func drop_gem():
 	
 	for i in range(count):
 		var p = Gem.instance()
-		var root = get_node("/root")
+		var root = get_node("/root/Main")
 		root.add_child(p)
 		p.set_position(to_global(p.position))
 
@@ -124,6 +124,8 @@ func enemy_behaviour(delta):
 	
 	if impulse:
 		move_and_slide((-impulse_speed*5) * impulse)
+	
+	z_index = position.y
 	
 	if dead and hit_ttl <= 0:
 		die()

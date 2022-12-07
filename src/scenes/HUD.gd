@@ -41,6 +41,7 @@ func _physics_process(delta):
 	else:
 		$combo.text = ""
 	
+	$hud_gems.text = str(space) + str(Global.gems)
 	$primary_weapon.animation = Global.primary_weapon
 	$secondary_weapon.animation = Global.secondary_weapon
 	$hud_speed.text =  str(space) + str(Global.speed)
