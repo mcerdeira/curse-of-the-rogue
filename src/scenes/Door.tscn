@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sprites/crack_spr_0.png" type="Texture" id=1]
+[ext_resource path="res://sprites/crack_spr_2.png" type="Texture" id=2]
+[ext_resource path="res://sprites/crack_spr_1.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Door.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17, 26.5 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "closed",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "normal",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "opened",
+"speed": 5.0
+} ]
+
+[node name="Door" type="Area2D"]
+script = ExtResource( 4 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -74.5 )
+shape = SubResource( 2 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -24 )
+frames = SubResource( 1 )
+animation = "normal"
