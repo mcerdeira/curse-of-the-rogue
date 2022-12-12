@@ -11,7 +11,7 @@ func area_on(val):
 
 func _ready():
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
-	if !Global.pick_random([false, false, true]):
+	if Global.FLOOR_TYPE != Global.floor_types.normal or !Global.pick_random([false, false, true]):
 		queue_free()
 	else:
 		shoot_delay_total = 8

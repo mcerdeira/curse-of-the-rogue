@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -16,6 +16,21 @@
 [ext_resource path="res://sprites/player_falling_spr_0.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float blackened;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(0,0,0), blackened), texture_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = SubResource( 4 )
+shader_param/blackened = 0.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -66,7 +81,10 @@ texture = ExtResource( 10 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
+material = SubResource( 5 )
 frames = SubResource( 2 )
+animation = "back"
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

@@ -10,7 +10,7 @@
 [ext_resource path="res://sprites/crack_spr_5.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 26.5 )
+extents = Vector2( 17, 31 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -52,7 +52,7 @@ font_data = ExtResource( 5 )
 script = ExtResource( 4 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -74.5 )
+position = Vector2( 0, -70 )
 shape = SubResource( 2 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
@@ -68,3 +68,5 @@ margin_bottom = -105.0
 custom_fonts/font = SubResource( 3 )
 align = 1
 valign = 1
+
+[connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]

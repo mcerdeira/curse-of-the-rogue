@@ -7,18 +7,23 @@ var chest = preload("res://scenes/Chest.tscn")
 var min_count = 3
 var WAVE_COUNT = 0
 
-func _physics_process(delta):	
-	if !Global.GAME_OVER and !Global.FLOOR_OVER:
-		current_timer -= 1 * delta
-		if !first_time:
-			if current_timer > 1:
-				if get_tree().get_nodes_in_group("enemies").size() == 0:
-					current_timer = 1
-		
-		if current_timer <= 0:
+func _physics_process(delta):
+	if Global.FLOOR_TYPE == Global.floor_types.normal:
+		if !Global.GAME_OVER and !Global.FLOOR_OVER:
+			current_timer -= 1 * delta
+			if !first_time:
+				if current_timer > 1:
+					if get_tree().get_nodes_in_group("enemies").size() == 0:
+						current_timer = 1
+			
+			if current_timer <= 0:
+				first_time = false
+				current_timer = Global.reset_spawn_timer()
+				spawn_enemy()
+	else:
+		if first_time:
+			reveal_doors()
 			first_time = false
-			current_timer = Global.reset_spawn_timer()
-			spawn_enemy()
 			
 func get_random_point():
 	randomize()
@@ -27,10 +32,13 @@ func get_random_point():
 	var p = positions.pop_front()
 	return p
 	
-func spawn_chest_and_stuff():
+func reveal_doors():
 	var doors = get_tree().get_nodes_in_group("doors")
 	for d in doors:
 		d.reveal()
+	
+func spawn_chest_and_stuff():
+	reveal_doors()
 	
 	var player = get_tree().get_nodes_in_group("players")[0]
 	var positions = get_children()

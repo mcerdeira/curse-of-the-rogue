@@ -19,6 +19,7 @@ var primary_weapon = "Whip"
 var secondary_weapon = "Empty"
 var impulse = null
 var dead = false
+var entering = false
 
 func _ready():
 	add_to_group("players")
@@ -52,6 +53,12 @@ func die():
 	dead = true
 	Global.GAME_OVER = true
 	
+func entering():
+	entering = true
+	Global.LOGIC_PAUSE = true
+	$sprite.material.set_shader_param("blackened", true)
+	$sprite.animation = "back"
+
 func _physics_process(delta):
 	Global.primary_weapon = primary_weapon
 	Global.secondary_weapon = secondary_weapon
@@ -61,6 +68,11 @@ func _physics_process(delta):
 	Global.health = health
 	Global.shield = shield
 	Global.health_total = health_total
+	
+	if entering:
+		if $sprite.position.y <= 10:
+			$sprite.position.y -= 8 * delta
+			$shadow.position.y -= 8 * delta
 	
 	if dead:
 		return

@@ -1,12 +1,13 @@
 extends Node
 
 var LOGIC_PAUSE = false
-
+var FIRST = true
 var TOTAL_FLOORS = 7
-var CURRENT_FLOOR = 1
+var CURRENT_FLOOR = 0
 var ENEMY_SPAWN_TIMER_TOTAL = 10
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 
+var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 2, 2, 3, 3, 4, 4, 5]
 var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
@@ -33,6 +34,15 @@ var health_total = 0
 var health = 0
 var shield = 0
 var gems = 0
+
+enum floor_types {
+	intro,
+	normal,
+	boss,
+	altar,
+	shop,
+	supershop
+}
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -72,16 +82,24 @@ func enemy_by_floor():
 
 func _ready():
 	initialize()
+	init_room()
 	
 func get_reward_floor():
 	var reward = FLOOR_REWARD[CURRENT_FLOOR]
 	var rnd = pick_random([0, 1, 3, 5, 7, 9])
 	return reward + rnd
+	
+func init_room():
+	if FIRST:
+		FIRST = false
+		FLOOR_TYPE = floor_types.intro
 
 func initialize():
+	FIRST = true
 	GAME_OVER = false
 	FLOOR_OVER = false
 	LOGIC_PAUSE = false
+	FLOOR_TYPE = ""
 	
 	max_combo = 0
 	current_combo = 0
@@ -115,9 +133,21 @@ func reset_spawn_timer():
 	ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 	return ENEMY_SPAWN_TIMER
 	
-func next_floor():
-	if CURRENT_FLOOR < TOTAL_FLOORS:
-		CURRENT_FLOOR += 1
+func next_floor(type):
+	if type == "next":
+		FLOOR_TYPE = floor_types.normal
+		if CURRENT_FLOOR < TOTAL_FLOORS:
+			CURRENT_FLOOR += 1
+	elif type == "shop":
+		FLOOR_TYPE = floor_types.shop
+	elif type == "supershop":
+		FLOOR_TYPE = floor_types.supershop
+	elif type == "altar":
+		FLOOR_TYPE = floor_types.altar
+		
+	Global.LOGIC_PAUSE = false
+	get_tree().reload_current_scene()
+	
 
 func _input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
