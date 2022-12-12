@@ -30,7 +30,7 @@ func get_random_point():
 func spawn_chest_and_stuff():
 	var doors = get_tree().get_nodes_in_group("doors")
 	for d in doors:
-		d.open_door()
+		d.reveal()
 	
 	var player = get_tree().get_nodes_in_group("players")[0]
 	var positions = get_children()

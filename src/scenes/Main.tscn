@@ -251,6 +251,6 @@ position = Vector2( 592, 320 )
 [node name="DoorNext" parent="." instance=ExtResource( 17 )]
 position = Vector2( 424, 78 )
 
-[node name="DoorShop" parent="." instance=ExtResource( 17 )]
+[node name="DoorExtra" parent="." instance=ExtResource( 17 )]
 position = Vector2( 600, 78 )
-type = "shop"
+type = ""
