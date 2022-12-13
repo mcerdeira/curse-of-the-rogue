@@ -34,6 +34,8 @@ var health_total = 0
 var health = 0
 var shield = 0
 var gems = 0
+var bad_luck = 0
+var total_bad_luck = 0
 
 enum floor_types {
 	intro,
@@ -100,6 +102,7 @@ func initialize():
 	FLOOR_OVER = false
 	LOGIC_PAUSE = false
 	FLOOR_TYPE = ""
+	CURRENT_FLOOR = 0
 	
 	max_combo = 0
 	current_combo = 0
@@ -115,6 +118,8 @@ func initialize():
 	health = 0
 	shield = 0
 	gems = 0
+	bad_luck = 0
+	total_bad_luck = 100
 
 func sustain():
 	combo_time = 0.5
@@ -136,6 +141,7 @@ func reset_spawn_timer():
 func next_floor(type):
 	if type == "next":
 		FLOOR_TYPE = floor_types.normal
+		Global.FLOOR_OVER = false
 		if CURRENT_FLOOR < TOTAL_FLOORS:
 			CURRENT_FLOOR += 1
 	elif type == "shop":

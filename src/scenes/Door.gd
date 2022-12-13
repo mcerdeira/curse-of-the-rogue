@@ -39,10 +39,16 @@ func set_price():
 	if price_what == "":
 		price_amount = 0
 	elif price_what == "life":
-		var p = randi()%Global.health_total+1
-		price_amount = p
+		if randi()%Global.luck + 1 == 0:
+			price_amount = 0
+		else:
+			var p = randi()%Global.health_total+1
+			price_amount = p
 	elif price_what == "gems":
-		price_amount = Global.pick_random([10, 50, 100])
+		if randi()%Global.luck + 1 == 0:
+			price_amount = 0
+		else: 
+			price_amount = Global.pick_random([10, 50, 100])
 
 func trad_type():
 	if type == "next":
@@ -86,14 +92,14 @@ func open_door():
 		$sprite.animation = "opened"
 	emit()
 	
-func pay_price():
+func pay_price(_player):
 	if price_what == "gems":
 		if Global.gems >= price_amount:
-			Global.gems -= price_amount
+			_player.add_gems(-price_amount)
 			return true
 	elif price_what == "life":
 		if Global.health > price_amount:
-			Global.health -= price_amount
+			_player.hit(price_amount)
 			return true
 	return false
 
@@ -106,5 +112,5 @@ func _on_Door_body_entered(body):
 				body.entering()
 		else:
 			if price_amount > 0:
-				if pay_price():
+				if pay_price(body):
 					open_door()

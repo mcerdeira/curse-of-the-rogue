@@ -4,6 +4,7 @@ var shield = 0
 var health_total = 3
 var health = health_total
 var speed = 150
+var bad_luck = 100.00
 var melee_rate_total = 1
 var melee_rate = 0
 var attack = 1
@@ -17,7 +18,6 @@ var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var primary_weapon = "Whip"
 var secondary_weapon = "Empty"
-var impulse = null
 var dead = false
 var entering = false
 
@@ -27,10 +27,9 @@ func _ready():
 func add_gem(count):
 	Global.gems += count
 	
-func hit(dmg, origin):
+func hit(dmg, origin:=null):
 	if inv_time <= 0:
 		$sprite.animation = "hit"
-		impulse = (origin.position - self.position).normalized()
 		inv_time = inv_time_total
 		hit_ttl = hit_ttl_total
 		inv_togg = 0
@@ -68,6 +67,7 @@ func _physics_process(delta):
 	Global.health = health
 	Global.shield = shield
 	Global.health_total = health_total
+	Global.bad_luck = bad_luck
 	
 	if entering:
 		$sprite.playing = true
@@ -81,7 +81,6 @@ func _physics_process(delta):
 	if hit_ttl > 0:
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
-			impulse = null
 			if health <= 0:
 				die()
 	
@@ -151,10 +150,7 @@ func _physics_process(delta):
 	elif up:
 		movement.y = -speed
 		
-	if impulse:
-		move_and_slide((-speed*2) * impulse)
-	else:
-		movement = move_and_slide(movement, Vector2.UP)
+	movement = move_and_slide(movement, Vector2.UP)
 	
 	z_index = position.y
 	
