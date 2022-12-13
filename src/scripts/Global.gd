@@ -154,6 +154,7 @@ func _input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 	if event.is_action_pressed("restart_game"):
 		initialize()
+		init_room()
 		get_tree().reload_current_scene()
 	if event.is_action_pressed("quit_game"):
 		get_tree().quit()

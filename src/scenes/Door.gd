@@ -3,10 +3,15 @@ export var type = "next"
 var particle = preload("res://scenes/particle2.tscn")
 var do_action = false
 var do_action_ttl = 1.5
+var price_what = ""
+var price_amount = -1
+var opened = false
 
 func _ready():
 	add_to_group("doors")
 	$lbl.visible = false
+	$price_lbl.visible = false
+	$amount_spr.visible = false
 	if type == "":
 		type = random_type()
 		$sprite.animation = type
@@ -28,14 +33,27 @@ func random_type():
 	else:
 		return Global.pick_random(["altar", "altar", "cant", "supershop"])
 
+func set_price():
+	randomize()
+	price_what = Global.pick_random(["life", "gems", ""])
+	if price_what == "":
+		price_amount = 0
+	elif price_what == "life":
+		var p = randi()%Global.health_total+1
+		price_amount = p
+	elif price_what == "gems":
+		price_amount = Global.pick_random([10, 50, 100])
+
 func trad_type():
 	if type == "next":
 		return "Floor " + str(Global.CURRENT_FLOOR + 1)
 	elif type == "altar":
+		set_price()
 		return "Altar"
 	elif type == "cant":
 		return "???"
 	elif type == "supershop":
+		set_price()
 		return "Shop++"
 
 func emit():
@@ -48,20 +66,45 @@ func emit():
 func reveal():
 	$lbl.visible = true
 	if type == "next":
-		if type == "altar":
-			$sprite.animation = "altaropened"
+		open_door()
+	elif type != "cant":
+		if price_amount > 0:
+			$price_lbl.text = "x" + str(price_amount)
+			$amount_spr.animation = price_what
+			$amount_spr.visible = true
+			$price_lbl.visible = true
 		else:
-			$sprite.animation = "opened"
+			open_door()
+		
 	emit()
 
 func open_door():
-	$lbl.visible = true
-	$sprite.animation = "opened"
+	opened = true
+	if type == "altar":
+		$sprite.animation = "altaropened"
+	else:
+		$sprite.animation = "opened"
 	emit()
+	
+func pay_price():
+	if price_what == "gems":
+		if Global.gems >= price_amount:
+			Global.gems -= price_amount
+			return true
+	elif price_what == "life":
+		if Global.health > price_amount:
+			Global.health -= price_amount
+			return true
+	return false
 
 func _on_Door_body_entered(body):
-	if !do_action and $sprite.animation == "opened":
-		if body.is_in_group("players"):
-			do_action = true
-			body.position.x = position.x
-			body.entering()
+	if body.is_in_group("players"):
+		if opened:
+			if !do_action:
+				do_action = true
+				body.position.x = position.x
+				body.entering()
+		else:
+			if price_amount > 0:
+				if pay_price():
+					open_door()

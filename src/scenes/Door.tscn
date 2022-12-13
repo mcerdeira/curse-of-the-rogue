@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/crack_spr_0.png" type="Texture" id=1]
 [ext_resource path="res://sprites/crack_spr_2.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://sprites/crack_spr_3.png" type="Texture" id=6]
 [ext_resource path="res://sprites/crack_spr_4.png" type="Texture" id=7]
 [ext_resource path="res://sprites/crack_spr_5.png" type="Texture" id=8]
+[ext_resource path="res://sprites/small_gem_0.png" type="Texture" id=9]
+[ext_resource path="res://sprites/suit_hearts1.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 17, 31 )
@@ -46,7 +48,30 @@ animations = [ {
 } ]
 
 [sub_resource type="DynamicFont" id=3]
+resource_local_to_scene = true
 font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 8
+font_data = ExtResource( 5 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "free",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "gems",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "life",
+"speed": 5.0
+} ]
 
 [node name="Door" type="Area2D"]
 script = ExtResource( 4 )
@@ -66,7 +91,22 @@ margin_top = -140.0
 margin_right = 40.0
 margin_bottom = -105.0
 custom_fonts/font = SubResource( 3 )
+text = "Altar"
 align = 1
 valign = 1
+
+[node name="price_lbl" type="Label" parent="."]
+margin_left = 1.0
+margin_top = -146.0
+margin_right = 33.0
+margin_bottom = -138.0
+custom_fonts/font = SubResource( 4 )
+text = "x10"
+
+[node name="amount_spr" type="AnimatedSprite" parent="."]
+position = Vector2( -7, -142 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 5 )
+animation = "gems"
 
 [connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]

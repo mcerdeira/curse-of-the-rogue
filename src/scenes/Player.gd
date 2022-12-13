@@ -70,6 +70,7 @@ func _physics_process(delta):
 	Global.health_total = health_total
 	
 	if entering:
+		$sprite.playing = true
 		if $sprite.position.y <= 10:
 			$sprite.position.y -= 8 * delta
 			$shadow.position.y -= 8 * delta
