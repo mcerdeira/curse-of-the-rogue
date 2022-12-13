@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://sprites/crack_spr_0.png" type="Texture" id=1]
 [ext_resource path="res://sprites/crack_spr_2.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://sprites/crack_spr_5.png" type="Texture" id=8]
 [ext_resource path="res://sprites/small_gem_0.png" type="Texture" id=9]
 [ext_resource path="res://sprites/suit_hearts1.png" type="Texture" id=10]
+[ext_resource path="res://sprites/key.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 17, 31 )
@@ -67,6 +68,11 @@ animations = [ {
 "name": "gems",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "keys",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "life",
@@ -107,6 +113,6 @@ text = "x10"
 position = Vector2( -7, -142 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 5 )
-animation = "gems"
+animation = "keys"
 
 [connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]

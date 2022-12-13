@@ -1,10 +1,11 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
+var keys = 0
 var shield = 0
 var health_total = 3
 var health = health_total
 var speed = 150
-var bad_luck = 100.00
+var bad_luck = 100
 var melee_rate_total = 1
 var melee_rate = 0
 var attack = 1
@@ -68,6 +69,7 @@ func _physics_process(delta):
 	Global.shield = shield
 	Global.health_total = health_total
 	Global.bad_luck = bad_luck
+	Global.keys = keys
 	
 	if entering:
 		$sprite.playing = true

@@ -8,6 +8,10 @@ var price_amount = -1
 var opened = false
 
 func _ready():
+	if Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
+		queue_free()
+		return
+
 	add_to_group("doors")
 	$lbl.visible = false
 	$price_lbl.visible = false
@@ -31,21 +35,23 @@ func random_type():
 	if Global.FLOOR_TYPE == Global.floor_types.intro:
 		return "cant"
 	else:
-		return Global.pick_random(["altar", "altar", "cant", "supershop"])
+		return Global.pick_random(["altar", "altar","supershop"])
 
 func set_price():
 	randomize()
-	price_what = Global.pick_random(["life", "gems", ""])
+	price_what = Global.pick_random(["life", "keys", "gems", ""])
 	if price_what == "":
 		price_amount = 0
 	elif price_what == "life":
-		if randi()%Global.luck + 1 == 0:
+		if randi()%Global.bad_luck + 1 == 0:
 			price_amount = 0
 		else:
 			var p = randi()%Global.health_total+1
 			price_amount = p
+	elif price_what == "keys":
+		price_amount = Global.pick_random([1, 2, 3])
 	elif price_what == "gems":
-		if randi()%Global.luck + 1 == 0:
+		if randi()%Global.bad_luck + 1 == 0:
 			price_amount = 0
 		else: 
 			price_amount = Global.pick_random([10, 50, 100])
@@ -100,6 +106,10 @@ func pay_price(_player):
 	elif price_what == "life":
 		if Global.health > price_amount:
 			_player.hit(price_amount)
+			return true
+	elif price_what == "keys":
+		if Global.keys >= price_amount:
+			Global.keys -= price_amount
 			return true
 	return false
 

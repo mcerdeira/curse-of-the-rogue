@@ -27,6 +27,7 @@ var combo_time_total = 2.3
 
 var primary_weapon = ""
 var secondary_weapon = ""
+var keys = 0
 var attack_rate = 0
 var attack = 0
 var speed = 0
@@ -118,6 +119,7 @@ func initialize():
 	health = 0
 	shield = 0
 	gems = 0
+	keys = 0
 	bad_luck = 0
 	total_bad_luck = 100
 
