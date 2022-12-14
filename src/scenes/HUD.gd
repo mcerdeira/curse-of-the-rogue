@@ -46,7 +46,7 @@ func _physics_process(delta):
 	$secondary_weapon.animation = Global.secondary_weapon
 	$hud_speed.text =  str(space) + str(Global.speed)
 	$hud_attack.text = str(space) + str(Global.attack)
-	$hud_melee_speed.text = str(space) + str(Global.attack_rate)
+	$hud_melee_speed.text = str(space) + str(Global.melee_rate_total)
 	$hud_combo_count.text = "  COMBO: " + str(Global.max_combo)
-	$hud_luck.text = str(space) + str((Global.total_bad_luck - Global.bad_luck) / 100.00)
+	$hud_luck.text = str(space) + str(Global.total_bad_luck - Global.bad_luck) + "%"
 	$hud_keys.text = str(space) + str(Global.keys)

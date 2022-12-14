@@ -1,5 +1,5 @@
 extends Area2D
-export var type = "next"
+export var type = "shop"
 var particle = preload("res://scenes/particle2.tscn")
 var do_action = false
 var do_action_ttl = 1.5
@@ -8,11 +8,15 @@ var price_amount = -1
 var opened = false
 
 func _ready():
-	if Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
+	add_to_group("doors")
+	
+	if type == "" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
 		queue_free()
 		return
-
-	add_to_group("doors")
+		
+	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal:
+		type = "next"
+	
 	$lbl.visible = false
 	$price_lbl.visible = false
 	$amount_spr.visible = false
@@ -57,8 +61,10 @@ func set_price():
 			price_amount = Global.pick_random([10, 50, 100])
 
 func trad_type():
-	if type == "next":
-		return "Floor " + str(Global.CURRENT_FLOOR + 1)
+	if type == "shop":
+		return "Shop"
+	elif type == "next":
+		return "To Floor " + str(Global.CURRENT_FLOOR + 1)
 	elif type == "altar":
 		set_price()
 		return "Altar"
@@ -77,7 +83,7 @@ func emit():
 		
 func reveal():
 	$lbl.visible = true
-	if type == "next":
+	if type == "next" or type == "shop":
 		open_door()
 	elif type != "cant":
 		if price_amount > 0:
@@ -101,7 +107,7 @@ func open_door():
 func pay_price(_player):
 	if price_what == "gems":
 		if Global.gems >= price_amount:
-			_player.add_gems(-price_amount)
+			_player.add_gem(-price_amount)
 			return true
 	elif price_what == "life":
 		if Global.health > price_amount:

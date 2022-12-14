@@ -10,7 +10,7 @@
 [ext_resource path="res://sprites/crack_spr_5.png" type="Texture" id=8]
 [ext_resource path="res://sprites/small_gem_0.png" type="Texture" id=9]
 [ext_resource path="res://sprites/suit_hearts1.png" type="Texture" id=10]
-[ext_resource path="res://sprites/key.png" type="Texture" id=11]
+[ext_resource path="res://sprites/keyx2.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 17, 31 )
@@ -92,9 +92,9 @@ frames = SubResource( 1 )
 animation = "normal"
 
 [node name="lbl" type="Label" parent="."]
-margin_left = -40.0
+margin_left = -77.0
 margin_top = -140.0
-margin_right = 40.0
+margin_right = 83.0
 margin_bottom = -105.0
 custom_fonts/font = SubResource( 3 )
 text = "Altar"

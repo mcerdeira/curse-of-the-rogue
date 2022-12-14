@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/BigHead.tscn" type="PackedScene" id=18]
 [ext_resource path="res://sprites/suit_clubs.png" type="Texture" id=19]
 [ext_resource path="res://sprites/key.png" type="Texture" id=20]
+[ext_resource path="res://scenes/Main.gd" type="Script" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
@@ -47,6 +48,7 @@ animations = [ {
 } ]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 21 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -165,13 +167,13 @@ animation = "Empty"
 centered = false
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 

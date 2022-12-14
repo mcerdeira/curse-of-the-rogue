@@ -28,7 +28,8 @@ var combo_time_total = 2.3
 var primary_weapon = ""
 var secondary_weapon = ""
 var keys = 0
-var attack_rate = 0
+var melee_rate = 0
+var melee_rate_total = 0
 var attack = 0
 var speed = 0
 var health_total = 0
@@ -110,18 +111,23 @@ func initialize():
 	combo_time = 0
 	combo_time_total = 2.3
 
-	primary_weapon = ""
-	secondary_weapon = ""
-	attack_rate = 0
-	attack = 0
-	speed = 0
-	health_total = 0
-	health = 0
-	shield = 0
-	gems = 0
-	keys = 0
-	bad_luck = 0
+	primary_weapon = "Whip"
+	secondary_weapon = "Empty"
+	
+	speed = 150
 	total_bad_luck = 100
+	bad_luck = total_bad_luck
+	attack = 1
+
+	keys = 0
+	shield = 0
+	health_total = 3
+	health = health_total
+
+	melee_rate_total = 1
+	melee_rate = 0
+	
+	gems = 0
 
 func sustain():
 	combo_time = 0.5
@@ -153,10 +159,10 @@ func next_floor(type):
 	elif type == "altar":
 		FLOOR_TYPE = floor_types.altar
 		
+	Global.FLOOR_OVER = false
 	Global.LOGIC_PAUSE = false
 	get_tree().reload_current_scene()
 	
-
 func _input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
