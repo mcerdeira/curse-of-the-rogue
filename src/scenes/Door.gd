@@ -104,8 +104,6 @@ func open_door():
 		$sprite.animation = "opened"
 	emit()
 	
-
-
 func _on_Door_body_entered(body):
 	if body.is_in_group("players"):
 		if opened:

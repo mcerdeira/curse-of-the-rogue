@@ -5,6 +5,7 @@ export var full_hearts : Texture
 export var empty_hearts : Texture
 export var shield_hearts : Texture
 export var shield_poison : Texture
+export var shield_zombie : Texture
 
 func _ready():
 	add_to_group("HUD")
@@ -25,6 +26,8 @@ func _draw():
 			tex = shield_hearts
 		elif h == 3:
 			tex = shield_poison
+		elif h == 4:
+			tex = shield_zombie
 		
 		draw_texture(tex, to_local(Vector2(acum, 10)))
 		i += 1

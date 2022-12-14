@@ -55,25 +55,31 @@ var PREMIUM_ITEMS = {
 		"name": "poison",
 		"description": "Poisonous touch",
 		"price": 250,
-		"type": "active"
+		"type": "passive"
 	},
 	"speedup": {
 		"name": "speedup",
 		"description": "Speed++",
 		"price": 150,
-		"type": "active"
+		"type": "passive"
 	},
 	"meleeup": {
 		"name": "meleeup",
 		"description": "Melee Speed++",
 		"price": 150,
-		"type": "active"
+		"type": "passive"
+	},
+	"damageup": {
+		"name": "damageup",
+		"description": "Damage++",
+		"price": 150,
+		"type": "passive"
 	},
 	"luckup": {
 		"name": "luckup",
 		"description": "Luck++",
 		"price": 150,
-		"type": "active"
+		"type": "passive"
 	},
 }
 
@@ -241,8 +247,11 @@ func pay_price(_player, price_what, price_amount):
 			_player.add_gem(-price_amount)
 			return true
 	elif price_what == "life":
-			_player.hit(price_amount, true)
-			return true
+			if Global.zombie:
+				return true
+			else:
+				_player.hit(price_amount, true)
+				return true
 	elif price_what == "keys":
 		if Global.keys >= price_amount:
 			Global.keys -= price_amount

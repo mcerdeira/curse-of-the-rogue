@@ -49,6 +49,21 @@ func add_shield_poision(count):
 	Global.temp_poison = true
 	Global.refresh_hud()
 	
+func add_poison():
+	Global.poison = true
+	
+func add_speed(count):
+	Global.speed += count
+	
+func add_melee(count):
+	Global.melee_rate_total = 0
+	
+func add_luck(count):
+	Global.bad_luck -= count
+	
+func add_damage(count):
+	Global.attack += count
+	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0:
 		$sprite.animation = "hit"
@@ -67,6 +82,9 @@ func hit(dmg, can_zombie:=false):
 				elif Global.health[i] == 3:
 					Global.health.remove(i)
 					dmg -= 1
+				elif Global.health[i] == 4:
+					Global.health.remove(i)
+					dmg -= 1
 		
 		Global.combo_time = 0
 		Global.current_combo = 0
@@ -81,6 +99,10 @@ func hit(dmg, can_zombie:=false):
 		Global.refresh_hud()
 		
 func turn_into_zombie():
+	for i in range(Global.health):
+		if Global.health[i] == 0:
+			Global.health[i] = 4
+	
 	zombie_first_dead = true
 	Global.zombie = true
 	ani_aditional = "_zombie"

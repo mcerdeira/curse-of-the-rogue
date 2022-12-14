@@ -45,7 +45,7 @@ func shoot():
 func _on_area_body_entered(body):
 	if shooting > 0:
 		if body.is_in_group("players"):
-			body.hit(dmg, self)
+			body.hit(dmg)
 
 func _on_area_area_entered(area):
 	if area.is_in_group("collectables"):

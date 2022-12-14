@@ -22,6 +22,11 @@ animations = [ {
 "name": "blue_heart",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "damageup",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "empty_heart",
@@ -83,6 +88,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "green_heart"
+animation = "damageup"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

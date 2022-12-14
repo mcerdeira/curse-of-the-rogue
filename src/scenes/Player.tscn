@@ -113,7 +113,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-animation = "hit_zombie"
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

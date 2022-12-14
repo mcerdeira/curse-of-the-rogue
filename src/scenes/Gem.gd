@@ -24,7 +24,7 @@ func _physics_process(delta):
 		if !Global.GAME_OVER and !Global.LOGIC_PAUSE:
 			if position.distance_to(player.position) <= 60:
 				position = position.move_toward(player.position, delta * speed)
-				speed += 60 * delta
+				speed += 200 * delta
 			
 func _on_Gem_body_entered(body):
 	if !taken:

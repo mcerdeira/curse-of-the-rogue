@@ -16,6 +16,7 @@ var impulse = null
 var hit_ttl = 0
 var hit_ttl_total = 0.2
 export var enemy_type = ""
+var stoped = false
 var shoot_ttl = 0
 var shoot_ttl_total = 0
 var shoot_type = false
@@ -23,7 +24,11 @@ var stop_moving = 0
 var spawner = null
 var chase_player = true
 var flying = false
+var stopandgo = false
+var stopandgo_ttl = 0
 var is_enemy_group = false
+var infected = false
+var poisoned = false
 
 func _ready():
 	$shadow.visible = false
@@ -76,13 +81,30 @@ func enemy_behaviour(delta):
 			die()
 		$sprite.playing = flying
 		return
+				
+	if stopandgo:
+		stopandgo_ttl -= 1 * delta
+		if stopandgo_ttl <= 0:
+			stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+			if stoped:
+				stoped = false
+				stop_moving = 0
+			else:
+				stoped = true
+				stop_moving = stopandgo_ttl
 		
-	if speed < speed_total:
-		speed += 5 * delta
 	
 	face_player()
 	if stop_moving > 0:
+		if !flying:
+			$sprite.playing = false
 		stop_moving -= 1 * delta
+	else:
+		if speed < speed_total:
+			speed += 5 * delta
+		
+		if !flying:
+			$sprite.playing = true
 	
 	if shoot_type:
 		shoot_ttl -= 1 * delta
@@ -152,6 +174,7 @@ func set_type(_type):
 		chase_player = true
 		flying = true
 		is_enemy_group = true
+		stopandgo = false
 		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
@@ -164,6 +187,8 @@ func set_type(_type):
 		chase_player = true
 		flying = false
 		is_enemy_group = false
+		stopandgo = true
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
@@ -176,6 +201,7 @@ func set_type(_type):
 		chase_player = Global.pick_random([true, false])
 		flying = false
 		is_enemy_group = false
+		stopandgo = false
 		
 func hit(origin, dmg, from):
 	if !iamasign:
@@ -203,5 +229,7 @@ func die():
 		queue_free()
 
 func _on_area_body_entered(body):
-	if body.is_in_group("players"):
-		body.hit(dmg, self)
+	if !iamasign and body.is_in_group("players"):
+		if Global.zombie:
+			infected = true
+		body.hit(dmg)
