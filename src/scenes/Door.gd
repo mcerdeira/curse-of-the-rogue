@@ -50,7 +50,7 @@ func set_price():
 		if randi()%Global.bad_luck + 1 == 0:
 			price_amount = 0
 		else:
-			var p = randi()%Global.health_total+1
+			var p = randi()%Global.health.size()+1
 			price_amount = p
 	elif price_what == "keys":
 		price_amount = Global.pick_random([1, 2, 3])

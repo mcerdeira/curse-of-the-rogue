@@ -4,6 +4,7 @@ var space = "       : "
 export var full_hearts : Texture
 export var empty_hearts : Texture
 export var shield_hearts : Texture
+export var shield_poison : Texture
 
 func _ready():
 	add_to_group("HUD")
@@ -12,15 +13,22 @@ func _ready():
 func _draw():
 	var w = 30
 	var acum = 0
-	for i in range(Global.health_total + Global.shield):
+	var i = 0
+	for h in Global.health:
 		acum = 10 + (w * i)
-		if i < Global.health_total:
-			if Global.health > i:
-				draw_texture(full_hearts, to_local(Vector2(acum, 10)))
-			else:
-				draw_texture(empty_hearts, to_local(Vector2(acum, 10)))
-		else:
-			draw_texture(shield_hearts, to_local(Vector2(acum, 10)))
+		var tex = null
+		if h == 1:
+			tex = full_hearts
+		elif h == 0:
+			tex = empty_hearts
+		elif h == 2:
+			tex = shield_hearts
+		elif h == 3:
+			tex = shield_poison
+		
+		draw_texture(tex, to_local(Vector2(acum, 10)))
+		i += 1
+
 			
 func update_health():
 	update()

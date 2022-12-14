@@ -6,8 +6,10 @@ var inv_time = 0
 var inv_time_total = 1.2
 var inv_togg_total = 0.1
 var inv_togg = 0
+var zombie_first_dead = false
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
+var ani_aditional = ""
 
 var dead = false
 var entering = false
@@ -19,47 +21,95 @@ func add_gem(count):
 	Global.gems += count
 	
 func add_heart(count):
-	Global.health += count
+	for i in range(Global.health):
+		if Global.health[i] == 0 and count > 0:
+			Global.health[i] = 1
+			count -= 1
+			if count <= 0:
+				break
+	
 	Global.refresh_hud()
 	
 func add_total_hearts(count):
-	Global.health_total += count
+	for i in range(count):
+		Global.health.push_back(0)
+		
 	Global.refresh_hud()
 	
 func add_shield(count):
-	Global.shield += count
+	for i in range(count):
+		Global.health.push_back(2)
+	
 	Global.refresh_hud()
 	
-func hit(dmg, origin:=null):
+func add_shield_poision(count):
+	for i in range(count):
+		Global.health.push_back(3)
+	
+	Global.temp_poison = true
+	Global.refresh_hud()
+	
+func hit(dmg, can_zombie:=false):
 	if inv_time <= 0:
 		$sprite.animation = "hit"
 		inv_time = inv_time_total
 		hit_ttl = hit_ttl_total
 		inv_togg = 0
-		if Global.shield >= dmg:
-			Global.shield -= dmg
-			dmg = 0
-		elif Global.shield < dmg and Global.shield != 0:
-			Global.shield = 0
-			dmg -= Global.shield
+		
+		for i in range(Global.health.size()-1, -1, -1):
+			if dmg > 0:
+				if Global.health[i] == 1:
+					dmg -= 1
+					Global.health[i] = 0
+				elif Global.health[i] == 2:
+					Global.health.remove(i)
+					dmg -= 1
+				elif Global.health[i] == 3:
+					Global.health.remove(i)
+					dmg -= 1
 		
 		Global.combo_time = 0
 		Global.current_combo = 0
 		
-		Global.health -= dmg
+		if can_zombie:
+			if eval_dead():
+				turn_into_zombie()
+		
+		if Global.temp_poison:
+			Global.temp_poison = eval_poision()
+		
 		Global.refresh_hud()
 		
+func turn_into_zombie():
+	zombie_first_dead = true
+	Global.zombie = true
+	ani_aditional = "_zombie"
 	
 func die():
-	$sprite.animation = "dead"
-	dead = true
-	Global.GAME_OVER = true
+	if zombie_first_dead:
+		zombie_first_dead = false
+	else:
+		$sprite.animation = "dead" + ani_aditional
+		dead = true
+		Global.GAME_OVER = true
+	
+func eval_poision():
+	for h in Global.health:
+		if h == 3:
+			return true 
+	return false
+	
+func eval_dead():
+	for h in Global.health:
+		if h != 0:
+			return false 
+	return true
 	
 func entering():
 	entering = true
 	Global.LOGIC_PAUSE = true
 	$sprite.material.set_shader_param("blackened", true)
-	$sprite.animation = "back"
+	$sprite.animation = "back" + ani_aditional
 
 func _physics_process(delta):
 	if entering:
@@ -76,7 +126,7 @@ func _physics_process(delta):
 	if hit_ttl > 0:
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
-			if Global.health <= 0:
+			if eval_dead():
 				die()
 	
 	if inv_time > 0:
@@ -88,7 +138,7 @@ func _physics_process(delta):
 		inv_time -= 1 * delta
 		if inv_time <= 0:
 			inv_time = 0
-			$sprite.animation = "default"
+			$sprite.animation = "default" + ani_aditional
 			$sprite.visible = true
 	
 	if Global.LOGIC_PAUSE:
@@ -124,7 +174,7 @@ func _physics_process(delta):
 			var mouse_pos = get_global_mouse_position()
 			var angle = get_angle_to(mouse_pos)
 			var _z = z_index
-			if $sprite.animation == "back":
+			if $sprite.animation == "back" + ani_aditional:
 				_z = z_index - 10
 			
 			whip_inst = whip.instance()
@@ -151,9 +201,9 @@ func _physics_process(delta):
 	
 	if move and inv_time <= 0:
 		if up:
-			$sprite.animation = "back"
+			$sprite.animation = "back" + ani_aditional
 		else:
-			$sprite.animation = "default"
+			$sprite.animation = "default" + ani_aditional
 	
 	$sprite.playing = move
 	if !move:

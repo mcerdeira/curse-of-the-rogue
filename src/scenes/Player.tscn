@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -14,6 +14,16 @@
 [ext_resource path="res://sprites/melee_barr2.png" type="Texture" id=12]
 [ext_resource path="res://sprites/player_pass_spr_0.png" type="Texture" id=13]
 [ext_resource path="res://sprites/player_falling_spr_0.png" type="Texture" id=14]
+[ext_resource path="res://sprites/zombieback_spr_2.png" type="Texture" id=15]
+[ext_resource path="res://sprites/zombieback_spr_1.png" type="Texture" id=16]
+[ext_resource path="res://sprites/zombieback_spr_0.png" type="Texture" id=17]
+[ext_resource path="res://sprites/zombieback_spr_3.png" type="Texture" id=18]
+[ext_resource path="res://sprites/zombie_pass_spr_0.png" type="Texture" id=19]
+[ext_resource path="res://sprites/zombie_spr_1.png" type="Texture" id=20]
+[ext_resource path="res://sprites/zombie_spr_0.png" type="Texture" id=21]
+[ext_resource path="res://sprites/zombie_spr_3.png" type="Texture" id=22]
+[ext_resource path="res://sprites/zombie_spr_2.png" type="Texture" id=23]
+[ext_resource path="res://sprites/zombie_falling_spr_0.png" type="Texture" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,9 +49,19 @@ animations = [ {
 "name": "back",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "back_zombie",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "dead_zombie",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
@@ -49,9 +69,19 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 21 ), ExtResource( 20 ), ExtResource( 23 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "default_zombie",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "hit_zombie",
 "speed": 5.0
 } ]
 
@@ -83,8 +113,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-animation = "back"
-frame = 2
+animation = "hit_zombie"
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

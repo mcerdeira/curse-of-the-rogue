@@ -27,17 +27,19 @@ var combo_time_total = 2.3
 
 var primary_weapon = ""
 var secondary_weapon = ""
+var poison = false
+var temp_poison = false
 var keys = 0
 var melee_rate = 0
 var melee_rate_total = 0
 var attack = 0
 var speed = 0
-var health_total = 0
 var health = 0
 var shield = 0
 var gems = 0
 var bad_luck = 0
 var total_bad_luck = 0
+var zombie = false
 
 enum floor_types {
 	intro,
@@ -48,10 +50,41 @@ enum floor_types {
 	supershop
 }
 
+var PREMIUM_ITEMS = {
+	"poison": {
+		"name": "poison",
+		"description": "Poisonous touch",
+		"price": 250,
+		"type": "active"
+	},
+	"speedup": {
+		"name": "speedup",
+		"description": "Speed++",
+		"price": 150,
+		"type": "active"
+	},
+	"meleeup": {
+		"name": "meleeup",
+		"description": "Melee Speed++",
+		"price": 150,
+		"type": "active"
+	},
+	"luckup": {
+		"name": "luckup",
+		"description": "Luck++",
+		"price": 150,
+		"type": "active"
+	},
+}
+
 var ITEMS = {
 	"blue_heart": {
 		"name": "blue_heart",
 		"price": 50
+	},
+	"green_heart": {
+		"name": "green_heart",
+		"price": 75
 	},
 	"empty_heart": {
 		"name": "empty_heart",
@@ -115,7 +148,17 @@ func init_room():
 		
 func get_random_item():
 	randomize()
-	return pick_random(ITEMS)
+	if Global.pick_random([1, 1, 1, 0]) == 1:
+		return pick_random(ITEMS)
+	else:
+		return pick_random(PREMIUM_ITEMS)
+	
+func get_random_premium_item():
+	randomize()
+	if Global.pick_random([1, 1, 1, 0]) == 1:
+		return pick_random(PREMIUM_ITEMS)
+	else:
+		return pick_random(ITEMS)
 
 func initialize():
 	FIRST = true
@@ -140,13 +183,16 @@ func initialize():
 
 	keys = 0
 	shield = 0
-	health_total = 3
-	health = health_total
+	health = [1, 1, 1]
 
 	melee_rate_total = 1
 	melee_rate = 0
 	
 	gems = 0
+	
+	poison = false
+	temp_poison = false
+	zombie = false
 
 func sustain():
 	combo_time = 0.5
@@ -187,13 +233,15 @@ func next_floor(type):
 	get_tree().reload_current_scene()
 	
 func pay_price(_player, price_what, price_amount):
+	if price_amount == 0:
+		return true
+		
 	if price_what == "gems":
 		if Global.gems >= price_amount:
 			_player.add_gem(-price_amount)
 			return true
 	elif price_what == "life":
-		if Global.health > price_amount:
-			_player.hit(price_amount)
+			_player.hit(price_amount, true)
 			return true
 	elif price_what == "keys":
 		if Global.keys >= price_amount:

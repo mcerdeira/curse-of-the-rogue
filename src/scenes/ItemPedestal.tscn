@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://sprites/suit_hearts3.png" type="Texture" id=5]
 [ext_resource path="res://sprites/suit_hearts2.png" type="Texture" id=6]
 [ext_resource path="res://sprites/suit_hearts1.png" type="Texture" id=7]
+[ext_resource path="res://sprites/suit_hearts4.png" type="Texture" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.0114
@@ -26,9 +27,34 @@ animations = [ {
 "name": "empty_heart",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "green_heart",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "luckup",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "meleeup",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "normal_heart",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "poison",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "speedup",
 "speed": 5.0
 } ]
 
@@ -57,6 +83,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "normal_heart"
+animation = "green_heart"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]
