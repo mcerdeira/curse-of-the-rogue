@@ -6,19 +6,22 @@ export var empty_hearts : Texture
 export var shield_hearts : Texture
 
 func _ready():
+	add_to_group("HUD")
 	$game_over.visible = false
 	
 func _draw():
 	var w = 30
-	for i in range(Global.health_total):
-		if Global.health > i:
-			draw_texture(full_hearts, to_local(Vector2(10 + (w * i), 10)))
+	var acum = 0
+	for i in range(Global.health_total + Global.shield):
+		acum = 10 + (w * i)
+		if i < Global.health_total:
+			if Global.health > i:
+				draw_texture(full_hearts, to_local(Vector2(acum, 10)))
+			else:
+				draw_texture(empty_hearts, to_local(Vector2(acum, 10)))
 		else:
-			draw_texture(empty_hearts, to_local(Vector2(10 + (w * i), 10)))
-		
-	for i in range(Global.shield):
-		draw_texture(shield_hearts, to_local(Vector2(w * (Global.health + i), 10)))
-
+			draw_texture(shield_hearts, to_local(Vector2(acum, 10)))
+			
 func update_health():
 	update()
 

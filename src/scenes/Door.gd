@@ -104,20 +104,7 @@ func open_door():
 		$sprite.animation = "opened"
 	emit()
 	
-func pay_price(_player):
-	if price_what == "gems":
-		if Global.gems >= price_amount:
-			_player.add_gem(-price_amount)
-			return true
-	elif price_what == "life":
-		if Global.health > price_amount:
-			_player.hit(price_amount)
-			return true
-	elif price_what == "keys":
-		if Global.keys >= price_amount:
-			Global.keys -= price_amount
-			return true
-	return false
+
 
 func _on_Door_body_entered(body):
 	if body.is_in_group("players"):
@@ -128,5 +115,5 @@ func _on_Door_body_entered(body):
 				body.entering()
 		else:
 			if price_amount > 0:
-				if pay_price(body):
+				if Global.pay_price(body, price_what, price_amount):
 					open_door()

@@ -48,6 +48,21 @@ enum floor_types {
 	supershop
 }
 
+var ITEMS = {
+	"blue_heart": {
+		"name": "blue_heart",
+		"price": 50
+	},
+	"empty_heart": {
+		"name": "empty_heart",
+		"price": 150
+	},
+	"normal_heart": {
+		"name": "normal_heart",
+		"price": 25
+	}
+}
+
 var BOSS_HEADS = {
 	"Pig" : {
 		"name": tr("Pig"),
@@ -97,6 +112,10 @@ func init_room():
 	if FIRST:
 		FIRST = false
 		FLOOR_TYPE = floor_types.intro
+		
+func get_random_item():
+	randomize()
+	return pick_random(ITEMS)
 
 func initialize():
 	FIRST = true
@@ -140,6 +159,10 @@ func add_combo():
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]
+	
+func refresh_hud():
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.update_health()
 
 func reset_spawn_timer():
 	ENEMY_SPAWN_TIMER_TOTAL = ENEMY_SPAWN_TIMER_TOTAL # TODO: Recalcular
@@ -162,6 +185,21 @@ func next_floor(type):
 	Global.FLOOR_OVER = false
 	Global.LOGIC_PAUSE = false
 	get_tree().reload_current_scene()
+	
+func pay_price(_player, price_what, price_amount):
+	if price_what == "gems":
+		if Global.gems >= price_amount:
+			_player.add_gem(-price_amount)
+			return true
+	elif price_what == "life":
+		if Global.health > price_amount:
+			_player.hit(price_amount)
+			return true
+	elif price_what == "keys":
+		if Global.keys >= price_amount:
+			Global.keys -= price_amount
+			return true
+	return false
 	
 func _input(event):
 	if event.is_action_pressed("toggle_fullscreen"):

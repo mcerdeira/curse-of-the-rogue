@@ -18,6 +18,18 @@ func _ready():
 func add_gem(count):
 	Global.gems += count
 	
+func add_heart(count):
+	Global.health += count
+	Global.refresh_hud()
+	
+func add_total_hearts(count):
+	Global.health_total += count
+	Global.refresh_hud()
+	
+func add_shield(count):
+	Global.shield += count
+	Global.refresh_hud()
+	
 func hit(dmg, origin:=null):
 	if inv_time <= 0:
 		$sprite.animation = "hit"
@@ -35,8 +47,8 @@ func hit(dmg, origin:=null):
 		Global.current_combo = 0
 		
 		Global.health -= dmg
-		var HUD = get_node("../CanvasLayer/HUD")
-		HUD.update_health()
+		Global.refresh_hud()
+		
 	
 func die():
 	$sprite.animation = "dead"
