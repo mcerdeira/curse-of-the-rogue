@@ -23,6 +23,9 @@ func _ready():
 		price_amount = 0
 		price_what = ""
 	else:
+		if Global.CURRENT_FLOOR == 1:
+			item.price = item.price / 2 #Floor 1, 50% off!
+		
 		$price_lbl.text = "x" + str(item.price)
 		price_amount = item.price
 

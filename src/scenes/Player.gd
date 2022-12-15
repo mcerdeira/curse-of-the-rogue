@@ -16,6 +16,8 @@ var entering = false
 
 func _ready():
 	add_to_group("players")
+	if Global.zombie:
+		turn_into_zombie()
 	
 func add_gem(count):
 	Global.gems += count
@@ -100,12 +102,13 @@ func hit(dmg, can_zombie:=false):
 		
 func turn_into_zombie():
 	for i in range(Global.health.size()):
-		if Global.health[i] == 0:
-			Global.health[i] = 4
+		Global.health[i] = 4
 	
 	zombie_first_dead = true
 	Global.zombie = true
 	ani_aditional = "_zombie"
+	$sprite.animation = $sprite.animation + ani_aditional
+	Global.refresh_hud()
 	
 func die():
 	if zombie_first_dead:

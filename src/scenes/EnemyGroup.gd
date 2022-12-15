@@ -12,7 +12,7 @@ var rot_speed = 1
 func _ready():
 	rot_speed = Global.pick_random([1, 3])
 	player_chase = get_tree().get_nodes_in_group("players")[0]
-	speed = 120
+	speed = 50
 	enemy_list = get_children()
 	find_player()
 
