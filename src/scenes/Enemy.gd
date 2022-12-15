@@ -35,12 +35,17 @@ func _ready():
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
 
-func emit():
+func emit(colored:=false):
 	for i in range(2):
 		var p = particle.instance()
 		var root = get_node("/root/Main")
 		root.add_child(p)
 		p.global_position = global_position
+		if colored:
+			if infected:
+				p.color = Global.infected_color
+			else:
+				p.color = Global.poisoned_color
 		
 func drop_gem():
 	var count = 1
@@ -53,6 +58,12 @@ func drop_gem():
 
 func _physics_process(delta):
 	if !iamasign:
+		if poisoned:
+			if randi() % 100 + 1 == 100:
+				emit()
+			
+			hit(null, 1 * delta, "")
+			
 		enemy_behaviour(delta)
 	else:
 		if iamasign_ttl > 0:
@@ -164,6 +175,7 @@ func set_type(_type):
 	
 	$sprite.animation = enemy_type
 	if enemy_type == "bat":
+		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
@@ -208,6 +220,10 @@ func hit(origin, dmg, from):
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		
+		if Global.poison:
+			$sprite.modulate = Global.poisoned_color
+			poisoned = true
+		
 		if is_enemy_group:
 			get_parent().stop_moving = 0.5
 		
@@ -231,5 +247,6 @@ func die():
 func _on_area_body_entered(body):
 	if !iamasign and body.is_in_group("players"):
 		if Global.zombie:
+			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg)

@@ -99,7 +99,7 @@ func hit(dmg, can_zombie:=false):
 		Global.refresh_hud()
 		
 func turn_into_zombie():
-	for i in range(Global.health):
+	for i in range(Global.health.size()):
 		if Global.health[i] == 0:
 			Global.health[i] = 4
 	

@@ -7,8 +7,10 @@ var ready = false
 var spawner = null
 var stop_moving = 0
 var die_ttl = 0.1
+var rot_speed = 1
 
 func _ready():
+	rot_speed = Global.pick_random([1, 3])
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 	speed = 120
 	enemy_list = get_children()
@@ -25,7 +27,7 @@ func _physics_process(delta):
 		if Global.GAME_OVER:
 			return
 	
-		rotation += 1 * delta
+		rotation += rot_speed * delta
 		
 		var alive = false
 		for e in enemy_list:
