@@ -172,13 +172,11 @@ animation = "Empty"
 centered = false
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 405, 278 )

@@ -6,10 +6,11 @@ var inv_time = 0
 var inv_time_total = 1.2
 var inv_togg_total = 0.1
 var inv_togg = 0
-var zombie_first_dead = false
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var ani_aditional = ""
+var turn_into_zombie_ttl = 0
+var turn_into_zombie_ttl_total = 1.3
 
 var dead = false
 var entering = false
@@ -93,7 +94,7 @@ func hit(dmg, can_zombie:=false):
 		
 		if can_zombie:
 			if eval_dead():
-				turn_into_zombie()
+				turn_into_zombie_ttl = turn_into_zombie_ttl_total
 		
 		if Global.temp_poison:
 			Global.temp_poison = eval_poision()
@@ -103,20 +104,18 @@ func hit(dmg, can_zombie:=false):
 func turn_into_zombie():
 	for i in range(Global.health.size()):
 		Global.health[i] = 4
-	
-	zombie_first_dead = true
+		
+	dead = false
+	Global.GAME_OVER = false
 	Global.zombie = true
 	ani_aditional = "_zombie"
 	$sprite.animation = $sprite.animation + ani_aditional
 	Global.refresh_hud()
 	
 func die():
-	if zombie_first_dead:
-		zombie_first_dead = false
-	else:
-		$sprite.animation = "dead" + ani_aditional
-		dead = true
-		Global.GAME_OVER = true
+	$sprite.animation = "dead" + ani_aditional
+	dead = true
+	Global.GAME_OVER = true
 	
 func eval_poision():
 	for h in Global.health:
@@ -142,10 +141,15 @@ func _physics_process(delta):
 		if $sprite.position.y <= 10:
 			$sprite.position.y -= 8 * delta
 			$shadow.position.y -= 8 * delta
-	
+			
 	if dead:
-		$melee_bar.visible = false
-		$melee_bar2.visible = false
+		if turn_into_zombie_ttl != 0:
+			turn_into_zombie_ttl -= 1 * delta
+			if turn_into_zombie_ttl <= 0:
+				turn_into_zombie()
+		else:
+			$melee_bar.visible = false
+			$melee_bar2.visible = false
 		return
 	
 	if hit_ttl > 0:

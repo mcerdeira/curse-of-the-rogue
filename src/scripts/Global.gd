@@ -56,33 +56,52 @@ enum floor_types {
 }
 
 var PREMIUM_ITEMS = {
+	"wolfe_bite": {
+		"name": "wolfe_bite",
+		"description": "Wolf Bite",
+		"long_description": "",
+		"price": 350,
+		"type": "passive"
+	},
+	"brain": {
+		"name": "brain",
+		"description": "Brain",
+		"long_description": "",
+		"price": 350,
+		"type": "passive"
+	},
 	"poison": {
 		"name": "poison",
 		"description": "Poisonous touch",
+		"long_description": "",
 		"price": 250,
 		"type": "passive"
 	},
 	"speedup": {
 		"name": "speedup",
 		"description": "Speed++",
+		"long_description": "",
 		"price": 150,
 		"type": "passive"
 	},
 	"meleeup": {
 		"name": "meleeup",
 		"description": "Melee Speed++",
+		"long_description": "",
 		"price": 150,
 		"type": "passive"
 	},
 	"damageup": {
 		"name": "damageup",
 		"description": "Damage++",
+		"long_description": "",
 		"price": 150,
 		"type": "passive"
 	},
 	"luckup": {
 		"name": "luckup",
 		"description": "Luck++",
+		"long_description": "",
 		"price": 150,
 		"type": "passive"
 	},
@@ -91,18 +110,26 @@ var PREMIUM_ITEMS = {
 var ITEMS = {
 	"blue_heart": {
 		"name": "blue_heart",
+		"description": "",
+		"long_description": "",
 		"price": 50
 	},
 	"green_heart": {
 		"name": "green_heart",
+		"description": "",
+		"long_description": "",
 		"price": 75
 	},
 	"empty_heart": {
 		"name": "empty_heart",
+		"description": "",
+		"long_description": "",
 		"price": 150
 	},
 	"normal_heart": {
 		"name": "normal_heart",
+		"description": "",
+		"long_description": "",
 		"price": 25
 	}
 }
