@@ -1,5 +1,4 @@
 extends Node
-
 var arrow = preload("res://sprites/crosshair.png")
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -12,15 +11,6 @@ var infected_color = Color8(203, 54, 220)
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 1, 1, 3, 3, 4, 4, 5]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
-var FLOOR_ENEMIES = [
-	-1,
-	["dead_fire"], 
-	["bat"], 
-	["scorpion", "bat"],
-	["skeleton"],
-	["skeleton","scorpion"],
-	["scorpion", "bat", "skeleton"],
-]
 
 var GAME_OVER = false
 var FLOOR_OVER = false
@@ -182,10 +172,66 @@ var BOSS_ELEMENTS = {
 	}
 }
 
+var ENEMY_PATTERNS = [
+	-1,
+	[
+		["scorpion", "scorpion", "scorpion"],
+		["scorpion"]
+	],
+	[
+		["scorpion", "scorpion", "scorpion", "scorpion"],
+		["scorpion", "scorpion", "scorpion", "bat"],
+		["scorpion", "scorpion", "bat", "bat"],
+		["scorpion", "scorpion"]
+	],
+	[
+		["scorpion", "scorpion", "scorpion", "scorpion"],
+		["bat", "scorpion", "bat", "bat"],
+		["bat", "bat"],
+	],
+	[	
+		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
+		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
+		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire"],
+	],
+	[],
+	[],
+]
+
 func enemy_by_floor():
-	return FLOOR_ENEMIES[CURRENT_FLOOR]
+	randomize()
+# floor  enemies
+#	1		  3
+#	2		  4
+#	3		  4
+#	4		  5
+#	5		  5
+#	6		  6
+#	7		  6
+
+	return Global.pick_random(ENEMY_PATTERNS[CURRENT_FLOOR])
+	
+func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
+	var audio_stream_player = AudioStreamPlayer.new()
+
+	add_child(audio_stream_player)
+	audio_stream_player.stream = stream
+	
+	for prop in options.keys():
+		audio_stream_player.set(prop, options[prop])
+	
+	audio_stream_player.play()
+	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
+	
+	return audio_stream_player
 
 func _ready():
+	var MainTheme = load("res://music/main_theme.mp3")
+	
+	Global.play_sound(MainTheme)
+	
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()

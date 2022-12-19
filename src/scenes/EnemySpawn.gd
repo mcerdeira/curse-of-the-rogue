@@ -58,12 +58,13 @@ func spawn_enemy():
 	if WAVE_COUNT < Global.get_floor_waves():
 		WAVE_COUNT += 1
 		var positions = get_children()
-		var count = min_count + floor(Global.CURRENT_FLOOR * 1.5)
-		for i in range(count):
-			randomize()
+		
+		var enemies = Global.enemy_by_floor()
+		
+		for i in range(enemies.size()):
 			positions.shuffle()
 			var p = positions.pop_front()
-			var type  = Global.pick_random(Global.enemy_by_floor())
+			var type  = enemies[i]
 			var enemy_inst = null
 
 			if type == "bat":

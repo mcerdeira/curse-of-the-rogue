@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -37,6 +37,21 @@ animations = [ {
 "name": "skeleton",
 "speed": 5.0
 } ]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform float hitted;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(1,0,0), hitted), texture_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/hitted = 0.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -85,8 +100,9 @@ frames = SubResource( 4 )
 animation = "bat"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
+material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "sign"
+animation = "skeleton"
 playing = true
 
 [node name="collider2" type="CollisionShape2D" parent="."]

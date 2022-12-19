@@ -1,5 +1,5 @@
 extends Node2D
-var ttl = 7
+var ttl = 5
 
 func _physics_process(delta):
 	ttl -= 1 * delta

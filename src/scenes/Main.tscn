@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -26,6 +26,9 @@
 [ext_resource path="res://sprites/suit_hearts5.png" type="Texture" id=24]
 [ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/SpikeGroup.gd" type="Script" id=26]
+[ext_resource path="res://scenes/ShopKeeper.tscn" type="PackedScene" id=27]
+[ext_resource path="res://sprites/skull_spr_0.png" type="Texture" id=28]
+[ext_resource path="res://scenes/ShopTable.gd" type="Script" id=29]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
@@ -54,6 +57,9 @@ animations = [ {
 "name": "Whip",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 60.5, 10 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 21 )
@@ -219,19 +225,17 @@ animation = "Empty"
 centered = false
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
-position = Vector2( 405, 278 )
+position = Vector2( 436, 278 )
 
 [node name="ItemPedestal2" parent="." instance=ExtResource( 22 )]
-position = Vector2( 612, 278 )
+position = Vector2( 585, 278 )
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 
@@ -350,3 +354,35 @@ position = Vector2( 424, 78 )
 [node name="DoorExtra" parent="." instance=ExtResource( 17 )]
 position = Vector2( 600, 78 )
 type = ""
+
+[node name="ShopKeeper" parent="." instance=ExtResource( 27 )]
+position = Vector2( 2, -15 )
+
+[node name="ShopTable" type="Node2D" parent="."]
+script = ExtResource( 29 )
+
+[node name="RigidBody2D" type="StaticBody2D" parent="ShopTable"]
+
+[node name="collider" type="CollisionShape2D" parent="ShopTable/RigidBody2D"]
+position = Vector2( 510.5, 244 )
+shape = SubResource( 6 )
+
+[node name="sku1" type="Sprite" parent="ShopTable"]
+position = Vector2( 467, 236 )
+texture = ExtResource( 28 )
+
+[node name="sku2" type="Sprite" parent="ShopTable"]
+position = Vector2( 540, 237 )
+texture = ExtResource( 28 )
+
+[node name="sku3" type="Sprite" parent="ShopTable"]
+position = Vector2( 515, 235 )
+texture = ExtResource( 28 )
+
+[node name="sku4" type="Sprite" parent="ShopTable"]
+position = Vector2( 492, 235 )
+texture = ExtResource( 28 )
+
+[node name="sku5" type="Sprite" parent="ShopTable"]
+position = Vector2( 564, 236 )
+texture = ExtResource( 28 )

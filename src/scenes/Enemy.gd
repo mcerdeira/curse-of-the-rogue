@@ -167,9 +167,12 @@ func enemy_behaviour(delta):
 			shoot()
 	
 	if hit_ttl > 0:
+		$sprite.material.set_shader_param("hitted", true)
+		
 		$sprite.playing = false
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
+			$sprite.material.set_shader_param("hitted", false)
 			hit_ttl = 0
 			$sprite.playing = true
 			impulse = null

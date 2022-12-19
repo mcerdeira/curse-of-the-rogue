@@ -81,7 +81,7 @@ func do_item_effect(_player):
 		pass
 
 func _on_ItemPedestal_body_entered(body):
-	if !taken and Global.pay_price(body, price_what, price_amount):
+	if body.is_in_group("players") and !taken and Global.pay_price(body, price_what, price_amount):
 		do_item_effect(body)
 		taken = true
 		$price_lbl.visible = false
