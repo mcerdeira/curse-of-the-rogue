@@ -23,8 +23,11 @@ func _ready():
 func add_gem(count):
 	Global.gems += count
 	
+func add_key(count):
+	Global.keys += count
+	
 func add_heart(count):
-	for i in range(Global.health):
+	for i in range(Global.health.size()):
 		if Global.health[i] == 0 and count > 0:
 			Global.health[i] = 1
 			count -= 1

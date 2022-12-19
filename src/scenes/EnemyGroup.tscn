@@ -7,13 +7,17 @@
 script = ExtResource( 2 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 1 )]
-position = Vector2( -31, -16 )
+position = Vector2( -32, -25 )
+enemy_type = "bat"
+
+[node name="Enemy4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 33, -31 )
 enemy_type = "bat"
 
 [node name="Enemy3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 44, -16 )
+position = Vector2( -25, 34 )
 enemy_type = "bat"
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 6, 31 )
+position = Vector2( 34, 30 )
 enemy_type = "bat"

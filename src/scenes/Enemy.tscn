@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://sprites/bat_spr_0.png" type="Texture" id=12]
 [ext_resource path="res://sprites/bat_spr_1.png" type="Texture" id=13]
 [ext_resource path="res://sprites/bat_spr_2.png" type="Texture" id=14]
+[ext_resource path="res://sprites/dead_fire_spr_0.png" type="Texture" id=15]
+[ext_resource path="res://sprites/dead_fire_spr_1.png" type="Texture" id=16]
+[ext_resource path="res://sprites/dead_fire_spr_2.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -40,6 +43,11 @@ animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 12 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "bat",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "dead_fire",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
@@ -78,8 +86,7 @@ animation = "bat"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "scorpion"
-frame = 2
+animation = "sign"
 playing = true
 
 [node name="collider2" type="CollisionShape2D" parent="."]

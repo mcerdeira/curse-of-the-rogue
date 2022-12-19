@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://sprites/spikes1.png" type="Texture" id=1]
+[ext_resource path="res://sprites/spikes2.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Spikes.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Spikes" type="Area2D"]
+script = ExtResource( 3 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 1
+speed_scale = 0.1
+playing = true
+
+[connection signal="body_entered" from="." to="." method="_on_Spikes_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Spikes_body_exited"]

@@ -10,7 +10,7 @@ var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 var poisoned_color = Color8(100, 196, 27)
 var infected_color = Color8(203, 54, 220)
 var FLOOR_TYPE = ""
-var FLOOR_WAVES = [-1, 1, 2, 3, 3, 4, 4, 5]
+var FLOOR_WAVES = [-1, 1, 1, 3, 3, 4, 4, 5]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
 var FLOOR_ENEMIES = [
 	-1,
@@ -56,6 +56,13 @@ enum floor_types {
 }
 
 var PREMIUM_ITEMS = {
+	"key": {
+		"name": "key",
+		"description": "Key",
+		"long_description": "",
+		"price": 150,
+		"type": "consumable"
+	},	
 	"wolfe_bite": {
 		"name": "wolfe_bite",
 		"description": "Wolf Bite",

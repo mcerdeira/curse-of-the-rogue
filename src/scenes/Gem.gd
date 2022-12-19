@@ -6,11 +6,15 @@ var player = null
 var speed = 150
 var go_back_ttl = 0.1
 var absorved = false
+var type = "gem"
 
 func _ready():
 	add_to_group("collectables")
 	player = get_tree().get_nodes_in_group("players")[0]
-	
+
+func _init_sprite():
+	$sprite.animation = type
+
 func _physics_process(delta):
 	if taken:
 		$sprite.scale.x += 350 * delta
@@ -38,7 +42,10 @@ func _on_Gem_body_entered(body):
 	if !taken:
 		if body.is_in_group("players"):
 			taken = true
-			body.add_gem(gem_count)
+			if type == "gem":
+				body.add_gem(gem_count)
+			else:
+				body.add_key(gem_count)
 
 func _destroy():
 	emit()

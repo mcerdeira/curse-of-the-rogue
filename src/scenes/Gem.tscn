@@ -10,7 +10,12 @@
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "default",
+"name": "gem",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "key",
 "speed": 5.0
 } ]
 
@@ -27,7 +32,7 @@ texture = ExtResource( 5 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 2
+animation = "gem"
 playing = true
 
 [node name="collider" type="CollisionShape2D" parent="."]

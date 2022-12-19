@@ -10,7 +10,7 @@ var time = 0
 onready var default_pos = $item.get_position()
 
 func _ready():
-	if Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
+	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
 		queue_free()
 		
 	var item = choose_item()
