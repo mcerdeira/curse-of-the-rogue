@@ -11,7 +11,6 @@ var poisoned_color = Color8(100, 196, 27)
 var infected_color = Color8(203, 54, 220)
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 1, 2, 3, 3, 4, 4, 5]
-var FLOOR_ROOMS = [-1, 2, 3, 4, 5, 6, 6, 7]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
 var FLOOR_ENEMIES = [
 	-1,
