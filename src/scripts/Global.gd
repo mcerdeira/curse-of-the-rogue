@@ -14,7 +14,7 @@ var FLOOR_WAVES = [-1, 1, 1, 3, 3, 4, 4, 5]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
 var FLOOR_ENEMIES = [
 	-1,
-	["scorpion"], 
+	["dead_fire"], 
 	["bat"], 
 	["scorpion", "bat"],
 	["skeleton"],
@@ -45,6 +45,7 @@ var gems = 0
 var bad_luck = 0
 var total_bad_luck = 0
 var zombie = false
+var shoot_speed = 0
 
 enum floor_types {
 	intro,
@@ -59,56 +60,63 @@ var PREMIUM_ITEMS = {
 	"key": {
 		"name": "key",
 		"description": "Key",
-		"long_description": "",
+		"long_description": "A Key",
 		"price": 150,
 		"type": "consumable"
 	},	
 	"wolfe_bite": {
 		"name": "wolfe_bite",
 		"description": "Wolf Bite",
-		"long_description": "",
+		"long_description": "A wolf bite",
 		"price": 350,
 		"type": "passive"
 	},
 	"brain": {
 		"name": "brain",
 		"description": "Brain",
-		"long_description": "",
+		"long_description": "Yummy for zombies",
 		"price": 350,
 		"type": "passive"
 	},
 	"poison": {
 		"name": "poison",
-		"description": "Poisonous touch",
-		"long_description": "",
+		"description": "Poison Drop",
+		"long_description": "Poisonous touch",
 		"price": 250,
+		"type": "passive"
+	},
+	"shoot_speed_up": {
+		"name": "shoot_speed_up",
+		"description": "Adrenaline",
+		"long_description": "Shoot Speed++",
+		"price": 200,
 		"type": "passive"
 	},
 	"speedup": {
 		"name": "speedup",
-		"description": "Speed++",
-		"long_description": "",
+		"description": "Speed boots",
+		"long_description": "Speed++",
 		"price": 150,
 		"type": "passive"
 	},
 	"meleeup": {
 		"name": "meleeup",
-		"description": "Melee Speed++",
-		"long_description": "",
+		"description": "Chocolate Bar",
+		"long_description": "Melee Speed++",
 		"price": 150,
 		"type": "passive"
 	},
 	"damageup": {
 		"name": "damageup",
-		"description": "Damage++",
-		"long_description": "",
+		"description": "Ramen Bowl",
+		"long_description": "Damage++",
 		"price": 150,
 		"type": "passive"
 	},
 	"luckup": {
 		"name": "luckup",
-		"description": "Luck++",
-		"long_description": "",
+		"description": "Clover",
+		"long_description": "Luck++",
 		"price": 150,
 		"type": "passive"
 	},
@@ -117,26 +125,26 @@ var PREMIUM_ITEMS = {
 var ITEMS = {
 	"blue_heart": {
 		"name": "blue_heart",
-		"description": "",
-		"long_description": "",
+		"description": "Blue Heart",
+		"long_description": "Shield",
 		"price": 50
 	},
 	"green_heart": {
 		"name": "green_heart",
-		"description": "",
-		"long_description": "",
+		"description": "Green Heart",
+		"long_description": "Shield + Poison",
 		"price": 75
 	},
 	"empty_heart": {
 		"name": "empty_heart",
-		"description": "",
-		"long_description": "",
+		"description": "Empty Heart",
+		"long_description": "Heart Container",
 		"price": 150
 	},
 	"normal_heart": {
 		"name": "normal_heart",
-		"description": "",
-		"long_description": "",
+		"description": "Heart",
+		"long_description": "Fills a Heart",
 		"price": 25
 	}
 }
@@ -233,6 +241,8 @@ func initialize():
 
 	melee_rate_total = 1
 	melee_rate = 0
+	
+	shoot_speed = 1
 	
 	gems = 0
 	

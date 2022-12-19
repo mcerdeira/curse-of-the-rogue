@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -8,6 +8,14 @@
 [ext_resource path="res://sprites/suit_hearts2.png" type="Texture" id=6]
 [ext_resource path="res://sprites/suit_hearts1.png" type="Texture" id=7]
 [ext_resource path="res://sprites/suit_hearts4.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ramen.png" type="Texture" id=9]
+[ext_resource path="res://sprites/brain.png" type="Texture" id=10]
+[ext_resource path="res://sprites/clover.png" type="Texture" id=11]
+[ext_resource path="res://sprites/poison.png" type="Texture" id=12]
+[ext_resource path="res://sprites/wolf_bite.png" type="Texture" id=13]
+[ext_resource path="res://sprites/speed.png" type="Texture" id=14]
+[ext_resource path="res://sprites/melee.png" type="Texture" id=15]
+[ext_resource path="res://sprites/shoot_speed.png" type="Texture" id=16]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.0114
@@ -22,12 +30,12 @@ animations = [ {
 "name": "blue_heart",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "brain",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "damageup",
 "speed": 5.0
@@ -42,12 +50,12 @@ animations = [ {
 "name": "green_heart",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "luckup",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "meleeup",
 "speed": 5.0
@@ -57,17 +65,22 @@ animations = [ {
 "name": "normal_heart",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "poison",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "shoot_speed_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "speedup",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "wolfe_bite",
 "speed": 5.0
@@ -98,6 +111,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "wolfe_bite"
+animation = "shoot_speed_up"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

@@ -1,6 +1,7 @@
 extends Node2D
 var game_over_visible = 5
 var space = "       : "
+var message_ttl = 0
 export var full_hearts : Texture
 export var empty_hearts : Texture
 export var shield_hearts : Texture
@@ -34,9 +35,22 @@ func _draw():
 
 func update_health():
 	update()
-
+	
+func set_message(title, msg):
+	message_ttl = 1.5
+	$game_over.text = title
+	$subtitle.text = msg
+	
 func _physics_process(delta):
+	if !Global.GAME_OVER and message_ttl > 0:
+		message_ttl -= 1 * delta
+		if message_ttl <= 0:
+			message_ttl = 0
+			$subtitle.text = ""
+			$game_over.text = ""
+	
 	if Global.GAME_OVER:
+		$subtitle.text = ""
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
 			$game_over.visible = true
@@ -44,6 +58,7 @@ func _physics_process(delta):
 			$game_over.visible = false
 	else:
 		if $game_over.visible:
+			$subtitle.text = ""
 			$game_over.visible = false
 
 	if Global.combo_time > 0:

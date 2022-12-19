@@ -29,6 +29,7 @@ var stopandgo_ttl = 0
 var is_enemy_group = false
 var infected = false
 var poisoned = false
+var shoot_on_die = false
 
 func _ready():
 	$shadow.visible = false
@@ -78,6 +79,33 @@ func _physics_process(delta):
 			
 func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
+	
+func shoot_die():
+	if enemy_type == "dead_fire":
+		
+		var fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		fire_ball.dir = Vector2(1, 0)
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
+		
+		fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		fire_ball.dir = Vector2(-1, 0)
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
+		
+		fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		fire_ball.dir = Vector2(0, 1)
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
+		
+		fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		fire_ball.dir = Vector2(0, -1)
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
 
 func shoot():
 	if enemy_type == "skeleton":
@@ -85,6 +113,12 @@ func shoot():
 		bone.type = "bone"
 		get_parent().add_child(bone)
 		bone.set_position(position)
+	if enemy_type == "dead_fire":
+		emit()
+		var fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
 
 func enemy_behaviour(delta):
 	if Global.GAME_OVER:
@@ -174,6 +208,20 @@ func set_type(_type):
 	enemy_type = _type
 	
 	$sprite.animation = enemy_type
+	if enemy_type == "dead_fire":
+		shoot_ttl_total = Global.pick_random([5, 3, 2])
+		shoot_ttl = shoot_ttl_total
+		shoot_type = true
+		speed = 10
+		speed_total = 10
+		life = 5
+		dmg = 2
+		chase_player = true
+		flying = true
+		is_enemy_group = false
+		stopandgo = false
+		shoot_on_die = true
+	
 	if enemy_type == "bat":
 		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 0
@@ -187,6 +235,7 @@ func set_type(_type):
 		flying = true
 		is_enemy_group = true
 		stopandgo = false
+		shoot_on_die = false
 		
 	if enemy_type == "scorpion":
 		shoot_ttl_total = 0
@@ -201,6 +250,7 @@ func set_type(_type):
 		is_enemy_group = false
 		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = false
 		
 	elif enemy_type == "skeleton":
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
@@ -214,6 +264,7 @@ func set_type(_type):
 		flying = false
 		is_enemy_group = false
 		stopandgo = false
+		shoot_on_die = false
 		
 func hit(origin, dmg, from):
 	if !iamasign:
@@ -242,6 +293,8 @@ func die():
 		if Global.pick_random([true, false]):
 			drop_gem()
 		emit()
+		if shoot_on_die:
+			shoot_die()
 		queue_free()
 
 func _on_area_body_entered(body):

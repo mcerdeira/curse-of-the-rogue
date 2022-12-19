@@ -61,6 +61,9 @@ func add_poison():
 func add_speed(count):
 	Global.speed += count
 	
+func add_shoot_speed(count):
+	Global.shoot_speed += count
+	
 func add_melee(count):
 	Global.melee_rate_total = 0
 	
