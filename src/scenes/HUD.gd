@@ -43,6 +43,9 @@ func _physics_process(delta):
 			$game_over.visible = true
 		else:
 			$game_over.visible = false
+	else:
+		if $game_over.visible:
+			$game_over.visible = false
 
 	if Global.combo_time > 0:
 		Global.combo_time -= 1 * delta
