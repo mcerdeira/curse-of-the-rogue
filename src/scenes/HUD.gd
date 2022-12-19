@@ -32,7 +32,6 @@ func _draw():
 		draw_texture(tex, to_local(Vector2(acum, 10)))
 		i += 1
 
-			
 func update_health():
 	update()
 
