@@ -1,5 +1,6 @@
 extends Node
 
+var arrow = preload("res://sprites/crosshair.png")
 var LOGIC_PAUSE = false
 var FIRST = true
 var TOTAL_FLOORS = 7
@@ -171,6 +172,7 @@ func enemy_by_floor():
 	return FLOOR_ENEMIES[CURRENT_FLOOR]
 
 func _ready():
+	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
 	

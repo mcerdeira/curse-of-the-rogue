@@ -41,7 +41,7 @@ scale_curve = SubResource( 13 )
 
 [node name="particle_gems" type="Particles2D"]
 amount = 3
-explosiveness = 0.5
+explosiveness = 1.0
 process_material = SubResource( 11 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

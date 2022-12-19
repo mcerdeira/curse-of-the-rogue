@@ -4,6 +4,8 @@ var particle = preload("res://scenes/particle2.tscn")
 var taken = false
 var player = null
 var speed = 150
+var go_back_ttl = 0.1
+var absorved = false
 
 func _ready():
 	add_to_group("collectables")
@@ -22,9 +24,15 @@ func _physics_process(delta):
 			$sprite.scale.y = 0.1
 	else:
 		if !Global.GAME_OVER and !Global.LOGIC_PAUSE:
-			if position.distance_to(player.position) <= 60:
-				position = position.move_toward(player.position, delta * speed)
-				speed += 200 * delta
+			if !absorved and position.distance_to(player.position) <= 60:
+				absorved = true
+			elif absorved:
+				if go_back_ttl > 0:
+					go_back_ttl -= 1 * delta
+					position = position.move_toward(player.position, delta * (speed * -1))
+				else:
+					position = position.move_toward(player.position, delta * speed)
+					speed += 1000 * delta
 			
 func _on_Gem_body_entered(body):
 	if !taken:

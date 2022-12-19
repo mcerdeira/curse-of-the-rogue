@@ -137,6 +137,8 @@ func entering():
 
 func _physics_process(delta):
 	if entering:
+		$melee_bar.visible = false
+		$melee_bar2.visible = false
 		$sprite.playing = true
 		if $sprite.position.y <= 10:
 			$sprite.position.y -= 8 * delta
