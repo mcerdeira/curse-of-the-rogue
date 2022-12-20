@@ -22,7 +22,7 @@ func _physics_process(delta):
 	if type == "bone" or type == "fire_ball":
 		if player_chase == null:
 			if type == "fire_ball":
-				speed = 100
+				speed = 200
 			else:
 				speed = 150
 			dmg = 1

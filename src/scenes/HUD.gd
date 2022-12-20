@@ -10,7 +10,7 @@ export var shield_zombie : Texture
 
 func _ready():
 	add_to_group("HUD")
-	$game_over.visible = false
+	$c/game_over.visible = false
 	
 func _draw():
 	var w = 30
@@ -38,28 +38,30 @@ func update_health():
 	
 func set_message(title, msg):
 	message_ttl = 1.5
-	$game_over.text = title
-	$subtitle.text = msg
+	$c/game_over.visible = true
+	$c/game_over.text = title
+	$c/subtitle.text = "\n\n\n\n" + msg
 	
 func _physics_process(delta):
 	if !Global.GAME_OVER and message_ttl > 0:
 		message_ttl -= 1 * delta
 		if message_ttl <= 0:
 			message_ttl = 0
-			$subtitle.text = ""
-			$game_over.text = ""
+			$c/subtitle.text = ""
+			$c/game_over.text = ""
+			$c/game_over.visible = false
 	
 	if Global.GAME_OVER:
-		$subtitle.text = ""
+		$c/subtitle.text = ""
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
-			$game_over.visible = true
+			$c/game_over.visible = true
 		else:
-			$game_over.visible = false
+			$c/game_over.visible = false
 	else:
-		if $game_over.visible:
-			$subtitle.text = ""
-			$game_over.visible = false
+		if $c/game_over.visible and message_ttl <= 0:
+			$c/subtitle.text = ""
+			$c/game_over.visible = false
 
 	if Global.combo_time > 0:
 		Global.combo_time -= 1 * delta

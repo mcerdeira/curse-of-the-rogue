@@ -1,5 +1,5 @@
 extends Node2D
-var ttl = 5
+var ttl = 3
 
 func _physics_process(delta):
 	ttl -= 1 * delta
@@ -13,4 +13,4 @@ func _ready():
 	var reward_total = Global.get_reward_floor() * Global.max_combo
 	Global.gems += reward_total
 	$gems_total.text = str(reward_total)
-	$gems.text = str(Global.get_reward_floor()) + " x " + str(Global.max_combo) + "(combo)"           
+	$gems.text = str(Global.get_reward_floor()) + " x " + str(Global.max_combo) + "(combo)"

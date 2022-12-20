@@ -168,7 +168,6 @@ func enemy_behaviour(delta):
 	
 	if hit_ttl > 0:
 		$sprite.material.set_shader_param("hitted", true)
-		
 		$sprite.playing = false
 		hit_ttl -= 1 * delta
 		if hit_ttl <= 0:
@@ -209,9 +208,12 @@ func face_player():
 	
 func set_type(_type):
 	enemy_type = _type
-	
+	$sprite.position.y = 0
 	$sprite.animation = enemy_type
 	if enemy_type == "dead_fire":
+		$area/collider.set_deferred("disabled", true)
+		$area/collider_dead_fire.set_deferred("disabled", false)
+		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
 		shoot_type = true
@@ -224,8 +226,13 @@ func set_type(_type):
 		is_enemy_group = false
 		stopandgo = false
 		shoot_on_die = true
+		$sprite.position.y = -32
+		$shadow.visible = false
 	
 	if enemy_type == "bat":
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		
 		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
@@ -241,6 +248,9 @@ func set_type(_type):
 		shoot_on_die = false
 		
 	if enemy_type == "scorpion":
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false

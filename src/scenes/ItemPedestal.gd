@@ -12,16 +12,22 @@ var time = 0
 onready var default_pos = $item.get_position()
 
 func _ready():
-	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
-		queue_free()
+	var chest_replacement = false
+	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
+		if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
+			queue_free()
+			return
+	else:
+		chest_replacement = true
 		
-	var item = choose_item()
+	emit()
+	var item = choose_item(chest_replacement)
 	$item.animation = item.name
 	item_name = item.name
 	item_description = item.description
 	item_long_description = item.long_description
 	
-	if Global.FLOOR_TYPE == Global.floor_types.altar:
+	if chest_replacement or Global.FLOOR_TYPE == Global.floor_types.altar:
 		$gem.visible = false
 		$price_lbl.visible = false
 		price_amount = 0
@@ -44,11 +50,11 @@ func emit():
 		root.add_child(p)
 		p.global_position = global_position
 
-func choose_item():
-	if Global.FLOOR_TYPE == Global.floor_types.altar:
+func choose_item(chest_replacement:=false):
+	if !chest_replacement and Global.FLOOR_TYPE == Global.floor_types.altar:
 		return Global.get_random_premium_item()
 	else:
-		return Global.get_random_item()
+		return Global.get_random_item(chest_replacement)
 
 func do_item_effect(_player):
 	emit()
@@ -65,6 +71,8 @@ func do_item_effect(_player):
 		_player.add_total_hearts(1)
 	elif item_name == "green_heart":
 		_player.add_shield_poision(1)
+	elif item_name == "key":
+		_player.add_key(1)
 	elif item_name == "luckup":
 		_player.add_luck(1)
 	elif item_name == "meleeup":

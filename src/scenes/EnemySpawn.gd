@@ -1,6 +1,7 @@
 extends Node2D
 var current_timer = 0.5
 var first_time = true
+var ItemPedestal = preload("res://scenes/ItemPedestal.tscn")
 var enemy = preload("res://scenes/Enemy.tscn")
 var bat_group = preload("res://scenes/EnemyGroup.tscn")
 var chest = preload("res://scenes/Chest.tscn")
@@ -40,19 +41,30 @@ func reveal_doors():
 func spawn_chest_and_stuff():
 	reveal_doors()
 	
+	var do_chest = true
+	var buff = 64
+	if randi() % 20 + 1 == 0:
+		buff = 96
+		do_chest = false
+	
 	var player = get_tree().get_nodes_in_group("players")[0]
 	var positions = get_children()
 	var last_pos = 999999999
-	var chest_pos = null
+	var obj_pos = null
 	for pos in positions:
 		var p = pos.position.distance_to(player.position)
-		if last_pos > p and p > 32:
+		if last_pos > p and p > buff:
 			last_pos = p
-			chest_pos = pos.position
+			obj_pos = pos.position
 	
-	var chest_inst = chest.instance()
-	get_parent().add_child(chest_inst)
-	chest_inst.set_position(to_global(chest_pos))
+	var obj_inst = null
+	if do_chest:
+		obj_inst = chest.instance()
+	else:
+		obj_inst = ItemPedestal.instance()
+	
+	get_parent().add_child(obj_inst)
+	obj_inst.set_position(to_global(obj_pos))
 		
 func spawn_enemy():
 	if WAVE_COUNT < Global.get_floor_waves():

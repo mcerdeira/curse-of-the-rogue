@@ -113,6 +113,13 @@ var PREMIUM_ITEMS = {
 }
 
 var ITEMS = {
+	"key": {
+		"name": "key",
+		"description": "Key",
+		"long_description": "A Key",
+		"price": 150,
+		"type": "consumable"
+	},
 	"blue_heart": {
 		"name": "blue_heart",
 		"description": "Blue Heart",
@@ -200,6 +207,15 @@ var ENEMY_PATTERNS = [
 	[],
 ]
 
+func _ready():
+	var MainTheme = load("res://music/main_theme.mp3")
+	
+	#Global.play_sound(MainTheme)
+	
+	Input.set_custom_mouse_cursor(arrow)
+	initialize()
+	init_room()
+
 func enemy_by_floor():
 	randomize()
 # floor  enemies
@@ -227,15 +243,6 @@ func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
 	
 	return audio_stream_player
 
-func _ready():
-	var MainTheme = load("res://music/main_theme.mp3")
-	
-	Global.play_sound(MainTheme)
-	
-	Input.set_custom_mouse_cursor(arrow)
-	initialize()
-	init_room()
-	
 func get_reward_floor():
 	var reward = FLOOR_REWARD[CURRENT_FLOOR]
 	var rnd = pick_random([0, 1, 3, 5, 7, 9])
@@ -246,16 +253,16 @@ func init_room():
 		FIRST = false
 		FLOOR_TYPE = floor_types.intro
 		
-func get_random_item():
+func get_random_item(chest_replacement:=false):
 	randomize()
-	if Global.pick_random([1, 1, 1, 0]) == 1:
+	if chest_replacement or Global.pick_random([1, 1, 1, 1, 0]) == 1:
 		return pick_random(ITEMS)
 	else:
 		return pick_random(PREMIUM_ITEMS)
 	
 func get_random_premium_item():
 	randomize()
-	if Global.pick_random([1, 1, 1, 0]) == 1:
+	if Global.pick_random([1, 1, 1, 1, 0]) == 1:
 		return pick_random(PREMIUM_ITEMS)
 	else:
 		return pick_random(ITEMS)

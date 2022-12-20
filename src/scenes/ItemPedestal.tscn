@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://sprites/speed.png" type="Texture" id=14]
 [ext_resource path="res://sprites/melee.png" type="Texture" id=15]
 [ext_resource path="res://sprites/shoot_speed.png" type="Texture" id=16]
+[ext_resource path="res://sprites/key_item.png" type="Texture" id=17]
+[ext_resource path="res://sprites/player_shadow.png" type="Texture" id=18]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.0114
@@ -48,6 +50,11 @@ animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "green_heart",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "key",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],
@@ -89,10 +96,16 @@ animations = [ {
 [node name="ItemPedestal" type="Area2D"]
 script = ExtResource( 1 )
 
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( 0, 17 )
+scale = Vector2( 1.5, 1 )
+texture = ExtResource( 18 )
+
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -1, 16 )
 shape = SubResource( 1 )
 
@@ -111,6 +124,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "shoot_speed_up"
+animation = "brain"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]
