@@ -38,6 +38,8 @@ var total_bad_luck = 0
 var zombie = false
 var shoot_speed = 0.0
 var shoot_speed_total = 0.0
+var altar_lifes = 0
+var altar_gems = 0
 
 enum floor_types {
 	intro,
@@ -289,7 +291,7 @@ func initialize():
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
-	automatic_weapon = "knife"
+	automatic_weapon = "empty"
 	
 	speed = 150
 	total_bad_luck = 100
@@ -311,6 +313,9 @@ func initialize():
 	poison = false
 	temp_poison = false
 	zombie = false
+	
+	altar_lifes = 0
+	altar_gems = 0
 
 func sustain():
 	combo_time = 0.5

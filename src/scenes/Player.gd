@@ -86,7 +86,7 @@ func add_damage(count):
 	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0:
-		$sprite.animation = "hit"
+		$sprite.animation = "hit" + ani_aditional
 		inv_time = inv_time_total
 		hit_ttl = hit_ttl_total
 		inv_togg = 0
@@ -119,6 +119,7 @@ func hit(dmg, can_zombie:=false):
 		Global.refresh_hud()
 		
 func turn_into_zombie():
+	Global.health = [0, 0, 0]
 	for i in range(Global.health.size()):
 		Global.health[i] = 4
 		

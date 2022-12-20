@@ -111,6 +111,11 @@ func shoot_die():
 
 func shoot():
 	emit()
+	if enemy_type == "bat":
+		var fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		get_parent().get_parent().add_child(fire_ball)
+		fire_ball.global_position = global_position
 	if enemy_type == "skeleton":
 		var bone = EnemyBullet.instance()
 		bone.type = "bone"
@@ -277,9 +282,9 @@ func set_type(_type):
 		$area/collider_ghost.set_deferred("disabled", true)
 		
 		$collider2.set_deferred("disabled", true)
-		shoot_ttl_total = 0
+		shoot_ttl_total = 15
 		shoot_ttl = shoot_ttl_total
-		shoot_type = false
+		shoot_type = true
 		speed = 0
 		speed_total = 0
 		life = 1

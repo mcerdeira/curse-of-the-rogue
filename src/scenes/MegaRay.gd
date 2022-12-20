@@ -6,6 +6,11 @@ var shooting = 0
 var shooting_total = 3
 
 func area_on(val):
+	$particle.visible = val
+	$particle2.visible = val
+	$particle3.visible = val
+	$particle4.visible = val
+
 	$area.visible = val
 	$area/collider.set_deferred("disabled", !val)
 

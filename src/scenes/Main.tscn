@@ -165,6 +165,12 @@ position = Vector2( 416, 128 )
 [node name="Spikes10" parent="SpikeGroup" instance=ExtResource( 25 )]
 position = Vector2( 616, 128 )
 
+[node name="Spikes11" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 416, 320 )
+
+[node name="Spikes12" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 624, 312 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Node2D" parent="CanvasLayer"]
@@ -319,11 +325,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
+frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 436, 278 )
@@ -495,19 +503,19 @@ altar_type = "blood"
 [node name="col2" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 10
+frame = 3
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 11
+frame = 4
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 10
+frame = 3
 playing = true
 
 [node name="Colums2" type="Node2D" parent="."]
@@ -516,17 +524,17 @@ position = Vector2( 273, 0 )
 [node name="col2" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 10
+frame = 3
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 10
+frame = 3
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 9
+frame = 2
 playing = true

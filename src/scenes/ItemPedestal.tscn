@@ -23,7 +23,7 @@
 [ext_resource path="res://sprites/bomb4.png" type="Texture" id=21]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 44.0114
+radius = 32.9848
 
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 3 )
@@ -123,8 +123,6 @@ texture = ExtResource( 18 )
 texture = ExtResource( 2 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( -1, 16 )
 shape = SubResource( 1 )
 
 [node name="price_lbl" type="Label" parent="."]

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-var type = ""
+var type = "knife"
 var explode_ttl = 2
 var dir = Vector2.ZERO
 var Blast = preload("res://scenes/Blast.tscn")
@@ -9,6 +9,7 @@ var init = false
 var target = null
 var dmg = 0
 var piercing = false
+var pierce_count = 0
 
 func _initialize():
 	$sprite.animation = type
@@ -21,6 +22,7 @@ func _initialize():
 		dmg = 0
 	if type == "knife":
 		piercing = true
+		pierce_count = 2
 		dmg = 1
 		speed = 500
 	if type == "shot_gun":
@@ -71,14 +73,14 @@ func _physics_process(delta):
 			$sprite.playing = true
 			$sprite.speed_scale = 2
 		
-	elif type == "knife":
+	elif type == "knife":		
 		if !dir:
 			var _chase = get_tree().get_nodes_in_group("enemies")
 			if _chase.size() > 0:
 				randomize()
 				_chase.shuffle()
 				dir = (_chase[0].global_position - self.global_position).normalized()
-				$sprite.look_at(_chase[0].position)
+				$sprite.look_at(_chase[0].global_position)
 		
 	elif type == "plasma":
 		$sprite.rotation = position.angle_to_point(dir)
@@ -91,6 +93,10 @@ func _on_Area2D_area_entered(area):
 		area.get_parent().hit(get_parent(), dmg, "player")
 		if !piercing:
 			queue_free()
+		else:
+			pierce_count -= 1
+			if pierce_count <= 0:
+				queue_free()
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Walls":

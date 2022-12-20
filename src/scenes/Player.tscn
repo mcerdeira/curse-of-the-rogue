@@ -26,8 +26,6 @@
 [ext_resource path="res://sprites/zombie_falling_spr_0.png" type="Texture" id=24]
 [ext_resource path="res://sprites/gun_spr_equiped.png" type="Texture" id=25]
 
-[sub_resource type="RectangleShape2D" id=1]
-
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
 
@@ -104,6 +102,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=1]
+
 [sub_resource type="Animation" id=3]
 resource_name = "default"
 tracks/0/type = "value"
@@ -126,13 +126,9 @@ script = ExtResource( 4 )
 position = Vector2( 0, 15 )
 texture = ExtResource( 10 )
 
-[node name="collider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -153,6 +149,9 @@ position = Vector2( 11, 4 )
 frames = SubResource( 6 )
 animation = "plasma"
 offset = Vector2( 14, 0 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
 [node name="melee_progress" type="AnimationPlayer" parent="."]
 anims/default = SubResource( 3 )
