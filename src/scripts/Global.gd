@@ -22,11 +22,12 @@ var combo_time_total = 2.3
 
 var primary_weapon = ""
 var secondary_weapon = ""
+var automatic_weapon = ""
 var poison = false
 var temp_poison = false
 var keys = 0
-var melee_rate = 0
-var melee_rate_total = 0
+var melee_rate = 0.0
+var melee_rate_total = 0.0
 var attack = 0
 var speed = 0
 var health = 0
@@ -35,7 +36,8 @@ var gems = 0
 var bad_luck = 0
 var total_bad_luck = 0
 var zombie = false
-var shoot_speed = 0
+var shoot_speed = 0.0
+var shoot_speed_total = 0.0
 
 enum floor_types {
 	intro,
@@ -47,6 +49,20 @@ enum floor_types {
 }
 
 var PREMIUM_ITEMS = {
+	"shot_gun": {
+		"name": "shot_gun",
+		"description": "Shotgun",
+		"long_description": "Spread of bullets",
+		"price": 300,
+		"type": "passive"
+	},
+	"knife": {
+		"name": "knife",
+		"description": "Knife",
+		"long_description": "Piercing Knife",
+		"price": 300,
+		"type": "passive"
+	},
 	"key": {
 		"name": "key",
 		"description": "Key",
@@ -218,31 +234,16 @@ func _ready():
 
 func enemy_by_floor():
 	randomize()
-# floor  enemies
-#	1		  3
-#	2		  4
-#	3		  4
-#	4		  5
-#	5		  5
-#	6		  6
-#	7		  6
-
+	# floor  enemies
+	#	1		  3
+	#	2		  4
+	#	3		  4
+	#	4		  5
+	#	5		  5
+	#	6		  6
+	#	7		  6
 	return Global.pick_random(ENEMY_PATTERNS[CURRENT_FLOOR])
 	
-func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
-	var audio_stream_player = AudioStreamPlayer.new()
-
-	add_child(audio_stream_player)
-	audio_stream_player.stream = stream
-	
-	for prop in options.keys():
-		audio_stream_player.set(prop, options[prop])
-	
-	audio_stream_player.play()
-	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
-	
-	return audio_stream_player
-
 func get_reward_floor():
 	var reward = FLOOR_REWARD[CURRENT_FLOOR]
 	var rnd = pick_random([0, 1, 3, 5, 7, 9])
@@ -280,8 +281,9 @@ func initialize():
 	combo_time = 0
 	combo_time_total = 2.3
 
-	primary_weapon = "Whip"
-	secondary_weapon = "Empty"
+	primary_weapon = "whip"
+	secondary_weapon = "empty"
+	automatic_weapon = "empty"
 	
 	speed = 150
 	total_bad_luck = 100
@@ -292,10 +294,11 @@ func initialize():
 	shield = 0
 	health = [1, 1, 1]
 
-	melee_rate_total = 1
+	melee_rate_total = 1.0
 	melee_rate = 0
 	
-	shoot_speed = 1
+	shoot_speed_total = 5.0
+	shoot_speed = 0
 	
 	gems = 0
 	
@@ -380,3 +383,17 @@ func pick_random(container):
 			TYPE_VECTOR2_ARRAY, TYPE_VECTOR3_ARRAY
 			], "ERROR: pick_random" )
 	return container[randi() % container.size()]
+
+func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
+	var audio_stream_player = AudioStreamPlayer.new()
+
+	add_child(audio_stream_player)
+	audio_stream_player.stream = stream
+	
+	for prop in options.keys():
+		audio_stream_player.set(prop, options[prop])
+	
+	audio_stream_player.play()
+	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
+	
+	return audio_stream_player

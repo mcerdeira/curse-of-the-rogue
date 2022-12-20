@@ -43,7 +43,9 @@ func random_type():
 
 func set_price():
 	randomize()
-	price_what = Global.pick_random(["life", "keys", "gems", ""])
+	if type == "altar":
+		price_what = Global.pick_random(["life", "keys", "gems", ""])
+		
 	if price_what == "":
 		price_amount = 0
 	elif price_what == "life":

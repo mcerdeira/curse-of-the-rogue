@@ -1,0 +1,83 @@
+extends KinematicBody2D
+var type = ""
+var explode_ttl = 2
+var dir = Vector2.ZERO
+var Blast = preload("res://scenes/Blast.tscn")
+var speed = 0
+var init = false
+var target = null
+var dmg = 0
+var piercing = false
+var particle = preload("res://scenes/particle2.tscn")
+
+func _ready():
+	emit()
+
+func _init():
+	if type == "plasma":
+		speed = 150
+		dmg = 1
+	if type == "bomb":
+		speed = 10
+		dmg = 0
+	if type == "knife":
+		piercing = true
+		dmg = 1
+		speed = 100
+	if type == "shotgun":
+		dmg = 2
+		speed = 175
+		
+func emit():
+	var p = particle.instance()
+	get_parent().add_child(p)
+	p.global_position = global_position
+	p = particle.instance()
+	get_parent().add_child(p)
+	p.global_position = global_position
+
+func explode():
+	emit()
+	emit()
+	emit()
+	var b = Blast.instance()
+	var root = get_node("/root/Main")
+	root.add_child(b)
+	b.global_position = global_position
+
+func _physics_process(delta):
+	if !init:
+		_init()
+		init = true
+	
+	z_index = position.y
+	
+	move_and_slide(speed * dir)
+	
+	if type == "bomb":
+		move_and_slide(speed * dir)
+		speed -= 1 * delta
+		if speed <= 0:
+			speed = 0
+		
+		explode_ttl -= 1 * delta
+		if explode_ttl <= 0:
+			explode()
+			queue_free()
+		if explode_ttl <= 1:
+			$sprite.playing = true
+			$sprite.speed_scale = 2
+		
+	elif type == "knife":
+		$sprite.rotation = position.angle_to_point(dir)
+	elif type == "plasma":
+		$sprite.rotation = position.angle_to_point(dir)
+	elif type == "shotgun":
+		$sprite.rotation += 100 * delta
+		
+func _on_Area2D_area_entered(area):
+	if dmg > 0 and area.is_in_group("enemies"):
+		emit()
+		area.get_parent().hit(get_parent(), dmg, "player")
+		if !piercing:
+			queue_free()

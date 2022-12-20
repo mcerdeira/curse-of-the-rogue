@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -18,6 +18,9 @@
 [ext_resource path="res://sprites/shoot_speed.png" type="Texture" id=16]
 [ext_resource path="res://sprites/key_item.png" type="Texture" id=17]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=18]
+[ext_resource path="res://sprites/gun_item_spr_0.png" type="Texture" id=19]
+[ext_resource path="res://sprites/knife_item_spr_0.png" type="Texture" id=20]
+[ext_resource path="res://sprites/bomb4.png" type="Texture" id=21]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.0114
@@ -30,6 +33,11 @@ animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "blue_heart",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "bomb",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ) ],
@@ -57,6 +65,11 @@ animations = [ {
 "name": "key",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "knife",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "luckup",
@@ -80,6 +93,11 @@ animations = [ {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "shoot_speed_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "shot_gun",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -124,6 +142,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "brain"
+animation = "bomb"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

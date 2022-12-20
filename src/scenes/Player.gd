@@ -8,6 +8,7 @@ var inv_togg_total = 0.1
 var inv_togg = 0
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
+var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
@@ -55,6 +56,9 @@ func add_shield_poision(count):
 	Global.temp_poison = true
 	Global.refresh_hud()
 	
+func add_automatic_weapon(weapon):
+	Global.automatic_weapon = weapon
+	
 func add_poison():
 	Global.poison = true
 	
@@ -62,10 +66,10 @@ func add_speed(count):
 	Global.speed += count
 	
 func add_shoot_speed(count):
-	Global.shoot_speed += count
+	Global.shoot_speed_total -= count
 	
 func add_melee(count):
-	Global.melee_rate_total = 0
+	Global.melee_rate_total -= count
 	
 func add_luck(count):
 	Global.bad_luck -= count
@@ -140,6 +144,40 @@ func entering():
 	Global.LOGIC_PAUSE = true
 	$sprite.material.set_shader_param("blackened", true)
 	$sprite.animation = "back" + ani_aditional
+	
+func get_random_enemy():
+	return Vector2(1, 0)
+	
+func get_random_dir():
+	return Vector2(0, 1)
+	
+	
+func create_bullet(_dir):
+	var bullet = PlayerBullet.instance()
+	bullet.type = Global.automatic_weapon
+	bullet.dir = _dir
+	get_parent().add_child(bullet)
+	bullet.set_position(position)
+	
+func shoot():
+	if Global.automatic_weapon == "plasma":
+		create_bullet(Vector2(0, 1))
+		create_bullet(Vector2(0, -1))
+		
+		create_bullet(Vector2(1, 0))
+		create_bullet(Vector2(1, 1))
+		create_bullet(Vector2(1, -1))
+		
+		create_bullet(Vector2(-1, 0))
+		create_bullet(Vector2(-1, 1))
+		create_bullet(Vector2(-1, -1))
+	else:
+		if Global.automatic_weapon == "shotgun":
+			create_bullet(get_random_enemy())
+		elif Global.automatic_weapon == "knife":
+			create_bullet(get_random_enemy())
+		elif Global.automatic_weapon == "bomb":
+			create_bullet(get_random_dir())
 
 func _physics_process(delta):
 	if entering:
@@ -201,6 +239,12 @@ func _physics_process(delta):
 	var move = (left or right or up or down)
 	
 	movement = Vector2.ZERO
+	
+	if Global.automatic_weapon != "":
+		Global.shoot_speed -= 1 * delta
+		if Global.shoot_speed <= 0:
+			Global.shoot_speed = Global.shoot_speed_total
+			shoot()
 	
 	if action2:
 		pass

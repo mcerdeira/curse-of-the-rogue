@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -47,6 +47,11 @@
 [ext_resource path="res://sprites/checkpoint_on_spr_14.png" type="Texture" id=45]
 [ext_resource path="res://sprites/checkpoint_on_spr_6.png" type="Texture" id=46]
 [ext_resource path="res://sprites/checkpoint_on_spr_16.png" type="Texture" id=47]
+[ext_resource path="res://sprites/gun_spr_0.png" type="Texture" id=48]
+[ext_resource path="res://sprites/plasma.png" type="Texture" id=49]
+[ext_resource path="res://sprites/knife_spr_0.png" type="Texture" id=50]
+[ext_resource path="res://sprites/bomb_small.png" type="Texture" id=51]
+[ext_resource path="res://sprites/empty_automatic_item.png" type="Texture" id=52]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -67,12 +72,48 @@ font_data = ExtResource( 3 )
 animations = [ {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
-"name": "Empty",
+"name": "empty",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
-"name": "Whip",
+"name": "whip",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 51 ) ],
+"loop": true,
+"name": "bomb",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "empty",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 50 ) ],
+"loop": true,
+"name": "knife",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "plasma",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "shot_gun",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 } ]
 
@@ -189,9 +230,9 @@ texture = ExtResource( 9 )
 
 [node name="hud_luck" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
-margin_top = 152.0
+margin_top = 172.0
 margin_right = 97.0
-margin_bottom = 160.0
+margin_bottom = 180.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
 
@@ -201,9 +242,9 @@ texture = ExtResource( 19 )
 
 [node name="hud_keys" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
-margin_top = 171.0
+margin_top = 188.0
 margin_right = 97.0
-margin_bottom = 179.0
+margin_bottom = 196.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
 
@@ -223,11 +264,23 @@ text = "       :"
 position = Vector2( 45, 3 )
 texture = ExtResource( 8 )
 
+[node name="hud_shoot_speed" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 1.0
+margin_top = 154.0
+margin_right = 97.0
+margin_bottom = 162.0
+custom_fonts/font = SubResource( 1 )
+text = "       :"
+
+[node name="Hourglass" type="Sprite" parent="CanvasLayer/HUD/hud_shoot_speed"]
+position = Vector2( 45, 3 )
+texture = ExtResource( 8 )
+
 [node name="hud_combo_count" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
-margin_top = 187.0
+margin_top = 202.0
 margin_right = 97.0
-margin_bottom = 195.0
+margin_bottom = 210.0
 custom_fonts/font = SubResource( 1 )
 text = "  COMBO:"
 
@@ -246,21 +299,32 @@ texture = ExtResource( 16 )
 [node name="primary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 10, 40 )
 frames = SubResource( 4 )
-animation = "Empty"
+animation = "empty"
 centered = false
 
 [node name="secondary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 39, 40 )
 frames = SubResource( 4 )
-animation = "Empty"
+animation = "empty"
 centered = false
 
+[node name="automatic_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
+position = Vector2( 82, 51 )
+frames = SubResource( 9 )
+animation = "empty"
+
+[node name="automatic_weapon_frame" type="AnimatedSprite" parent="CanvasLayer/HUD"]
+position = Vector2( 80, 50 )
+frames = SubResource( 8 )
+
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 436, 278 )
