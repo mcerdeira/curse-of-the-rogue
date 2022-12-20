@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://sprites/zombie_spr_3.png" type="Texture" id=22]
 [ext_resource path="res://sprites/zombie_spr_2.png" type="Texture" id=23]
 [ext_resource path="res://sprites/zombie_falling_spr_0.png" type="Texture" id=24]
+[ext_resource path="res://sprites/gun_spr_equiped.png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -85,6 +86,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 25 ) ],
+"loop": true,
+"name": "shot_gun",
+"speed": 5.0
+} ]
+
 [sub_resource type="Animation" id=3]
 resource_name = "default"
 tracks/0/type = "value"
@@ -128,6 +137,12 @@ texture = ExtResource( 11 )
 position = Vector2( 15, -20 )
 texture = ExtResource( 12 )
 centered = false
+
+[node name="automatic_weapon" type="AnimatedSprite" parent="."]
+position = Vector2( 11, 4 )
+frames = SubResource( 6 )
+animation = "shot_gun"
+offset = Vector2( 14, 0 )
 
 [node name="melee_progress" type="AnimationPlayer" parent="."]
 anims/default = SubResource( 3 )

@@ -318,13 +318,11 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 436, 278 )
@@ -451,9 +449,10 @@ position = Vector2( 600, 78 )
 type = ""
 
 [node name="ShopKeeper" parent="." instance=ExtResource( 27 )]
-position = Vector2( 2, -15 )
+position = Vector2( 2, -27 )
 
 [node name="ShopTable" type="Node2D" parent="."]
+position = Vector2( 0, -11 )
 script = ExtResource( 29 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="ShopTable"]
@@ -467,7 +466,7 @@ position = Vector2( 467, 236 )
 texture = ExtResource( 28 )
 
 [node name="sku2" type="Sprite" parent="ShopTable"]
-position = Vector2( 540, 237 )
+position = Vector2( 540, 239 )
 texture = ExtResource( 28 )
 
 [node name="sku3" type="Sprite" parent="ShopTable"]
@@ -475,7 +474,7 @@ position = Vector2( 515, 235 )
 texture = ExtResource( 28 )
 
 [node name="sku4" type="Sprite" parent="ShopTable"]
-position = Vector2( 492, 235 )
+position = Vector2( 490, 239 )
 texture = ExtResource( 28 )
 
 [node name="sku5" type="Sprite" parent="ShopTable"]
@@ -495,19 +494,19 @@ altar_type = "blood"
 [node name="col2" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 9
+frame = 6
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 10
+frame = 7
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 9
+frame = 6
 playing = true
 
 [node name="Colums2" type="Node2D" parent="."]
@@ -516,17 +515,17 @@ position = Vector2( 273, 0 )
 [node name="col2" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 9
+frame = 6
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 9
+frame = 6
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 8
+frame = 5
 playing = true

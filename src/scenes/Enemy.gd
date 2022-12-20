@@ -30,6 +30,9 @@ var is_enemy_group = false
 var infected = false
 var poisoned = false
 var shoot_on_die = false
+var disapear = false
+var invisible_time = 0
+var invisible_time_total = 1
 
 func _ready():
 	$shadow.visible = false
@@ -80,41 +83,46 @@ func _physics_process(delta):
 func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 	
+func create_enemy_bullet(pos):
+	var fire_ball = EnemyBullet.instance()
+	fire_ball.type = "fire_ball"
+	fire_ball.dir = pos
+	get_parent().add_child(fire_ball)
+	fire_ball.set_position(position)
+	
 func shoot_die():
+	if enemy_type == "ghost":
+		create_enemy_bullet(Vector2(0, 1))
+		create_enemy_bullet(Vector2(0, -1))
+		
+		create_enemy_bullet(Vector2(1, 0))
+		create_enemy_bullet(Vector2(1, 1))
+		create_enemy_bullet(Vector2(1, -1))
+		
+		create_enemy_bullet(Vector2(-1, 0))
+		create_enemy_bullet(Vector2(-1, 1))
+		create_enemy_bullet(Vector2(-1, -1))
+		
 	if enemy_type == "dead_fire":
-		
-		var fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		fire_ball.dir = Vector2(1, 0)
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
-		
-		fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		fire_ball.dir = Vector2(-1, 0)
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
-		
-		fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		fire_ball.dir = Vector2(0, 1)
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
-		
-		fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		fire_ball.dir = Vector2(0, -1)
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
+		create_enemy_bullet(Vector2(1, 0))
+		create_enemy_bullet(Vector2(-1, 0))
+		create_enemy_bullet(Vector2(0, 1))
+		create_enemy_bullet(Vector2(0, -1))
 
 func shoot():
+	emit()
 	if enemy_type == "skeleton":
 		var bone = EnemyBullet.instance()
 		bone.type = "bone"
 		get_parent().add_child(bone)
 		bone.set_position(position)
 	if enemy_type == "dead_fire":
-		emit()
+		var fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_ball"
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
+	if enemy_type == "ghost":
+		invisible_time = 0
 		var fire_ball = EnemyBullet.instance()
 		fire_ball.type = "fire_ball"
 		get_parent().add_child(fire_ball)
@@ -140,6 +148,7 @@ func enemy_behaviour(delta):
 		
 	
 	face_player()
+		
 	if stop_moving > 0:
 		if !flying:
 			$sprite.playing = false
@@ -157,6 +166,10 @@ func enemy_behaviour(delta):
 			stop_moving = 1
 		
 		if shoot_ttl <= 0:
+			if disapear:
+				emit()
+				visible = true
+			
 			if !chase_player:
 				point_chase = spawner.get_random_point()
 				
@@ -190,6 +203,13 @@ func enemy_behaviour(delta):
 				
 			var direction = (point_chase.position - self.position).normalized()
 			if stop_moving <= 0:
+				if disapear:
+					invisible_time += 1 * delta
+					if invisible_time >= invisible_time_total:
+						invisible_time = 0
+						emit()
+						visible = false
+	
 				move_and_slide(speed * direction)
 	
 	if impulse:
@@ -210,9 +230,30 @@ func set_type(_type):
 	enemy_type = _type
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
+	if enemy_type == "ghost":
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", false)
+		
+		shoot_ttl_total = 7
+		shoot_ttl = shoot_ttl_total
+		shoot_type = true
+		speed = 100
+		speed_total = 100
+		life = 7
+		dmg = 2
+		chase_player = false
+		flying = true
+		is_enemy_group = false
+		stopandgo = true
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = true
+		disapear = true
+	
 	if enemy_type == "dead_fire":
 		$area/collider.set_deferred("disabled", true)
 		$area/collider_dead_fire.set_deferred("disabled", false)
+		$area/collider_ghost.set_deferred("disabled", true)
 		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
@@ -228,10 +269,12 @@ func set_type(_type):
 		shoot_on_die = true
 		$sprite.position.y = -32
 		$shadow.visible = false
+		disapear = false
 	
 	if enemy_type == "bat":
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
 		
 		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 0
@@ -246,10 +289,12 @@ func set_type(_type):
 		is_enemy_group = true
 		stopandgo = false
 		shoot_on_die = false
+		disapear = false
 		
 	if enemy_type == "scorpion":
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
 		
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
@@ -264,8 +309,13 @@ func set_type(_type):
 		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		shoot_on_die = false
+		disapear = false
 		
 	elif enemy_type == "skeleton":
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
 		shoot_type = true
@@ -278,9 +328,10 @@ func set_type(_type):
 		is_enemy_group = false
 		stopandgo = false
 		shoot_on_die = false
+		disapear = false
 		
 func hit(origin, dmg, from):
-	if !iamasign:
+	if visible and !iamasign:
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		
@@ -302,7 +353,7 @@ func hit(origin, dmg, from):
 				Global.sustain()
 
 func die():
-	if !iamasign:
+	if visible and !iamasign:
 		if Global.pick_random([true, false]):
 			drop_gem()
 		emit()
@@ -311,7 +362,7 @@ func die():
 		queue_free()
 
 func _on_area_body_entered(body):
-	if !iamasign and body.is_in_group("players"):
+	if visible and !iamasign and body.is_in_group("players"):
 		if Global.zombie:
 			$sprite.modulate = Global.infected_color
 			infected = true

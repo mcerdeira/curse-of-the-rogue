@@ -3,17 +3,16 @@ var type = ""
 var explode_ttl = 2
 var dir = Vector2.ZERO
 var Blast = preload("res://scenes/Blast.tscn")
+var particle = preload("res://scenes/particle2.tscn")
 var speed = 0
 var init = false
 var target = null
 var dmg = 0
 var piercing = false
-var particle = preload("res://scenes/particle2.tscn")
 
-func _ready():
-	emit()
-
-func _init():
+func _initialize():
+	$sprite.animation = type
+	
 	if type == "plasma":
 		speed = 150
 		dmg = 1
@@ -24,16 +23,21 @@ func _init():
 		piercing = true
 		dmg = 1
 		speed = 100
-	if type == "shotgun":
+	if type == "shot_gun":
+		for i in range(4):
+			emit_self()
 		dmg = 2
-		speed = 175
+		speed = 250
 		
 func emit():
 	var p = particle.instance()
-	get_parent().add_child(p)
+	var root = get_node("/root/Main")
+	root.add_child(p)
 	p.global_position = global_position
-	p = particle.instance()
-	get_parent().add_child(p)
+		
+func emit_self():
+	var p = particle.instance()
+	add_child(p)
 	p.global_position = global_position
 
 func explode():
@@ -47,7 +51,7 @@ func explode():
 
 func _physics_process(delta):
 	if !init:
-		_init()
+		_initialize()
 		init = true
 	
 	z_index = position.y
@@ -55,7 +59,6 @@ func _physics_process(delta):
 	move_and_slide(speed * dir)
 	
 	if type == "bomb":
-		move_and_slide(speed * dir)
 		speed -= 1 * delta
 		if speed <= 0:
 			speed = 0
@@ -72,7 +75,7 @@ func _physics_process(delta):
 		$sprite.rotation = position.angle_to_point(dir)
 	elif type == "plasma":
 		$sprite.rotation = position.angle_to_point(dir)
-	elif type == "shotgun":
+	elif type == "shot_gun":
 		$sprite.rotation += 100 * delta
 		
 func _on_Area2D_area_entered(area):
@@ -81,3 +84,8 @@ func _on_Area2D_area_entered(area):
 		area.get_parent().hit(get_parent(), dmg, "player")
 		if !piercing:
 			queue_free()
+
+func _on_Area2D_body_entered(body):
+	if body.name == "Walls":
+		emit()
+		queue_free()

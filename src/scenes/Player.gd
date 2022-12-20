@@ -12,12 +12,19 @@ var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
+var normalize_direction = 0
 
 var dead = false
 var entering = false
 
 func _ready():
 	add_to_group("players")
+	if Global.automatic_weapon != "empty":
+		$automatic_weapon.animation = Global.automatic_weapon
+		$automatic_weapon.visible = true
+	else:
+		$automatic_weapon.visible = false
+	
 	if Global.zombie:
 		turn_into_zombie()
 	
@@ -146,18 +153,38 @@ func entering():
 	$sprite.animation = "back" + ani_aditional
 	
 func get_random_enemy():
-	return Vector2(1, 0)
+	var _chase = get_tree().get_nodes_in_group("enemies")
+	var direction = null
+	if _chase.size() > 0:
+		randomize()
+		_chase.shuffle()
+		direction = (_chase[0].global_position - self.global_position).normalized()
+		normalize_direction = 3
+		$automatic_weapon.look_at(_chase[0].global_position)
+		return direction
+	else:
+		return null
 	
 func get_random_dir():
-	return Vector2(0, 1)
-	
+	return Global.pick_random([
+		Vector2(0, 1), 
+		Vector2(0, -1),
+		Vector2(1, 0),
+		Vector2(1, 1),
+		Vector2(1, -1),
+		Vector2(-1, 0),
+		Vector2(-1, 1),
+		Vector2(-1, -1)
+		])
 	
 func create_bullet(_dir):
-	var bullet = PlayerBullet.instance()
-	bullet.type = Global.automatic_weapon
-	bullet.dir = _dir
-	get_parent().add_child(bullet)
-	bullet.set_position(position)
+	if _dir != null:
+		var bullet = PlayerBullet.instance()
+		bullet.type = Global.automatic_weapon
+		bullet.dir = _dir
+		var root = get_node("/root/Main")
+		root.add_child(bullet)
+		bullet.global_position = global_position
 	
 func shoot():
 	if Global.automatic_weapon == "plasma":
@@ -172,15 +199,23 @@ func shoot():
 		create_bullet(Vector2(-1, 1))
 		create_bullet(Vector2(-1, -1))
 	else:
-		if Global.automatic_weapon == "shotgun":
-			create_bullet(get_random_enemy())
+		if Global.automatic_weapon == "shot_gun":
+			var dir = get_random_enemy()
+			create_bullet(dir)
 		elif Global.automatic_weapon == "knife":
 			create_bullet(get_random_enemy())
 		elif Global.automatic_weapon == "bomb":
 			create_bullet(get_random_dir())
 
 func _physics_process(delta):
+	if $automatic_weapon.visible:
+		if normalize_direction > 0:
+			normalize_direction -= 1 * delta
+		else:
+			$automatic_weapon.rotation = lerp_angle($automatic_weapon.rotation, 0, 0.2)
+	
 	if entering:
+		$automatic_weapon.visible = false
 		$melee_bar.visible = false
 		$melee_bar2.visible = false
 		$sprite.playing = true
@@ -194,6 +229,7 @@ func _physics_process(delta):
 			if turn_into_zombie_ttl <= 0:
 				turn_into_zombie()
 		else:
+			$automatic_weapon.visible = false
 			$melee_bar.visible = false
 			$melee_bar2.visible = false
 		return

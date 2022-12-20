@@ -199,7 +199,7 @@ var ENEMY_PATTERNS = [
 	-1,
 	[
 		["scorpion", "scorpion", "scorpion"],
-		["scorpion"]
+		["scorpion"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -211,6 +211,7 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["bat", "scorpion", "bat", "bat"],
 		["bat", "bat"],
+		["ghost", "ghost"],
 	],
 	[	
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -219,7 +220,12 @@ var ENEMY_PATTERNS = [
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire"],
 	],
-	[],
+	[
+		["ghost", "ghost"],
+		["dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
+		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
+	],
 	[],
 ]
 
