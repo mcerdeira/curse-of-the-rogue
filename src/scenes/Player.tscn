@@ -88,6 +88,16 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "knife",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "plasma",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 25 ) ],
 "loop": true,
 "name": "shot_gun",
@@ -122,7 +132,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -141,7 +151,7 @@ centered = false
 [node name="automatic_weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 11, 4 )
 frames = SubResource( 6 )
-animation = "shot_gun"
+animation = "plasma"
 offset = Vector2( 14, 0 )
 
 [node name="melee_progress" type="AnimationPlayer" parent="."]

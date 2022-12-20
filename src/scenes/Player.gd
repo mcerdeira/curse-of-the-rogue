@@ -176,7 +176,16 @@ func get_random_dir():
 		Vector2(-1, 1),
 		Vector2(-1, -1)
 		])
-	
+		
+func create_bullet_nodir(_dir):
+	if _dir != null:
+		var bullet = PlayerBullet.instance()
+		bullet.type = Global.automatic_weapon
+
+		var root = get_node("/root/Main")
+		root.add_child(bullet)
+		bullet.global_position = global_position
+
 func create_bullet(_dir):
 	if _dir != null:
 		var bullet = PlayerBullet.instance()
@@ -203,7 +212,7 @@ func shoot():
 			var dir = get_random_enemy()
 			create_bullet(dir)
 		elif Global.automatic_weapon == "knife":
-			create_bullet(get_random_enemy())
+			create_bullet_nodir(get_random_enemy())
 		elif Global.automatic_weapon == "bomb":
 			create_bullet(get_random_dir())
 

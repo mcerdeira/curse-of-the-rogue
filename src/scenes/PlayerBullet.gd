@@ -22,7 +22,7 @@ func _initialize():
 	if type == "knife":
 		piercing = true
 		dmg = 1
-		speed = 100
+		speed = 500
 	if type == "shot_gun":
 		for i in range(4):
 			emit_self()
@@ -72,7 +72,14 @@ func _physics_process(delta):
 			$sprite.speed_scale = 2
 		
 	elif type == "knife":
-		$sprite.rotation = position.angle_to_point(dir)
+		if !dir:
+			var _chase = get_tree().get_nodes_in_group("enemies")
+			if _chase.size() > 0:
+				randomize()
+				_chase.shuffle()
+				dir = (_chase[0].global_position - self.global_position).normalized()
+				$sprite.look_at(_chase[0].position)
+		
 	elif type == "plasma":
 		$sprite.rotation = position.angle_to_point(dir)
 	elif type == "shot_gun":

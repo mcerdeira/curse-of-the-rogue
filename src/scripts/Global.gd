@@ -289,7 +289,7 @@ func initialize():
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
-	automatic_weapon = "empty"
+	automatic_weapon = "knife"
 	
 	speed = 150
 	total_bad_luck = 100
