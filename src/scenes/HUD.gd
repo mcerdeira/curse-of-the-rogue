@@ -79,7 +79,7 @@ func _physics_process(delta):
 	$secondary_weapon.animation = Global.secondary_weapon
 	$automatic_weapon.animation = Global.automatic_weapon
 	
-	$hud_speed.text =  str(space) + str(Global.speed)
+	$hud_speed.text =  str(space) + str(Global.speed/100.00)
 	$hud_attack.text = str(space) + str(Global.attack)
 	$hud_melee_speed.text = str(space) + str(Global.melee_rate_total)
 	$hud_shoot_speed.text = str(space) + str(Global.shoot_speed_total)

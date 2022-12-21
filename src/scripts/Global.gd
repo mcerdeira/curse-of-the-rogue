@@ -99,35 +99,35 @@ var PREMIUM_ITEMS = {
 	"shoot_speed_up": {
 		"name": "shoot_speed_up",
 		"description": "Adrenaline",
-		"long_description": "Shoot Speed++",
+		"long_description": "Shoot Speed Up",
 		"price": 200,
 		"type": "passive"
 	},
 	"speedup": {
 		"name": "speedup",
 		"description": "Speed boots",
-		"long_description": "Speed++",
+		"long_description": "Speed Up",
 		"price": 150,
 		"type": "passive"
 	},
 	"meleeup": {
 		"name": "meleeup",
 		"description": "Chocolate Bar",
-		"long_description": "Melee Speed++",
+		"long_description": "Melee Speed Up",
 		"price": 150,
 		"type": "passive"
 	},
 	"damageup": {
 		"name": "damageup",
 		"description": "Ramen Bowl",
-		"long_description": "Damage++",
+		"long_description": "Damage Up",
 		"price": 150,
 		"type": "passive"
 	},
 	"luckup": {
 		"name": "luckup",
 		"description": "Clover",
-		"long_description": "Luck++",
+		"long_description": "Luck Up",
 		"price": 150,
 		"type": "passive"
 	},
@@ -298,8 +298,8 @@ func initialize():
 	secondary_weapon = "empty"
 	automatic_weapon = "empty"
 	
-	speed = 150
-	total_bad_luck = 100
+	speed = 150.00
+	total_bad_luck = 100.00
 	bad_luck = total_bad_luck
 	attack = 1
 
