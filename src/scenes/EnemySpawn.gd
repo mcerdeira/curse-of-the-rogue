@@ -43,7 +43,9 @@ func spawn_chest_and_stuff():
 	
 	var do_chest = true
 	var buff = 64
-	if randi() % 20 + 1 == 0:
+	randomize()
+	var posibility = randi() % 10
+	if (posibility) == 0:
 		buff = 96
 		do_chest = false
 	

@@ -14,6 +14,9 @@ var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
 
 var GAME_OVER = false
 var FLOOR_OVER = false
+var MainTheme = null
+var ShopAlterTheme = null
+var MainThemePlaying = false
 
 var max_combo = 0
 var current_combo = 0
@@ -201,7 +204,11 @@ var ENEMY_PATTERNS = [
 	-1,
 	[
 		["scorpion", "scorpion", "scorpion"],
+		["ghost"],
+		["bat"],
+		["dead_fire"],
 		["scorpion"],
+		["skeleton"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -232,10 +239,8 @@ var ENEMY_PATTERNS = [
 ]
 
 func _ready():
-	var MainTheme = load("res://music/main_theme.mp3")
-	
-	#Global.play_sound(MainTheme)
-	
+	MainTheme = load("res://music/main_theme.mp3")
+	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()

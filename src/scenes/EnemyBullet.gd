@@ -28,16 +28,15 @@ func _physics_process(delta):
 			dmg = 1
 			player_chase = get_tree().get_nodes_in_group("players")[0]
 			player_direction = (player_chase.position - self.position).normalized()
+			$sprite.look_at(player_chase.global_position)
 		
 		$sprite.animation = type
 		if dir != Vector2.ZERO:
 			move_and_slide(speed * dir)
-			$sprite.rotation = position.angle_to_point(dir)
+			$sprite.rotation = get_angle_to(dir)
 		else:
 			move_and_slide(speed * player_direction)
-			if type == "fire_ball":
-				$sprite.rotation = position.angle_to_point(player_direction)
-			else:
+			if type != "fire_ball":
 				$sprite.rotation += 10 * delta
 
 func destroy():

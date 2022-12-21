@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shop_altar_theme.mp3-0f587cf72e7d6dc1f6e8216bba25cf1e.mp3str"
+
+[deps]
+
+source_file="res://music/shop_altar_theme.mp3"
+dest_files=[ "res://.import/shop_altar_theme.mp3-0f587cf72e7d6dc1f6e8216bba25cf1e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
