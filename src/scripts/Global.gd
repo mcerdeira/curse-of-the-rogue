@@ -42,8 +42,15 @@ var total_bad_luck = 0
 var zombie = false
 var shoot_speed = 0.0
 var shoot_speed_total = 0.0
+
+var altar_points = 0
 var altar_lifes = 0
 var altar_gems = 0
+var altar_level = 0
+
+var POINTS_BASE = 9
+var POINTS_X = 1
+var POINTS_Y = 3
 
 enum floor_types {
 	intro,
@@ -245,6 +252,9 @@ func _ready():
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
+	
+func calc_points_level():
+	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
 
 func enemy_by_floor():
 	randomize()
@@ -323,10 +333,12 @@ func initialize():
 	altar_lifes = 0
 	altar_gems = 0
 	
+	altar_level = 1
+	
 	Muted = true
 
 func sustain():
-	combo_time = 0.5
+	combo_time = 0.7
 
 func add_combo():
 	combo_time = combo_time_total
