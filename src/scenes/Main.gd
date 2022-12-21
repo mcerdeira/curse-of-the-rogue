@@ -1,7 +1,8 @@
 extends Node2D
 
 func _ready():
-	#music_init()
+	if !Global.Muted:
+		music_init()
 	
 	if Global.FLOOR_TYPE != Global.floor_types.altar:
 		$Colums.queue_free()

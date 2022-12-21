@@ -1,4 +1,5 @@
 extends Node
+var Muted = false
 var arrow = preload("res://sprites/crosshair.png")
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -321,6 +322,8 @@ func initialize():
 	
 	altar_lifes = 0
 	altar_gems = 0
+	
+	Muted = true
 
 func sustain():
 	combo_time = 0.5
