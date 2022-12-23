@@ -11,20 +11,30 @@ var WAVE_COUNT = 0
 var plants_created = false
 
 func create_plants():
-	var count = Global.pick_random([1, 3, 5, 7, 0])
+	var vegetation = false
+	var count = 0
 	var positions = get_children()
+	vegetation = (randi() % 50 == 0)
+	
+	if vegetation:
+		count = positions.size() - 2
+	else:
+		count = Global.pick_random([1, 3, 5, 7, 0])
+		
 	var pinst = null
 	for i in range(count):
 		positions.shuffle()
 		var p = positions.pop_front()
 		pinst = plant.instance()
+		pinst.vegetation = vegetation
 		get_parent().add_child(pinst)
 		pinst.global_position = p.global_position
 
 func _physics_process(delta):
-	if !plants_created:
-		plants_created = true
-		create_plants()
+	if Global.FLOOR_TYPE != Global.floor_types.intro:
+		if !plants_created:
+			plants_created = true
+			create_plants()
 	
 	if Global.FLOOR_TYPE == Global.floor_types.normal:
 		if !Global.GAME_OVER and !Global.FLOOR_OVER:

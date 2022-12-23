@@ -13,7 +13,7 @@ export var altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
-func _ready():
+func _ready():	
 	var chest_replacement = false
 	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
 		if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:

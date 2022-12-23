@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/plan_sprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Plants.gd" type="Script" id=2]
 
 [node name="Plants" type="Node2D"]
 position = Vector2( 30, 28 )
+script = ExtResource( 2 )
 
 [node name="plan_sprite" parent="." instance=ExtResource( 1 )]
 

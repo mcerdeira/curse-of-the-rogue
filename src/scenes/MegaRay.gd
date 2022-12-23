@@ -54,6 +54,9 @@ func _on_area_body_entered(body):
 			body.hit(dmg)
 
 func _on_area_area_entered(area):
+	if area.is_in_group("decorations"):
+		area._destroy()
+	
 	if area.is_in_group("collectables"):
 		area._destroy()
 		

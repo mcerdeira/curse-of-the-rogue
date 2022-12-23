@@ -331,19 +331,19 @@ func init_pool():
 func get_random_item(chest_replacement:=false):
 	randomize()
 	if chest_replacement or Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		ITEM_POOL = ITEMS
+		ITEM_POOL = [] + ITEMS
 	else:
-		ITEM_POOL = PREMIUM_ITEMS
+		ITEM_POOL = [] + PREMIUM_ITEMS
 		
-	ITEM_POOL.shuffle()
+	ITEM_POOL.shuffle()	
 	return ITEM_POOL.pop_back()
 	
 func get_random_premium_item():
 	randomize()
 	if Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		ITEM_POOL = PREMIUM_ITEMS
+		ITEM_POOL = [] + PREMIUM_ITEMS
 	else:
-		ITEM_POOL = ITEMS
+		ITEM_POOL = [] + ITEMS
 	
 	ITEM_POOL.shuffle()
 	return ITEM_POOL.pop_back()	
