@@ -61,119 +61,125 @@ enum floor_types {
 	supershop
 }
 
-var PREMIUM_ITEMS = {
-	"shot_gun": {
-		"name": "shot_gun",
-		"description": "Shotgun",
-		"long_description": "Spread of bullets",
-		"price": 300,
-		"type": "passive"
-	},
-	"knife": {
-		"name": "knife",
-		"description": "Knife",
-		"long_description": "Piercing Knife",
-		"price": 300,
-		"type": "passive"
-	},
-	"key": {
-		"name": "key",
-		"description": "Key",
-		"long_description": "A Key",
-		"price": 150,
-		"type": "consumable"
-	},	
-	"wolfe_bite": {
+var shot_gun = {
+	"name": "shot_gun",
+	"description": "Shotgun",
+	"long_description": "Spread of bullets",
+	"price": 300,
+	"type": "passive"
+}
+
+var knife = {
+	"name": "knife",
+	"description": "Knife",
+	"long_description": "Piercing Knife",
+	"price": 300,
+	"type": "passive"
+}
+
+var key = {
+	"name": "key",
+	"description": "Key",
+	"long_description": "A Key",
+	"price": 150,
+	"type": "consumable"
+}
+	
+var wolfe_bite =  {
 		"name": "wolfe_bite",
 		"description": "Wolf Bite",
 		"long_description": "A wolf bite",
 		"price": 350,
 		"type": "passive"
-	},
-	"brain": {
-		"name": "brain",
-		"description": "Brain",
-		"long_description": "Yummy for zombies",
-		"price": 350,
-		"type": "passive"
-	},
-	"poison": {
-		"name": "poison",
-		"description": "Poison Drop",
-		"long_description": "Poisonous touch",
-		"price": 250,
-		"type": "passive"
-	},
-	"shoot_speed_up": {
-		"name": "shoot_speed_up",
-		"description": "Adrenaline",
-		"long_description": "Shoot Speed Up",
-		"price": 200,
-		"type": "passive"
-	},
-	"speedup": {
-		"name": "speedup",
-		"description": "Speed boots",
-		"long_description": "Speed Up",
-		"price": 150,
-		"type": "passive"
-	},
-	"meleeup": {
-		"name": "meleeup",
-		"description": "Chocolate Bar",
-		"long_description": "Melee Speed Up",
-		"price": 150,
-		"type": "passive"
-	},
-	"damageup": {
-		"name": "damageup",
-		"description": "Ramen Bowl",
-		"long_description": "Damage Up",
-		"price": 150,
-		"type": "passive"
-	},
-	"luckup": {
-		"name": "luckup",
-		"description": "Clover",
-		"long_description": "Luck Up",
-		"price": 150,
-		"type": "passive"
-	},
 }
 
-var ITEMS = {
-	"key": {
-		"name": "key",
-		"description": "Key",
-		"long_description": "A Key",
-		"price": 150,
-		"type": "consumable"
-	},
-	"blue_heart": {
-		"name": "blue_heart",
-		"description": "Blue Heart",
-		"long_description": "Shield",
-		"price": 50
-	},
-	"green_heart": {
-		"name": "green_heart",
-		"description": "Green Heart",
-		"long_description": "Shield + Poison",
-		"price": 75
-	},
-	"empty_heart": {
-		"name": "empty_heart",
-		"description": "Empty Heart",
-		"long_description": "Heart Container",
-		"price": 150
-	},
-	"normal_heart": {
-		"name": "normal_heart",
-		"description": "Heart",
-		"long_description": "Fills a Heart",
-		"price": 25
-	}
+var brain =  {
+	"name": "brain",
+	"description": "Brain",
+	"long_description": "Yummy for zombies",
+	"price": 350,
+	"type": "passive"
 }
+
+var poison_itm =  {
+	"name": "poison",
+	"description": "Poison Drop",
+	"long_description": "Poisonous touch",
+	"price": 250,
+	"type": "passive"
+}
+
+var shoot_speed_up = {
+	"name": "shoot_speed_up",
+	"description": "Adrenaline",
+	"long_description": "Shoot Speed Up",
+	"price": 200,
+	"type": "passive"
+}
+
+var speedup = {
+	"name": "speedup",
+	"description": "Speed boots",
+	"long_description": "Speed Up",
+	"price": 150,
+	"type": "passive"
+}
+
+var meleeup = {
+	"name": "meleeup",
+	"description": "Chocolate Bar",
+	"long_description": "Melee Speed Up",
+	"price": 150,
+	"type": "passive"
+}
+
+var damageup =  {
+	"name": "damageup",
+	"description": "Ramen Bowl",
+	"long_description": "Damage Up",
+	"price": 150,
+	"type": "passive"
+}
+
+var luckup = {
+	"name": "luckup",
+	"description": "Clover",
+	"long_description": "Luck Up",
+	"price": 150,
+	"type": "passive"
+}
+
+var blue_heart = {
+	"name": "blue_heart",
+	"description": "Blue Heart",
+	"long_description": "Shield",
+	"price": 50
+}
+
+var green_heart =  {
+	"name": "green_heart",
+	"description": "Green Heart",
+	"long_description": "Shield + Poison",
+	"price": 75
+}
+
+var empty_heart =  {
+	"name": "empty_heart",
+	"description": "Empty Heart",
+	"long_description": "Heart Container",
+	"price": 150
+}
+
+var normal_heart = {
+	"name": "normal_heart",
+	"description": "Heart",
+	"long_description": "Fills a Heart",
+	"price": 25
+}
+
+var ITEMS = []
+var PREMIUM_ITEMS = []
+var ITEM_POOL = []
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -247,6 +253,23 @@ var ENEMY_PATTERNS = [
 ]
 
 func _ready():
+	ITEMS.push_back(blue_heart)
+	ITEMS.push_back(green_heart)
+	ITEMS.push_back(empty_heart)
+	ITEMS.push_back(key)
+	
+	PREMIUM_ITEMS.push_back(luckup)
+	PREMIUM_ITEMS.push_back(damageup)
+	PREMIUM_ITEMS.push_back(meleeup)
+	PREMIUM_ITEMS.push_back(speedup)
+	PREMIUM_ITEMS.push_back(shoot_speed_up)
+	PREMIUM_ITEMS.push_back(poison_itm)
+	PREMIUM_ITEMS.push_back(brain)
+	PREMIUM_ITEMS.push_back(wolfe_bite)
+	PREMIUM_ITEMS.push_back(shot_gun)
+	PREMIUM_ITEMS.push_back(knife)
+	PREMIUM_ITEMS.push_back(key)
+	
 	MainTheme = load("res://music/main_theme.mp3")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	Input.set_custom_mouse_cursor(arrow)
@@ -278,19 +301,28 @@ func init_room():
 		FIRST = false
 		FLOOR_TYPE = floor_types.intro
 		
+func init_pool():
+	ITEM_POOL = []
+		
 func get_random_item(chest_replacement:=false):
 	randomize()
 	if chest_replacement or Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		return pick_random(ITEMS)
+		ITEM_POOL = ITEMS
 	else:
-		return pick_random(PREMIUM_ITEMS)
+		ITEM_POOL = PREMIUM_ITEMS
+		
+	ITEM_POOL.shuffle()
+	return ITEM_POOL.pop_back()
 	
 func get_random_premium_item():
 	randomize()
 	if Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		return pick_random(PREMIUM_ITEMS)
+		ITEM_POOL = PREMIUM_ITEMS
 	else:
-		return pick_random(ITEMS)
+		ITEM_POOL = ITEMS
+	
+	ITEM_POOL.shuffle()
+	return ITEM_POOL.pop_back()	
 
 func initialize():
 	FIRST = true
@@ -310,7 +342,7 @@ func initialize():
 	automatic_weapon = "empty"
 	
 	speed = 150.00
-	total_bad_luck = 100.00
+	total_bad_luck = 100
 	bad_luck = total_bad_luck
 	attack = 1
 
