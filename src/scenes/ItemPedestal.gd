@@ -63,22 +63,22 @@ func do_item_effect(_player):
 		
 	if item_name == "blue_heart":
 		_player.add_shield(1)
-	elif item_name == "knife":
-		_player.add_automatic_weapon(item_name)
-	elif item_name == "shot_gun":
-		_player.add_automatic_weapon(item_name)
 	elif item_name == "bomb":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "brain":
 		pass
 	elif item_name == "damageup":
 		_player.add_damage(1)
+	elif item_name == "dash":
+		pass
 	elif item_name == "empty_heart":
 		_player.add_total_hearts(1)
 	elif item_name == "green_heart":
 		_player.add_shield_poision(1)
 	elif item_name == "key":
 		_player.add_key(1)
+	elif item_name == "knife":
+		_player.add_automatic_weapon(item_name)
 	elif item_name == "luckup":
 		_player.add_luck(1)
 	elif item_name == "meleeup":
@@ -87,10 +87,16 @@ func do_item_effect(_player):
 		_player.add_heart(1)
 	elif item_name == "poison":
 		_player.add_poison()
+	elif item_name == "roll":
+		pass
 	elif item_name == "shoot_speed_up":
 		_player.add_shoot_speed(0.5)
+	elif item_name == "shot_gun":
+		_player.add_automatic_weapon(item_name)
 	elif item_name == "speedup":
 		_player.add_speed(1)
+	elif item_name == "tomahawk":
+		pass
 	elif item_name == "wolf_bite":
 		pass
 

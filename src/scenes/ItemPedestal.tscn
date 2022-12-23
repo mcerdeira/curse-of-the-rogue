@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -21,6 +21,9 @@
 [ext_resource path="res://sprites/gun_item_spr_0.png" type="Texture" id=19]
 [ext_resource path="res://sprites/knife_item_spr_0.png" type="Texture" id=20]
 [ext_resource path="res://sprites/bomb4.png" type="Texture" id=21]
+[ext_resource path="res://sprites/roll_item.png" type="Texture" id=22]
+[ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=23]
+[ext_resource path="res://sprites/dash_item.png" type="Texture" id=24]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -48,6 +51,11 @@ animations = [ {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "damageup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "dash",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -90,6 +98,11 @@ animations = [ {
 "name": "poison",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "roll",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "shoot_speed_up",
@@ -103,6 +116,11 @@ animations = [ {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "speedup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "tomahawk",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ) ],
@@ -140,6 +158,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "bomb"
+animation = "dash"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

@@ -61,6 +61,22 @@ enum floor_types {
 	supershop
 }
 
+var dash_item = {
+	"name": "dash",
+	"description": "Dash",
+	"long_description": "Be quick or be death",
+	"price": 300,
+	"type": "active"
+}
+
+var roll_item = {
+	"name": "roll",
+	"description": "Roll",
+	"long_description": "Keep rolling, rolling...",
+	"price": 300,
+	"type": "active"
+}
+
 var shot_gun = {
 	"name": "shot_gun",
 	"description": "Shotgun",
@@ -73,6 +89,14 @@ var knife = {
 	"name": "knife",
 	"description": "Knife",
 	"long_description": "Piercing Knife",
+	"price": 300,
+	"type": "passive"
+}
+
+var tomahawk = {
+	"name": "tomahawk",
+	"description": "Tomahawk",
+	"long_description": "You can't eat it",
 	"price": 300,
 	"type": "passive"
 }

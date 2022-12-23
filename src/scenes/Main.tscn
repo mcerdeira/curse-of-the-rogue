@@ -503,19 +503,19 @@ altar_type = "blood"
 [node name="col2" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 10
+frame = 5
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 11
+frame = 6
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 10
+frame = 5
 playing = true
 
 [node name="Colums2" type="Node2D" parent="."]
@@ -524,17 +524,17 @@ position = Vector2( 273, 0 )
 [node name="col2" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 10
+frame = 5
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 10
+frame = 5
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 9
+frame = 4
 playing = true
