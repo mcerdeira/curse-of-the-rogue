@@ -53,6 +53,7 @@ func _ready():
 func _physics_process(delta):
 	time += delta * frequency
 	$item.set_position(default_pos + Vector2(0, sin(time) * amplitude))
+	z_index = global_position.y
 
 func emit():
 	for i in range(2):

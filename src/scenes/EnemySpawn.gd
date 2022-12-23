@@ -5,10 +5,27 @@ var ItemPedestal = preload("res://scenes/ItemPedestal.tscn")
 var enemy = preload("res://scenes/Enemy.tscn")
 var bat_group = preload("res://scenes/EnemyGroup.tscn")
 var chest = preload("res://scenes/Chest.tscn")
+var plant = preload("res://scenes/Plants.tscn")
 var min_count = 3
 var WAVE_COUNT = 0
+var plants_created = false
+
+func create_plants():
+	var count = Global.pick_random([1, 3, 5, 7, 0])
+	var positions = get_children()
+	var pinst = null
+	for i in range(count):
+		positions.shuffle()
+		var p = positions.pop_front()
+		pinst = plant.instance()
+		get_parent().add_child(pinst)
+		pinst.global_position = p.global_position
 
 func _physics_process(delta):
+	if !plants_created:
+		plants_created = true
+		create_plants()
+	
 	if Global.FLOOR_TYPE == Global.floor_types.normal:
 		if !Global.GAME_OVER and !Global.FLOOR_OVER:
 			current_timer -= 1 * delta

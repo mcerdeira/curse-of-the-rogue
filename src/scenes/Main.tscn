@@ -174,7 +174,7 @@ position = Vector2( 880, 496 )
 position = Vector2( 624, 504 )
 
 [node name="Spikes7" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 424, 504 )
+position = Vector2( 437, 505 )
 
 [node name="Spikes8" parent="SpikeGroup" instance=ExtResource( 25 )]
 position = Vector2( 192, 504 )
@@ -392,7 +392,7 @@ position = Vector2( 512, 544 )
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
 [node name="pos0" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 400, 504 )
+position = Vector2( 400, 533 )
 
 [node name="pos1" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 147, 286 )
@@ -531,19 +531,19 @@ altar_type = "blood"
 [node name="col2" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 5
+frame = 2
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="Colums2" type="Node2D" parent="."]
@@ -552,17 +552,16 @@ position = Vector2( 273, 0 )
 [node name="col2" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 3
 playing = true

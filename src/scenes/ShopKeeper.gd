@@ -6,4 +6,4 @@ func _ready():
 
 
 func _physics_process(delta):
-	z_index = position.y
+	z_index = global_position.y

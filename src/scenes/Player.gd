@@ -333,7 +333,7 @@ func _physics_process(delta):
 		
 	movement = move_and_slide(movement, Vector2.UP)
 	
-	z_index = position.y
+	z_index = global_position.y + 16
 	
 	if move and inv_time <= 0:
 		if up:
