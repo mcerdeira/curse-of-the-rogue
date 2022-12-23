@@ -66,6 +66,15 @@ func add_shield_poision(count):
 func add_automatic_weapon(weapon):
 	Global.automatic_weapon = weapon
 	
+func add_secondary_weapon(weapon):
+	Global.secondary_weapon = weapon
+	
+func add_wolf_bite():
+	pass
+	
+func add_brain():
+	pass
+	
 func add_poison():
 	Global.poison = true
 	

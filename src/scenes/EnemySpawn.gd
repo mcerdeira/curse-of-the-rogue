@@ -60,6 +60,7 @@ func spawn_chest_and_stuff():
 			obj_pos = pos.position
 	
 	var obj_inst = null
+
 	if do_chest:
 		obj_inst = chest.instance()
 	else:

@@ -9,6 +9,8 @@ var particle = preload("res://scenes/particle2.tscn")
 var amplitude = 5.0
 var frequency = 2.0
 var time = 0
+export var altar_level = 0
+export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
@@ -19,6 +21,15 @@ func _ready():
 			return
 	else:
 		chest_replacement = true
+		
+	if Global.FLOOR_TYPE == Global.floor_types.altar:
+		if altar_level > Global.altar_level:
+			queue_free()
+			return
+		
+	if noforshop and Global.FLOOR_TYPE == Global.floor_types.shop:
+		queue_free()
+		return
 		
 	emit()
 	var item = choose_item(chest_replacement)
@@ -66,11 +77,11 @@ func do_item_effect(_player):
 	elif item_name == "bomb":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "brain":
-		pass
+		_player.add_brain()
 	elif item_name == "damageup":
 		_player.add_damage(1)
 	elif item_name == "dash":
-		pass
+		_player.add_secondary_weapon(item_name)
 	elif item_name == "empty_heart":
 		_player.add_total_hearts(1)
 	elif item_name == "green_heart":
@@ -88,7 +99,7 @@ func do_item_effect(_player):
 	elif item_name == "poison":
 		_player.add_poison()
 	elif item_name == "roll":
-		pass
+		_player.add_secondary_weapon(item_name)
 	elif item_name == "shoot_speed_up":
 		_player.add_shoot_speed(0.5)
 	elif item_name == "shot_gun":
@@ -96,9 +107,9 @@ func do_item_effect(_player):
 	elif item_name == "speedup":
 		_player.add_speed(1)
 	elif item_name == "tomahawk":
-		pass
+		_player.add_automatic_weapon(item_name)
 	elif item_name == "wolf_bite":
-		pass
+		_player.add_wolf_bite()
 
 func _on_ItemPedestal_body_entered(body):
 	if body.is_in_group("players") and !taken and Global.pay_price(body, price_what, price_amount):
