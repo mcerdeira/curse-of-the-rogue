@@ -67,11 +67,11 @@ func reveal_doors():
 	
 func spawn_chest_and_stuff():
 	reveal_doors()
-	
+	randomize()
 	var do_chest = true
 	var buff = 64
 	randomize()
-	var posibility = randi() % 10
+	var posibility = (randi() % 4)
 	if (posibility) == 0:
 		buff = 96
 		do_chest = false
@@ -113,6 +113,10 @@ func spawn_enemy():
 				enemy_inst = bat_group.instance()
 			else:
 				enemy_inst = enemy.instance()
+				if type == "scorpion":
+					if Global.pick_random([1, 1, 1, 1, 0]) == 0:
+						type = "scorpion+"
+				
 				enemy_inst.enemy_type = type
 				
 			get_parent().add_child(enemy_inst)

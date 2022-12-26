@@ -35,5 +35,9 @@ func level_up_altar():
 	set_values()
 
 func _on_Area2D_body_entered(body):
-	if !Global.zombie and body.is_in_group("players") and Global.pay_price(body, price_what, price_amount):
-		level_up_altar()
+	if body.is_in_group("players"):
+		if Global.zombie and price_what == "life":
+			return
+		else:
+			if Global.pay_price(body, price_what, price_amount):
+				level_up_altar()

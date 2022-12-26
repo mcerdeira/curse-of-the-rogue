@@ -61,12 +61,40 @@ enum floor_types {
 	supershop
 }
 
+var pay_2_win = {
+	"name": "pay_2_win",
+	"description": "Pay 2 Win",
+	"long_description": "Attack depends on Gems",
+	"price": 550,
+	"type": "active",
+	"oneshot": true,
+}
+
+var electric_attack = {
+	"name": "electric_attack",
+	"description": "Electrifying",
+	"long_description": "Electric attack",
+	"price": 450,
+	"type": "active",
+	"oneshot": true,
+}
+
+var ice_attack = {
+	"name": "ice_attack",
+	"description": "Ice Touch",
+	"long_description": "Froze em' all",
+	"price": 450,
+	"type": "active",
+	"oneshot": true,
+}
+
 var dash_item = {
 	"name": "dash",
 	"description": "Dash",
 	"long_description": "Be quick or be death",
 	"price": 300,
-	"type": "active"
+	"type": "active",
+	"oneshot": true,
 }
 
 var roll_item = {
@@ -74,7 +102,8 @@ var roll_item = {
 	"description": "Roll",
 	"long_description": "Keep rolling, rolling...",
 	"price": 300,
-	"type": "active"
+	"type": "active",
+	"oneshot": true,
 }
 
 var shot_gun = {
@@ -82,7 +111,8 @@ var shot_gun = {
 	"description": "Shotgun",
 	"long_description": "Spread of bullets",
 	"price": 300,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": true,
 }
 
 var knife = {
@@ -90,7 +120,8 @@ var knife = {
 	"description": "Knife",
 	"long_description": "Piercing Knife",
 	"price": 300,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": true,
 }
 
 var tomahawk = {
@@ -98,7 +129,8 @@ var tomahawk = {
 	"description": "Tomahawk",
 	"long_description": "You can't eat it",
 	"price": 300,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": true,
 }
 
 var key = {
@@ -106,15 +138,17 @@ var key = {
 	"description": "Key",
 	"long_description": "A Key",
 	"price": 150,
-	"type": "consumable"
+	"type": "consumable",
+	"oneshot": false,
 }
 	
 var wolfe_bite =  {
-		"name": "wolfe_bite",
-		"description": "Wolf Bite",
-		"long_description": "A wolf bite",
-		"price": 350,
-		"type": "passive"
+	"name": "wolfe_bite",
+	"description": "Wolf Bite",
+	"long_description": "A wolf bite",
+	"price": 350,
+	"type": "modifier",
+	"oneshot": true,
 }
 
 var brain =  {
@@ -122,7 +156,8 @@ var brain =  {
 	"description": "Brain",
 	"long_description": "Yummy for zombies",
 	"price": 350,
-	"type": "passive"
+	"type": "modifier",
+	"oneshot": true,
 }
 
 var poison_itm =  {
@@ -130,7 +165,8 @@ var poison_itm =  {
 	"description": "Poison Drop",
 	"long_description": "Poisonous touch",
 	"price": 250,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": true,
 }
 
 var shoot_speed_up = {
@@ -138,7 +174,8 @@ var shoot_speed_up = {
 	"description": "Adrenaline",
 	"long_description": "Shoot Speed Up",
 	"price": 200,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": false,
 }
 
 var speedup = {
@@ -146,7 +183,8 @@ var speedup = {
 	"description": "Speed boots",
 	"long_description": "Speed Up",
 	"price": 150,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": false,
 }
 
 var meleeup = {
@@ -154,7 +192,8 @@ var meleeup = {
 	"description": "Chocolate Bar",
 	"long_description": "Melee Speed Up",
 	"price": 150,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": false,
 }
 
 var damageup =  {
@@ -162,7 +201,8 @@ var damageup =  {
 	"description": "Ramen Bowl",
 	"long_description": "Damage Up",
 	"price": 150,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": false,
 }
 
 var luckup = {
@@ -170,35 +210,40 @@ var luckup = {
 	"description": "Clover",
 	"long_description": "Luck Up",
 	"price": 150,
-	"type": "passive"
+	"type": "passive",
+	"oneshot": false,
 }
 
 var blue_heart = {
 	"name": "blue_heart",
 	"description": "Blue Heart",
 	"long_description": "Shield",
-	"price": 50
+	"price": 50,
+	"oneshot": false,
 }
 
 var green_heart =  {
 	"name": "green_heart",
 	"description": "Green Heart",
 	"long_description": "Shield + Poison",
-	"price": 75
+	"price": 75,
+	"oneshot": false,
 }
 
 var empty_heart =  {
 	"name": "empty_heart",
 	"description": "Empty Heart",
 	"long_description": "Heart Container",
-	"price": 150
+	"price": 150,
+	"oneshot": false,
 }
 
 var normal_heart = {
 	"name": "normal_heart",
 	"description": "Heart",
 	"long_description": "Fills a Heart",
-	"price": 25
+	"price": 25,
+	"oneshot": false,
 }
 
 var ITEMS = []
@@ -292,7 +337,9 @@ func _ready():
 	PREMIUM_ITEMS.push_back(wolfe_bite)
 	PREMIUM_ITEMS.push_back(shot_gun)
 	PREMIUM_ITEMS.push_back(knife)
-	PREMIUM_ITEMS.push_back(key)
+	PREMIUM_ITEMS.push_back(electric_attack)
+	PREMIUM_ITEMS.push_back(ice_attack)
+	PREMIUM_ITEMS.push_back(pay_2_win)
 	
 	MainTheme = load("res://music/main_theme.mp3")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
@@ -328,25 +375,33 @@ func init_room():
 func init_pool():
 	ITEM_POOL = []
 		
-func get_random_item(chest_replacement:=false):
+func get_random_item(force:=false):
 	randomize()
-	if chest_replacement or Global.pick_random([1, 1, 1, 1, 0]) == 1:
+	var idx = -1
+	if PREMIUM_ITEMS.size() == 0 or force or Global.pick_random([1, 1, 1, 1, 0]) == 1:
+		idx = randi() % ITEMS.size()
 		ITEM_POOL = [] + ITEMS
-	else:
-		ITEM_POOL = [] + PREMIUM_ITEMS
+		var itm = ITEM_POOL.pop_at(idx)
+		if itm.oneshot:
+			ITEMS.remove(idx)
 		
-	ITEM_POOL.shuffle()	
-	return ITEM_POOL.pop_back()
-	
+		return itm
+	else:
+		return get_random_premium_item()
+		
 func get_random_premium_item():
 	randomize()
-	if Global.pick_random([1, 1, 1, 1, 0]) == 1:
+	var idx = -1
+	if PREMIUM_ITEMS.size() > 0 and Global.pick_random([1, 1, 1, 1, 0]) == 1:
+		idx = randi() % PREMIUM_ITEMS.size()
 		ITEM_POOL = [] + PREMIUM_ITEMS
+		var itm = ITEM_POOL.pop_at(idx)
+		if itm.oneshot:
+			PREMIUM_ITEMS.remove(idx)
+		
+		return itm
 	else:
-		ITEM_POOL = [] + ITEMS
-	
-	ITEM_POOL.shuffle()
-	return ITEM_POOL.pop_back()	
+		return get_random_item(true)
 
 func initialize():
 	FIRST = true

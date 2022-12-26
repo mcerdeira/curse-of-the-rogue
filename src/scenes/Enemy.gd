@@ -296,17 +296,22 @@ func set_type(_type):
 		shoot_on_die = false
 		disapear = false
 		
-	if enemy_type == "scorpion":
+	if enemy_type == "scorpion" or enemy_type == "scorpion+":
+		if enemy_type == "scorpion+":
+			life = 4
+			speed = 180
+			speed_total = 200
+		else:
+			life = 1
+			speed = 100
+			speed_total = 200
+		
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
-		
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
-		speed = 100
-		speed_total = 200
-		life = 1
 		dmg = 1
 		chase_player = true
 		flying = false
