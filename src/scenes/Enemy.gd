@@ -31,6 +31,9 @@ var infected = false
 var poisoned = false
 var shoot_on_die = false
 var disapear = false
+var leave_trail = false
+var trail_ttl_total = 0.1
+var trail_ttl = trail_ttl_total
 var invisible_time = 0
 var invisible_time_total = 1
 
@@ -108,6 +111,14 @@ func shoot_die():
 		create_enemy_bullet(Vector2(-1, 0))
 		create_enemy_bullet(Vector2(0, 1))
 		create_enemy_bullet(Vector2(0, -1))
+		
+func trail():
+	emit()
+	if enemy_type == "dead_fire":
+		var fire_ball = EnemyBullet.instance()
+		fire_ball.type = "fire_trail"
+		get_parent().add_child(fire_ball)
+		fire_ball.set_position(position)
 
 func shoot():
 	emit()
@@ -153,6 +164,12 @@ func enemy_behaviour(delta):
 		
 	
 	face_player()
+	
+	if leave_trail:
+		trail_ttl -= 1 * delta
+		if trail_ttl <= 0:
+			trail_ttl = trail_ttl_total
+			trail()
 		
 	if stop_moving > 0:
 		if !flying:
@@ -254,6 +271,7 @@ func set_type(_type):
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		shoot_on_die = true
 		disapear = true
+		leave_trail = false
 	
 	if enemy_type == "dead_fire":
 		$area/collider.set_deferred("disabled", true)
@@ -263,8 +281,8 @@ func set_type(_type):
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
 		shoot_type = true
-		speed = 10
-		speed_total = 10
+		speed = 150
+		speed_total = 150
 		life = 5
 		dmg = 2
 		chase_player = true
@@ -275,6 +293,7 @@ func set_type(_type):
 		$sprite.position.y = -32
 		$shadow.visible = false
 		disapear = false
+		leave_trail = true
 	
 	if enemy_type == "bat":
 		$area/collider.set_deferred("disabled", false)
@@ -295,6 +314,7 @@ func set_type(_type):
 		stopandgo = false
 		shoot_on_die = false
 		disapear = false
+		leave_trail = false
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		if enemy_type == "scorpion+":
@@ -320,6 +340,7 @@ func set_type(_type):
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		shoot_on_die = false
 		disapear = false
+		leave_trail = false
 		
 	elif enemy_type == "skeleton":
 		$area/collider.set_deferred("disabled", false)
@@ -339,6 +360,7 @@ func set_type(_type):
 		stopandgo = false
 		shoot_on_die = false
 		disapear = false
+		leave_trail = false
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:

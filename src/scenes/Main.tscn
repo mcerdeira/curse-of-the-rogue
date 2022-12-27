@@ -344,11 +344,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -532,19 +534,19 @@ altar_type = "blood"
 [node name="col2" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 8
+frame = 15
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 9
+frame = 16
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 8
+frame = 15
 playing = true
 
 [node name="Colums2" type="Node2D" parent="."]
@@ -553,17 +555,17 @@ position = Vector2( 273, 0 )
 [node name="col2" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 389 )
 frames = SubResource( 7 )
-frame = 8
+frame = 15
 playing = true
 
 [node name="col" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 504 )
 frames = SubResource( 7 )
-frame = 8
+frame = 15
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums2"]
 position = Vector2( 376, 277 )
 frames = SubResource( 7 )
-frame = 7
+frame = 14
 playing = true

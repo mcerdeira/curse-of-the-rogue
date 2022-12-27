@@ -65,17 +65,19 @@ func reveal_doors():
 	for d in doors:
 		d.reveal()
 	
-func spawn_chest_and_stuff():
-	reveal_doors()
-	randomize()
-	var do_chest = true
-	var buff = 64
-	randomize()
-	var posibility = (randi() % 4)
-	if (posibility) == 0:
-		buff = 96
-		do_chest = false
+func find_farthest_to_chest(chest, buff):
+	var positions = get_children()
+	var last_pos = 0
+	var obj_pos = null
+	for pos in positions:
+		var p = pos.position.distance_to(chest.position)
+		if last_pos < p:
+			last_pos = p
+			obj_pos = pos.position
 	
+	return obj_pos
+	
+func find_closest_player(buff):
 	var player = get_tree().get_nodes_in_group("players")[0]
 	var positions = get_children()
 	var last_pos = 999999999
@@ -86,6 +88,19 @@ func spawn_chest_and_stuff():
 			last_pos = p
 			obj_pos = pos.position
 	
+	return obj_pos
+	
+func spawn_chest_and_stuff():
+	randomize()
+	reveal_doors()
+	var do_chest = true
+	var buff = 64
+	var posibility = (randi() % 4)
+	if (posibility) == 0:
+		buff = 96
+		do_chest = false
+	
+	var obj_pos = find_closest_player(buff)
 	var obj_inst = null
 
 	if do_chest:
@@ -95,6 +110,12 @@ func spawn_chest_and_stuff():
 	
 	get_parent().add_child(obj_inst)
 	obj_inst.set_position(to_global(obj_pos))
+	
+	if do_chest and Global.pick_random([0, 0, 1]):
+		obj_pos = find_farthest_to_chest(obj_inst, 0)
+		obj_inst = ItemPedestal.instance()
+		get_parent().add_child(obj_inst)
+		obj_inst.set_position(to_global(obj_pos))
 		
 func spawn_enemy():
 	if WAVE_COUNT < Global.get_floor_waves():

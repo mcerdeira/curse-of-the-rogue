@@ -6,6 +6,7 @@ var speed = 0
 var dmg = 0
 var particle = preload("res://scenes/particle2.tscn")
 var dir = Vector2.ZERO
+var ttl = 5
 
 func _ready():
 	add_to_group("enemybullets")
@@ -19,6 +20,13 @@ func emit():
 	p.global_position = global_position
 
 func _physics_process(delta):
+	if type == "fire_trail":
+		dmg = 1
+		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
+		ttl -= 1 * delta
+		if ttl <= 0:
+			destroy()
+	
 	if type == "bone" or type == "fire_ball":
 		if player_chase == null:
 			if type == "fire_ball":

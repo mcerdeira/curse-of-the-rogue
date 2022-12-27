@@ -249,6 +249,7 @@ var normal_heart = {
 var ITEMS = []
 var PREMIUM_ITEMS = []
 var ITEM_POOL = []
+var ITEM_POOL_TYPE = ""
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -286,12 +287,14 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
-		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
 		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
+		
+#		["scorpion", "scorpion", "scorpion"],
+#		["ghost"],
+#		["bat"],
+#		["dead_fire"],
+#		["scorpion"],
+#		["skeleton"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -374,13 +377,17 @@ func init_room():
 		
 func init_pool():
 	ITEM_POOL = []
-		
+	ITEM_POOL_TYPE = ""
+	
 func get_random_item(force:=false):
 	randomize()
 	var idx = -1
 	if PREMIUM_ITEMS.size() == 0 or force or Global.pick_random([1, 1, 1, 1, 0]) == 1:
 		idx = randi() % ITEMS.size()
-		ITEM_POOL = [] + ITEMS
+		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "premium":
+			ITEM_POOL_TYPE = "normal"
+			ITEM_POOL = [] + ITEMS
+			
 		var itm = ITEM_POOL.pop_at(idx)
 		if itm.oneshot:
 			ITEMS.remove(idx)
@@ -394,7 +401,10 @@ func get_random_premium_item():
 	var idx = -1
 	if PREMIUM_ITEMS.size() > 0 and Global.pick_random([1, 1, 1, 1, 0]) == 1:
 		idx = randi() % PREMIUM_ITEMS.size()
-		ITEM_POOL = [] + PREMIUM_ITEMS
+		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "normal":
+			ITEM_POOL_TYPE = "premium"
+			ITEM_POOL = [] + PREMIUM_ITEMS
+			
 		var itm = ITEM_POOL.pop_at(idx)
 		if itm.oneshot:
 			PREMIUM_ITEMS.remove(idx)

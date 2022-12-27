@@ -2,6 +2,7 @@ extends StaticBody2D
 export var altar_type = ""
 var price_amount = 1
 var price_what = ""
+var entered = false
 
 func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.altar:
@@ -35,9 +36,14 @@ func level_up_altar():
 	set_values()
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("players"):
+	if !entered and body.is_in_group("players"):
+		entered = true
 		if Global.zombie and price_what == "life":
 			return
 		else:
 			if Global.pay_price(body, price_what, price_amount):
 				level_up_altar()
+
+func _on_Area2D_body_exited(body):
+	if entered and body.is_in_group("players"):
+		entered = false
