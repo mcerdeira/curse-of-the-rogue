@@ -2,6 +2,8 @@ extends Node2D
 var game_over_visible = 5
 var space = "       : "
 var message_ttl = 0
+var combo_text = "  COMBO: "
+var game_over_text = "YOU DIED"
 export var full_hearts : Texture
 export var empty_hearts : Texture
 export var shield_hearts : Texture
@@ -48,7 +50,7 @@ func _physics_process(delta):
 		if message_ttl <= 0:
 			message_ttl = 0
 			$c/subtitle.text = ""
-			$c/game_over.text = ""
+			$c/game_over.text = game_over_text
 			$c/game_over.visible = false
 	
 	if Global.GAME_OVER:
@@ -83,6 +85,6 @@ func _physics_process(delta):
 	$hud_attack.text = str(space) + str(Global.attack)
 	$hud_melee_speed.text = str(space) + str(Global.melee_rate_total)
 	$hud_shoot_speed.text = str(space) + str(Global.shoot_speed_total)
-	$hud_combo_count.text = "  COMBO: " + str(Global.max_combo)
+	$hud_combo_count.text = combo_text + str(Global.max_combo)
 	$hud_luck.text = str(space) + str(Global.total_bad_luck - Global.bad_luck) + "%"
 	$hud_keys.text = str(space) + str(Global.keys)

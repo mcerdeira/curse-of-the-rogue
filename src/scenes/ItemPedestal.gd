@@ -5,6 +5,7 @@ var price_what = "gems"
 var item_name = ""
 var item_description = ""
 var item_long_description = ""
+var oneshot = false
 var particle = preload("res://scenes/particle2.tscn")
 var amplitude = 5.0
 var frequency = 2.0
@@ -37,6 +38,7 @@ func _ready():
 	item_name = item.name
 	item_description = item.description
 	item_long_description = item.long_description
+	oneshot = item.oneshot
 	
 	if chest_replacement or Global.FLOOR_TYPE == Global.floor_types.altar:
 		$gem.visible = false
@@ -72,6 +74,9 @@ func do_item_effect(_player):
 	emit()
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
 	HUD.set_message(item_description, item_long_description)
+	
+	if oneshot:
+		Global.remove_from_pool(item_name)
 		
 	if item_name == "blue_heart":
 		_player.add_shield(1)
@@ -83,10 +88,14 @@ func do_item_effect(_player):
 		_player.add_damage(1)
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
+	elif item_name == "electric_attack":
+		pass
 	elif item_name == "empty_heart":
 		_player.add_total_hearts(1)
 	elif item_name == "green_heart":
 		_player.add_shield_poision(1)
+	elif item_name == "ice_attack":
+		pass
 	elif item_name == "key":
 		_player.add_key(1)
 	elif item_name == "knife":
@@ -97,6 +106,8 @@ func do_item_effect(_player):
 		_player.add_melee(0.1)
 	elif item_name == "normal_heart":
 		_player.add_heart(1)
+	elif item_name == "pay_2_win":
+		pass
 	elif item_name == "poison":
 		_player.add_poison()
 	elif item_name == "roll":

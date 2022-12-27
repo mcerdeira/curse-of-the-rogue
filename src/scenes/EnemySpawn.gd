@@ -50,6 +50,9 @@ func _physics_process(delta):
 				spawn_enemy()
 	else:
 		if first_time:
+			if Global.FLOOR_TYPE == Global.floor_types.altar:
+				spawn_chest_and_stuff(true)
+			
 			reveal_doors()
 			first_time = false
 			
@@ -90,7 +93,7 @@ func find_closest_player(buff):
 	
 	return obj_pos
 	
-func spawn_chest_and_stuff():
+func spawn_chest_and_stuff(only_chest:=false):
 	randomize()
 	reveal_doors()
 	var do_chest = true
@@ -103,7 +106,7 @@ func spawn_chest_and_stuff():
 	var obj_pos = find_closest_player(buff)
 	var obj_inst = null
 
-	if do_chest:
+	if only_chest or do_chest:
 		obj_inst = chest.instance()
 	else:
 		obj_inst = ItemPedestal.instance()
@@ -111,7 +114,7 @@ func spawn_chest_and_stuff():
 	get_parent().add_child(obj_inst)
 	obj_inst.set_position(to_global(obj_pos))
 	
-	if do_chest and Global.pick_random([0, 0, 1]):
+	if !only_chest and do_chest and Global.pick_random([0, 0, 1]):
 		obj_pos = find_farthest_to_chest(obj_inst, 0)
 		obj_inst = ItemPedestal.instance()
 		get_parent().add_child(obj_inst)

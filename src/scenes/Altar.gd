@@ -32,7 +32,7 @@ func level_up_altar():
 		Global.altar_points += 10
 	if altar_type == "gem":
 		Global.altar_gems += 1
-		Global.altar_gems += 1
+		Global.altar_points += 1
 	set_values()
 
 func _on_Area2D_body_entered(body):

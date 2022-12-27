@@ -58,6 +58,11 @@ animations = [ {
 "name": "dash",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "electric_attack",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "empty_heart",
@@ -66,6 +71,11 @@ animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "green_heart",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "ice_attack",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ) ],
@@ -91,6 +101,11 @@ animations = [ {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "normal_heart",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "pay_2_win",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -158,6 +173,6 @@ texture = ExtResource( 4 )
 [node name="item" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "dash"
+animation = "pay_2_win"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]
