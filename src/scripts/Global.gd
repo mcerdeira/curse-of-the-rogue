@@ -344,6 +344,7 @@ func _ready():
 	PREMIUM_ITEMS.push_back(wolfe_bite)
 	PREMIUM_ITEMS.push_back(shot_gun)
 	PREMIUM_ITEMS.push_back(knife)
+	PREMIUM_ITEMS.push_back(tomahawk)
 	PREMIUM_ITEMS.push_back(electric_attack)
 	PREMIUM_ITEMS.push_back(ice_attack)
 	PREMIUM_ITEMS.push_back(pay_2_win)
