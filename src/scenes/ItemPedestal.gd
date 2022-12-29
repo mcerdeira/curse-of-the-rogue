@@ -4,6 +4,7 @@ var price_amount = 0
 var price_what = "gems"
 var item_name = ""
 var item_description = ""
+var item_type = ""
 var item_long_description = ""
 var oneshot = false
 var particle = preload("res://scenes/particle2.tscn")
@@ -14,7 +15,10 @@ export var altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
-func _ready():	
+func _ready():
+#	Global.FLOOR_TYPE = Global.floor_types.altar
+#	Global.altar_level = 4
+	
 	var chest_replacement = false
 	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
 		if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
@@ -38,6 +42,8 @@ func _ready():
 	item_name = item.name
 	item_description = item.description
 	item_long_description = item.long_description
+	item_type = item.type
+	
 	oneshot = item.oneshot
 	
 	if chest_replacement or Global.FLOOR_TYPE == Global.floor_types.altar:
@@ -88,6 +94,10 @@ func do_item_effect(_player):
 	
 	if oneshot:
 		Global.remove_from_pool(item_name)
+		if item_type != "gun":
+			var texture = $item.get_sprite_frames().get_frame($item.animation, $item.get_frame())
+			Global.one_shot_items.append(texture)
+			Global.refresh_hud()
 		
 	if item_name == "blue_heart":
 		_player.add_shield(1)

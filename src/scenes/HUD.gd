@@ -16,8 +16,23 @@ func _ready():
 	
 func _draw():
 	var w = 30
-	var acum = 0
+	var acum = $MiniHUDPos.position
 	var i = 0
+	var count = 0
+	
+	for itm in Global.one_shot_items:
+		count += 1
+		draw_texture(itm, to_local(Vector2(acum.x, acum.y)))
+		acum.x += 32
+		if count == 4:
+			count = 0
+			acum.x = $MiniHUDPos.position.x
+			acum.y += 32
+	
+	w = 30
+	acum = 0
+	i = 0
+	
 	for h in Global.health:
 		acum = 10 + (w * i)
 		var tex = null

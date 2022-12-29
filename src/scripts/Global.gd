@@ -52,6 +52,8 @@ var POINTS_BASE = 9
 var POINTS_X = 1
 var POINTS_Y = 3
 
+var one_shot_items = []
+
 enum floor_types {
 	intro,
 	normal,
@@ -111,7 +113,7 @@ var shot_gun = {
 	"description": "Shotgun",
 	"long_description": "Spread of bullets",
 	"price": 300,
-	"type": "passive",
+	"type": "gun",
 	"oneshot": true,
 }
 
@@ -120,7 +122,7 @@ var knife = {
 	"description": "Knife",
 	"long_description": "Piercing Knife",
 	"price": 300,
-	"type": "passive",
+	"type": "gun",
 	"oneshot": true,
 }
 
@@ -129,7 +131,7 @@ var tomahawk = {
 	"description": "Tomahawk",
 	"long_description": "You can't eat it",
 	"price": 300,
-	"type": "passive",
+	"type": "gun",
 	"oneshot": true,
 }
 
@@ -219,6 +221,7 @@ var blue_heart = {
 	"description": "Blue Heart",
 	"long_description": "Shield",
 	"price": 50,
+	"type": "item",
 	"oneshot": false,
 }
 
@@ -227,6 +230,7 @@ var green_heart =  {
 	"description": "Green Heart",
 	"long_description": "Shield + Poison",
 	"price": 75,
+	"type": "item",
 	"oneshot": false,
 }
 
@@ -235,6 +239,7 @@ var empty_heart =  {
 	"description": "Empty Heart",
 	"long_description": "Heart Container",
 	"price": 150,
+	"type": "item",
 	"oneshot": false,
 }
 
@@ -243,6 +248,7 @@ var normal_heart = {
 	"description": "Heart",
 	"long_description": "Fills a Heart",
 	"price": 25,
+	"type": "item",
 	"oneshot": false,
 }
 
@@ -386,11 +392,11 @@ func get_random_item(force:=false):
 	randomize()
 	var idx = -1
 	if PREMIUM_ITEMS.size() == 0 or force or Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		idx = randi() % ITEMS.size() - 1
 		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "premium":
 			ITEM_POOL_TYPE = "normal"
 			ITEM_POOL = [] + ITEMS
 			
+		idx = randi() % ITEMS.size() - 1
 		var itm = ITEM_POOL.pop_at(idx)
 		return itm
 	else:
@@ -400,11 +406,11 @@ func get_random_premium_item():
 	randomize()
 	var idx = -1
 	if PREMIUM_ITEMS.size() > 0 and Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		idx = randi() % PREMIUM_ITEMS.size() - 1
 		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "normal":
 			ITEM_POOL_TYPE = "premium"
 			ITEM_POOL = [] + PREMIUM_ITEMS
 			
+		idx = randi() % ITEM_POOL.size() - 1
 		var itm = ITEM_POOL.pop_at(idx)
 		return itm
 	else:
@@ -454,6 +460,8 @@ func initialize():
 	altar_level = 1
 	
 	Muted = true
+	
+	one_shot_items = []
 
 func sustain():
 	combo_time = 0.7
