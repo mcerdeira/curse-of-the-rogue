@@ -19,7 +19,6 @@ func _ready():
 	else:
 		$label.add_color_override("font_color", Color8(235, 40, 40))
 		
-		
 func set_values():
 	if altar_type == "blood":
 		$label.text = str(Global.altar_lifes)

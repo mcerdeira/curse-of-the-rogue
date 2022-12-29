@@ -14,7 +14,7 @@ export var altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
-func _ready():	
+func _ready():
 	var chest_replacement = false
 	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
 		if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
@@ -53,8 +53,19 @@ func _ready():
 		price_amount = item.price
 
 func _physics_process(delta):
-	time += delta * frequency
-	$item.set_position(default_pos + Vector2(0, sin(time) * amplitude))
+	if taken:
+		$item.material.set_shader_param("white", 1)
+		$item.scale.x += 350 * delta
+		$item.scale.y -= 50 * delta
+		if $item.scale.x > 30:
+			queue_free()
+			
+		if $item.scale.y <= 0:
+			$item.scale.y = 0.1
+	else:
+		time += delta * frequency
+		$item.set_position(default_pos + Vector2(0, sin(time) * amplitude))
+		
 	z_index = global_position.y
 
 func emit():
@@ -125,8 +136,8 @@ func do_item_effect(_player):
 
 func _on_ItemPedestal_body_entered(body):
 	if body.is_in_group("players") and !taken and Global.pay_price(body, price_what, price_amount):
+		emit()
 		do_item_effect(body)
 		taken = true
 		$price_lbl.visible = false
 		$gem.visible = false
-		$item.visible = false

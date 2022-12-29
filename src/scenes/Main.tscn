@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -55,6 +55,7 @@
 [ext_resource path="res://sprites/hourglass_2.png" type="Texture" id=53]
 [ext_resource path="res://sprites/dash_hud.png" type="Texture" id=54]
 [ext_resource path="res://sprites/roll_hud.png" type="Texture" id=55]
+[ext_resource path="res://scenes/Colums.gd" type="Script" id=56]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -143,7 +144,7 @@ extents = Vector2( 60.5, 10 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 34 ), ExtResource( 44 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 31 ), ExtResource( 38 ), ExtResource( 46 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 41 ), ExtResource( 32 ), ExtResource( 36 ), ExtResource( 39 ), ExtResource( 45 ), ExtResource( 33 ), ExtResource( 47 ) ],
+"frames": [ ExtResource( 47 ), ExtResource( 34 ), ExtResource( 44 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 31 ), ExtResource( 38 ), ExtResource( 46 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 41 ), ExtResource( 32 ), ExtResource( 36 ), ExtResource( 39 ), ExtResource( 45 ), ExtResource( 33 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -344,13 +345,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -522,50 +523,37 @@ position = Vector2( 564, 236 )
 texture = ExtResource( 28 )
 
 [node name="Altar" parent="." instance=ExtResource( 30 )]
-position = Vector2( 161, 264 )
+position = Vector2( 417, 260 )
 altar_type = "gem"
 
 [node name="Altar2" parent="." instance=ExtResource( 30 )]
-position = Vector2( 833, 264 )
+position = Vector2( 631, 260 )
 altar_type = "blood"
 
 [node name="Colums" type="Node2D" parent="."]
+position = Vector2( 530, 94 )
+script = ExtResource( 56 )
 
-[node name="col2" type="AnimatedSprite" parent="Colums"]
-position = Vector2( 376, 389 )
+[node name="col1" type="AnimatedSprite" parent="Colums"]
+position = Vector2( -175, 40 )
 frames = SubResource( 7 )
-frame = 10
+speed_scale = 0.0
 playing = true
 
-[node name="col" type="AnimatedSprite" parent="Colums"]
-position = Vector2( 376, 504 )
+[node name="col2" type="AnimatedSprite" parent="Colums"]
+position = Vector2( -66, 40 )
 frames = SubResource( 7 )
-frame = 11
+speed_scale = 0.0
 playing = true
 
 [node name="col3" type="AnimatedSprite" parent="Colums"]
-position = Vector2( 376, 277 )
+position = Vector2( 52, 40 )
 frames = SubResource( 7 )
-frame = 10
+speed_scale = 0.0
 playing = true
 
-[node name="Colums2" type="Node2D" parent="."]
-position = Vector2( 273, 0 )
-
-[node name="col2" type="AnimatedSprite" parent="Colums2"]
-position = Vector2( 376, 389 )
+[node name="col4" type="AnimatedSprite" parent="Colums"]
+position = Vector2( 166, 40 )
 frames = SubResource( 7 )
-frame = 10
-playing = true
-
-[node name="col" type="AnimatedSprite" parent="Colums2"]
-position = Vector2( 376, 504 )
-frames = SubResource( 7 )
-frame = 10
-playing = true
-
-[node name="col3" type="AnimatedSprite" parent="Colums2"]
-position = Vector2( 376, 277 )
-frames = SubResource( 7 )
-frame = 9
+speed_scale = 0.0
 playing = true
