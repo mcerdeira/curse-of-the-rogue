@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://sprites/roll_item.png" type="Texture" id=22]
 [ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=23]
 [ext_resource path="res://sprites/dash_item.png" type="Texture" id=24]
+[ext_resource path="res://sprites/pay_2_win.png" type="Texture" id=25]
+[ext_resource path="res://sprites/ice_attack.png" type="Texture" id=26]
+[ext_resource path="res://sprites/electric_attack.png" type="Texture" id=27]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -73,7 +76,7 @@ animations = [ {
 "name": "dash",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 27 ) ],
 "loop": true,
 "name": "electric_attack",
 "speed": 5.0
@@ -88,7 +91,7 @@ animations = [ {
 "name": "green_heart",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 26 ) ],
 "loop": true,
 "name": "ice_attack",
 "speed": 5.0
@@ -118,7 +121,7 @@ animations = [ {
 "name": "normal_heart",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 25 ) ],
 "loop": true,
 "name": "pay_2_win",
 "speed": 5.0
@@ -189,6 +192,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "dash"
+animation = "ice_attack"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

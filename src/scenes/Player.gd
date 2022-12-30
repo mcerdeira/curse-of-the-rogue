@@ -69,14 +69,27 @@ func add_automatic_weapon(weapon):
 func add_secondary_weapon(weapon):
 	Global.secondary_weapon = weapon
 	
+func add_pay_2_win():
+	#El daño es == a las gemas
+	pass
+	
 func add_wolf_bite():
+	#Te transforma en hombre lobo cuando solo nos queda 1 de vida
+	# + velocidad + daño
 	pass
 	
 func add_brain():
+	#Siendo zombies, nos da recuperacion automatica hasta 2 corazones
 	pass
 	
 func add_poison():
 	Global.poison = true
+	
+func add_electric():
+	Global.electric = true
+	
+func add_ice():
+	Global.frozen = true
 	
 func add_speed(count):
 	Global.speed += count
@@ -128,7 +141,7 @@ func hit(dmg, can_zombie:=false):
 		Global.refresh_hud()
 		
 func turn_into_zombie():
-	Global.health = [0, 0, 0]
+	Global.health = [0, 0]
 	for i in range(Global.health.size()):
 		Global.health[i] = 4
 		

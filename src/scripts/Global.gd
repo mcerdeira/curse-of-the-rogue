@@ -9,6 +9,8 @@ var ENEMY_SPAWN_TIMER_TOTAL = 10
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 var poisoned_color = Color8(100, 196, 27)
 var infected_color = Color8(203, 54, 220)
+var froze_color = Color8(91, 173, 245)
+
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 1, 1, 3, 3, 4, 4, 5]
 var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
@@ -28,6 +30,8 @@ var primary_weapon = ""
 var secondary_weapon = ""
 var automatic_weapon = ""
 var poison = false
+var electric = false
+var frozen = false
 var temp_poison = false
 var keys = 0
 var melee_rate = 0.0
@@ -452,6 +456,9 @@ func initialize():
 	gems = 0
 	
 	poison = false
+	electric = false
+	frozen = false
+	
 	temp_poison = false
 	zombie = false
 	

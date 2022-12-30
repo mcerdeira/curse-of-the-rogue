@@ -16,8 +16,9 @@ export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
-#	Global.FLOOR_TYPE = Global.floor_types.altar
-#	Global.altar_level = 4
+	if Global.FLOOR_TYPE == Global.floor_types.intro:
+		Global.FLOOR_TYPE = Global.floor_types.altar
+		Global.altar_level = 4
 	
 	var chest_replacement = false
 	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
@@ -110,13 +111,13 @@ func do_item_effect(_player):
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
 	elif item_name == "electric_attack":
-		pass
+		_player.add_electric()
 	elif item_name == "empty_heart":
 		_player.add_total_hearts(1)
 	elif item_name == "green_heart":
 		_player.add_shield_poision(1)
 	elif item_name == "ice_attack":
-		pass
+		_player.add_ice()
 	elif item_name == "key":
 		_player.add_key(1)
 	elif item_name == "knife":
@@ -128,7 +129,7 @@ func do_item_effect(_player):
 	elif item_name == "normal_heart":
 		_player.add_heart(1)
 	elif item_name == "pay_2_win":
-		pass
+		_player.add_pay_2_win()
 	elif item_name == "poison":
 		_player.add_poison()
 	elif item_name == "roll":

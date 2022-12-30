@@ -36,6 +36,8 @@ var trail_ttl_total = 0.1
 var trail_ttl = trail_ttl_total
 var invisible_time = 0
 var invisible_time_total = 1
+var froze_effect = 0
+var electric_effect = 0
 
 func _ready():
 	$shadow.visible = false
@@ -121,28 +123,29 @@ func trail():
 		fire_ball.set_position(position)
 
 func shoot():
-	emit()
-	if enemy_type == "bat":
-		var fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		get_parent().get_parent().add_child(fire_ball)
-		fire_ball.global_position = global_position
-	if enemy_type == "skeleton":
-		var bone = EnemyBullet.instance()
-		bone.type = "bone"
-		get_parent().add_child(bone)
-		bone.set_position(position)
-	if enemy_type == "dead_fire":
-		var fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
-	if enemy_type == "ghost":
-		invisible_time = 0
-		var fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_ball"
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
+	if froze_effect <= 0:
+		emit()
+		if enemy_type == "bat":
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			get_parent().get_parent().add_child(fire_ball)
+			fire_ball.global_position = global_position
+		if enemy_type == "skeleton":
+			var bone = EnemyBullet.instance()
+			bone.type = "bone"
+			get_parent().add_child(bone)
+			bone.set_position(position)
+		if enemy_type == "dead_fire":
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			get_parent().add_child(fire_ball)
+			fire_ball.set_position(position)
+		if enemy_type == "ghost":
+			invisible_time = 0
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			get_parent().add_child(fire_ball)
+			fire_ball.set_position(position)
 
 func enemy_behaviour(delta):
 	if Global.GAME_OVER:
@@ -150,6 +153,17 @@ func enemy_behaviour(delta):
 			die()
 		$sprite.playing = flying
 		return
+		
+	if electric_effect > 0:
+		electric_effect -= 1 * delta
+		
+	if froze_effect > 0:
+		$sprite.modulate = Global.froze_color
+		stop_moving = 1
+		froze_effect -= 1 * delta
+		if froze_effect <= 0:
+			$sprite.modulate = Color8(255, 255, 255)
+			stop_moving = 0
 				
 	if stopandgo:
 		stopandgo_ttl -= 1 * delta
@@ -243,10 +257,11 @@ func enemy_behaviour(delta):
 		die()
 	
 func face_player():
-	if position.x > player_chase.position.x:
-		$sprite.scale.x = 1
-	else:
-		$sprite.scale.x = -1
+	if froze_effect <= 0:
+		if position.x > player_chase.position.x:
+			$sprite.scale.x = 1
+		else:
+			$sprite.scale.x = -1
 	
 func set_type(_type):
 	enemy_type = _type
@@ -366,6 +381,12 @@ func hit(origin, dmg, from):
 	if visible and !iamasign:
 		life -= dmg
 		hit_ttl = hit_ttl_total
+		
+		if Global.electric:
+			electric_effect = 3
+		
+		if Global.frozen:
+			froze_effect = 3
 		
 		if Global.poison:
 			$sprite.modulate = Global.poisoned_color
