@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -56,6 +56,7 @@
 [ext_resource path="res://sprites/dash_hud.png" type="Texture" id=54]
 [ext_resource path="res://sprites/roll_hud.png" type="Texture" id=55]
 [ext_resource path="res://scenes/Colums.gd" type="Script" id=56]
+[ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=57]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -77,6 +78,11 @@ animations = [ {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "empty",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "katana",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ) ],
@@ -128,6 +134,11 @@ animations = [ {
 "frames": [ ExtResource( 48 ) ],
 "loop": true,
 "name": "shot_gun",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 57 ) ],
+"loop": true,
+"name": "tomahawk",
 "speed": 5.0
 } ]
 
@@ -330,7 +341,7 @@ texture = ExtResource( 16 )
 [node name="primary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 10, 40 )
 frames = SubResource( 4 )
-animation = "empty"
+animation = "katana"
 centered = false
 
 [node name="secondary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
@@ -341,18 +352,20 @@ animation = "empty"
 [node name="automatic_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 82, 51 )
 frames = SubResource( 9 )
-animation = "empty"
+animation = "tomahawk"
 
 [node name="automatic_weapon_frame" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )

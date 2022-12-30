@@ -26,7 +26,7 @@ func _ready():
 		$automatic_weapon.visible = false
 	
 	if Global.zombie:
-		turn_into_zombie()
+		turn_into_zombie(false)
 	
 func add_gem(count):
 	Global.gems += count
@@ -140,10 +140,11 @@ func hit(dmg, can_zombie:=false):
 		
 		Global.refresh_hud()
 		
-func turn_into_zombie():
-	Global.health = [0, 0]
-	for i in range(Global.health.size()):
-		Global.health[i] = 4
+func turn_into_zombie(original:=true):
+	if original:
+		Global.health = [0, 0]
+		for i in range(Global.health.size()):
+			Global.health[i] = 4
 		
 	dead = false
 	Global.GAME_OVER = false
