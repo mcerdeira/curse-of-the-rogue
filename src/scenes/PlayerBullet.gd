@@ -10,10 +10,15 @@ var target = null
 var dmg = 0
 var piercing = false
 var pierce_count = 0
+var tomahawk_ttl = 0
 
 func _initialize():
 	$sprite.animation = type
 	
+	if type == "tomahawk":
+		tomahawk_ttl = 0.8
+		speed = 150
+		dmg = 2
 	if type == "plasma":
 		speed = 150
 		dmg = 1
@@ -73,7 +78,7 @@ func _physics_process(delta):
 			$sprite.playing = true
 			$sprite.speed_scale = 2
 		
-	elif type == "knife":		
+	elif type == "knife":
 		if !dir:
 			var _chase = get_tree().get_nodes_in_group("enemies")
 			if _chase.size() > 0:
@@ -84,6 +89,13 @@ func _physics_process(delta):
 		
 	elif type == "plasma":
 		$sprite.rotation = position.angle_to_point(dir)
+	elif type == "tomahawk":
+		tomahawk_ttl -= 1 * delta
+		if tomahawk_ttl <= 0:
+			speed = 250
+			dir.y = 1 
+		
+		$sprite.rotation += 15 * delta
 	elif type == "shot_gun":
 		$sprite.rotation += 100 * delta
 		

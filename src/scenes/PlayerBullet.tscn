@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://sprites/bomb_bullet2.png" type="Texture" id=1]
 [ext_resource path="res://sprites/bomb_bullet1.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sprites/lava_splash_green_spr_2.png" type="Texture" id=6]
 [ext_resource path="res://sprites/lava_splash_green_spr_0.png" type="Texture" id=7]
 [ext_resource path="res://sprites/shotgun_bullet.png" type="Texture" id=8]
+[ext_resource path="res://sprites/tomahawk_spr_0.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -30,6 +31,11 @@ animations = [ {
 "loop": true,
 "name": "shot_gun",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "tomahawk",
+"speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -39,7 +45,7 @@ script = ExtResource( 3 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "shot_gun"
+animation = "tomahawk"
 
 [node name="Area2D" type="Area2D" parent="."]
 

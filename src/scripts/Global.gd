@@ -297,12 +297,13 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
+		
 		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
-		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
+		#["ghost"],
+		#["bat"],
+		#["dead_fire"],
+		#["scorpion"],
+		#["skeleton"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],

@@ -239,6 +239,9 @@ func shoot():
 			create_bullet_nodir(get_random_enemy())
 		elif Global.automatic_weapon == "bomb":
 			create_bullet(get_random_dir())
+		elif Global.automatic_weapon == "tomahawk":
+			var xx = 0.2 * $sprite.scale.x
+			create_bullet(Vector2(xx, -1))
 
 func _physics_process(delta):
 	if $automatic_weapon.visible:

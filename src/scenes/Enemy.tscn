@@ -129,6 +129,7 @@ animation = "scorpion+"
 material = SubResource( 6 )
 frames = SubResource( 2 )
 animation = "bat"
+frame = 2
 playing = true
 
 [node name="area" type="Area2D" parent="."]

@@ -37,9 +37,13 @@ var trail_ttl = trail_ttl_total
 var invisible_time = 0
 var invisible_time_total = 1
 var froze_effect = 0
-var electric_effect = 0
+var electric_effect = 90
+var destiny = null
+var saturate = 0
+var saturate_dir = 1
 
 func _ready():
+	add_to_group("enemy_objects")
 	$shadow.visible = false
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
@@ -156,6 +160,19 @@ func enemy_behaviour(delta):
 		
 	if electric_effect > 0:
 		electric_effect -= 1 * delta
+		
+		var dests = get_tree().get_nodes_in_group("enemy_objects")
+		randomize()
+		destiny = dests[0]
+		
+		var id = self.get_instance_id()
+		var id1 = destiny.get_instance_id()
+		
+		if id == id1:
+			destiny = null
+		
+		if destiny and is_instance_valid(destiny):
+			update()
 		
 	if froze_effect > 0:
 		$sprite.modulate = Global.froze_color
@@ -420,3 +437,38 @@ func _on_area_body_entered(body):
 			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg)
+		
+		
+func _draw():
+	if electric_effect > 0 and destiny:
+		var xx
+		var yy
+		var last_x
+		var last_y
+		var amount
+		var dir
+		var argument0 = 0
+		var argument1 = 0
+		var argument2 = destiny.position.x
+		var argument3 = destiny.position.y
+		var argument5 = 10
+		var argument6 = 6
+		var argument7 = 12
+
+		xx = argument0
+		yy = argument1
+		last_x = argument0
+		last_y = argument1
+		dir = Vector2(xx, yy).angle_to_point(Vector2(argument2,argument3))
+
+		for i in range(((Vector2(xx, yy).distance_to(Vector2(argument2,argument3))) / argument5) + 5):
+			dir = Vector2(xx, yy).angle_to_point(Vector2(argument2,argument3))
+			xx += cos(dir) * argument5 * -1
+			yy -= sin(dir) * argument5
+			
+			amount = argument6-rand_range(0, argument7)
+			xx += cos(dir - 90) * amount
+			yy -= sin(dir - 90) * amount
+			draw_line(Vector2(xx,yy),Vector2(last_x,last_y), Color8(255, 255, 255), 1)
+			last_x = xx
+			last_y = yy
