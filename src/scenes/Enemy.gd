@@ -37,7 +37,8 @@ var trail_ttl = trail_ttl_total
 var invisible_time = 0
 var invisible_time_total = 1
 var froze_effect = 0
-var electric_effect = 90
+var electric_effect = 0
+var electric_effect_total = 2
 var destiny = null
 var saturate = 0
 var saturate_dir = 1
@@ -162,17 +163,29 @@ func enemy_behaviour(delta):
 		electric_effect -= 1 * delta
 		
 		var dests = get_tree().get_nodes_in_group("enemy_objects")
-		randomize()
-		destiny = dests[0]
-		
-		var id = self.get_instance_id()
-		var id1 = destiny.get_instance_id()
-		
-		if id == id1:
-			destiny = null
-		
-		if destiny and is_instance_valid(destiny):
-			update()
+		while(true):
+			randomize()
+			dests.shuffle()
+			
+			destiny = dests[0]
+			
+			var id = self.get_instance_id()
+			var id1 = destiny.get_instance_id()
+				
+			if id == id1:
+				destiny = null
+							
+			if destiny and is_instance_valid(destiny):
+				if destiny.electric_effect <= 0:
+					destiny.electric_effect = electric_effect_total
+					destiny.hit(null, 0.5, "")
+					
+				update()
+			else:
+				update()
+				
+			if destiny or dests.size() == 1:
+				break
 		
 	if froze_effect > 0:
 		$sprite.modulate = Global.froze_color
@@ -399,8 +412,8 @@ func hit(origin, dmg, from):
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		
-		if Global.electric:
-			electric_effect = 3
+		if electric_effect <= 0 and Global.electric:
+			electric_effect = electric_effect_total
 		
 		if Global.frozen:
 			froze_effect = 3
@@ -414,6 +427,7 @@ func hit(origin, dmg, from):
 		
 		if origin:
 			impulse = (origin.position - self.position).normalized()
+			
 		if life <= 0:
 			if from == "player":
 				Global.add_combo()
@@ -441,6 +455,7 @@ func _on_area_body_entered(body):
 		
 func _draw():
 	if electric_effect > 0 and destiny:
+		var des_pos = to_local(destiny.position)
 		var xx
 		var yy
 		var last_x
@@ -449,8 +464,8 @@ func _draw():
 		var dir
 		var argument0 = 0
 		var argument1 = 0
-		var argument2 = destiny.position.x
-		var argument3 = destiny.position.y
+		var argument2 = des_pos.x
+		var argument3 = des_pos.y
 		var argument5 = 10
 		var argument6 = 6
 		var argument7 = 12
@@ -465,7 +480,7 @@ func _draw():
 			dir = Vector2(xx, yy).angle_to_point(Vector2(argument2,argument3))
 			xx += cos(dir) * argument5 * -1
 			yy -= sin(dir) * argument5
-			
+
 			amount = argument6-rand_range(0, argument7)
 			xx += cos(dir - 90) * amount
 			yy -= sin(dir - 90) * amount
