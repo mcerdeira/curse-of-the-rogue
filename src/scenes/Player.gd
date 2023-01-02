@@ -51,8 +51,18 @@ func add_heart(count):
 	Global.refresh_hud()
 	
 func add_total_hearts(count):
-	for i in range(count):
-		Global.health.push_back(0)
+	while(count > 0):
+		for i in range(Global.health.size()-1, -1, -1):
+			if count > 0:
+				if Global.health[i] == 1 or Global.health[i] == 0:
+					Global.health.insert(i + 1, 0)
+					count -= 1
+					
+			if count > 0:
+				for e in range(count):
+					Global.health.push_front(0)
+					
+				count = 0
 		
 	Global.refresh_hud()
 	
