@@ -26,6 +26,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var pay2win = false
 var primary_weapon = ""
 var secondary_weapon = ""
 var automatic_weapon = ""
@@ -491,6 +492,8 @@ func initialize():
 	Muted = true
 	
 	one_shot_items = []
+	
+	pay2win = false
 
 func sustain():
 	combo_time = 0.7

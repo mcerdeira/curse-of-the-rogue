@@ -70,8 +70,8 @@ func add_secondary_weapon(weapon):
 	Global.secondary_weapon = weapon
 	
 func add_pay_2_win():
-	#El daño es == a las gemas
-	pass
+	Global.attack = Global.gems
+	Global.pay2win = true
 	
 func add_wolf_bite():
 	#Te transforma en hombre lobo cuando solo nos queda 1 de vida
@@ -244,6 +244,9 @@ func shoot():
 			create_bullet(Vector2(xx, -1))
 
 func _physics_process(delta):
+	if Global.pay2win:
+		Global.attack = Global.gems
+	
 	if $automatic_weapon.visible:
 		if normalize_direction > 0:
 			normalize_direction -= 1 * delta

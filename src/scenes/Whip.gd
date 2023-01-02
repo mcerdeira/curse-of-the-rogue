@@ -5,6 +5,7 @@ var dmg = 1
 func _ready():
 	$sprite.speed_scale = 4
 	$sprite.playing = true
+	dmg = Global.attack
 
 func _on_sprite_animation_finished():
 	queue_free()
