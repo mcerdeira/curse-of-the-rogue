@@ -521,7 +521,7 @@ func initialize():
 	altar_lifes = 0
 	altar_gems = 0
 	
-	altar_level = 4
+	altar_level = 1
 	altar_level_max = 4
 	
 	Muted = true
