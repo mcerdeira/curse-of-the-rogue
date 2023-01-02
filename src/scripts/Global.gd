@@ -51,6 +51,7 @@ var altar_points = 0
 var altar_lifes = 0
 var altar_gems = 0
 var altar_level = 0
+var altar_level_max = 0
 
 var POINTS_BASE = 9
 var POINTS_X = 1
@@ -259,7 +260,6 @@ var normal_heart = {
 var ITEMS = []
 var PREMIUM_ITEMS = []
 var ITEM_POOL = []
-var ITEM_POOL_TYPE = ""
 
 var BOSS_HEADS = {
 	"Pig" : {
@@ -385,10 +385,44 @@ func init_room():
 		FIRST = false
 		FLOOR_TYPE = floor_types.intro
 		
-func init_pool():
-	ITEM_POOL = []
-	ITEM_POOL_TYPE = ""
+func add_normals(n):
+	var norm_copy = [] + ITEMS
+	for i in range(n):
+		var idx = -1
+		if norm_copy.size() > 0:
+			idx = randi() % norm_copy.size()
+			var itm = norm_copy.pop_at(idx)
+			ITEM_POOL.append(itm)
+		else:
+			break
 	
+func add_premiums(n ):
+	var prem_copy = [] + PREMIUM_ITEMS
+	for i in range(n):
+		var idx = -1
+		if prem_copy.size() > 0:
+			idx = randi() % prem_copy.size()
+			var itm = prem_copy.pop_at(idx)
+			ITEM_POOL.append(itm)
+		else:
+			break
+		
+func init_pool(only_normal_items:= false):
+	ITEM_POOL = []
+	if only_normal_items:
+		ITEM_POOL = [] + ITEMS
+	else:
+		if PREMIUM_ITEMS.size() > 0 and Global.FLOOR_TYPE == Global.floor_types.altar:
+			ITEM_POOL = [] + PREMIUM_ITEMS
+			if randi()%Global.bad_luck != 0:
+				add_normals(5)
+			
+		else:
+			ITEM_POOL = [] + ITEMS
+			if PREMIUM_ITEMS.size() > 0:
+				if randi()%Global.bad_luck == 0:
+					add_premiums(2)
+			
 func remove_from_pool(_name):
 	for i in range(PREMIUM_ITEMS.size() - 1):
 		if PREMIUM_ITEMS[i].name == _name:
@@ -396,31 +430,16 @@ func remove_from_pool(_name):
 	
 func get_random_item(force:=false):
 	randomize()
-	var idx = -1
-	if PREMIUM_ITEMS.size() == 0 or force or Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "premium":
-			ITEM_POOL_TYPE = "normal"
-			ITEM_POOL = [] + ITEMS
-			
-		idx = randi() % ITEMS.size() - 1
-		var itm = ITEM_POOL.pop_at(idx)
-		return itm
+	if force:
+		init_pool(true)
 	else:
-		return get_random_premium_item()
+		if ITEM_POOL.size() == 0:
+			init_pool()
 		
-func get_random_premium_item():
-	randomize()
 	var idx = -1
-	if PREMIUM_ITEMS.size() > 0 and Global.pick_random([1, 1, 1, 1, 0]) == 1:
-		if ITEM_POOL_TYPE == "" or ITEM_POOL_TYPE == "normal":
-			ITEM_POOL_TYPE = "premium"
-			ITEM_POOL = [] + PREMIUM_ITEMS
-			
-		idx = randi() % ITEM_POOL.size() - 1
-		var itm = ITEM_POOL.pop_at(idx)
-		return itm
-	else:
-		return get_random_item(true)
+	idx = randi() % ITEM_POOL.size()
+	var itm = ITEM_POOL.pop_at(idx)
+	return itm
 
 func initialize():
 	FIRST = true
@@ -467,6 +486,7 @@ func initialize():
 	altar_gems = 0
 	
 	altar_level = 1
+	altar_level_max = 4
 	
 	Muted = true
 	

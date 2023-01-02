@@ -369,21 +369,21 @@ frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
-altar_level = 1
+local_altar_level = 1
 noforshop = true
 
 [node name="ItemPedestal4" parent="." instance=ExtResource( 22 )]
 position = Vector2( 427, 367 )
-altar_level = 2
+local_altar_level = 2
 
 [node name="ItemPedestal2" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 441 )
-altar_level = 4
+local_altar_level = 4
 noforshop = true
 
 [node name="ItemPedestal3" parent="." instance=ExtResource( 22 )]
 position = Vector2( 608, 367 )
-altar_level = 3
+local_altar_level = 3
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 

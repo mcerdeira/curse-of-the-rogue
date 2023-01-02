@@ -11,14 +11,13 @@ var particle = preload("res://scenes/particle2.tscn")
 var amplitude = 5.0
 var frequency = 2.0
 var time = 0
-export var altar_level = 0
+export var local_altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
-	if Global.FLOOR_TYPE == Global.floor_types.intro:
+	if Global.altar_level == Global.altar_level_max:
 		Global.FLOOR_TYPE = Global.floor_types.altar
-		Global.altar_level = 4
 	
 	var chest_replacement = false
 	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
@@ -29,7 +28,7 @@ func _ready():
 		chest_replacement = true
 		
 	if Global.FLOOR_TYPE == Global.floor_types.altar:
-		if altar_level > Global.altar_level:
+		if local_altar_level > Global.altar_level:
 			queue_free()
 			return
 		
@@ -83,10 +82,7 @@ func emit():
 		p.global_position = global_position
 
 func choose_item(chest_replacement:=false):
-	if !chest_replacement and Global.FLOOR_TYPE == Global.floor_types.altar:
-		return Global.get_random_premium_item()
-	else:
-		return Global.get_random_item(chest_replacement)
+	return Global.get_random_item(chest_replacement)
 
 func do_item_effect(_player):
 	emit()
