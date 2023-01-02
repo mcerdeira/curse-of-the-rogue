@@ -12,7 +12,7 @@ func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
 		queue_free()
 		return	
-	
+
 	if Global.pick_random([1, 1, 1, 0]) == 1:
 		queue_free()
 		return
@@ -20,7 +20,7 @@ func _ready():
 	$price_lbl.text = "x" + str(price_amount)
 	$wheel.rotation_degrees = rand_range(0, 360)
 	
-	z_index = global_position.y + 44
+	z_index = global_position.y + 100
 	
 func _physics_process(delta):
 	if rolling:
