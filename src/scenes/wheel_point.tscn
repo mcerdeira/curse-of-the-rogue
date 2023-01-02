@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/wheel_point.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 12.4071
+
+[node name="wheel_point" type="Area2D"]
+rotation = 0.570723
+script = ExtResource( 1 )
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2( -4, -36 )
+shape = SubResource( 6 )

@@ -8,6 +8,7 @@ func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.altar:
 		queue_free()
 	
+	z_index = position.y
 	set_values()
 	$sprite.animation = altar_type
 	$sprite2.animation = altar_type

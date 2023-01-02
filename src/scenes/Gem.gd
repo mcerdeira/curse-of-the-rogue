@@ -7,10 +7,13 @@ var speed = 150
 var go_back_ttl = 0.1
 var absorved = false
 var type = "gem"
+var dist = 60
 
 func _ready():
 	add_to_group("collectables")
 	player = get_tree().get_nodes_in_group("players")[0]
+	if Global.magnet:
+		dist *= 2
 
 func _init_sprite():
 	$sprite.animation = type
@@ -28,7 +31,7 @@ func _physics_process(delta):
 			$sprite.scale.y = 0.1
 	else:
 		if !Global.GAME_OVER and !Global.LOGIC_PAUSE:
-			if !absorved and position.distance_to(player.position) <= 60:
+			if !absorved and position.distance_to(player.position) <= dist:
 				absorved = true
 			elif absorved:
 				if go_back_ttl > 0:

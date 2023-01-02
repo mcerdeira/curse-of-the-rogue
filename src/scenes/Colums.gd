@@ -7,3 +7,4 @@ func _ready():
 			if i < Global.altar_level:
 				cs[i].playing = true
 				cs[i].speed_scale = 2
+				cs[i].z_index = cs[i].global_position.y + 44

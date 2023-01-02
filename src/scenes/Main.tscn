@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -57,6 +57,7 @@
 [ext_resource path="res://sprites/roll_hud.png" type="Texture" id=55]
 [ext_resource path="res://scenes/Colums.gd" type="Script" id=56]
 [ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=57]
+[ext_resource path="res://scenes/StatWheel.tscn" type="PackedScene" id=58]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -359,13 +360,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 2
+frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 2
+frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -398,7 +399,7 @@ position = Vector2( 304, 19 )
 position = Vector2( 720, 19 )
 
 [node name="MegaRayH" parent="." instance=ExtResource( 12 )]
-position = Vector2( 17, 208 )
+position = Vector2( 19, 208 )
 
 [node name="MegaRayH2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1005, 400 )
@@ -543,6 +544,9 @@ altar_type = "gem"
 [node name="Altar2" parent="." instance=ExtResource( 30 )]
 position = Vector2( 631, 260 )
 altar_type = "blood"
+
+[node name="StatWheel" parent="." instance=ExtResource( 58 )]
+position = Vector2( 198, 198 )
 
 [node name="Colums" type="Node2D" parent="."]
 position = Vector2( 530, 94 )

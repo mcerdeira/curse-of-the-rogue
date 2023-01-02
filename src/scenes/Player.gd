@@ -34,6 +34,12 @@ func add_gem(count):
 func add_key(count):
 	Global.keys += count
 	
+func add_master_key():
+	Global.masterkey = true
+	
+func add_magnet():
+	Global.magnet = true
+	
 func add_heart(count):
 	for i in range(Global.health.size()):
 		if Global.health[i] == 0 and count > 0:
@@ -69,8 +75,15 @@ func add_automatic_weapon(weapon):
 func add_secondary_weapon(weapon):
 	Global.secondary_weapon = weapon
 	
+func add_life_2_win():
+	Global.attack = Global.health.size()
+	Global.life2win = true
+	
 func add_pay_2_win():
 	Global.attack = Global.gems
+	if Global.attack > Global.attack_max:
+		Global.attack = Global.attack_max
+	
 	Global.pay2win = true
 	
 func add_wolf_bite():
@@ -139,6 +152,10 @@ func hit(dmg, can_zombie:=false):
 			Global.temp_poison = eval_poision()
 		
 		Global.refresh_hud()
+		
+func one_live():
+	Global.health = [1]
+	Global.refresh_hud()
 		
 func turn_into_zombie(original:=true):
 	if original:
@@ -244,8 +261,11 @@ func shoot():
 			create_bullet(Vector2(xx, -1))
 
 func _physics_process(delta):
+	if Global.life2win:
+		Global.attack = Global.health.size()
+	
 	if Global.pay2win:
-		Global.attack = Global.gems
+		add_pay_2_win()
 	
 	if $automatic_weapon.visible:
 		if normalize_direction > 0:

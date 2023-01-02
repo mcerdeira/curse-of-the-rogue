@@ -1,8 +1,9 @@
 extends Node2D
 
-func _ready():
+func _init():
 	Global.init_pool()
-	
+
+func _ready():
 	if !Global.Muted:
 		music_init()
 	

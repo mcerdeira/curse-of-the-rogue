@@ -26,6 +26,8 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var masterkey = false
+var life2win = false
 var pay2win = false
 var primary_weapon = ""
 var secondary_weapon = ""
@@ -38,8 +40,9 @@ var keys = 0
 var melee_rate = 0.0
 var melee_rate_total = 0.0
 var attack = 0
+var attack_max = 0
 var speed = 0
-var health = 0
+var health = []
 var shield = 0
 var gems = 0
 var bad_luck = 0
@@ -53,6 +56,7 @@ var altar_lifes = 0
 var altar_gems = 0
 var altar_level = 0
 var altar_level_max = 0
+var magnet = false
 
 var POINTS_BASE = 9
 var POINTS_X = 1
@@ -69,10 +73,37 @@ enum floor_types {
 	supershop
 }
 
+var magnet_item = {
+	"name": "magnet",
+	"description": "Magnet",
+	"long_description": "Attraction!",
+	"price": 350,
+	"type": "consumable",
+	"oneshot": true,
+}
+
+var master_key = {
+	"name": "master_key",
+	"description": "Master Key",
+	"long_description": "One Key to rule em all",
+	"price": 450,
+	"type": "consumable",
+	"oneshot": true,
+}
+
 var pay_2_win = {
 	"name": "pay_2_win",
 	"description": "Pay 2 Win",
 	"long_description": "Attack depends on Gems",
+	"price": 550,
+	"type": "active",
+	"oneshot": true,
+}
+
+var life_2_win = {
+	"name": "life_2_win",
+	"description": "Life 2 Win",
+	"long_description": "Attack depends on Life",
 	"price": 550,
 	"type": "active",
 	"oneshot": true,
@@ -338,6 +369,7 @@ func _ready():
 	ITEMS.push_back(blue_heart)
 	ITEMS.push_back(green_heart)
 	ITEMS.push_back(empty_heart)
+	ITEMS.push_back(normal_heart)
 	ITEMS.push_back(key)
 	
 	PREMIUM_ITEMS.push_back(luckup)
@@ -354,6 +386,9 @@ func _ready():
 	PREMIUM_ITEMS.push_back(electric_attack)
 	PREMIUM_ITEMS.push_back(ice_attack)
 	PREMIUM_ITEMS.push_back(pay_2_win)
+	PREMIUM_ITEMS.push_back(life_2_win)
+	PREMIUM_ITEMS.push_back(master_key)
+	PREMIUM_ITEMS.push_back(magnet_item)
 	
 	MainTheme = load("res://music/main_theme.mp3")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
@@ -463,6 +498,7 @@ func initialize():
 	total_bad_luck = 100
 	bad_luck = total_bad_luck
 	attack = 1
+	attack_max = 20
 
 	keys = 0
 	shield = 0
@@ -486,7 +522,7 @@ func initialize():
 	altar_lifes = 0
 	altar_gems = 0
 	
-	altar_level = 1
+	altar_level = 4
 	altar_level_max = 4
 	
 	Muted = true
@@ -494,6 +530,9 @@ func initialize():
 	one_shot_items = []
 	
 	pay2win = false
+	life2win = false
+	masterkey = false
+	magnet = false
 
 func sustain():
 	combo_time = 0.7
@@ -548,9 +587,12 @@ func pay_price(_player, price_what, price_amount):
 				_player.hit(price_amount, true)
 				return true
 	elif price_what == "keys":
-		if Global.keys >= price_amount:
-			Global.keys -= price_amount
+		if Global.keys >= price_amount or Global.masterkey:
+			if !Global.masterkey:
+				Global.keys -= price_amount
+			
 			return true
+
 	return false
 	
 func _input(event):

@@ -16,7 +16,7 @@ export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
-	if Global.altar_level == Global.altar_level_max:
+	if Global.altar_level == Global.altar_level_max and Global.FLOOR_TYPE == Global.floor_types.intro:
 		Global.FLOOR_TYPE = Global.floor_types.altar
 	
 	var chest_replacement = false
@@ -116,6 +116,10 @@ func do_item_effect(_player):
 		_player.add_ice()
 	elif item_name == "key":
 		_player.add_key(1)
+	elif item_name == "master_key":
+		_player.add_master_key()
+	elif item_name == "magnet":
+		_player.add_magnet()
 	elif item_name == "knife":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "luckup":
@@ -126,6 +130,8 @@ func do_item_effect(_player):
 		_player.add_heart(1)
 	elif item_name == "pay_2_win":
 		_player.add_pay_2_win()
+	elif item_name == "life_2_win":
+		_player.add_life_2_win()
 	elif item_name == "poison":
 		_player.add_poison()
 	elif item_name == "roll":

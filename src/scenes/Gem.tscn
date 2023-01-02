@@ -33,6 +33,7 @@ texture = ExtResource( 5 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "gem"
+frame = 1
 playing = true
 
 [node name="collider" type="CollisionShape2D" parent="."]
