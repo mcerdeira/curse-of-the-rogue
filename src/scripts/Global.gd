@@ -328,14 +328,13 @@ var BOSS_ELEMENTS = {
 
 var ENEMY_PATTERNS = [
 	-1,
-	[
-		
+	[	
 		["scorpion", "scorpion", "scorpion"],
-		#["ghost"],
-		#["bat"],
-		#["dead_fire"],
-		#["scorpion"],
-		#["skeleton"],
+		["ghost"],
+		["bat"],
+		["dead_fire"],
+		["scorpion"],
+		["skeleton"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -522,7 +521,7 @@ func initialize():
 	altar_lifes = 0
 	altar_gems = 0
 	
-	altar_level = 4
+	altar_level = 1
 	altar_level_max = 4
 	
 	Muted = true

@@ -1,6 +1,6 @@
 extends Node2D
 var particle = preload("res://scenes/particle2.tscn")
-var price_amount = 50
+var price_amount = 25
 var price_what = "gems"
 var ttl = 0
 var rolling = false

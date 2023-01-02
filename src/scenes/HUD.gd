@@ -70,6 +70,7 @@ func _physics_process(delta):
 	
 	if Global.GAME_OVER:
 		$c/subtitle.text = ""
+		$c/game_over.text = game_over_text
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
 			$c/game_over.visible = true
