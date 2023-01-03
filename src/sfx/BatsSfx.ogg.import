@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BatsSfx.ogg-067fd1d3a0f0402963c918a6545ba991.oggstr"
+
+[deps]
+
+source_file="res://sfx/BatsSfx.ogg"
+dest_files=[ "res://.import/BatsSfx.ogg-067fd1d3a0f0402963c918a6545ba991.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,5 +1,4 @@
 extends Node
-var Muted = false
 var arrow = preload("res://sprites/crosshair.png")
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -22,6 +21,7 @@ var FLOOR_OVER = false
 var MainTheme = null
 var ShopAlterTheme = null
 var MainThemePlaying = false
+var Muted = false
 
 var GemSfx = null
 var MasterKeySfx = null
@@ -415,6 +415,8 @@ var ENEMY_PATTERNS = [
 ]
 
 func _ready():
+	Muted = true
+	
 	ITEMS.push_back(blue_heart)
 	ITEMS.push_back(green_heart)
 	ITEMS.push_back(empty_heart)
@@ -438,7 +440,6 @@ func _ready():
 	PREMIUM_ITEMS.push_back(life_2_win)
 	PREMIUM_ITEMS.push_back(master_key)
 	PREMIUM_ITEMS.push_back(magnet_item)
-	
 	LoadSfxAndMusic()
 	
 	Input.set_custom_mouse_cursor(arrow)
@@ -474,23 +475,29 @@ func LoadSfxAndMusic():
 	ChestOpenSfx = load("res://sfx/ChestOpenSfx.ogg")
 	ChestAnimationSfx = load("res://sfx/ChestAnimationSfx.wav")
 	LevelEndSfx = load("res://sfx/LevelEndSfx.wav")
-	MegaRaySfx = load("res://sfx/file.wav")
-	GhostShootSfx = load("res://sfx/file.wav")
-	DeadFireShootSfx = load("res://sfx/file.wav")
-	SkeleShootSfx = load("res://sfx/file.wav")
-	BatsSfx = load("res://sfx/file.wav")
-	DeadFireSfx = load("res://sfx/file.wav")
-	GhostSfx = load("res://sfx/file.wav")
-	ScorpionSfx = load("res://sfx/file.wav")
-	SkeleSfx = load("res://sfx/file.wav")
-	GhostHitSfx = load("res://sfx/file.wav")
-	DeadFireHitSfx = load("res://sfx/file.wav")
-	BatsHitSfx = load("res://sfx/file.wav")
-	ScorpionHitSfx = load("res://sfx/file.wav")
-	SkeleHitSfx = load("res://sfx/file.wav")
-	ElectricSfx = load("res://sfx/file.wav")
-	FrozeSfx = load("res://sfx/file.wav")
-	PoisonSfx = load("res://sfx/file.wav")
+	#MegaRaySfx = load("res://sfx/file.wav")
+	
+	DeadFireSfx = load("res://sfx/DeadFireSfx.wav")
+	DeadFireHitSfx = load("res://sfx/DeadFireHitSfx.wav")
+	DeadFireShootSfx = DeadFireSfx
+	
+	SkeleSfx = load("res://sfx/SkeleSfx.wav")
+	SkeleHitSfx = load("res://sfx/SkeleHitSfx.wav")
+	SkeleShootSfx = SkeleSfx
+	
+	BatsSfx = load("res://sfx/BatsSfx.ogg")
+	BatsHitSfx = load("res://sfx/BatsHitSfx.ogg")
+	
+	ScorpionSfx = load("res://sfx/ScorpionSfx.wav")
+	ScorpionHitSfx = load("res://sfx/ScorpionHitSfx.wav")
+	
+	GhostSfx = load("res://sfx/GhostSfx.wav")
+	GhostHitSfx = load("res://sfx/GhostHitSfx.wav")
+	GhostShootSfx = GhostSfx
+	
+	ElectricSfx = load("res://sfx/ElectricSfx.wav")
+	FrozeSfx = load("res://sfx/FrozeSfx.wav")
+	PoisonSfx = load("res://sfx/PoisonSfx.wav")
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
@@ -623,8 +630,6 @@ func initialize():
 	
 	health = [1, 1, 1]
 	
-	Muted = true
-	
 	one_shot_items = []
 	
 	pay2win = false
@@ -715,15 +720,18 @@ func pick_random(container):
 	return container[randi() % container.size()]
 
 func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
-	var audio_stream_player = AudioStreamPlayer.new()
+	if Muted:
+		return null
+	else:
+		var audio_stream_player = AudioStreamPlayer.new()
 
-	add_child(audio_stream_player)
-	audio_stream_player.stream = stream
-	
-	for prop in options.keys():
-		audio_stream_player.set(prop, options[prop])
-	
-	audio_stream_player.play()
-	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
-	
-	return audio_stream_player
+		add_child(audio_stream_player)
+		audio_stream_player.stream = stream
+		
+		for prop in options.keys():
+			audio_stream_player.set(prop, options[prop])
+		
+		audio_stream_player.play()
+		audio_stream_player.connect("finished", audio_stream_player, "queue_free")
+		
+		return audio_stream_player
