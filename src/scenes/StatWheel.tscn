@@ -50,45 +50,45 @@ scale = Vector2( 1.65625, 1 )
 frames = SubResource( 2 )
 
 [node name="wheel" type="AnimatedSprite" parent="."]
-rotation = -0.570723
 frames = SubResource( 1 )
 
 [node name="wheel_point" parent="wheel" instance=ExtResource( 7 )]
+position = Vector2( -2.8258, -3.00247 )
 effect_name = "Vitality"
 effect_description = "+1 Life"
 
 [node name="wheel_point8" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( 20.1544, 42.6474 )
+position = Vector2( 18.835, 46.5537 )
 effect_name = "Tired"
 effect_description = "-1 Life"
 
 [node name="wheel_point4" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( -53.5666, 46.4179 )
+position = Vector2( -49.6603, 47.7374 )
 effect_name = "Oh no"
 effect_description = "Cursed"
 
 [node name="wheel_point2" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( 19.7806, 21.0173 )
+position = Vector2( 17.7963, 18.5551 )
 effect_name = "Caffeine"
 effect_description = "+1 Speed"
 
 [node name="wheel_point3" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( -55.0831, 22.8659 )
+position = Vector2( -51.0002, 18.357 )
 effect_name = "Free Roll"
 effect_description = "+25 gems"
 
 [node name="wheel_point5" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( 2.50316, 64.589 )
+position = Vector2( -2.18235, 66.3343 )
 effect_name = "Pumped"
 effect_description = "+1 Damage"
 
 [node name="wheel_point6" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( -31.5627, 67.6742 )
+position = Vector2( -30.4822, 65.9912 )
 effect_name = "Weak"
 effect_description = "-1 Damage"
 
 [node name="wheel_point7" parent="wheel" instance=ExtResource( 7 )]
-position = Vector2( -30.7621, 1.64118 )
+position = Vector2( -29.6816, -0.0418463 )
 effect_name = "Sleepy"
 effect_description = "-1 Speed"
 

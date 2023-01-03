@@ -60,7 +60,7 @@ func _destroy():
 	if !destroyed:
 		destroyed = true
 		if Global.pick_random([true, false]):
-			if Global.pick_random([true, true, false]):
+			if Global.pick_random([true, true, true, false]):
 				drop_gem()
 			else:
 				drop_scorpion()

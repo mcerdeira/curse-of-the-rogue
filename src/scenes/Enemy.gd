@@ -160,8 +160,6 @@ func enemy_behaviour(delta):
 		return
 		
 	if electric_effect > 0:
-		electric_effect -= 1 * delta
-		
 		var dests = get_tree().get_nodes_in_group("enemy_objects")
 		while(true):
 			randomize()
@@ -186,6 +184,10 @@ func enemy_behaviour(delta):
 				
 			if destiny or dests.size() == 1:
 				break
+				
+		electric_effect -= 1 * delta
+		if electric_effect <= 0:
+			update()
 		
 	if froze_effect > 0:
 		$sprite.modulate = Global.froze_color
