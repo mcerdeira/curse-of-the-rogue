@@ -29,18 +29,23 @@ func _ready():
 		turn_into_zombie(false)
 	
 func add_gem(count):
+	Global.play_sound(Global.GemSfx)
 	Global.gems += count
 	
 func add_key(count):
+	Global.play_sound(Global.KeySfx)
 	Global.keys += count
 	
 func add_master_key():
+	Global.play_sound(Global.MasterKeySfx)
 	Global.masterkey = true
 	
 func add_magnet():
+	Global.play_sound(Global.ItemSfx)
 	Global.magnet = true
 	
 func add_heart(count):
+	Global.play_sound(Global.LifeSfx)
 	for i in range(Global.health.size()):
 		if Global.health[i] == 0 and count > 0:
 			Global.health[i] = 1
@@ -54,6 +59,7 @@ func add_heart(count):
 	Global.refresh_hud()
 	
 func add_total_hearts(count):
+	Global.play_sound(Global.LifeSfx)
 	while(count > 0):
 		for i in range(Global.health.size()-1, -1, -1):
 			if count > 0:
@@ -70,6 +76,7 @@ func add_total_hearts(count):
 	Global.refresh_hud()
 	
 func add_shield(count):
+	Global.play_sound(Global.LifeSfx)
 	for i in range(count):
 		Global.health.push_back(2)
 		
@@ -79,6 +86,7 @@ func add_shield(count):
 	Global.refresh_hud()
 	
 func add_shield_poision(count):
+	Global.play_sound(Global.LifeSfx)
 	for i in range(count):
 		Global.health.push_back(3)
 	
@@ -90,16 +98,20 @@ func add_shield_poision(count):
 	Global.refresh_hud()
 	
 func add_automatic_weapon(weapon):
+	Global.play_sound(Global.WeaponSfx)
 	Global.automatic_weapon = weapon
 	
 func add_secondary_weapon(weapon):
+	Global.play_sound(Global.WeaponSfx)
 	Global.secondary_weapon = weapon
 	
 func add_life_2_win():
+	Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.health.size()
 	Global.life2win = true
 	
 func add_pay_2_win():
+	Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.gems
 	if Global.attack > Global.attack_max:
 		Global.attack = Global.attack_max
@@ -107,42 +119,54 @@ func add_pay_2_win():
 	Global.pay2win = true
 	
 func add_wolf_bite():
+	Global.play_sound(Global.ItemSfx)
 	Global.werewolf = true
 	
 func add_brain():
+	Global.play_sound(Global.ItemSfx)
 	#Siendo zombies, nos da recuperacion automatica hasta 2 corazones
 	pass
 	
 func add_poison():
+	Global.play_sound(Global.ItemSfx)
 	Global.poison = true
 	
 func add_electric():
+	Global.play_sound(Global.ItemSfx)
 	Global.electric = true
 	
 func add_ice():
+	Global.play_sound(Global.ItemSfx)
 	Global.frozen = true
 	
 func add_speed(count):
+	Global.play_sound(Global.ItemSfx)
 	Global.speed += count
 	if Global.speed < 0:
 		Global.speed = 0
 	
 func add_shoot_speed(count):
+	Global.play_sound(Global.ItemSfx)
 	Global.shoot_speed_total -= count
 	
 func add_melee(count):
+	Global.play_sound(Global.ItemSfx)
 	Global.melee_rate_total -= count
 	
 func add_luck(count):
+	Global.play_sound(Global.ItemSfx)
 	Global.bad_luck -= count
 	
 func add_damage(count):
+	Global.play_sound(Global.ItemSfx)
 	Global.attack += count
 	if Global.attack < 0:
 		Global.attack = 0
 	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0:
+		Global.play_sound(Global.PlayerHurt)
+		
 		$sprite.animation = "hit" + ani_aditional
 		inv_time = inv_time_total
 		hit_ttl = hit_ttl_total
@@ -189,6 +213,7 @@ func last_life():
 func turn_into_werewolf():
 	if last_life():
 		if ani_aditional != "_werewolf":
+			Global.play_sound(Global.WereWolfSfx)
 			ani_aditional = "_werewolf"
 			$sprite.animation = $sprite.animation + ani_aditional
 			Global.speed += Global.werewolf_speed
@@ -196,6 +221,7 @@ func turn_into_werewolf():
 	
 func turn_into_no_werewolf():
 	if ani_aditional == "_werewolf" and !last_life():
+		Global.play_sound(Global.WereWolfSfx)
 		ani_aditional = ""
 		$sprite.animation = $sprite.animation.replace("_werewolf", "")
 		Global.speed -= Global.werewolf_speed
@@ -207,6 +233,7 @@ func one_live():
 		
 func turn_into_zombie(original:=true):
 	if original:
+		Global.play_sound(Global.ZombieSfx)
 		Global.health = [0, 0]
 		for i in range(Global.health.size()):
 			Global.health[i] = 4
@@ -219,6 +246,7 @@ func turn_into_zombie(original:=true):
 	Global.refresh_hud()
 	
 func die():
+	Global.play_sound(Global.PlayerDieSfx)
 	$sprite.animation = "dead" + ani_aditional
 	dead = true
 	Global.GAME_OVER = true
@@ -236,6 +264,7 @@ func eval_dead():
 	return true
 	
 func entering():
+	Global.play_sound(Global.PlayerEnteringSfx)
 	entering = true
 	Global.LOGIC_PAUSE = true
 	$sprite.material.set_shader_param("blackened", true)
@@ -286,6 +315,7 @@ func create_bullet(_dir):
 	
 func shoot():
 	if Global.automatic_weapon == "plasma":
+		Global.play_sound(Global.PlasmaSfx)
 		create_bullet(Vector2(0, 1))
 		create_bullet(Vector2(0, -1))
 		
@@ -298,13 +328,17 @@ func shoot():
 		create_bullet(Vector2(-1, -1))
 	else:
 		if Global.automatic_weapon == "shot_gun":
+			Global.play_sound(Global.ShotGunSfx)
 			var dir = get_random_enemy()
 			create_bullet(dir)
 		elif Global.automatic_weapon == "knife":
+			Global.play_sound(Global.KnifeSfx)
 			create_bullet_nodir(get_random_enemy())
 		elif Global.automatic_weapon == "bomb":
+			Global.play_sound(Global.BombSxf)
 			create_bullet(get_random_dir())
 		elif Global.automatic_weapon == "tomahawk":
+			Global.play_sound(Global.TomaHawkSfx)
 			var xx = 0.2 * $sprite.scale.x
 			create_bullet(Vector2(xx, -1))
 

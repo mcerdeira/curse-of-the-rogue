@@ -3,6 +3,7 @@ var hit = false
 var dmg = 1
 
 func _ready():
+	Global.play_sound(Global.WhipSfx)
 	$sprite.speed_scale = 4
 	$sprite.playing = true
 	dmg = Global.attack

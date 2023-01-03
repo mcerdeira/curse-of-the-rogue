@@ -1,0 +1,17 @@
+GemSfx
+MasterKeySfx
+KeySfx
+ItemSfx
+LifeSfx
+WeaponSfx
+PlayerHurt
+WereWolfSfx
+ZombieSfx
+PlayerDieSfx
+PlayerEnteringSfx
+PlasmaSfx
+ShotGunSfx
+KnifeSfx
+BombSxf
+TomaHawkSfx
+WhipSfx
