@@ -56,6 +56,7 @@ func emit():
 	p.global_position = global_position
 
 func _destroy():
+	Global.play_sound(Global.PropsSfx)
 	emit()
 	if !destroyed:
 		destroyed = true

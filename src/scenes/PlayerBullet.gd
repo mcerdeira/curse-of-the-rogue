@@ -51,6 +51,7 @@ func explode():
 	emit()
 	emit()
 	emit()
+	Global.play_sound(Global.BombExplosionSfx)
 	var b = Blast.instance()
 	var root = get_node("/root/Main")
 	root.add_child(b)

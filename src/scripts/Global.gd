@@ -17,9 +17,55 @@ var FLOOR_REWARD = [-1, 10, 10, 20, 20, 30, 30, 50]
 
 var GAME_OVER = false
 var FLOOR_OVER = false
+
+#################################### Music & SFX #############################################
 var MainTheme = null
 var ShopAlterTheme = null
 var MainThemePlaying = false
+
+var GemSfx = null
+var MasterKeySfx = null
+var KeySfx = null
+var ItemSfx = null
+var LifeSfx = null
+var WeaponSfx = null
+var PlayerHurt = null
+var WereWolfSfx = null
+var ZombieSfx = null
+var PlayerDieSfx = null
+var PlayerEnteringSfx = null
+var PlasmaSfx = null
+var ShotGunSfx = null
+var KnifeSfx = null
+var BombSxf = null
+var BombExplosionSfx = null
+var TomaHawkSfx = null
+var WhipSfx = null
+var AltarSfx = null
+var PropsSfx = null
+var WheelMoveSfx = null
+var WheelSfx = null
+var ChestOpenSfx = null
+var ChestAnimationSfx = null
+var LevelEndSfx = null
+var MegaRaySfx = null
+var GhostShootSfx = null
+var DeadFireShootSfx = null
+var SkeleShootSfx = null
+var BatsSfx = null
+var DeadFireSfx = null
+var GhostSfx = null
+var ScorpionSfx = null
+var SkeleSfx = null
+var GhostHitSfx = null
+var DeadFireHitSfx = null
+var BatsHitSfx
+var ScorpionHitSfx = null
+var SkeleHitSfx = null
+var ElectricSfx = null
+var FrozeSfx = null
+var PoisonSfx = null
+############################################################################
 
 var max_combo = 0
 var current_combo = 0
@@ -393,11 +439,58 @@ func _ready():
 	PREMIUM_ITEMS.push_back(master_key)
 	PREMIUM_ITEMS.push_back(magnet_item)
 	
-	MainTheme = load("res://music/main_theme.mp3")
-	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
+	LoadSfxAndMusic()
+	
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
+	
+func LoadSfxAndMusic():
+	MainTheme = load("res://music/main_theme.mp3")
+	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
+	
+	GemSfx = load("res://sfx/GemSfx.wav")
+	MasterKeySfx = load("res://sfx/MasterKeySfx.ogg")
+	KeySfx = load("res://sfx/KeySfx.ogg")
+	ItemSfx = load("res://sfx/ItemSfx.wav")
+	LifeSfx = load("res://sfx/LifeSfx.wav")
+	WeaponSfx = load("res://sfx/WeaponSfx.ogg")
+	PlayerHurt = load("res://sfx/PlayerHurt.wav")
+	WereWolfSfx = load("res://sfx/WereWolfSfx.wav")
+	ZombieSfx = load("res://sfx/ZombieSfx.ogg")
+	PlayerDieSfx = load("res://sfx/PlayerDieSfx.wav")
+	PlayerEnteringSfx = load("res://sfx/PlayerEnteringSfx.wav")
+	PlasmaSfx = load("res://sfx/PlasmaSfx.ogg")
+	ShotGunSfx = load("res://sfx/ShotGunSfx.ogg")
+	KnifeSfx = load("res://sfx/KnifeSfx.wav")
+	BombSxf = load("res://sfx/BombSxf.wav")
+	BombExplosionSfx = load("res://sfx/BombExplosionSfx.wav")
+	TomaHawkSfx = load("res://sfx/TomaHawkSfx.wav")
+	WhipSfx = load("res://sfx/WhipSfx.wav")
+	AltarSfx = load("res://sfx/AltarSfx.wav")
+	PropsSfx = load("res://sfx/PropsSfx.wav")
+	WheelMoveSfx = load("res://sfx/WheelMoveSfx.wav")
+	WheelSfx = load("res://sfx/WheelSfx.wav")
+	ChestOpenSfx = load("res://sfx/ChestOpenSfx.ogg")
+	ChestAnimationSfx = load("res://sfx/ChestAnimationSfx.wav")
+	LevelEndSfx = load("res://sfx/LevelEndSfx.wav")
+	MegaRaySfx = load("res://sfx/file.wav")
+	GhostShootSfx = load("res://sfx/file.wav")
+	DeadFireShootSfx = load("res://sfx/file.wav")
+	SkeleShootSfx = load("res://sfx/file.wav")
+	BatsSfx = load("res://sfx/file.wav")
+	DeadFireSfx = load("res://sfx/file.wav")
+	GhostSfx = load("res://sfx/file.wav")
+	ScorpionSfx = load("res://sfx/file.wav")
+	SkeleSfx = load("res://sfx/file.wav")
+	GhostHitSfx = load("res://sfx/file.wav")
+	DeadFireHitSfx = load("res://sfx/file.wav")
+	BatsHitSfx = load("res://sfx/file.wav")
+	ScorpionHitSfx = load("res://sfx/file.wav")
+	SkeleHitSfx = load("res://sfx/file.wav")
+	ElectricSfx = load("res://sfx/file.wav")
+	FrozeSfx = load("res://sfx/file.wav")
+	PoisonSfx = load("res://sfx/file.wav")
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)

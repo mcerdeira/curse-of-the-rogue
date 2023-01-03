@@ -35,6 +35,8 @@ func eval_result():
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
 	HUD.set_message(effect_name, effect_description)
 	
+	Global.play_sound(Global.WheelSfx)
+	
 	if effect_name == "Vitality":
 		_player.add_heart(1)
 		
@@ -84,6 +86,7 @@ func _on_Area2D_body_entered(body):
 		rolling = true
 
 func _on_cositor_area_entered(area):
-	if area.is_in_group("wheel_points"):
+	if rolling and area.is_in_group("wheel_points"):
+		Global.play_sound(Global.WheelMoveSfx)
 		effect_name = area.effect_name
 		effect_description = area.effect_description

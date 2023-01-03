@@ -33,6 +33,7 @@ func _physics_process(delta):
 			$collider.set_deferred("disabled", false)
 
 func open_chest():
+	Global.play_sound(Global.ChestOpenSfx)
 	var player = get_tree().get_nodes_in_group("players")[0]
 	$sprite.animation = "opened"
 	var chest = ChestAnimation.instance()

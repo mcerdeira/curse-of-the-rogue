@@ -67,6 +67,8 @@ func reveal_doors():
 	var doors = get_tree().get_nodes_in_group("doors")
 	for d in doors:
 		d.reveal()
+		
+	Global.play_sound(Global.LevelEndSfx)
 	
 func find_farthest_to_chest(chest, buff):
 	var positions = get_children()

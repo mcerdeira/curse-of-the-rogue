@@ -29,7 +29,8 @@ func _ready():
 		turn_into_zombie(false)
 	
 func add_gem(count):
-	Global.play_sound(Global.GemSfx)
+	if count > 0:
+		Global.play_sound(Global.GemSfx)
 	Global.gems += count
 	
 func add_key(count):

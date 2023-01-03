@@ -8,6 +8,7 @@ func _physics_process(delta):
 		queue_free()
 
 func _ready():
+	Global.play_sound(Global.ChestAnimationSfx)
 	Global.LOGIC_PAUSE = true
 	z_index = VisualServer.CANVAS_ITEM_Z_MAX
 	var reward_total = Global.get_reward_floor() * Global.max_combo

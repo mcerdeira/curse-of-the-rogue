@@ -16,12 +16,12 @@ func area_on(val):
 
 func _ready():
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
+	shoot_delay_total = 8
+	shoot_delay = shoot_delay_total
 	if Global.FLOOR_TYPE != Global.floor_types.normal or !Global.pick_random([false, false, true]):
 		queue_free()
 		return
 	else:
-		shoot_delay_total = 8
-		shoot_delay = shoot_delay_total
 		area_on(false)
 
 func _physics_process(delta):
@@ -45,6 +45,7 @@ func _physics_process(delta):
 			area_on(false)
 
 func shoot():
+	Global.play_sound(Global.MegaRaySfx)
 	area_on(true)
 	shooting = shooting_total
 

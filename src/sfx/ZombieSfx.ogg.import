@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ZombieSfx.ogg-9472802cdc2354f2fa767a0a75e872d5.oggstr"
+
+[deps]
+
+source_file="res://sfx/ZombieSfx.ogg"
+dest_files=[ "res://.import/ZombieSfx.ogg-9472802cdc2354f2fa767a0a75e872d5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

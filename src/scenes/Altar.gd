@@ -27,6 +27,7 @@ func set_values():
 		$label.text = str(Global.altar_gems)
 
 func level_up_altar():
+	Global.play_sound(Global.AltarSfx)
 	if altar_type == "blood":
 		Global.altar_lifes += 1
 		Global.altar_points += 10

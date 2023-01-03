@@ -131,21 +131,25 @@ func shoot():
 	if froze_effect <= 0:
 		emit()
 		if enemy_type == "bat":
+			Global.play_sound(Global.BatsSfx)
 			var fire_ball = EnemyBullet.instance()
 			fire_ball.type = "fire_ball"
 			get_parent().get_parent().add_child(fire_ball)
 			fire_ball.global_position = global_position
 		if enemy_type == "skeleton":
+			Global.play_sound(Global.SkeleShootSfx)
 			var bone = EnemyBullet.instance()
 			bone.type = "bone"
 			get_parent().add_child(bone)
 			bone.set_position(position)
 		if enemy_type == "dead_fire":
+			Global.play_sound(Global.DeadFireShootSfx)
 			var fire_ball = EnemyBullet.instance()
 			fire_ball.type = "fire_ball"
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(position)
 		if enemy_type == "ghost":
+			Global.play_sound(Global.GhostShootSfx)
 			invisible_time = 0
 			var fire_ball = EnemyBullet.instance()
 			fire_ball.type = "fire_ball"
@@ -300,6 +304,7 @@ func set_type(_type):
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
 	if enemy_type == "ghost":
+		Global.play_sound(Global.GhostSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
@@ -321,6 +326,7 @@ func set_type(_type):
 		leave_trail = false
 	
 	if enemy_type == "dead_fire":
+		Global.play_sound(Global.DeadFireSfx)
 		$area/collider.set_deferred("disabled", true)
 		$area/collider_dead_fire.set_deferred("disabled", false)
 		$area/collider_ghost.set_deferred("disabled", true)
@@ -343,6 +349,7 @@ func set_type(_type):
 		leave_trail = true
 	
 	if enemy_type == "bat":
+		Global.play_sound(Global.BatsSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
@@ -364,6 +371,7 @@ func set_type(_type):
 		leave_trail = false
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
+		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
 			life = 4
 			speed = 180
@@ -390,6 +398,7 @@ func set_type(_type):
 		leave_trail = false
 		
 	elif enemy_type == "skeleton":
+		Global.play_sound(Global.SkeleSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
@@ -409,18 +418,34 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		
+func OuchSfx():
+	if enemy_type == "ghost":
+		Global.play_sound(Global.GhostHitSfx)
+	if enemy_type == "dead_fire":
+		Global.play_sound(Global.DeadFireHitSfx)
+	if enemy_type == "bat":
+		Global.play_sound(Global.BatsHitSfx)
+	if enemy_type == "scorpion" or enemy_type == "scorpion+":
+		Global.play_sound(Global.ScorpionHitSfx)
+	elif enemy_type == "skeleton":
+		Global.play_sound(Global.SkeleHitSfx)
+		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
+		OuchSfx()
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		
 		if electric_effect <= 0 and Global.electric:
+			Global.play_sound(Global.ElectricSfx)
 			electric_effect = electric_effect_total
 		
 		if Global.frozen:
+			Global.play_sound(Global.FrozeSfx)
 			froze_effect = 3
 		
 		if Global.poison:
+			Global.play_sound(Global.PoisonSfx)
 			$sprite.modulate = Global.poisoned_color
 			poisoned = true
 		
@@ -440,6 +465,7 @@ func hit(origin, dmg, from):
 
 func die():
 	if visible and !iamasign:
+		OuchSfx()
 		if Global.pick_random([true, false]):
 			drop_gem()
 		emit()
@@ -453,7 +479,6 @@ func _on_area_body_entered(body):
 			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg)
-		
 		
 func _draw():
 	if electric_effect > 0 and destiny:
