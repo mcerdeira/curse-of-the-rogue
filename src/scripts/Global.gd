@@ -57,10 +57,14 @@ var altar_gems = 0
 var altar_level = 0
 var altar_level_max = 0
 var magnet = false
+var werewolf = false
 
 var POINTS_BASE = 9
 var POINTS_X = 1
 var POINTS_Y = 3
+
+var werewolf_speed = 100
+var werewolf_attack = 5
 
 var one_shot_items = []
 
@@ -534,6 +538,7 @@ func initialize():
 	life2win = false
 	masterkey = false
 	magnet = false
+	werewolf = false
 
 func sustain():
 	combo_time = 0.7

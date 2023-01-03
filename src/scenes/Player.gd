@@ -48,6 +48,9 @@ func add_heart(count):
 			if count <= 0:
 				break
 	
+	if Global.werewolf:
+		turn_into_no_werewolf()
+	
 	Global.refresh_hud()
 	
 func add_total_hearts(count):
@@ -69,6 +72,9 @@ func add_total_hearts(count):
 func add_shield(count):
 	for i in range(count):
 		Global.health.push_back(2)
+		
+	if Global.werewolf:
+		turn_into_no_werewolf()
 	
 	Global.refresh_hud()
 	
@@ -77,6 +83,10 @@ func add_shield_poision(count):
 		Global.health.push_back(3)
 	
 	Global.temp_poison = true
+	
+	if Global.werewolf:
+		turn_into_no_werewolf()
+	
 	Global.refresh_hud()
 	
 func add_automatic_weapon(weapon):
@@ -97,9 +107,7 @@ func add_pay_2_win():
 	Global.pay2win = true
 	
 func add_wolf_bite():
-	#Te transforma en hombre lobo cuando solo nos queda 1 de vida
-	# + velocidad + daño
-	pass
+	Global.werewolf = true
 	
 func add_brain():
 	#Siendo zombies, nos da recuperacion automatica hasta 2 corazones
@@ -116,6 +124,8 @@ func add_ice():
 	
 func add_speed(count):
 	Global.speed += count
+	if Global.speed < 0:
+		Global.speed = 0
 	
 func add_shoot_speed(count):
 	Global.shoot_speed_total -= count
@@ -128,6 +138,8 @@ func add_luck(count):
 	
 func add_damage(count):
 	Global.attack += count
+	if Global.attack < 0:
+		Global.attack = 0
 	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0:
@@ -160,9 +172,35 @@ func hit(dmg, can_zombie:=false):
 		
 		if Global.temp_poison:
 			Global.temp_poison = eval_poision()
+			
+		if Global.werewolf and !Global.zombie:
+			turn_into_werewolf()
 		
 		Global.refresh_hud()
 		
+func last_life():
+	var count = 0
+	for i in range(Global.health.size()):
+		if Global.health[i] != 0:
+			count += 1
+			
+	return (count <= 1)
+		
+func turn_into_werewolf():
+	if last_life():
+		if ani_aditional != "_werewolf":
+			ani_aditional = "_werewolf"
+			$sprite.animation = $sprite.animation + ani_aditional
+			Global.speed += Global.werewolf_speed
+			Global.attack += Global.werewolf_attack
+	
+func turn_into_no_werewolf():
+	if ani_aditional == "_werewolf" and !last_life():
+		ani_aditional = ""
+		$sprite.animation = $sprite.animation.replace("_werewolf", "")
+		Global.speed -= Global.werewolf_speed
+		Global.attack -= Global.werewolf_attack
+	
 func one_live():
 	Global.health = [1]
 	Global.refresh_hud()
@@ -271,6 +309,9 @@ func shoot():
 			create_bullet(Vector2(xx, -1))
 
 func _physics_process(delta):
+	if Global.werewolf:
+		turn_into_werewolf()
+	
 	if Global.life2win:
 		Global.attack = Global.health.size()
 	
