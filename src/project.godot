@@ -12,6 +12,7 @@ config_version=4
 
 config/name="Curse of the Rogue"
 run/main_scene="res://scenes/Main.tscn"
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -24,6 +25,10 @@ Global="*res://scripts/Global.gd"
 window/size/fullscreen=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[global]
+
+window=false
 
 [gui]
 
@@ -99,5 +104,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0.00784314, 0.0196078, 0.0352941, 0 )
+environment/default_clear_color=Color( 0.0666667, 0.0666667, 0.0666667, 1 )
 environment/default_environment="res://default_env.tres"
