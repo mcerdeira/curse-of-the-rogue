@@ -24,9 +24,12 @@ func _ready():
 		$automatic_weapon.visible = true
 	else:
 		$automatic_weapon.visible = false
-	
+		
 	if Global.zombie:
 		turn_into_zombie(false)
+		
+	if Global.life2win:
+		Global.attack = get_life_for_attack()
 	
 func add_gem(count):
 	if count > 0:
@@ -56,6 +59,9 @@ func add_heart(count):
 	
 	if Global.werewolf:
 		turn_into_no_werewolf()
+		
+	if Global.life2win:
+		Global.attack = get_life_for_attack()
 	
 	Global.refresh_hud()
 	
@@ -83,6 +89,9 @@ func add_shield(count):
 		
 	if Global.werewolf:
 		turn_into_no_werewolf()
+		
+	if Global.life2win:
+		Global.attack = get_life_for_attack()
 	
 	Global.refresh_hud()
 	
@@ -95,6 +104,9 @@ func add_shield_poision(count):
 	
 	if Global.werewolf:
 		turn_into_no_werewolf()
+		
+	if Global.life2win:
+		Global.attack = get_life_for_attack()
 	
 	Global.refresh_hud()
 	
@@ -110,6 +122,8 @@ func add_life_2_win():
 	Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.health.size()
 	Global.life2win = true
+	if Global.life2win:
+		Global.attack = get_life_for_attack()
 	
 func add_pay_2_win():
 	Global.play_sound(Global.ItemSfx)
@@ -200,8 +214,20 @@ func hit(dmg, can_zombie:=false):
 			
 		if Global.werewolf and !Global.zombie:
 			turn_into_werewolf()
+			
+		if Global.life2win:
+			Global.attack = get_life_for_attack()
 		
 		Global.refresh_hud()
+		
+		
+func get_life_for_attack():
+	var count = 0
+	for i in range(Global.health.size()):
+		if Global.health[i] != 0:
+			count += 1
+			
+	return count
 		
 func last_life():
 	var count = 0
@@ -342,14 +368,11 @@ func shoot():
 			Global.play_sound(Global.TomaHawkSfx)
 			var xx = 0.2 * $sprite.scale.x
 			create_bullet(Vector2(xx, -1))
-
+			
 func _physics_process(delta):
 	if Global.werewolf:
 		turn_into_werewolf()
-	
-	if Global.life2win:
-		Global.attack = Global.health.size()
-	
+		
 	if Global.pay2win:
 		add_pay_2_win()
 	

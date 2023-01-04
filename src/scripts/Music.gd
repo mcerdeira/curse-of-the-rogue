@@ -62,7 +62,6 @@ func _create_player(path_or_audiostream) -> AudioStreamPlayer:
 		push_error("'path_or_audiostream' should be a path string or an AudioStream")
 	return ret
 
-
 func _start_track(track : AudioStreamPlayer, fade_duration := 1.0):
 	if !track.stream:
 		return

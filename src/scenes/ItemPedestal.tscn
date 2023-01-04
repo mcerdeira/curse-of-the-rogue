@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -27,6 +27,9 @@
 [ext_resource path="res://sprites/pay_2_win.png" type="Texture" id=25]
 [ext_resource path="res://sprites/ice_attack.png" type="Texture" id=26]
 [ext_resource path="res://sprites/electric_attack.png" type="Texture" id=27]
+[ext_resource path="res://sprites/life_2_win.png" type="Texture" id=28]
+[ext_resource path="res://sprites/masterkey_item.png" type="Texture" id=29]
+[ext_resource path="res://sprites/magnet.png" type="Texture" id=30]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -106,7 +109,7 @@ animations = [ {
 "name": "knife",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 28 ) ],
 "loop": true,
 "name": "life_2_win",
 "speed": 5.0
@@ -116,12 +119,12 @@ animations = [ {
 "name": "luckup",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 30 ) ],
 "loop": true,
 "name": "magnet",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 29 ) ],
 "loop": true,
 "name": "master_key",
 "speed": 5.0

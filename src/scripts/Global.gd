@@ -22,6 +22,7 @@ var MainTheme = null
 var ShopAlterTheme = null
 var MainThemePlaying = false
 var Muted = false
+var SfxMuted = false
 
 var GemSfx = null
 var MasterKeySfx = null
@@ -208,6 +209,15 @@ var knife = {
 	"name": "knife",
 	"description": "Knife",
 	"long_description": "Piercing Knife",
+	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
+var bomb = {
+	"name": "bomb",
+	"description": "Bomb",
+	"long_description": "Ka-Boom!",
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
@@ -414,9 +424,11 @@ var ENEMY_PATTERNS = [
 	[],
 ]
 
+func _data_overload():
+	Muted = false
+	SfxMuted = false
+
 func _ready():
-	Muted = true
-	
 	ITEMS.push_back(blue_heart)
 	ITEMS.push_back(green_heart)
 	ITEMS.push_back(empty_heart)
@@ -433,6 +445,7 @@ func _ready():
 	PREMIUM_ITEMS.push_back(wolfe_bite)
 	PREMIUM_ITEMS.push_back(shot_gun)
 	PREMIUM_ITEMS.push_back(knife)
+	PREMIUM_ITEMS.push_back(bomb)
 	PREMIUM_ITEMS.push_back(tomahawk)
 	PREMIUM_ITEMS.push_back(electric_attack)
 	PREMIUM_ITEMS.push_back(ice_attack)
@@ -440,14 +453,18 @@ func _ready():
 	PREMIUM_ITEMS.push_back(life_2_win)
 	PREMIUM_ITEMS.push_back(master_key)
 	PREMIUM_ITEMS.push_back(magnet_item)
+	PREMIUM_ITEMS.push_back(dash_item)
+	PREMIUM_ITEMS.push_back(roll_item)
+	
 	LoadSfxAndMusic()
 	
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
+	_data_overload()
 	
 func LoadSfxAndMusic():
-	MainTheme = load("res://music/main_theme.mp3")
+	MainTheme = load("res://music/main_theme_option2.ogg")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	
 	GemSfx = load("res://sfx/GemSfx.wav")
@@ -720,7 +737,7 @@ func pick_random(container):
 	return container[randi() % container.size()]
 
 func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
-	if Muted:
+	if SfxMuted:
 		return null
 	else:
 		var audio_stream_player = AudioStreamPlayer.new()
