@@ -87,6 +87,8 @@ var keys = 0
 var melee_rate = 0.0
 var melee_rate_total = 0.0
 var attack = 0
+var roll_speed = 0
+var dash_speed = 0
 var attack_max = 0
 var speed = 0
 var health = []
@@ -97,6 +99,8 @@ var total_bad_luck = 0
 var zombie = false
 var shoot_speed = 0.0
 var shoot_speed_total = 0.0
+var rolling_ttl = 0
+var dashing_ttl = 0
 
 var altar_points = 0
 var altar_lifes = 0
@@ -189,7 +193,7 @@ var dash_item = {
 
 var roll_item = {
 	"name": "roll",
-	"description": "Roll",
+	"description": "Cinamon Roll",
 	"long_description": "Keep rolling, rolling...",
 	"price": 300,
 	"type": "active",
@@ -425,6 +429,7 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	secondary_weapon = "roll"
 	Muted = true
 	SfxMuted = true
 
@@ -613,6 +618,11 @@ func initialize():
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
 	automatic_weapon = "empty"
+	
+	dash_speed = 500
+	dashing_ttl = 0.1
+	roll_speed = 200
+	rolling_ttl = 0.6
 	
 	speed = 150.00
 	total_bad_luck = 100

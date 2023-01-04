@@ -26,7 +26,6 @@ margin_left = -244.0
 margin_top = -148.0
 margin_right = 256.0
 margin_bottom = 198.0
-color = Color( 0.184314, 0.168627, 0.0235294, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -242.0

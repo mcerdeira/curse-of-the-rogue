@@ -13,6 +13,9 @@ var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
 var normalize_direction = 0
+var rolling_ttl = 0
+var dashing_ttl = 0
+var auto_move_angle = null
 
 var dead = false
 var entering = false
@@ -179,7 +182,7 @@ func add_damage(count):
 		Global.attack = 0
 	
 func hit(dmg, can_zombie:=false):
-	if inv_time <= 0:
+	if inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
 		
 		$sprite.animation = "hit" + ani_aditional
@@ -401,6 +404,18 @@ func _physics_process(delta):
 			$melee_bar.visible = false
 			$melee_bar2.visible = false
 		return
+		
+	if dashing_ttl > 0:
+		dashing_ttl -= 1 * delta
+		if dashing_ttl <= 0:
+			dashing_ttl = 0
+			auto_move_angle = null
+		
+	if rolling_ttl > 0:
+		rolling_ttl -= 1 * delta
+		if rolling_ttl <= 0:
+			rolling_ttl = 0
+			auto_move_angle = null
 	
 	if hit_ttl > 0:
 		hit_ttl -= 1 * delta
@@ -451,9 +466,17 @@ func _physics_process(delta):
 			shoot()
 	
 	if action2:
-		pass
+		if Global.secondary_weapon == "dash":
+			dashing_ttl = Global.dashing_ttl
+			var mouse_pos = get_global_mouse_position()
+			auto_move_angle = global_position.direction_to(mouse_pos) * Global.dash_speed
+			
+		if Global.secondary_weapon == "roll":
+			rolling_ttl = Global.rolling_ttl
+			var mouse_pos = get_global_mouse_position()
+			auto_move_angle = global_position.direction_to(mouse_pos) * Global.roll_speed
 	
-	if action1 and Global.melee_rate <= 0:
+	if auto_move_angle == null and action1 and Global.melee_rate <= 0:
 		if !is_instance_valid(whip_inst):
 			Global.melee_rate = Global.melee_rate_total
 			var mouse_pos = get_global_mouse_position()
@@ -480,7 +503,10 @@ func _physics_process(delta):
 	elif up:
 		movement.y = -Global.speed
 		
-	movement = move_and_slide(movement, Vector2.UP)
+	if auto_move_angle:
+		movement = move_and_slide(auto_move_angle)
+	else:
+		movement = move_and_slide(movement, Vector2.UP)
 	
 	z_index = global_position.y + 16
 	
