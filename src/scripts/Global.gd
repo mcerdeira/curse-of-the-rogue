@@ -430,10 +430,6 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	Global.FLOOR_TYPE = Global.floor_types.altar
-	Global.init_pool()
-	
-	altar_level = 4
 	Muted = true
 	SfxMuted = true
 

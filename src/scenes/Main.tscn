@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -58,6 +58,7 @@
 [ext_resource path="res://scenes/Colums.gd" type="Script" id=56]
 [ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=57]
 [ext_resource path="res://scenes/StatWheel.tscn" type="PackedScene" id=58]
+[ext_resource path="res://scenes/BigBlock.tscn" type="PackedScene" id=59]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -383,7 +384,7 @@ local_altar_level = 4
 noforshop = true
 
 [node name="ItemPedestal3" parent="." instance=ExtResource( 22 )]
-position = Vector2( 608, 367 )
+position = Vector2( 597, 356 )
 local_altar_level = 3
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
@@ -407,6 +408,26 @@ rotation = 3.14159
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 544 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="BigBlock" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 68, 269 )
+
+[node name="BigBlock2" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 106, 456 )
+
+[node name="BigBlock3" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 827, 452 )
+
+[node name="BigBlock4" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 765, 260 )
+
+[node name="BigBlock5" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 357, 264 )
+
+[node name="BigBlock6" parent="Blocks" instance=ExtResource( 59 )]
+position = Vector2( 571, 266 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
