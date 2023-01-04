@@ -142,8 +142,7 @@ func add_wolf_bite():
 	
 func add_brain():
 	Global.play_sound(Global.ItemSfx)
-	#Siendo zombies, nos da recuperacion automatica hasta 2 corazones
-	pass
+	Global.health = [4, 4, 4, 4]
 	
 func add_poison():
 	Global.play_sound(Global.ItemSfx)
@@ -264,9 +263,7 @@ func one_live():
 func turn_into_zombie(original:=true):
 	if original:
 		Global.play_sound(Global.ZombieSfx)
-		Global.health = [0, 0]
-		for i in range(Global.health.size()):
-			Global.health[i] = 4
+		Global.health = [4, 4]
 		
 	dead = false
 	Global.GAME_OVER = false

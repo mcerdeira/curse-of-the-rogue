@@ -429,7 +429,6 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	secondary_weapon = "roll"
 	Muted = true
 	SfxMuted = true
 
@@ -466,7 +465,6 @@ func _ready():
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
-	_data_overload()
 	
 func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")
@@ -664,6 +662,7 @@ func initialize():
 	masterkey = false
 	magnet = false
 	werewolf = false
+	_data_overload()
 
 func sustain():
 	combo_time = 0.7
