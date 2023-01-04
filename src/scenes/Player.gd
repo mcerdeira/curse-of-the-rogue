@@ -140,9 +140,13 @@ func add_wolf_bite():
 	Global.play_sound(Global.ItemSfx)
 	Global.werewolf = true
 	
-func add_brain():
-	Global.play_sound(Global.ItemSfx)
-	Global.health = [4, 4, 4, 4]
+func add_brain(original:=true):
+	if original:
+		Global.got_brain = true
+		Global.play_sound(Global.ItemSfx)
+		
+	if Global.zombie:
+		Global.health = [4, 4, 4, 4]
 	
 func add_poison():
 	Global.play_sound(Global.ItemSfx)
@@ -261,13 +265,15 @@ func one_live():
 	Global.refresh_hud()
 		
 func turn_into_zombie(original:=true):
+	Global.zombie = true
 	if original:
 		Global.play_sound(Global.ZombieSfx)
 		Global.health = [4, 4]
+		if Global.got_brain:
+			add_brain(false)
 		
 	dead = false
 	Global.GAME_OVER = false
-	Global.zombie = true
 	ani_aditional = "_zombie"
 	$sprite.animation = $sprite.animation + ani_aditional
 	Global.refresh_hud()

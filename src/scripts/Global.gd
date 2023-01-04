@@ -83,6 +83,7 @@ var poison = false
 var electric = false
 var frozen = false
 var temp_poison = false
+var got_brain = false
 var keys = 0
 var melee_rate = 0.0
 var melee_rate_total = 0.0
@@ -429,6 +430,10 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	Global.FLOOR_TYPE = Global.floor_types.altar
+	Global.init_pool()
+	
+	altar_level = 4
 	Muted = true
 	SfxMuted = true
 
@@ -567,6 +572,7 @@ func add_premiums(n ):
 			break
 		
 func init_pool(only_normal_items:= false):
+	randomize()
 	ITEM_POOL = []
 	if only_normal_items:
 		ITEM_POOL = [] + ITEMS
@@ -575,7 +581,6 @@ func init_pool(only_normal_items:= false):
 			ITEM_POOL = [] + PREMIUM_ITEMS
 			if randi()%Global.bad_luck != 0:
 				add_normals(5)
-			
 		else:
 			ITEM_POOL = [] + ITEMS
 			if PREMIUM_ITEMS.size() > 0:
@@ -662,6 +667,8 @@ func initialize():
 	masterkey = false
 	magnet = false
 	werewolf = false
+	got_brain = false
+	
 	_data_overload()
 
 func sustain():
