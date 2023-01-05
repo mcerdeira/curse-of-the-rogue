@@ -11,5 +11,5 @@ dest_files=[ "res://.import/main_theme_option2.ogg-60c7c2a00c3b78b1c73d35b2e1507
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0

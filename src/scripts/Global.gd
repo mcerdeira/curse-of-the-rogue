@@ -23,6 +23,7 @@ var ShopAlterTheme = null
 var MainThemePlaying = false
 var Muted = false
 var SfxMuted = false
+var TitleTheme = null
 
 var GemSfx = null
 var MasterKeySfx = null
@@ -470,6 +471,7 @@ func _ready():
 func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
+	TitleTheme = load("res://music/TitleTheme.ogg")
 	
 	GemSfx = load("res://sfx/GemSfx.wav")
 	MasterKeySfx = load("res://sfx/MasterKeySfx.ogg")

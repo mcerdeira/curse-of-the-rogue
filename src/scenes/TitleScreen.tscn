@@ -1,0 +1,181 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://scenes/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
+[ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/player_spr_3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/player_spr_0.png" type="Texture" id=5]
+[ext_resource path="res://sprites/playerback_spr_1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/playerback_spr_2.png" type="Texture" id=7]
+[ext_resource path="res://sprites/playerback_spr_0.png" type="Texture" id=8]
+[ext_resource path="res://sprites/playerback_spr_3.png" type="Texture" id=9]
+[ext_resource path="res://sprites/moon.png" type="Texture" id=10]
+[ext_resource path="res://sprites/background_title.png" type="Texture" id=11]
+[ext_resource path="res://sprites/spikeD_glow_left_spr_1 - copia.png" type="Texture" id=12]
+[ext_resource path="res://sprites/title_text.png" type="Texture" id=13]
+[ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=14]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform float blackened;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(0,0,0), blackened), texture_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/blackened = 0.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Walking"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -11, 544 ), Vector2( 500, 544 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "New Anim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TitleSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.125, 1 ),
+"update": 0,
+"values": [ Vector2( 513, -154 ), Vector2( 513, 250 ) ]
+}
+
+[sub_resource type="TileSet" id=4]
+0/name = "spikeD_glow_left_spr_1 - copia.png 0"
+0/texture = ExtResource( 12 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( -3, 0, 37, 37 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 14 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "New Anim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("PressStartContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.133972, 1 ),
+"update": 0,
+"values": [ Vector2( 420, 691 ), Vector2( 420, 500 ) ]
+}
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512, 300 )
+texture = ExtResource( 11 )
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2( -11, 544 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="collider" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="sprite" type="AnimatedSprite" parent="Player"]
+material = SubResource( 6 )
+frames = SubResource( 2 )
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Walking = SubResource( 3 )
+
+[node name="TitleAnimation" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 8 )
+
+[node name="Moon" type="Sprite" parent="."]
+position = Vector2( 835, 72 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 10 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 4 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 1245179, 0, 0, 1245180, 0, 0, 1245181, 0, 0, 1245182, 0, 0, 1245183, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1179654, 0, 0, 1179655, 0, 0, 1179656, 0, 0, 1179657, 0, 0, 1179658, 0, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179665, 0, 0, 1179666, 0, 0, 1179667, 0, 0, 1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0, 1179672, 0, 0, 1179673, 0, 0, 1179674, 0, 0, 1179675, 0, 0, 1179676, 0, 0, 1179677, 0, 0, 1179678, 0, 0, 1179679, 0, 0, 1179680, 0, 0, 1179681, 0, 0, 1179682, 0, 0, 1179683, 0, 0, 1179684, 0, 0, 1179685, 0, 0, 1310715, 0, 0, 1310716, 0, 0, 1310717, 0, 0, 1310718, 0, 0, 1310719, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0, 1245190, 0, 0, 1245191, 0, 0, 1245192, 0, 0, 1245193, 0, 0, 1245194, 0, 0, 1245195, 0, 0, 1245196, 0, 0, 1245197, 0, 0, 1245198, 0, 0, 1245199, 0, 0, 1245200, 0, 0, 1245201, 0, 0, 1245202, 0, 0, 1245203, 0, 0, 1245204, 0, 0, 1245205, 0, 0, 1245206, 0, 0, 1245207, 0, 0, 1245208, 0, 0, 1245209, 0, 0, 1245210, 0, 0, 1245211, 0, 0, 1245212, 0, 0, 1245213, 0, 0, 1245214, 0, 0, 1245215, 0, 0, 1245216, 0, 0, 1245217, 0, 0, 1245218, 0, 0, 1245219, 0, 0, 1245220, 0, 0, 1245221, 0, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+current = true
+
+[node name="TitleSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 513, -154 )
+frames = SubResource( 7 )
+
+[node name="PressStartContainer" type="Node2D" parent="."]
+position = Vector2( 420, 691 )
+
+[node name="press_start" type="Label" parent="PressStartContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 9 )
+text = "PRESS START"
+
+[node name="PressAnimation" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 10 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
