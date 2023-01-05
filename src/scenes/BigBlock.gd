@@ -4,12 +4,12 @@ var speed = 80
 var _enemy = []
 
 func _ready():
-	z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
-	#queue_free()
+	z_index = VisualServer.CANVAS_ITEM_Z_MIN
 	if Global.FLOOR_TYPE != Global.floor_types.normal:
-		pass
-		#queue_free()
-	pass
+		queue_free()
+	else:
+		if !Global.pick_random([false, false, false, true]):
+			queue_free()
 	
 func _physics_process(delta):
 	for e in _enemy:
