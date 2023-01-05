@@ -62,5 +62,5 @@ func _on_area_area_entered(area):
 		area._destroy()
 		
 	if area.is_in_group("enemies"):
-		if !area.get_parent().flying:
+		if !area.get_parent().flying and !area.get_parent().fireinmune:
 			area.get_parent().hit(null, dmg, "megaray")

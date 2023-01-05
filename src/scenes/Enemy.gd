@@ -42,6 +42,9 @@ var electric_effect_total = 2
 var destiny = null
 var saturate = 0
 var saturate_dir = 1
+var falling = false
+var dont_drop = false
+var fireinmune = false
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -155,8 +158,33 @@ func shoot():
 			fire_ball.type = "fire_ball"
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(position)
+			
+func fall():
+	dont_drop = true
+	falling = true
+	$sprite.scale.x = 1
+	$sprite.scale.y = 1
+	$shadow.visible = false
+	$sprite.playing = false
+			
+func stop_fall():
+	falling = false
+	$sprite.scale.x = 0
+	$sprite.scale.y = 0
+	$sprite.rotation = 0
+	hit(null, 999, "hole")
 
 func enemy_behaviour(delta):
+	if falling:
+		$sprite.rotation += 5 * delta
+		$sprite.scale.x -= 2 * delta
+		$sprite.scale.y = $sprite.scale.x
+		var pepe = $sprite.scale.x
+		if $sprite.scale.x <= 0:
+			stop_fall()
+			
+		return
+	
 	if Global.GAME_OVER:
 		if dead:
 			die()
@@ -318,6 +346,7 @@ func set_type(_type):
 		dmg = 2
 		chase_player = false
 		flying = true
+		fireinmune = true
 		is_enemy_group = false
 		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
@@ -339,7 +368,8 @@ func set_type(_type):
 		life = 5
 		dmg = 2
 		chase_player = true
-		flying = true
+		flying = false
+		fireinmune = true
 		is_enemy_group = false
 		stopandgo = false
 		shoot_on_die = true
@@ -364,6 +394,7 @@ func set_type(_type):
 		dmg = 1
 		chase_player = true
 		flying = true
+		fireinmune = false
 		is_enemy_group = true
 		stopandgo = false
 		shoot_on_die = false
@@ -390,6 +421,7 @@ func set_type(_type):
 		dmg = 1
 		chase_player = true
 		flying = false
+		fireinmune = false
 		is_enemy_group = false
 		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
@@ -412,6 +444,7 @@ func set_type(_type):
 		dmg = 2
 		chase_player = Global.pick_random([true, false])
 		flying = false
+		fireinmune = false
 		is_enemy_group = false
 		stopandgo = false
 		shoot_on_die = false
@@ -466,10 +499,10 @@ func hit(origin, dmg, from):
 func die():
 	if visible and !iamasign:
 		OuchSfx()
-		if Global.pick_random([true, false]):
+		if !dont_drop and Global.pick_random([true, false]):
 			drop_gem()
 		emit()
-		if shoot_on_die:
+		if !dont_drop and shoot_on_die:
 			shoot_die()
 		queue_free()
 

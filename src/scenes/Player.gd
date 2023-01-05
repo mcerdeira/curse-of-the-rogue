@@ -16,6 +16,8 @@ var normalize_direction = 0
 var rolling_ttl = 0
 var dashing_ttl = 0
 var auto_move_angle = null
+var falling = false
+var safe_pos = Vector2.ZERO
 
 var dead = false
 var entering = false
@@ -375,7 +377,36 @@ func shoot():
 			var xx = 0.2 * $sprite.scale.x
 			create_bullet(Vector2(xx, -1))
 			
+func fall():
+	falling = true
+	$sprite.scale.x = 1
+	$sprite.scale.y = 1
+	$shadow.visible = false
+	$sprite.animation = "hit" + ani_aditional
+			
+func stop_fall():
+	falling = false
+	$shadow.visible = true
+	$sprite.animation = "default" + ani_aditional
+	$sprite.scale.x = 1
+	$sprite.scale.y = 1
+	$sprite.rotation = 0
+	position = safe_pos
+	hit(1, false)
+			
 func _physics_process(delta):
+	if falling:
+		$sprite.rotation += 5 * delta
+		$sprite.scale.x -= 2 * delta
+		$sprite.scale.y = $sprite.scale.x
+		var pepe = $sprite.scale.x
+		if $sprite.scale.x <= 0:
+			stop_fall()
+			
+		return
+	
+	safe_pos = position
+	
 	if Global.werewolf:
 		turn_into_werewolf()
 		

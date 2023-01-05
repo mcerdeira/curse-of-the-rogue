@@ -159,7 +159,7 @@ texture = ExtResource( 10 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
