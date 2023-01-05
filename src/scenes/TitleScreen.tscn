@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -76,6 +76,22 @@ tracks/0/keys = {
 "values": [ Vector2( 513, -154 ), Vector2( 513, 250 ) ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "New Anim"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PressStartContainer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false ]
+}
+
 [sub_resource type="TileSet" id=4]
 0/name = "spikeD_glow_left_spr_1 - copia.png 0"
 0/texture = ExtResource( 12 )
@@ -138,7 +154,6 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="Player"]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-frame = 3
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -146,6 +161,10 @@ anims/Walking = SubResource( 3 )
 
 [node name="TitleAnimation" type="AnimationPlayer" parent="."]
 "anims/New Anim" = SubResource( 8 )
+
+[node name="Tilt" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+"anims/New Anim" = SubResource( 11 )
 
 [node name="Moon" type="Sprite" parent="."]
 position = Vector2( 835, 72 )
@@ -180,3 +199,4 @@ text = "PRESS START"
 "anims/New Anim" = SubResource( 10 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="PressAnimation" to="." method="_on_PressAnimation_animation_finished"]

@@ -25,6 +25,8 @@ var Muted = false
 var SfxMuted = false
 var TitleTheme = null
 
+var FallingSfx = null
+var AcceptSfx = null
 var GemSfx = null
 var MasterKeySfx = null
 var KeySfx = null
@@ -464,6 +466,7 @@ func _ready():
 	
 	LoadSfxAndMusic()
 	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_custom_mouse_cursor(arrow)
 	initialize()
 	init_room()
@@ -473,6 +476,8 @@ func LoadSfxAndMusic():
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	TitleTheme = load("res://music/TitleTheme.ogg")
 	
+	FallingSfx = load("res://sfx/FallingSfx.wav")
+	AcceptSfx = load("res://sfx/Accept.mp3")
 	GemSfx = load("res://sfx/GemSfx.wav")
 	MasterKeySfx = load("res://sfx/MasterKeySfx.ogg")
 	KeySfx = load("res://sfx/KeySfx.ogg")

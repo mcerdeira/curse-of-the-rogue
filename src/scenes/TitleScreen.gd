@@ -4,6 +4,8 @@ var size_ttl = 0.5
 var ui_canceled = false
 var goup = false
 var stop = false
+var startgame = false
+var start_ttl = 1.3
 
 var peppepe = 0
 var pieulo = 0
@@ -16,10 +18,19 @@ func _ready():
 		music_init()
 
 func _physics_process(delta):
-	if stop and Input.is_action_just_pressed("ui_accept"):
-		get_tree().change_scene("res://scenes/Main.tscn")
+	if startgame:
+		start_ttl -= 1 * delta
+		if start_ttl <= 0:
+			get_tree().change_scene("res://scenes/Main.tscn")
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		return
 	
+	if !startgame and stop and Input.is_action_just_pressed("ui_accept"):
+		Global.play_sound(Global.AcceptSfx)
+		$Tilt.playback_speed = 4
+		startgame = true
+		return
+		
 	if !stop and !ui_canceled and Input.is_action_just_pressed("ui_accept"):
 		ui_canceled = true
 		$AnimationPlayer.seek(2)
@@ -77,3 +88,6 @@ func get_to_place():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	get_to_place()
+
+func _on_PressAnimation_animation_finished(anim_name):
+	$Tilt.play("New Anim")

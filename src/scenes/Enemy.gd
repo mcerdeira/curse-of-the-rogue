@@ -160,6 +160,7 @@ func shoot():
 			fire_ball.set_position(position)
 			
 func fall():
+	Global.play_sound(Global.FallingSfx)
 	dont_drop = true
 	falling = true
 	$sprite.scale.x = 1

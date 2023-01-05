@@ -378,6 +378,7 @@ func shoot():
 			create_bullet(Vector2(xx, -1))
 			
 func fall():
+	Global.play_sound(Global.FallingSfx)
 	falling = true
 	$sprite.scale.x = 1
 	$sprite.scale.y = 1
