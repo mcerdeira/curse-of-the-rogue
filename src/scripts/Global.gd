@@ -431,8 +431,8 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	Muted = true
-	SfxMuted = true
+	Muted = false
+	SfxMuted = false
 
 func _ready():
 	ITEMS.push_back(blue_heart)

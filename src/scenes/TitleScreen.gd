@@ -12,10 +12,14 @@ func _ready():
 	$AnimationPlayer.play("Walking")
 	$AnimationPlayer.playback_speed = 0.5
 	
-	if Global.Muted:
+	if !Global.Muted:
 		music_init()
 
 func _physics_process(delta):
+	if stop and Input.is_action_just_pressed("ui_accept"):
+		get_tree().change_scene("res://scenes/Main.tscn")
+		return
+	
 	if !stop and !ui_canceled and Input.is_action_just_pressed("ui_accept"):
 		ui_canceled = true
 		$AnimationPlayer.seek(2)
