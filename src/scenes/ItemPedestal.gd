@@ -129,7 +129,7 @@ func do_item_effect(_player):
 	elif item_name == "normal_heart":
 		_player.add_heart(1)
 	elif item_name == "pay_2_win":
-		_player.add_pay_2_win()
+		_player.add_pay_2_win(true)
 	elif item_name == "life_2_win":
 		_player.add_life_2_win()
 	elif item_name == "poison":

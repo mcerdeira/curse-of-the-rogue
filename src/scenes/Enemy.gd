@@ -45,6 +45,7 @@ var saturate_dir = 1
 var falling = false
 var dont_drop = false
 var fireinmune = false
+var falled = false
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -123,12 +124,13 @@ func shoot_die():
 		create_enemy_bullet(Vector2(0, -1))
 		
 func trail():
-	emit()
-	if enemy_type == "dead_fire":
-		var fire_ball = EnemyBullet.instance()
-		fire_ball.type = "fire_trail"
-		get_parent().add_child(fire_ball)
-		fire_ball.set_position(position)
+	if !falled:
+		emit()
+		if enemy_type == "dead_fire":
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_trail"
+			get_parent().add_child(fire_ball)
+			fire_ball.set_position(position)
 
 func shoot():
 	if froze_effect <= 0:
@@ -163,6 +165,7 @@ func fall():
 	Global.play_sound(Global.FallingSfx)
 	dont_drop = true
 	falling = true
+	falled = true
 	$sprite.scale.x = 1
 	$sprite.scale.y = 1
 	$shadow.visible = false
@@ -170,6 +173,7 @@ func fall():
 			
 func stop_fall():
 	falling = false
+	falled = true
 	$sprite.scale.x = 0
 	$sprite.scale.y = 0
 	$sprite.rotation = 0

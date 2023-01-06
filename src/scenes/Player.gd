@@ -130,8 +130,9 @@ func add_life_2_win():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 	
-func add_pay_2_win():
-	Global.play_sound(Global.ItemSfx)
+func add_pay_2_win(original:=true):
+	if original:
+		Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.gems
 	if Global.attack > Global.attack_max:
 		Global.attack = Global.attack_max
