@@ -169,6 +169,7 @@ func fall():
 	$sprite.playing = false
 			
 func stop_fall():
+	falling = false
 	$sprite.scale.x = 0
 	$sprite.scale.y = 0
 	$sprite.rotation = 0
@@ -179,7 +180,6 @@ func enemy_behaviour(delta):
 		$sprite.rotation += 5 * delta
 		$sprite.scale.x -= 2 * delta
 		$sprite.scale.y = $sprite.scale.x
-		var pepe = $sprite.scale.x
 		if $sprite.scale.x <= 0:
 			stop_fall()
 			
