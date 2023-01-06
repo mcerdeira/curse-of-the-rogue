@@ -27,6 +27,9 @@ func _on_BigBlock_body_entered(body):
 		body.fall()
 
 func _on_BigBlock_area_entered(area):
+	if area.is_in_group("decorations"):
+		area.queue_free()
+	
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
 			_enemy.append(area.get_parent())

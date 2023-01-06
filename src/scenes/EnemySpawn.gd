@@ -134,7 +134,7 @@ func spawn_enemy():
 			var p = positions.pop_front()
 			var type  = enemies[i]
 			var enemy_inst = null
-
+			
 			if type == "bat":
 				enemy_inst = bat_group.instance()
 			else:
