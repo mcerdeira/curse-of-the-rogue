@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -23,6 +23,10 @@
 [ext_resource path="res://sprites/scorpion_spr_0plus.png" type="Texture" id=21]
 [ext_resource path="res://sprites/scorpion_spr_1plus.png" type="Texture" id=22]
 [ext_resource path="res://sprites/scorpion_spr_2plus.png" type="Texture" id=23]
+[ext_resource path="res://sprites/spider_spr_0.png" type="Texture" id=24]
+[ext_resource path="res://sprites/spider_spr_1.png" type="Texture" id=25]
+[ext_resource path="res://sprites/spider_xs_spr_1.png" type="Texture" id=26]
+[ext_resource path="res://sprites/spider_xs_spr_0.png" type="Texture" id=27]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -103,6 +107,16 @@ animations = [ {
 "loop": true,
 "name": "skeleton",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "spider",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ), ExtResource( 26 ) ],
+"loop": true,
+"name": "spider_xs",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -128,8 +142,8 @@ animation = "scorpion+"
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "bat"
-frame = 2
+animation = "spider_xs"
+frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]

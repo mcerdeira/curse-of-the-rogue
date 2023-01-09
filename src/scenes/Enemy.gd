@@ -162,14 +162,15 @@ func shoot():
 			fire_ball.set_position(position)
 			
 func fall():
-	Global.play_sound(Global.FallingSfx)
-	dont_drop = true
-	falling = true
-	falled = true
-	$sprite.scale.x = 1
-	$sprite.scale.y = 1
-	$shadow.visible = false
-	$sprite.playing = false
+	if visible and !iamasign:
+		Global.play_sound(Global.FallingSfx)
+		dont_drop = true
+		falling = true
+		falled = true
+		$sprite.scale.x = 1
+		$sprite.scale.y = 1
+		$shadow.visible = false
+		$sprite.playing = false
 			
 func stop_fall():
 	falling = false

@@ -23,8 +23,9 @@ func _physics_process(delta):
 
 func _on_BigBlock_body_entered(body):
 	if body.is_in_group("players"):
-		_player = body
-		body.fall()
+		if !Global.flying:
+			_player = body
+			body.fall()
 
 func _on_BigBlock_area_entered(area):
 	if area.is_in_group("decorations"):

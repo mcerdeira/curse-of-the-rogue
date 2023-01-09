@@ -23,9 +23,9 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 1
 speed_scale = 0.1
 playing = true
 
+[connection signal="area_entered" from="." to="." method="_on_Spikes_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Spikes_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Spikes_body_exited"]

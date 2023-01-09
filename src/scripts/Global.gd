@@ -76,6 +76,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var flying = false
 var masterkey = false
 var life2win = false
 var pay2win = false
@@ -130,6 +131,15 @@ enum floor_types {
 	altar,
 	shop,
 	supershop
+}
+
+var fly_item = {
+	"name": "fly_item",
+	"description": "Fly",
+	"long_description": "Fly away from here...",
+	"price": 500,
+	"type": "consumable",
+	"oneshot": true,
 }
 
 var magnet_item = {
@@ -403,18 +413,22 @@ var ENEMY_PATTERNS = [
 		["dead_fire"],
 		["scorpion"],
 		["skeleton"],
+		["spider"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["scorpion", "scorpion", "scorpion", "bat"],
 		["scorpion", "scorpion", "bat", "bat"],
-		["scorpion", "scorpion"]
+		["scorpion", "scorpion"],
+		["spider", "spider"],
+		["spider", "spider", "bat", "bat"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["bat", "scorpion", "bat", "bat"],
 		["bat", "bat"],
 		["ghost", "ghost"],
+		["spider", "spider", "spider"],
 	],
 	[	
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -422,12 +436,14 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire"],
+		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 	],
 	[
 		["ghost", "ghost"],
 		["dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
 		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
 		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
+		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
 	],
 	[],
 ]
@@ -463,6 +479,7 @@ func _ready():
 	PREMIUM_ITEMS.push_back(magnet_item)
 	PREMIUM_ITEMS.push_back(dash_item)
 	PREMIUM_ITEMS.push_back(roll_item)
+	PREMIUM_ITEMS.push_back(fly_item)
 	
 	LoadSfxAndMusic()
 	
@@ -671,6 +688,7 @@ func initialize():
 	magnet = false
 	werewolf = false
 	got_brain = false
+	flying = false
 	
 	_data_overload()
 

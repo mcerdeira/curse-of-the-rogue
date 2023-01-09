@@ -146,6 +146,8 @@ func do_item_effect(_player):
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "wolf_bite":
 		_player.add_wolf_bite()
+	elif item_name == "fly_item":
+		_player.add_fly()
 
 func _on_ItemPedestal_body_entered(body):
 	if body.is_in_group("players") and !taken and Global.pay_price(body, price_what, price_amount):

@@ -186,6 +186,9 @@ func add_damage(count):
 	Global.attack += count
 	if Global.attack < 0:
 		Global.attack = 0
+		
+func add_fly():
+	Global.flying = true
 	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0 and rolling_ttl <= 0:

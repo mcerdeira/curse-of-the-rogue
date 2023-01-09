@@ -13,10 +13,17 @@ func _physics_process(delta):
 
 func _on_Spikes_body_entered(body):
 	if body.is_in_group("players"):
-		player_in = true
-		player = body
+		if !Global.flying:
+			player_in = true
+			player = body
 
 func _on_Spikes_body_exited(body):
 	if body.is_in_group("players"):
-		player_in = false
-		player = null
+		if !Global.flying:
+			player_in = false
+			player = null
+
+func _on_Spikes_area_entered(area):
+	if area.is_in_group("enemies"):
+		if !area.get_parent().flying:
+			area.get_parent().hit(null, dmg, "megaray")
