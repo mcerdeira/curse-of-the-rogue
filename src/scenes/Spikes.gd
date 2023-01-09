@@ -24,6 +24,10 @@ func _on_Spikes_body_exited(body):
 			player = null
 
 func _on_Spikes_area_entered(area):
+	if area.is_in_group("big_block"):
+		queue_free()
+	
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
-			area.get_parent().hit(null, dmg, "megaray")
+			if $sprite.frame == 1:
+				area.get_parent().hit(null, dmg, "megaray")

@@ -18,6 +18,7 @@ var dashing_ttl = 0
 var auto_move_angle = null
 var falling = false
 var safe_pos = Vector2.ZERO
+var _in_water = false
 
 var dead = false
 var entering = false
@@ -189,6 +190,12 @@ func add_damage(count):
 		
 func add_fly():
 	Global.flying = true
+	
+func in_water():
+	_in_water = true
+	
+func out_water():
+	_in_water = false
 	
 func hit(dmg, can_zombie:=false):
 	if inv_time <= 0 and rolling_ttl <= 0:
@@ -367,12 +374,15 @@ func shoot():
 		create_bullet(Vector2(-1, -1))
 	else:
 		if Global.automatic_weapon == "shot_gun":
-			Global.play_sound(Global.ShotGunSfx)
 			var dir = get_random_enemy()
+			if (dir):
+				Global.play_sound(Global.ShotGunSfx)
 			create_bullet(dir)
 		elif Global.automatic_weapon == "knife":
-			Global.play_sound(Global.KnifeSfx)
-			create_bullet_nodir(get_random_enemy())
+			var dir = get_random_enemy()
+			if (dir):
+				Global.play_sound(Global.KnifeSfx)
+			create_bullet_nodir(dir)
 		elif Global.automatic_weapon == "bomb":
 			Global.play_sound(Global.BombSxf)
 			create_bullet(get_random_dir())
@@ -541,6 +551,9 @@ func _physics_process(delta):
 		movement.y = Global.speed
 	elif up:
 		movement.y = -Global.speed
+		
+	if _in_water:
+		movement.y += Global.water_speed
 		
 	if auto_move_angle:
 		movement = move_and_slide(auto_move_angle)

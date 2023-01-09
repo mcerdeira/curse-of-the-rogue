@@ -69,6 +69,9 @@ var SkeleHitSfx = null
 var ElectricSfx = null
 var FrozeSfx = null
 var PoisonSfx = null
+var SpiderSfx = null
+var SpiderHitSfx = null
+
 ############################################################################
 
 var max_combo = 0
@@ -96,6 +99,7 @@ var roll_speed = 0
 var dash_speed = 0
 var attack_max = 0
 var speed = 0
+var water_speed = 0
 var health = []
 var shield = 0
 var gems = 0
@@ -406,7 +410,7 @@ var BOSS_ELEMENTS = {
 
 var ENEMY_PATTERNS = [
 	-1,
-	[	
+	[
 		["scorpion", "scorpion", "scorpion"],
 		["ghost"],
 		["bat"],
@@ -544,6 +548,9 @@ func LoadSfxAndMusic():
 	FrozeSfx = load("res://sfx/FrozeSfx.wav")
 	PoisonSfx = load("res://sfx/PoisonSfx.wav")
 	
+	SpiderSfx = ScorpionSfx
+	SpiderHitSfx =ScorpionHitSfx
+	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
 
@@ -647,6 +654,7 @@ func initialize():
 	roll_speed = 200
 	rolling_ttl = 0.6
 	
+	water_speed = 140.00
 	speed = 150.00
 	total_bad_luck = 100
 	bad_luck = total_bad_luck

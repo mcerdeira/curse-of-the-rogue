@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -59,6 +59,8 @@
 [ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=57]
 [ext_resource path="res://scenes/StatWheel.tscn" type="PackedScene" id=58]
 [ext_resource path="res://scenes/BigBlock.tscn" type="PackedScene" id=59]
+[ext_resource path="res://scenes/WaterFall.tscn" type="PackedScene" id=60]
+[ext_resource path="res://scenes/WaterFallGroup.gd" type="Script" id=61]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -361,13 +363,11 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -596,3 +596,12 @@ position = Vector2( 166, 40 )
 frames = SubResource( 7 )
 speed_scale = 0.0
 playing = true
+
+[node name="WaterFallGroup" type="Node2D" parent="."]
+script = ExtResource( 61 )
+
+[node name="WaterFall" parent="WaterFallGroup" instance=ExtResource( 60 )]
+position = Vector2( 374, 14 )
+
+[node name="WaterFall2" parent="WaterFallGroup" instance=ExtResource( 60 )]
+position = Vector2( 654, 14 )

@@ -11,6 +11,7 @@ var player_chase = null
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
+var enemy = null
 var dead = false
 var impulse = null
 var hit_ttl = 0
@@ -46,6 +47,7 @@ var falling = false
 var dont_drop = false
 var fireinmune = false
 var falled = false
+var _in_water = false
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -105,6 +107,30 @@ func create_enemy_bullet(pos):
 	fire_ball.set_position(position)
 	
 func shoot_die():
+	if enemy_type == "spider":
+		enemy = load("res://scenes/Enemy.tscn")
+		var options = {"pitch_scale": 2}
+		Global.play_sound(Global.SpiderSfx, options)
+		var count = Global.pick_random([5, 3, 7])
+		for i in range(count):
+			var type  = "spider_xs"
+			var enemy_inst = null
+
+			enemy_inst = enemy.instance()
+			enemy_inst.enemy_type = type
+			enemy_inst.iamasign_ttl = -1
+			
+			var root = get_node("/root/Main")
+			root.add_child(enemy_inst)
+			
+			var m = Global.pick_random([1, -1])
+			
+			var pos = Vector2.ZERO
+			pos.x = global_position.x + i * 5 * m
+			pos.y = global_position.y + i * 5 * m
+			
+			enemy_inst.global_position = pos
+		
 	if enemy_type == "ghost":
 		create_enemy_bullet(Vector2(0, 1))
 		create_enemy_bullet(Vector2(0, -1))
@@ -123,6 +149,14 @@ func shoot_die():
 		create_enemy_bullet(Vector2(0, 1))
 		create_enemy_bullet(Vector2(0, -1))
 		
+func in_water():
+	if visible and !iamasign:
+		_in_water = true
+	
+func out_water():
+	if visible and !iamasign:
+		_in_water = false
+		
 func trail():
 	if !falled:
 		emit()
@@ -135,6 +169,18 @@ func trail():
 func shoot():
 	if froze_effect <= 0:
 		emit()
+		if enemy_type == "spider":
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
+			
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(1, 1))
+			create_enemy_bullet(Vector2(1, -1))
+			
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(-1, 1))
+			create_enemy_bullet(Vector2(-1, -1))
+		
 		if enemy_type == "bat":
 			Global.play_sound(Global.BatsSfx)
 			var fire_ball = EnemyBullet.instance()
@@ -171,6 +217,9 @@ func fall():
 		$sprite.scale.y = 1
 		$shadow.visible = false
 		$sprite.playing = false
+		return true
+	else:
+		return false
 			
 func stop_fall():
 	falling = false
@@ -237,7 +286,7 @@ func enemy_behaviour(delta):
 	if stopandgo:
 		stopandgo_ttl -= 1 * delta
 		if stopandgo_ttl <= 0:
-			stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+			stopandgo_ttl = Global.pick_random([5, 3, 1])
 			if stoped:
 				stoped = false
 				stop_moving = 0
@@ -316,6 +365,9 @@ func enemy_behaviour(delta):
 						visible = false
 	
 				move_and_slide(speed * direction)
+				
+	if _in_water:
+		move_and_slide(Vector2(0, Global.water_speed))
 	
 	if impulse:
 		move_and_slide((-impulse_speed) * impulse)
@@ -412,10 +464,12 @@ func set_type(_type):
 			life = 4
 			speed = 180
 			speed_total = 200
+			stopandgo = false
 		else:
 			life = 1
 			speed = 100
 			speed_total = 200
+			stopandgo = true
 		
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
@@ -428,9 +482,44 @@ func set_type(_type):
 		flying = false
 		fireinmune = false
 		is_enemy_group = false
-		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		shoot_on_die = false
+		disapear = false
+		leave_trail = false
+		
+	if enemy_type == "spider" or enemy_type == "spider_xs":
+		if enemy_type == "spider":
+			Global.play_sound(Global.SpiderSfx)
+			life = 6
+			speed = 180
+			speed_total = 200
+			shoot_on_die = true
+			shoot_ttl_total = 3
+			shoot_ttl = shoot_ttl_total
+			shoot_type = true
+			stopandgo = true
+			$area/collider.set_deferred("disabled", false)
+			$area/collider_dead_fire.set_deferred("disabled", true)
+			$area/collider_ghost.set_deferred("disabled", false)
+		else:
+			life = 1
+			speed = 100
+			speed_total = 200
+			shoot_on_die = false
+			shoot_ttl_total = 0
+			shoot_ttl = shoot_ttl_total
+			shoot_type = false
+			stopandgo = false
+			$area/collider.set_deferred("disabled", false)
+			$area/collider_dead_fire.set_deferred("disabled", true)
+			$area/collider_ghost.set_deferred("disabled", true)
+
+		dmg = 1
+		chase_player = true
+		flying = false
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		disapear = false
 		leave_trail = false
 		
@@ -465,14 +554,22 @@ func OuchSfx():
 		Global.play_sound(Global.BatsHitSfx)
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionHitSfx)
-	elif enemy_type == "skeleton":
+	if enemy_type == "spider":
+		Global.play_sound(Global.SpiderHitSfx)
+	if enemy_type == "spider_xs":
+		var options = {"pitch_scale": 2}
+		Global.play_sound(Global.SpiderHitSfx, options)
+	if enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleHitSfx)
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
-		OuchSfx()
+		stop_moving = 0.01
 		life -= dmg
 		hit_ttl = hit_ttl_total
+		
+		if life > 0:
+			OuchSfx()
 		
 		if electric_effect <= 0 and Global.electric:
 			Global.play_sound(Global.ElectricSfx)

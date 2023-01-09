@@ -4,7 +4,9 @@ var speed = 80
 var _enemy = []
 
 func _ready():
+	add_to_group("big_block")
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN
+	
 	if Global.FLOOR_TYPE != Global.floor_types.normal:
 		queue_free()
 	else:
@@ -33,5 +35,5 @@ func _on_BigBlock_area_entered(area):
 	
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
-			_enemy.append(area.get_parent())
-			area.get_parent().fall()
+			if area.get_parent().fall():
+				_enemy.append(area.get_parent())

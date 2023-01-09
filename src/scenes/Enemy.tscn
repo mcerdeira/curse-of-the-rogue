@@ -142,26 +142,27 @@ animation = "scorpion+"
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "spider_xs"
+animation = "spider"
 frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]
-visible = false
 
 [node name="collider" type="CollisionShape2D" parent="area"]
+visible = false
 shape = SubResource( 1 )
 
 [node name="collider_dead_fire" type="CollisionShape2D" parent="area"]
+visible = false
 position = Vector2( 0, 3 )
 shape = SubResource( 7 )
 
 [node name="collider_ghost" type="CollisionShape2D" parent="area"]
+visible = false
 position = Vector2( 3, -2 )
 shape = SubResource( 8 )
 
 [node name="collider2" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 3 )
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
