@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://sprites/waterfall_spr_0.png" type="Texture" id=1]
 [ext_resource path="res://sprites/waterfall2_spr_1.png" type="Texture" id=2]
 [ext_resource path="res://sprites/waterfall2_spr_0.png" type="Texture" id=3]
 [ext_resource path="res://sprites/waterfall_spr_1.png" type="Texture" id=4]
 [ext_resource path="res://scenes/WaterFall.gd" type="Script" id=5]
+[ext_resource path="res://scenes/BigBlock.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpriteFrames" id=12]
 animations = [ {
@@ -32,19 +33,18 @@ script = ExtResource( 5 )
 [node name="spr0" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 8 )
 frames = SubResource( 12 )
-frame = 1
 playing = true
 
 [node name="spr1" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 298 )
 frames = SubResource( 11 )
+frame = 1
 playing = true
 
 [node name="spr2" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 572 )
 scale = Vector2( 1, -1 )
 frames = SubResource( 12 )
-frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]
@@ -52,6 +52,10 @@ playing = true
 [node name="collider" type="CollisionShape2D" parent="area"]
 position = Vector2( -2, 292.5 )
 shape = SubResource( 13 )
+
+[node name="BigBlock" parent="." instance=ExtResource( 6 )]
+position = Vector2( -59, 438 )
+ignore_waterfall = true
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
 [connection signal="area_exited" from="area" to="." method="_on_area_area_exited"]

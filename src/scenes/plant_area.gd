@@ -5,3 +5,6 @@ func _ready():
 
 func _destroy():
 	get_parent()._destroy()
+	
+func destroy_silent():
+	get_parent().destroy_silent()

@@ -24,6 +24,9 @@ func _on_Spikes_body_exited(body):
 			player = null
 
 func _on_Spikes_area_entered(area):
+	if area.is_in_group("waterfalls"):
+		queue_free()
+	
 	if area.is_in_group("big_block"):
 		queue_free()
 	

@@ -54,6 +54,9 @@ func emit():
 	p = particle.instance()
 	get_parent().add_child(p)
 	p.global_position = global_position
+	
+func destroy_silent():
+	queue_free()
 
 func _destroy():
 	Global.play_sound(Global.PropsSfx)
@@ -61,7 +64,7 @@ func _destroy():
 	if !destroyed:
 		destroyed = true
 		if Global.pick_random([true, false]):
-			if Global.pick_random([true, true, true, false]):
+			if Global.pick_random([true, true, true, true, false]):
 				drop_gem()
 			else:
 				drop_scorpion()

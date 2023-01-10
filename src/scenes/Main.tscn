@@ -363,11 +363,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
+frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -424,15 +426,15 @@ position = Vector2( 819, 456 )
 position = Vector2( 819, 269 )
 
 [node name="BigBlock5" parent="Blocks" instance=ExtResource( 59 )]
-position = Vector2( 357, 269 )
+position = Vector2( 325, 269 )
 
 [node name="BigBlock6" parent="Blocks" instance=ExtResource( 59 )]
-position = Vector2( 571, 269 )
+position = Vector2( 585, 269 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 
 [node name="pos0" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 400, 533 )
+position = Vector2( 428, 446 )
 
 [node name="pos1" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 146, 249 )
@@ -447,7 +449,7 @@ position = Vector2( 557, 155 )
 position = Vector2( 896, 250 )
 
 [node name="pos5" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 882, 441 )
+position = Vector2( 920, 441 )
 
 [node name="pos6" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 161, 447 )
@@ -462,7 +464,7 @@ position = Vector2( 676, 152 )
 position = Vector2( 347, 153 )
 
 [node name="pos10" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 338, 350 )
+position = Vector2( 340, 265 )
 
 [node name="pos11" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 816, 233 )
@@ -492,7 +494,7 @@ position = Vector2( 136, 168 )
 position = Vector2( 874, 388 )
 
 [node name="pos20" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 793, 504 )
+position = Vector2( 802, 522 )
 
 [node name="pos21" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 240, 232 )
@@ -507,7 +509,7 @@ position = Vector2( 784, 368 )
 position = Vector2( 720, 64 )
 
 [node name="pos25" type="Position2D" parent="EnemySpawn"]
-position = Vector2( 624, 520 )
+position = Vector2( 569, 523 )
 
 [node name="pos26" type="Position2D" parent="EnemySpawn"]
 position = Vector2( 504, 328 )
@@ -519,10 +521,10 @@ position = Vector2( 441, 256 )
 position = Vector2( 630, 380 )
 
 [node name="DoorNext" parent="." instance=ExtResource( 17 )]
-position = Vector2( 424, 78 )
+position = Vector2( 438, 78 )
 
 [node name="DoorExtra" parent="." instance=ExtResource( 17 )]
-position = Vector2( 600, 78 )
+position = Vector2( 588, 78 )
 type = ""
 
 [node name="ShopKeeper" parent="." instance=ExtResource( 27 )]
@@ -601,7 +603,7 @@ playing = true
 script = ExtResource( 61 )
 
 [node name="WaterFall" parent="WaterFallGroup" instance=ExtResource( 60 )]
-position = Vector2( 374, 14 )
+position = Vector2( 387, 14 )
 
 [node name="WaterFall2" parent="WaterFallGroup" instance=ExtResource( 60 )]
-position = Vector2( 654, 14 )
+position = Vector2( 644, 14 )
