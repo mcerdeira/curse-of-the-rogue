@@ -33,24 +33,25 @@ script = ExtResource( 5 )
 [node name="spr0" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 8 )
 frames = SubResource( 12 )
+frame = 1
 playing = true
 
 [node name="spr1" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 298 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [node name="spr2" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 572 )
 scale = Vector2( 1, -1 )
 frames = SubResource( 12 )
+frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]
 
 [node name="collider" type="CollisionShape2D" parent="area"]
-position = Vector2( -2, 292.5 )
+position = Vector2( -2, 293 )
 shape = SubResource( 13 )
 
 [node name="BigBlock" parent="." instance=ExtResource( 6 )]

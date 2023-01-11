@@ -457,8 +457,7 @@ func _physics_process(delta):
 	
 	if entering:
 		$automatic_weapon.visible = false
-		$melee_bar.visible = false
-		$melee_bar2.visible = false
+		$sprite/melee_bar.visible = false
 		if !Global.flying:
 			$sprite.playing = true
 			
@@ -473,8 +472,7 @@ func _physics_process(delta):
 				turn_into_zombie()
 		else:
 			$automatic_weapon.visible = false
-			$melee_bar.visible = false
-			$melee_bar2.visible = false
+			$sprite/melee_bar.visible = false
 		return
 		
 	if rolling_cool_down > 0:

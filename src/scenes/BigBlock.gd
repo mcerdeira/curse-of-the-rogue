@@ -6,6 +6,8 @@ export var ignore_waterfall = false
 
 func _ready():
 	add_to_group("big_block")
+	$waterfall.visible = false
+	$waterfall2.visible = false
 	
 	if Global.FLOOR_TYPE != Global.floor_types.normal:
 		queue_free()
@@ -20,7 +22,8 @@ func _ready():
 func _physics_process(delta):
 	if ignore_waterfall:
 		z_index = VisualServer.CANVAS_ITEM_Z_MAX
-		$sprite.animation = "waterfall"
+		$waterfall.visible = true
+		$waterfall2.visible = true
 	else:
 		z_index = VisualServer.CANVAS_ITEM_Z_MIN
 	

@@ -27,7 +27,7 @@
 [ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/SpikeGroup.gd" type="Script" id=26]
 [ext_resource path="res://scenes/ShopKeeper.tscn" type="PackedScene" id=27]
-[ext_resource path="res://sprites/skull_spr_0.png" type="Texture" id=28]
+[ext_resource path="res://sprites/skull_table_spr_0.png" type="Texture" id=28]
 [ext_resource path="res://scenes/ShopTable.gd" type="Script" id=29]
 [ext_resource path="res://scenes/Altar.tscn" type="PackedScene" id=30]
 [ext_resource path="res://sprites/checkpoint_on_spr_4.png" type="Texture" id=31]
@@ -363,13 +363,13 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -539,6 +539,31 @@ script = ExtResource( 29 )
 [node name="collider" type="CollisionShape2D" parent="ShopTable/RigidBody2D"]
 position = Vector2( 510.5, 244 )
 shape = SubResource( 6 )
+
+[node name="sku6" type="Sprite" parent="ShopTable"]
+position = Vector2( 552, 236 )
+rotation = 0.218166
+texture = ExtResource( 28 )
+
+[node name="sku7" type="Sprite" parent="ShopTable"]
+position = Vector2( 529, 239 )
+rotation = 0.218166
+texture = ExtResource( 28 )
+
+[node name="sku8" type="Sprite" parent="ShopTable"]
+position = Vector2( 506, 246 )
+rotation = 0.98262
+texture = ExtResource( 28 )
+
+[node name="sku9" type="Sprite" parent="ShopTable"]
+position = Vector2( 467, 235 )
+rotation = -1.31249
+texture = ExtResource( 28 )
+
+[node name="sku10" type="Sprite" parent="ShopTable"]
+position = Vector2( 558, 235 )
+rotation = -1.31249
+texture = ExtResource( 28 )
 
 [node name="sku1" type="Sprite" parent="ShopTable"]
 position = Vector2( 467, 236 )
