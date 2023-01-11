@@ -650,7 +650,8 @@ func initialize():
 	automatic_weapon = "empty"
 	
 	dash_speed = 500
-	dashing_ttl = 0.1
+	dashing_ttl = 0.3
+	
 	roll_speed = 200
 	rolling_ttl = 0.6
 	

@@ -9,16 +9,24 @@ var inv_togg = 0
 var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
+var particle = preload("res://scenes/particle2.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
 var normalize_direction = 0
 var rolling_ttl = 0
 var dashing_ttl = 0
+var rolling_cool_down = 0
+var dashing_cool_down = 0
 var auto_move_angle = null
 var falling = false
 var safe_pos = Vector2.ZERO
 var _in_water = false
+var dash_pos = []
+onready var default_pos = $sprite.get_position() - Vector2(0, 10)
+var amplitude = 5.0
+var frequency = 2.0
+var time = 0
 
 var dead = false
 var entering = false
@@ -198,7 +206,7 @@ func out_water():
 	_in_water = false
 	
 func hit(dmg, can_zombie:=false):
-	if inv_time <= 0 and rolling_ttl <= 0:
+	if !entering and inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
 		
 		$sprite.animation = "hit" + ani_aditional
@@ -408,6 +416,19 @@ func stop_fall():
 	$sprite.rotation = 0
 	position = safe_pos
 	hit(1, false)
+	
+func emit():
+	for i in range(2):
+		var p = particle.instance()
+		var root = get_node("/root/Main")
+		root.add_child(p)
+		p.global_position = global_position
+	
+func _draw():
+	if dashing_ttl > 0:
+		var texture = $sprite.get_sprite_frames().get_frame($sprite.animation,$sprite.get_frame())
+		for p in dash_pos:
+			draw_texture(texture, to_local(p), Color(1, 1, 1, 0.3))
 			
 func _physics_process(delta):
 	if falling:
@@ -438,7 +459,9 @@ func _physics_process(delta):
 		$automatic_weapon.visible = false
 		$melee_bar.visible = false
 		$melee_bar2.visible = false
-		$sprite.playing = true
+		if !Global.flying:
+			$sprite.playing = true
+			
 		if $sprite.position.y <= 10:
 			$sprite.position.y -= 8 * delta
 			$shadow.position.y -= 8 * delta
@@ -454,15 +477,32 @@ func _physics_process(delta):
 			$melee_bar2.visible = false
 		return
 		
+	if rolling_cool_down > 0:
+		rolling_cool_down -= 1 * delta
+		
+	if dashing_cool_down > 0:
+		dashing_cool_down -= 1 * delta
+				
 	if dashing_ttl > 0:
+		dash_pos.append(Vector2(position.x -16, position.y - 16))
 		dashing_ttl -= 1 * delta
+		update()
 		if dashing_ttl <= 0:
+			dash_pos = []
+			dashing_cool_down = 0.3
 			dashing_ttl = 0
 			auto_move_angle = null
 		
 	if rolling_ttl > 0:
 		rolling_ttl -= 1 * delta
+		$sprite.animation = "roll" + ani_aditional
+		$sprite.rotation += (15 * $sprite.scale.x) * delta
+		if randi() % 20 == 0:
+			emit()
 		if rolling_ttl <= 0:
+			$sprite.animation = "default"
+			$sprite.rotation = 0
+			rolling_cool_down = 0.3
 			rolling_ttl = 0
 			auto_move_angle = null
 	
@@ -495,14 +535,13 @@ func _physics_process(delta):
 	var action2 = Input.is_action_pressed("action2")
 	
 	if Global.melee_rate > 0:
-		$melee_bar.visible = true
-		$melee_bar2.visible = true
-		$melee_progress.play("default")
+		$sprite/melee_bar.visible = true
 		Global.melee_rate -= 1 * delta
 		Global.melee_rate = max(0, Global.melee_rate)
 	else:
-		$melee_bar.visible = false
-		$melee_bar2.visible = false
+		$sprite/melee_bar.playing = false
+		$sprite/melee_bar.frame = 0
+		$sprite/melee_bar.visible = false
 	
 	var move = (left or right or up or down)
 	
@@ -515,19 +554,28 @@ func _physics_process(delta):
 			shoot()
 	
 	if action2:
-		if Global.secondary_weapon == "dash":
+		if dashing_ttl <= 0 and dashing_cool_down <= 0 and Global.secondary_weapon == "dash":
 			dashing_ttl = Global.dashing_ttl
 			var mouse_pos = get_global_mouse_position()
+			if mouse_pos.x > position.x:
+				$sprite.scale.x = 1
+			else:
+				$sprite.scale.x = -1
 			auto_move_angle = global_position.direction_to(mouse_pos) * Global.dash_speed
 			
-		if Global.secondary_weapon == "roll":
+		if rolling_ttl <= 0 and rolling_cool_down <= 0 and Global.secondary_weapon == "roll":
 			rolling_ttl = Global.rolling_ttl
 			var mouse_pos = get_global_mouse_position()
+			if mouse_pos.x > position.x:
+				$sprite.scale.x = 1
+			else:
+				$sprite.scale.x = -1
 			auto_move_angle = global_position.direction_to(mouse_pos) * Global.roll_speed
 	
 	if auto_move_angle == null and action1 and Global.melee_rate <= 0:
 		if !is_instance_valid(whip_inst):
 			Global.melee_rate = Global.melee_rate_total
+			$sprite/melee_bar.playing = true
 			var mouse_pos = get_global_mouse_position()
 			var angle = get_angle_to(mouse_pos)
 			var _z = z_index
@@ -568,6 +616,13 @@ func _physics_process(delta):
 		else:
 			$sprite.animation = "default" + ani_aditional
 	
+	$sprite/melee_bar.scale.x = $sprite.scale.x
+	
 	$sprite.playing = move
 	if !move:
 		$sprite.frame = 0
+
+	if Global.flying:		
+		$sprite.playing = false
+		time += delta * frequency
+		$sprite.set_position(default_pos + Vector2(0, sin(time) * amplitude))
