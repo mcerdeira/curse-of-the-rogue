@@ -10,6 +10,7 @@ var whip_inst = null
 var whip = preload("res://scenes/Whip.tscn")
 var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var particle = preload("res://scenes/particle2.tscn")
+var BulletGroup = preload("res://scenes/BulletGroup.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
@@ -27,6 +28,7 @@ onready var default_pos = $sprite.get_position() - Vector2(0, 10)
 var amplitude = 5.0
 var frequency = 2.0
 var time = 0
+var bulletonetimecreated = false
 
 var dead = false
 var entering = false
@@ -359,7 +361,12 @@ func create_bullet_nodir(_dir):
 		bullet.global_position = global_position
 
 func create_bullet(_dir):
-	if _dir != null:
+	if !bulletonetimecreated and Global.automatic_weapon == "spikeball":
+		bulletonetimecreated = true
+		var bullet = BulletGroup.instance()
+		add_child(bullet)
+		bullet.global_position = global_position
+	elif _dir != null:
 		var bullet = PlayerBullet.instance()
 		bullet.type = Global.automatic_weapon
 		bullet.dir = _dir
@@ -368,6 +375,9 @@ func create_bullet(_dir):
 		bullet.global_position = global_position
 	
 func shoot():
+	if Global.automatic_weapon == "spikeball":
+		create_bullet(null)
+	
 	if Global.automatic_weapon == "plasma":
 		Global.play_sound(Global.PlasmaSfx)
 		create_bullet(Vector2(0, 1))

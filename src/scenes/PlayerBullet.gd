@@ -1,5 +1,5 @@
 extends KinematicBody2D
-var type = "knife"
+export var type = "knife"
 var explode_ttl = 2
 var dir = Vector2.ZERO
 var Blast = preload("res://scenes/Blast.tscn")
@@ -15,6 +15,9 @@ var tomahawk_ttl = 0
 func _initialize():
 	$sprite.animation = type
 	
+	if type == "spikeball":
+		speed = 0
+		dmg = 0.2
 	if type == "tomahawk":
 		tomahawk_ttl = 0.8
 		speed = 150
@@ -97,6 +100,8 @@ func _physics_process(delta):
 			dir.y = 1 
 		
 		$sprite.rotation += 15 * delta
+	elif type == "spikeball":
+		$sprite.rotation += 100 * delta
 	elif type == "shot_gun":
 		$sprite.rotation += 100 * delta
 		
@@ -105,13 +110,16 @@ func _on_Area2D_area_entered(area):
 		emit()
 		area.get_parent().hit(get_parent(), dmg, "player")
 		if !piercing:
-			queue_free()
+			if type != "spikeball":
+				queue_free()
 		else:
 			pierce_count -= 1
 			if pierce_count <= 0:
-				queue_free()
+				if type != "spikeball":
+					queue_free()
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Walls":
 		emit()
-		queue_free()
+		if type != "spikeball":
+			queue_free()

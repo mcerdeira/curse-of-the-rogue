@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/PlayerBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/BulletGroup.gd" type="Script" id=2]
+
+[node name="BulletGroup" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PlayerBullet" parent="." instance=ExtResource( 1 )]
+position = Vector2( -46, -33 )
+type = "spikeball"
+
+[node name="PlayerBullet2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 44, -34 )
+type = "spikeball"
+
+[node name="PlayerBullet3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 52 )
+type = "spikeball"

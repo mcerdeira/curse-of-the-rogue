@@ -227,6 +227,15 @@ var shot_gun = {
 	"oneshot": true,
 }
 
+var spikeball = {
+	"name": "spikeball",
+	"description": "Spike-Balls",
+	"long_description": "I got balls of steel",
+	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
 var knife = {
 	"name": "knife",
 	"description": "Knife",
@@ -484,6 +493,7 @@ func _ready():
 	PREMIUM_ITEMS.push_back(dash_item)
 	PREMIUM_ITEMS.push_back(roll_item)
 	PREMIUM_ITEMS.push_back(fly_item)
+	PREMIUM_ITEMS.push_back(spikeball)
 	
 	LoadSfxAndMusic()
 	

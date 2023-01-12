@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -61,6 +61,7 @@
 [ext_resource path="res://scenes/BigBlock.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/WaterFall.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/WaterFallGroup.gd" type="Script" id=61]
+[ext_resource path="res://sprites/spike_ball.png" type="Texture" id=62]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -138,6 +139,11 @@ animations = [ {
 "frames": [ ExtResource( 48 ) ],
 "loop": true,
 "name": "shot_gun",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "spikeball",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 57 ) ],
@@ -356,20 +362,18 @@ animation = "empty"
 [node name="automatic_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 82, 51 )
 frames = SubResource( 9 )
-animation = "tomahawk"
+animation = "empty"
 
 [node name="automatic_weapon_frame" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
