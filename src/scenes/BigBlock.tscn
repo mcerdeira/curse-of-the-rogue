@@ -30,22 +30,15 @@ script = ExtResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 58, 51 )
 frames = SubResource( 2 )
-animation = "waterfall"
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2( 55.5, 53.5 )
 shape = SubResource( 1 )
 
 [node name="waterfall" type="AnimatedSprite" parent="."]
-position = Vector2( 57, 93 )
-frames = SubResource( 3 )
-playing = true
-
-[node name="waterfall2" type="AnimatedSprite" parent="."]
 position = Vector2( 57, 13 )
 scale = Vector2( 1, -1 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 
 [connection signal="area_entered" from="." to="." method="_on_BigBlock_area_entered"]

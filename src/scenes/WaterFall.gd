@@ -2,6 +2,11 @@ extends Node2D
 
 func _ready():
 	add_to_group("waterfalls")
+	
+func hide_waterfall():
+	$spr2.visible = false
+	$area/collider2.queue_free()
+	$spr1.animation = "short"
 
 func _physics_process(delta):
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN + 2

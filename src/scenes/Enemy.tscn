@@ -18,7 +18,7 @@
 [ext_resource path="res://sprites/dead_fire_spr_1.png" type="Texture" id=16]
 [ext_resource path="res://sprites/dead_fire_spr_2.png" type="Texture" id=17]
 [ext_resource path="res://sprites/ghost_spr_1.png" type="Texture" id=18]
-[ext_resource path="res://sprites/esqueleton_spr_0.png" type="Texture" id=19]
+[ext_resource path="res://sprites/troll_spr_0.png" type="Texture" id=19]
 [ext_resource path="res://sprites/ghost_spr_3.png" type="Texture" id=20]
 [ext_resource path="res://sprites/scorpion_spr_0plus.png" type="Texture" id=21]
 [ext_resource path="res://sprites/scorpion_spr_1plus.png" type="Texture" id=22]
@@ -78,11 +78,6 @@ animations = [ {
 "name": "dead_fire",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ) ],
-"loop": true,
-"name": "esqueleton",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 18 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "ghost",
@@ -117,6 +112,11 @@ animations = [ {
 "loop": true,
 "name": "spider_xs",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "troll",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -142,8 +142,7 @@ animation = "scorpion+"
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "spider"
-frame = 1
+animation = "troll"
 playing = true
 
 [node name="area" type="Area2D" parent="."]

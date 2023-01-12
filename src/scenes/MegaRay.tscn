@@ -57,6 +57,7 @@ frames = SubResource( 5 )
 position = Vector2( 0, 568 )
 rotation = 3.14159
 frames = SubResource( 5 )
+speed_scale = 0.5
 
 [node name="particle" parent="." instance=ExtResource( 9 )]
 position = Vector2( -16, 552 )

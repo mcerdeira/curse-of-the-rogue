@@ -98,6 +98,8 @@ func do_item_effect(_player):
 		
 	if item_name == "blue_heart":
 		_player.add_shield(1)
+	elif item_name == "spikeball":
+		_player.add_automatic_weapon(item_name)
 	elif item_name == "bomb":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "brain":

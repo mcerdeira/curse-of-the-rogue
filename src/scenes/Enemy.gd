@@ -48,6 +48,10 @@ var dont_drop = false
 var fireinmune = false
 var falled = false
 var _in_water = false
+var angle_walker = false
+var troll_angle_limit = 4.6
+var troll_angle = 0
+var troll_angle_dir = 1
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -274,6 +278,18 @@ func enemy_behaviour(delta):
 		electric_effect -= 1 * delta
 		if electric_effect <= 0:
 			update()
+			
+	if angle_walker:
+		if troll_angle_dir == 1:
+			troll_angle += 20 * delta
+			if troll_angle >= troll_angle_limit:
+				troll_angle_dir = -1
+		else:
+			troll_angle -= 20 * delta
+			if troll_angle <= -troll_angle_limit:
+				troll_angle_dir = 1
+				
+		$sprite.rotation_degrees = troll_angle
 		
 	if froze_effect > 0:
 		$sprite.modulate = Global.froze_color
@@ -410,6 +426,7 @@ func set_type(_type):
 		shoot_on_die = true
 		disapear = true
 		leave_trail = false
+		angle_walker = true
 	
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireSfx)
@@ -434,6 +451,7 @@ func set_type(_type):
 		$shadow.visible = false
 		disapear = false
 		leave_trail = true
+		angle_walker = true
 	
 	if enemy_type == "bat":
 		Global.play_sound(Global.BatsSfx)
@@ -457,6 +475,30 @@ func set_type(_type):
 		shoot_on_die = false
 		disapear = false
 		leave_trail = false
+		angle_walker = true
+		
+	if enemy_type == "troll":
+		Global.play_sound(Global.TrollSfx)
+		life = 20
+		speed = 30
+		speed_total = 30
+		stopandgo = false
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+		shoot_ttl_total = 0
+		shoot_ttl = shoot_ttl_total
+		shoot_type = false
+		dmg = 1
+		chase_player = true
+		flying = false
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = false
+		disapear = false
+		leave_trail = false
+		angle_walker = true
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
@@ -486,10 +528,12 @@ func set_type(_type):
 		shoot_on_die = false
 		disapear = false
 		leave_trail = false
+		angle_walker = false
 		
 	if enemy_type == "spider" or enemy_type == "spider_xs":
 		if enemy_type == "spider":
-			Global.play_sound(Global.SpiderSfx)
+			var options = {"pitch_scale": 0.5}
+			Global.play_sound(Global.SpiderSfx, options)
 			life = 6
 			speed = 180
 			speed_total = 200
@@ -522,6 +566,7 @@ func set_type(_type):
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		disapear = false
 		leave_trail = false
+		angle_walker = false
 		
 	elif enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleSfx)
@@ -544,8 +589,11 @@ func set_type(_type):
 		shoot_on_die = false
 		disapear = false
 		leave_trail = false
+		angle_walker = false
 		
 func OuchSfx():
+	if enemy_type == "troll":
+		Global.play_sound(Global.TrollHitSfx)
 	if enemy_type == "ghost":
 		Global.play_sound(Global.GhostHitSfx)
 	if enemy_type == "dead_fire":
@@ -555,7 +603,8 @@ func OuchSfx():
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionHitSfx)
 	if enemy_type == "spider":
-		Global.play_sound(Global.SpiderHitSfx)
+		var options = {"pitch_scale": 0.5}
+		Global.play_sound(Global.SpiderHitSfx, options)
 	if enemy_type == "spider_xs":
 		var options = {"pitch_scale": 2}
 		Global.play_sound(Global.SpiderHitSfx, options)

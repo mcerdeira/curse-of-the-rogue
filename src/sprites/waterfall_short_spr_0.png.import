@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/esqueleton_spr_0.png-a773bb880012d6f86a79b634724b3fba.stex"
+path="res://.import/waterfall_short_spr_0.png-414a4152e1f5efc5288f9c82b29fa733.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/esqueleton_spr_0.png"
-dest_files=[ "res://.import/esqueleton_spr_0.png-a773bb880012d6f86a79b634724b3fba.stex" ]
+source_file="res://sprites/waterfall_short_spr_0.png"
+dest_files=[ "res://.import/waterfall_short_spr_0.png-414a4152e1f5efc5288f9c82b29fa733.stex" ]
 
 [params]
 

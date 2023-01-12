@@ -71,6 +71,9 @@ var FrozeSfx = null
 var PoisonSfx = null
 var SpiderSfx = null
 var SpiderHitSfx = null
+var SpikeBallSfx = null
+var TrollSfx = null
+var TrollHitSfx = null
 
 ############################################################################
 
@@ -420,26 +423,27 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
-		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
-		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
-		["spider"],
+#		["scorpion", "scorpion", "scorpion"],
+#		["ghost"],
+#		["bat"],
+#		["dead_fire"],
+#		["scorpion"],
+#		["skeleton"],
+#		["spider"],
+		["troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["scorpion", "scorpion", "scorpion", "bat"],
 		["scorpion", "scorpion", "bat", "bat"],
-		["scorpion", "scorpion"],
+		["scorpion", "scorpion", "troll"],
 		["spider", "spider"],
 		["spider", "spider", "bat", "bat"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["bat", "scorpion", "bat", "bat"],
-		["bat", "bat"],
+		["bat", "bat", "troll", "troll"],
 		["ghost", "ghost"],
 		["spider", "spider", "spider"],
 	],
@@ -448,12 +452,12 @@ var ENEMY_PATTERNS = [
 		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
-		["dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 	],
 	[
-		["ghost", "ghost"],
-		["dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
+		["ghost", "ghost", "troll"],
+		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
 		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
 		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
 		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
@@ -560,6 +564,11 @@ func LoadSfxAndMusic():
 	
 	SpiderSfx = ScorpionSfx
 	SpiderHitSfx =ScorpionHitSfx
+	
+	SpikeBallSfx = null
+	
+	TrollSfx = null
+	TrollHitSfx = null
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)

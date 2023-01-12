@@ -361,8 +361,7 @@ func create_bullet_nodir(_dir):
 		bullet.global_position = global_position
 
 func create_bullet(_dir):
-	if !bulletonetimecreated and Global.automatic_weapon == "spikeball":
-		bulletonetimecreated = true
+	if Global.automatic_weapon == "spikeball":
 		var bullet = BulletGroup.instance()
 		add_child(bullet)
 		bullet.global_position = global_position
@@ -375,7 +374,9 @@ func create_bullet(_dir):
 		bullet.global_position = global_position
 	
 func shoot():
-	if Global.automatic_weapon == "spikeball":
+	if !bulletonetimecreated and Global.automatic_weapon == "spikeball":
+		Global.play_sound(Global.SpikeBallSfx)
+		bulletonetimecreated = true
 		create_bullet(null)
 	
 	if Global.automatic_weapon == "plasma":
