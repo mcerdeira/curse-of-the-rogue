@@ -74,6 +74,7 @@ var SpiderHitSfx = null
 var SpikeBallSfx = null
 var TrollSfx = null
 var TrollHitSfx = null
+var KatanaSfx = null
 
 ############################################################################
 
@@ -235,6 +236,15 @@ var spikeball = {
 	"description": "Spike-Balls",
 	"long_description": "I got balls of steel",
 	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
+var katana = {
+	"name": "katana",
+	"description": "Katana",
+	"long_description": "Mighty Blade",
+	"price": 400,
 	"type": "gun",
 	"oneshot": true,
 }
@@ -498,6 +508,7 @@ func _ready():
 	PREMIUM_ITEMS.push_back(roll_item)
 	PREMIUM_ITEMS.push_back(fly_item)
 	PREMIUM_ITEMS.push_back(spikeball)
+	PREMIUM_ITEMS.push_back(katana)
 	
 	LoadSfxAndMusic()
 	
@@ -563,12 +574,14 @@ func LoadSfxAndMusic():
 	PoisonSfx = load("res://sfx/PoisonSfx.wav")
 	
 	SpiderSfx = ScorpionSfx
-	SpiderHitSfx =ScorpionHitSfx
+	SpiderHitSfx = ScorpionHitSfx
 	
 	SpikeBallSfx = null
 	
 	TrollSfx = null
 	TrollHitSfx = null
+	
+	KatanaSfx = WhipSfx
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)

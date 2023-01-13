@@ -6,8 +6,9 @@ var inv_time = 0
 var inv_time_total = 1.2
 var inv_togg_total = 0.1
 var inv_togg = 0
-var whip_inst = null
+var primary_inst = null
 var whip = preload("res://scenes/Whip.tscn")
+var katana = preload("res://scenes/Katana.tscn")
 var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var particle = preload("res://scenes/particle2.tscn")
 var BulletGroup = preload("res://scenes/BulletGroup.tscn")
@@ -20,6 +21,7 @@ var dashing_ttl = 0
 var rolling_cool_down = 0
 var dashing_cool_down = 0
 var auto_move_angle = null
+var facing = 1
 var falling = false
 var safe_pos = Vector2.ZERO
 var _in_water = false
@@ -29,6 +31,7 @@ var amplitude = 5.0
 var frequency = 2.0
 var time = 0
 var bulletonetimecreated = false
+var back = false
 
 var dead = false
 var entering = false
@@ -133,6 +136,10 @@ func add_automatic_weapon(weapon):
 func add_secondary_weapon(weapon):
 	Global.play_sound(Global.WeaponSfx)
 	Global.secondary_weapon = weapon
+	
+func add_primary_weapon(weapon):
+	Global.play_sound(Global.WeaponSfx)
+	Global.primary_weapon = weapon
 	
 func add_life_2_win():
 	Global.play_sound(Global.ItemSfx)
@@ -441,6 +448,24 @@ func _draw():
 		for p in dash_pos:
 			draw_texture(texture, to_local(p), Color(1, 1, 1, 0.3))
 			
+func melee_attack():
+	var _z = z_index
+	if Global.primary_weapon == "whip":
+		var mouse_pos = get_global_mouse_position()
+		var angle = get_angle_to(mouse_pos)
+		if $sprite.animation == "back" + ani_aditional:
+			_z = z_index - 10
+		primary_inst = whip.instance()
+		add_child(primary_inst)
+		primary_inst.z_index = _z
+		primary_inst.set_position(Vector2(0,0))
+		primary_inst.rotation = angle
+	elif Global.primary_weapon == "katana":
+		primary_inst = katana.instance()
+		add_child(primary_inst)
+		primary_inst.set_position(Vector2(0, 0))
+		primary_inst.scale.x = facing
+			
 func _physics_process(delta):
 	if falling:
 		$sprite.rotation += 5 * delta
@@ -582,32 +607,28 @@ func _physics_process(delta):
 			auto_move_angle = global_position.direction_to(mouse_pos) * Global.roll_speed
 	
 	if auto_move_angle == null and action1 and Global.melee_rate <= 0:
-		if !is_instance_valid(whip_inst):
+		if !is_instance_valid(primary_inst):
 			Global.melee_rate = Global.melee_rate_total
 			$sprite/melee_bar.playing = true
-			var mouse_pos = get_global_mouse_position()
-			var angle = get_angle_to(mouse_pos)
-			var _z = z_index
-			if $sprite.animation == "back" + ani_aditional:
-				_z = z_index - 10
-			
-			whip_inst = whip.instance()
-			add_child(whip_inst)
-			whip_inst.z_index = _z
-			whip_inst.set_position(Vector2(0,0))
-			whip_inst.rotation = angle
+			melee_attack()
 			
 	if left:
 		movement.x = -Global.speed
 		$sprite.scale.x = -1
+		back = false
 	elif right:
 		movement.x = Global.speed
 		$sprite.scale.x = 1
+		back = false
+		
+	facing = $sprite.scale.x
 		
 	if down:
 		movement.y = Global.speed
+		back = false
 	elif up:
 		movement.y = -Global.speed
+		back = true
 		
 	if _in_water:
 		movement.y += Global.water_speed

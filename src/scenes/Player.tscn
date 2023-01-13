@@ -191,6 +191,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Player" type="KinematicBody2D"]
+z_index = 560
 script = ExtResource( 4 )
 
 [node name="shadow" type="Sprite" parent="."]
@@ -200,6 +201,7 @@ texture = ExtResource( 10 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="melee_bar" type="AnimatedSprite" parent="sprite"]
