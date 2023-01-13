@@ -433,6 +433,7 @@ func stop_fall():
 	$sprite.scale.y = 1
 	$sprite.rotation = 0
 	position = safe_pos
+	out_water()
 	hit(1, false)
 	
 func emit():

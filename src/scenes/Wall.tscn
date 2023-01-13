@@ -38,6 +38,37 @@ extents = Vector2( 15.5, 16 )
 [node name="Walls" type="StaticBody2D"]
 script = ExtResource( 3 )
 
+[node name="BlackColor" type="Node2D" parent="."]
+position = Vector2( -671, -1 )
+
+[node name="ColorRect" type="ColorRect" parent="BlackColor"]
+margin_left = -472.0
+margin_top = -1164.0
+margin_right = 703.0
+margin_bottom = 1421.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="BlackColor"]
+margin_left = 672.0
+margin_top = 578.0
+margin_right = 1696.0
+margin_bottom = 1423.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="BlackColor"]
+margin_left = 703.0
+margin_top = -1155.0
+margin_right = 1801.0
+margin_bottom = 9.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="BlackColor"]
+margin_left = 1663.0
+margin_top = -1168.0
+margin_right = 3404.0
+margin_bottom = 1425.0
+color = Color( 0, 0, 0, 1 )
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
