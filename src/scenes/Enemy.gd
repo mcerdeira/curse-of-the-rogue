@@ -479,7 +479,7 @@ func set_type(_type):
 		
 	if enemy_type == "troll":
 		Global.play_sound(Global.TrollSfx)
-		life = 20
+		life = Global.attack * 5
 		speed = 30
 		speed_total = 30
 		stopandgo = false

@@ -9,14 +9,6 @@
 [ext_resource path="res://sprites/waterfall_short_spr_1.png" type="Texture" id=7]
 [ext_resource path="res://sprites/waterfall_short_spr_0.png" type="Texture" id=8]
 
-[sub_resource type="SpriteFrames" id=12]
-animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
@@ -30,6 +22,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 16, 234.75 )
 
@@ -40,20 +40,23 @@ extents = Vector2( 16, 49.5 )
 position = Vector2( 222, 14 )
 script = ExtResource( 5 )
 
-[node name="spr0" type="AnimatedSprite" parent="."]
-position = Vector2( -2, 8 )
-frames = SubResource( 12 )
-playing = true
-
 [node name="spr1" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 298 )
 frames = SubResource( 11 )
+frame = 1
+playing = true
+
+[node name="spr0" type="AnimatedSprite" parent="."]
+position = Vector2( -2, 8 )
+frames = SubResource( 12 )
+frame = 1
 playing = true
 
 [node name="spr2" type="AnimatedSprite" parent="."]
 position = Vector2( -2, 572 )
 scale = Vector2( 1, -1 )
 frames = SubResource( 12 )
+frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]

@@ -1,4 +1,5 @@
 extends KinematicBody2D
+var on = true
 var shoot_delay = 0
 var shoot_delay_total = 0
 var dmg = 3
@@ -23,10 +24,23 @@ func _ready():
 		return
 	else:
 		area_on(false)
+		
+func turn_off():
+	$sprite.speed_scale = 0.5
+	$sprite2.speed_scale = 0.5
+	$sprite.playing = false
+	$sprite.frame = 0
+	$sprite2.playing = false
+	$sprite2.frame = 0
+	area_on(false)
 
 func _physics_process(delta):
-	if shooting <= 0:
-		if !Global.FLOOR_OVER:
+	if Global.FLOOR_OVER:
+		if on:
+			on = false
+			turn_off()
+	else:
+		if shooting <= 0:
 			shoot_delay -= 1 * delta
 			if shoot_delay <= shoot_delay_total / 2:
 				$sprite.speed_scale += 1 * delta
@@ -37,16 +51,10 @@ func _physics_process(delta):
 			if shoot_delay <= 0:
 				shoot_delay = shoot_delay_total
 				shoot()
-	else:
-		shooting -= 1 * delta
-		if shooting <= 0:
-			$sprite.speed_scale = 0.5
-			$sprite2.speed_scale = 0.5
-			$sprite.playing = false
-			$sprite.frame = 0
-			$sprite2.playing = false
-			$sprite2.frame = 0
-			area_on(false)
+		else:
+			shooting -= 1 * delta
+			if shooting <= 0:
+				turn_off()
 
 func shoot():
 	Global.play_sound(Global.MegaRaySfx)
