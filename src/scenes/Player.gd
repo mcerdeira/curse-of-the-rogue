@@ -214,9 +214,11 @@ func in_water():
 func out_water():
 	_in_water = false
 	
-func hit(dmg, can_zombie:=false):
+func hit(dmg, from, can_zombie:=false):
 	if !entering and inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
+		
+		Global.KillerisMe = from
 		
 		$sprite.animation = "hit" + ani_aditional
 		inv_time = inv_time_total
@@ -434,7 +436,7 @@ func stop_fall():
 	$sprite.rotation = 0
 	position = safe_pos
 	out_water()
-	hit(1, false)
+	hit(1, "hole", false)
 	
 func emit():
 	for i in range(2):

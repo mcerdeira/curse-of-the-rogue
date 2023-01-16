@@ -41,7 +41,7 @@ func eval_result():
 		_player.add_heart(1)
 		
 	if effect_name == "Tired":
-		_player.hit(1)
+		_player.hit(1, "wheel")
 	
 	if effect_name == "Oh no":
 		_player.add_luck(-1)

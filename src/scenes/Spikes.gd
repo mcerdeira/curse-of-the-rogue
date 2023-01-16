@@ -9,7 +9,7 @@ func _ready():
 func _physics_process(delta):
 	if player_in:
 		if $sprite.frame == 1:
-			player.hit(dmg)
+			player.hit(dmg, "spikes")
 
 func _on_Spikes_body_entered(body):
 	if body.is_in_group("players"):

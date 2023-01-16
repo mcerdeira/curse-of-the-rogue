@@ -4,6 +4,11 @@ func _init():
 	Global.init_pool()
 
 func _ready():
+	if Global.FLOOR_TYPE == Global.floor_types.intro:
+		Global.init_timer()
+	else:
+		Global.start_timer()
+	
 	if !Global.Muted:
 		music_init()
 	

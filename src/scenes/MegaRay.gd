@@ -65,7 +65,7 @@ func _on_area_body_entered(body):
 	if shooting > 0:
 		if body.is_in_group("players"):
 			if !Global.flying:
-				body.hit(dmg)
+				body.hit(dmg, "megaray")
 
 func _on_area_area_entered(area):
 	if area.is_in_group("decorations"):
@@ -76,4 +76,4 @@ func _on_area_area_entered(area):
 		
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying and !area.get_parent().fireinmune:
-			area.get_parent().hit(null, dmg, "megaray")
+			area.get_parent().hit(null, dmg, "lava_stream")

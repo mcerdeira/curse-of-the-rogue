@@ -55,5 +55,5 @@ func _on_area_body_entered(body):
 	if body.name == "Walls":
 		destroy()
 	if body.is_in_group("players"):
-		body.hit(dmg)
+		body.hit(dmg, "bullet")
 		destroy()

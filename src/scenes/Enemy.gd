@@ -662,7 +662,7 @@ func _on_area_body_entered(body):
 		if Global.zombie:
 			$sprite.modulate = Global.infected_color
 			infected = true
-		body.hit(dmg)
+		body.hit(dmg, enemy_type)
 		
 func _draw():
 	if electric_effect > 0 and destiny:

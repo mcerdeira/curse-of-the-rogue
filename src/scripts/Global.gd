@@ -1,5 +1,11 @@
 extends Node
 var arrow = preload("res://sprites/crosshair.png")
+var Seconds = 0
+var Minutes = 0
+var Hours = 0
+var TimerOn = false
+var KillerisMe = ""
+
 var LOGIC_PAUSE = false
 var FIRST = true
 var TOTAL_FLOORS = 7
@@ -582,6 +588,30 @@ func LoadSfxAndMusic():
 	
 	KatanaSfx = WhipSfx
 	
+func init_timer():
+	TimerOn = true
+	Seconds = 0
+	Minutes = 0
+	Hours = 0
+	
+func start_timer():
+	if !TimerOn:
+		TimerOn = true
+	
+func stop_timer():
+	TimerOn = false
+	
+func timer_event(delta):
+	if TimerOn:
+		Seconds += 1 * delta
+		if Seconds >= 60:
+			Seconds = 0
+			Minutes += 1
+		
+		if Minutes >= 60:
+			Minutes = 0
+			Hours += 1	
+		
 func custom_cursor():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Input.set_custom_mouse_cursor(arrow)
@@ -592,6 +622,9 @@ func normal_cursor():
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
+	
+func _physics_process(delta):
+	timer_event(delta)
 
 func enemy_by_floor():
 	randomize()
@@ -790,7 +823,7 @@ func pay_price(_player, price_what, price_amount):
 			if Global.zombie:
 				return true
 			else:
-				_player.hit(price_amount, true)
+				_player.hit(price_amount, "bad_luck", true)
 				return true
 	elif price_what == "keys":
 		if Global.keys >= price_amount or Global.masterkey:
