@@ -22,12 +22,13 @@ func emit():
 func _physics_process(delta):
 	if type == "fire_trail":
 		dmg = 1
-		z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
+		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
 		ttl -= 1 * delta
 		if ttl <= 0:
 			destroy()
 	
 	if type == "bone" or type == "fire_ball":
+		z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
 		if player_chase == null:
 			if type == "fire_ball":
 				speed = 200
