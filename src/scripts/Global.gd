@@ -512,8 +512,7 @@ func _ready():
 	
 	LoadSfxAndMusic()
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	Input.set_custom_mouse_cursor(arrow)
+	custom_cursor()
 	initialize()
 	init_room()
 	
@@ -582,6 +581,14 @@ func LoadSfxAndMusic():
 	TrollHitSfx = null
 	
 	KatanaSfx = WhipSfx
+	
+func custom_cursor():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_custom_mouse_cursor(arrow)
+	
+func normal_cursor():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_custom_mouse_cursor(null)
 	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
@@ -795,14 +802,17 @@ func pay_price(_player, price_what, price_amount):
 	return false
 	
 func _input(event):
-	if event.is_action_pressed("toggle_fullscreen"):
-		OS.window_fullscreen = !OS.window_fullscreen
-	if event.is_action_pressed("restart_game"):
-		initialize()
-		init_room()
-		get_tree().reload_current_scene()
-	if event.is_action_pressed("quit_game"):
-		get_tree().quit()
+	var cur_scene = get_tree().current_scene.name
+	if cur_scene == "TitleScreen":
+		if event.is_action_pressed("quit_game"):
+			get_tree().quit()
+	else:
+		if event.is_action_pressed("toggle_fullscreen"):
+			OS.window_fullscreen = !OS.window_fullscreen
+		if event.is_action_pressed("restart_game"):
+			initialize()
+			init_room()
+			get_tree().reload_current_scene()
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

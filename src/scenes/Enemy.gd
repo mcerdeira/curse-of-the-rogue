@@ -620,15 +620,15 @@ func hit(origin, dmg, from):
 		if life > 0:
 			OuchSfx()
 		
-		if electric_effect <= 0 and Global.electric:
+		if from == "player" and electric_effect <= 0 and Global.electric:
 			Global.play_sound(Global.ElectricSfx)
 			electric_effect = electric_effect_total
 		
-		if Global.frozen:
+		if from == "player" and Global.frozen:
 			Global.play_sound(Global.FrozeSfx)
 			froze_effect = 3
 		
-		if Global.poison:
+		if from == "player" and (Global.poison or Global.temp_poison):
 			Global.play_sound(Global.PoisonSfx)
 			$sprite.modulate = Global.poisoned_color
 			poisoned = true

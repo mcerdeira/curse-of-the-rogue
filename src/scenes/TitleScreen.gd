@@ -7,10 +7,9 @@ var stop = false
 var startgame = false
 var start_ttl = 1.3
 
-var peppepe = 0
-var pieulo = 0
-
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	$AnimationPlayer.play("Walking")
 	$AnimationPlayer.playback_speed = 0.5
 	
