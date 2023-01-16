@@ -2,13 +2,18 @@ extends Node2D
 
 func _ready():
 	hide()
+	
+func _physics_process(delta):
+	if Global.GAME_OVER and visible:
+		hide()
 
 func _input(event):
-	if event.is_action_pressed("quit_game"):
-		if !get_tree().paused:
-			Global.normal_cursor()
-			get_tree().paused = true
-			show()
+	if !Global.GAME_OVER:
+		if event.is_action_pressed("quit_game"):
+			if !get_tree().paused:
+				Global.normal_cursor()
+				get_tree().paused = true
+				show()
 
 func _on_Button_pressed():
 	Global.custom_cursor()

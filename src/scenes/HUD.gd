@@ -1,5 +1,5 @@
 extends Node2D
-var game_over_visible = 5
+var game_over_visible = 2.5
 var space = "       : "
 var message_ttl = 0
 var combo_text = "  COMBO: "

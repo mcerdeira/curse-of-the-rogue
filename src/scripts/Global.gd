@@ -801,6 +801,11 @@ func pay_price(_player, price_what, price_amount):
 
 	return false
 	
+func restart_game():
+	initialize()
+	init_room()
+	get_tree().reload_current_scene()
+	
 func _input(event):
 	var cur_scene = get_tree().current_scene.name
 	if cur_scene == "TitleScreen":
@@ -810,9 +815,7 @@ func _input(event):
 		if event.is_action_pressed("toggle_fullscreen"):
 			OS.window_fullscreen = !OS.window_fullscreen
 		if event.is_action_pressed("restart_game"):
-			initialize()
-			init_room()
-			get_tree().reload_current_scene()
+			restart_game()
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

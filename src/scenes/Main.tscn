@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -63,6 +63,7 @@
 [ext_resource path="res://scenes/WaterFallGroup.gd" type="Script" id=61]
 [ext_resource path="res://sprites/spike_ball.png" type="Texture" id=62]
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=63]
+[ext_resource path="res://scenes/GameOverMenu.tscn" type="PackedScene" id=64]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -370,6 +371,8 @@ position = Vector2( 80, 50 )
 frames = SubResource( 8 )
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 63 )]
+
+[node name="GameOverMenu" parent="CanvasLayer" instance=ExtResource( 64 )]
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
 frame = 2
