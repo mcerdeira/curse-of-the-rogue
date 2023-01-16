@@ -22,7 +22,7 @@ func emit():
 func _physics_process(delta):
 	if type == "fire_trail":
 		dmg = 1
-		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
+		z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
 		ttl -= 1 * delta
 		if ttl <= 0:
 			destroy()

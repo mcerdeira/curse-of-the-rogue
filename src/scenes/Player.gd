@@ -183,7 +183,7 @@ func add_ice():
 	
 func add_speed(count):
 	Global.play_sound(Global.ItemSfx)
-	Global.speed += count
+	Global.speed += (count * 50)
 	if Global.speed < 0:
 		Global.speed = 0
 	
