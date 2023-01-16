@@ -47,7 +47,7 @@ margin_top = 309.0
 margin_right = 497.0
 margin_bottom = 331.0
 custom_fonts/font = SubResource( 2 )
-text = "RESUME"
+text = "Resume"
 
 [node name="Button2" type="Button" parent="."]
 margin_left = 501.0
@@ -55,7 +55,7 @@ margin_top = 309.0
 margin_right = 680.0
 margin_bottom = 331.0
 custom_fonts/font = SubResource( 3 )
-text = "QUIT"
+text = "Quit"
 
 [node name="SkullTableSpr0" type="Sprite" parent="."]
 position = Vector2( 319, 207 )

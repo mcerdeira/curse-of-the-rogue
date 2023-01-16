@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://sprites/dead_fire_spr_1.png" type="Texture" id=16]
 [ext_resource path="res://sprites/lava_throw2.png" type="Texture" id=17]
 [ext_resource path="res://sprites/bat_spr_0.png" type="Texture" id=18]
+[ext_resource path="res://sprites/bone.png" type="Texture" id=19]
+[ext_resource path="res://sprites/player_dead_fire_spr_0.png" type="Texture" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -45,14 +47,24 @@ animations = [ {
 "name": "bat",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 19 ) ],
 "loop": true,
-"name": "bullet",
+"name": "bone",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "dead_fire",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "fire_ball",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "fire_trail",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -148,7 +160,7 @@ margin_top = 445.0
 margin_right = 497.0
 margin_bottom = 467.0
 custom_fonts/font = SubResource( 3 )
-text = "RESTART"
+text = "Restart"
 
 [node name="Button2" type="Button" parent="."]
 margin_left = 501.0
@@ -156,7 +168,7 @@ margin_top = 445.0
 margin_right = 629.0
 margin_bottom = 467.0
 custom_fonts/font = SubResource( 4 )
-text = "QUIT"
+text = "Quit"
 
 [node name="PlayerPassSpr0" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.443137 )
@@ -189,10 +201,19 @@ custom_fonts/font = SubResource( 2 )
 text = "Duration:
 00:00:00"
 
+[node name="Label5" type="Label" parent="."]
+margin_left = 485.0
+margin_top = 190.0
+margin_right = 629.0
+margin_bottom = 225.0
+custom_fonts/font = SubResource( 2 )
+text = "Kills:
+0"
+
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "bat"
+animation = "fire_trail"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

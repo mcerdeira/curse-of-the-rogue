@@ -11,12 +11,17 @@ func _physics_process(delta):
 			Global.normal_cursor()
 			display_time()
 			display_killer()
+			display_kills()
 			show()
 			
 func format_description(text):
 	var tmp = text
-	tmp.replace("_", " ").replace("+", "").to_upper()
+	tmp = tmp.replace("_", " ").replace("+", "")
 	return tmp
+
+func display_kills():
+	$Label5.text = "Kills:\n"
+	$Label5.text += str(Global.kills) 
 
 func display_killer():
 	$KillU.animation = Global.KillerisMe

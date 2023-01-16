@@ -619,6 +619,9 @@ func hit(origin, dmg, from):
 		
 		if life > 0:
 			OuchSfx()
+		else:
+			if from == "player":
+				Global.kills += 1
 		
 		if from == "player" and electric_effect <= 0 and Global.electric:
 			Global.play_sound(Global.ElectricSfx)

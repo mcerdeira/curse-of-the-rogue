@@ -1,5 +1,6 @@
 extends Node
 var arrow = preload("res://sprites/crosshair.png")
+var kills = 0
 var Seconds = 0
 var Minutes = 0
 var Hours = 0
@@ -594,8 +595,12 @@ func init_timer():
 	Minutes = 0
 	Hours = 0
 	
+func start_kills():
+	kills = 0
+	
 func start_timer():
 	if !TimerOn:
+		start_kills()
 		TimerOn = true
 	
 func stop_timer():
