@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -6,20 +6,21 @@
 [ext_resource path="res://sprites/ghost_spr_1.png" type="Texture" id=4]
 [ext_resource path="res://sprites/wheel.png" type="Texture" id=5]
 [ext_resource path="res://sprites/spikes2.png" type="Texture" id=6]
-[ext_resource path="res://sprites/big_block.png" type="Texture" id=7]
+[ext_resource path="res://sprites/hole_kill.png" type="Texture" id=7]
 [ext_resource path="res://sprites/lava_splash_spr_2.png" type="Texture" id=8]
-[ext_resource path="res://sprites/head_1.png" type="Texture" id=9]
+[ext_resource path="res://sprites/head_killer.png" type="Texture" id=9]
 [ext_resource path="res://sprites/troll_spr_0.png" type="Texture" id=10]
 [ext_resource path="res://sprites/spider_spr_0.png" type="Texture" id=11]
 [ext_resource path="res://sprites/spider_xs_spr_0.png" type="Texture" id=12]
 [ext_resource path="res://sprites/skele_spr_1.png" type="Texture" id=13]
 [ext_resource path="res://sprites/scorpion_spr_0plus.png" type="Texture" id=14]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=15]
-[ext_resource path="res://sprites/dead_fire_spr_1.png" type="Texture" id=16]
+[ext_resource path="res://sprites/dead_fire_killer.png" type="Texture" id=16]
 [ext_resource path="res://sprites/lava_throw2.png" type="Texture" id=17]
 [ext_resource path="res://sprites/bat_spr_0.png" type="Texture" id=18]
 [ext_resource path="res://sprites/bone.png" type="Texture" id=19]
 [ext_resource path="res://sprites/player_dead_fire_spr_0.png" type="Texture" id=20]
+[ext_resource path="res://sprites/kill_back.png" type="Texture" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -139,13 +140,6 @@ margin_right = 637.0
 margin_bottom = 476.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="ColorRect3" type="ColorRect" parent="."]
-margin_left = 441.0
-margin_top = 293.0
-margin_right = 553.0
-margin_bottom = 392.0
-color = Color( 0.105882, 0.0980392, 0.0980392, 1 )
-
 [node name="Label" type="Label" parent="."]
 margin_left = 390.0
 margin_top = 62.0
@@ -210,10 +204,14 @@ custom_fonts/font = SubResource( 2 )
 text = "Kills:
 0"
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 500, 343 )
+texture = ExtResource( 21 )
+
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "fire_trail"
+animation = "ghost"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

@@ -426,7 +426,7 @@ func set_type(_type):
 		shoot_on_die = true
 		disapear = true
 		leave_trail = false
-		angle_walker = true
+		angle_walker = false
 	
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireSfx)
@@ -451,7 +451,7 @@ func set_type(_type):
 		$shadow.visible = false
 		disapear = false
 		leave_trail = true
-		angle_walker = true
+		angle_walker = false
 	
 	if enemy_type == "bat":
 		Global.play_sound(Global.BatsSfx)
@@ -475,7 +475,7 @@ func set_type(_type):
 		shoot_on_die = false
 		disapear = false
 		leave_trail = false
-		angle_walker = true
+		angle_walker = false
 		
 	if enemy_type == "troll":
 		Global.play_sound(Global.TrollSfx)
