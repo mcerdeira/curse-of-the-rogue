@@ -789,6 +789,7 @@ func initialize():
 	werewolf = false
 	got_brain = false
 	flying = false
+	kills = 0
 	
 	_data_overload()
 
