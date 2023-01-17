@@ -37,13 +37,18 @@ func _physics_process(delta):
 		if !_player.falling:
 			_player = null
 
-func _on_BigBlock_body_entered(body):
+func _on_BigBlock_body_entered(body):	
 	if body.is_in_group("players"):
 		if !Global.flying:
 			_player = body
 			body.fall()
 
 func _on_BigBlock_area_entered(area):	
+	if area.is_in_group("playerbullet"):
+		if area.get_parent().type == "bomb":
+			_enemy.append(area.get_parent())
+			area.get_parent().fall()
+	
 	if area.is_in_group("decorations"):
 		area.destroy_silent()
 	

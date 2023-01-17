@@ -51,7 +51,7 @@ script = ExtResource( 3 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "spikeball"
+animation = "knife"
 
 [node name="Area2D" type="Area2D" parent="."]
 

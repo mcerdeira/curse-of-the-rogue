@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -68,6 +68,7 @@
 [ext_resource path="res://sprites/melee_barr16.png" type="Texture" id=66]
 [ext_resource path="res://sprites/melee_barr15.png" type="Texture" id=67]
 [ext_resource path="res://sprites/melee_barr21.png" type="Texture" id=68]
+[ext_resource path="res://scenes/Shaker.gd" type="Script" id=69]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -220,3 +221,7 @@ offset = Vector2( 14, 0 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Shaker" type="Node" parent="."]
+script = ExtResource( 69 )
+_camera = NodePath("../Camera2D")

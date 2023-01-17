@@ -218,6 +218,8 @@ func hit(dmg, from, can_zombie:=false):
 	if !entering and inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
 		
+		Global.shaker_obj.shake(2, 0.2)
+		
 		Global.KillerisMe = from
 		
 		$sprite.animation = "hit" + ani_aditional
@@ -315,6 +317,7 @@ func die():
 	$sprite.animation = "dead" + ani_aditional
 	dead = true
 	Global.GAME_OVER = true
+	Global.shaker_obj.shake(3, 0.2)
 	
 func eval_poision():
 	for h in Global.health:
@@ -474,7 +477,6 @@ func _physics_process(delta):
 		$sprite.rotation += 5 * delta
 		$sprite.scale.x -= 2 * delta
 		$sprite.scale.y = $sprite.scale.x
-		var pepe = $sprite.scale.x
 		if $sprite.scale.x <= 0:
 			stop_fall()
 			

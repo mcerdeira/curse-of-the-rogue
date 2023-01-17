@@ -11,6 +11,11 @@ var dmg = 0
 var piercing = false
 var pierce_count = 0
 var tomahawk_ttl = 0
+var falling = false
+var _in_water = false
+
+func _ready():
+	$Area2D.add_to_group("playerbullet")
 
 func _initialize():
 	$sprite.animation = type
@@ -39,6 +44,14 @@ func _initialize():
 		dmg = 2
 		speed = 250
 		
+func in_water():
+	if type == "bomb":
+		_in_water = true
+	
+func out_water():
+	if type == "bomb":
+		_in_water = false
+		
 func emit():
 	var p = particle.instance()
 	var root = get_node("/root/Main")
@@ -50,7 +63,20 @@ func emit_self():
 	add_child(p)
 	p.global_position = global_position
 
+func mini_explode():
+	Global.play_sound(Global.BombExplosionSfx)
+	var b = Blast.instance()
+	var root = get_node("/root/Main")
+	root.add_child(b)
+	b.global_position = global_position
+	b.scale.x = 0.1
+	b.scale.y = 0.1
+	queue_free()
+
 func explode():
+	emit()
+	emit()
+	emit()
 	emit()
 	emit()
 	emit()
@@ -59,8 +85,30 @@ func explode():
 	var root = get_node("/root/Main")
 	root.add_child(b)
 	b.global_position = global_position
+	queue_free()
+	
+func fall():
+	Global.play_sound(Global.FallingSfx)
+	falling = true
+	$sprite.scale.x = 1
+	$sprite.scale.y = 1
+	
+func stop_fall():
+	falling = false
+	$sprite.scale.x = 0
+	$sprite.scale.y = 0
+	$sprite.rotation = 0
+	mini_explode()
 
 func _physics_process(delta):
+	if falling:
+		$sprite.rotation += 5 * delta
+		$sprite.scale.x -= 2 * delta
+		$sprite.scale.y = $sprite.scale.x
+		if $sprite.scale.x <= 0:
+			stop_fall()
+		return
+	
 	if !init:
 		_initialize()
 		init = true
@@ -68,6 +116,9 @@ func _physics_process(delta):
 	z_index = position.y
 	
 	move_and_slide(speed * dir)
+	
+	if _in_water and type == "bomb":
+		move_and_slide(Vector2(0, Global.water_speed))
 	
 	if type == "bomb":
 		speed -= 1 * delta
@@ -77,7 +128,6 @@ func _physics_process(delta):
 		explode_ttl -= 1 * delta
 		if explode_ttl <= 0:
 			explode()
-			queue_free()
 		if explode_ttl <= 1:
 			$sprite.playing = true
 			$sprite.speed_scale = 2
@@ -121,5 +171,5 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_body_entered(body):
 	if body.name == "Walls":
 		emit()
-		if type != "spikeball":
+		if type != "spikeball" and type != "bomb":
 			queue_free()

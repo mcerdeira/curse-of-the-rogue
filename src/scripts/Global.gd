@@ -6,6 +6,7 @@ var Minutes = 0
 var Hours = 0
 var TimerOn = false
 var KillerisMe = ""
+var shaker_obj = null
 
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -483,6 +484,7 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	automatic_weapon = "bomb"
 	Muted = false
 	SfxMuted = false
 
@@ -747,7 +749,7 @@ func initialize():
 	melee_rate = 0
 	
 	shoot_speed_total = 5.0
-	shoot_speed = 0
+	shoot_speed = 0.1
 	
 	gems = 0
 	

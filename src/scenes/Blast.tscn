@@ -16,6 +16,7 @@
 [ext_resource path="res://scenes/Blast.gd" type="Script" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 61.131
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -32,6 +33,7 @@ script = ExtResource( 14 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 frame = 11
 speed_scale = 3.0

@@ -28,12 +28,18 @@ func _on_area_area_entered(area):
 	if area.is_in_group("big_block"):
 		if !area.ignore_waterfall:
 			area.queue_free()
+			
+	if area.is_in_group("playerbullet"):
+		area.get_parent().in_water()
 	
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
 			area.get_parent().in_water()
 
 func _on_area_area_exited(area):
+	if area.is_in_group("playerbullet"):
+		area.get_parent().out_water()
+	
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying:
 			area.get_parent().out_water()

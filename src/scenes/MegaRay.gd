@@ -74,6 +74,10 @@ func _on_area_area_entered(area):
 	if area.is_in_group("collectables"):
 		area._destroy()
 		
+	if area.is_in_group("playerbullet"):
+		if area.get_parent().type == "bomb":
+			area.get_parent().explode()
+		
 	if area.is_in_group("enemies"):
 		if !area.get_parent().flying and !area.get_parent().fireinmune:
 			area.get_parent().hit(null, dmg, "megaray")
