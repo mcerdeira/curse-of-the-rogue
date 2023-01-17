@@ -484,11 +484,25 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	automatic_weapon = "bomb"
 	Muted = false
 	SfxMuted = false
-
-func _ready():
+	
+func restart_game():
+	restart_pools()
+	initialize()
+	init_room()
+	get_tree().reload_current_scene()
+	
+func boot_strap_game():
+	restart_pools()
+	custom_cursor()
+	initialize()
+	init_room()
+	
+func restart_pools():
+	ITEMS = []
+	PREMIUM_ITEMS = []
+	
 	ITEMS.push_back(blue_heart)
 	ITEMS.push_back(green_heart)
 	ITEMS.push_back(empty_heart)
@@ -519,11 +533,9 @@ func _ready():
 	PREMIUM_ITEMS.push_back(spikeball)
 	PREMIUM_ITEMS.push_back(katana)
 	
+func _ready():
 	LoadSfxAndMusic()
-	
-	custom_cursor()
-	initialize()
-	init_room()
+	boot_strap_game()
 	
 func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")
@@ -841,11 +853,6 @@ func pay_price(_player, price_what, price_amount):
 
 	return false
 	
-func restart_game():
-	initialize()
-	init_room()
-	get_tree().reload_current_scene()
-	
 func _input(event):
 	var cur_scene = get_tree().current_scene.name
 	if cur_scene == "TitleScreen":
@@ -854,8 +861,8 @@ func _input(event):
 	else:
 		if event.is_action_pressed("toggle_fullscreen"):
 			OS.window_fullscreen = !OS.window_fullscreen
-		if event.is_action_pressed("restart_game"):
-			restart_game()
+		#if event.is_action_pressed("restart_game"):
+		#	restart_game()
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

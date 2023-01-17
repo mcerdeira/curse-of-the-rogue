@@ -176,45 +176,6 @@ animations = [ {
 [node name="Main" type="Node2D"]
 script = ExtResource( 21 )
 
-[node name="SpikeGroup" type="Node2D" parent="."]
-script = ExtResource( 26 )
-
-[node name="Spikes" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 192, 128 )
-
-[node name="Spikes2" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 192, 320 )
-
-[node name="Spikes3" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 880, 328 )
-
-[node name="Spikes4" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 880, 128 )
-
-[node name="Spikes5" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 880, 496 )
-
-[node name="Spikes6" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 624, 504 )
-
-[node name="Spikes7" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 437, 505 )
-
-[node name="Spikes8" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 192, 504 )
-
-[node name="Spikes9" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 416, 128 )
-
-[node name="Spikes10" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 616, 128 )
-
-[node name="Spikes11" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 416, 320 )
-
-[node name="Spikes12" parent="SpikeGroup" instance=ExtResource( 25 )]
-position = Vector2( 624, 312 )
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Node2D" parent="CanvasLayer"]
@@ -375,13 +336,11 @@ frames = SubResource( 8 )
 [node name="GameOverMenu" parent="CanvasLayer" instance=ExtResource( 64 )]
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -402,6 +361,45 @@ position = Vector2( 597, 356 )
 local_altar_level = 3
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
+
+[node name="SpikeGroup" type="Node2D" parent="."]
+script = ExtResource( 26 )
+
+[node name="Spikes" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 106, 95 )
+
+[node name="Spikes2" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 237, 321 )
+
+[node name="Spikes3" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 884, 395 )
+
+[node name="Spikes4" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 777, 156 )
+
+[node name="Spikes5" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 760, 554 )
+
+[node name="Spikes6" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 624, 504 )
+
+[node name="Spikes7" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 437, 505 )
+
+[node name="Spikes8" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 242, 501 )
+
+[node name="Spikes9" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 325, 146 )
+
+[node name="Spikes10" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 589, 71 )
+
+[node name="Spikes11" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 505, 325 )
+
+[node name="Spikes12" parent="SpikeGroup" instance=ExtResource( 25 )]
+position = Vector2( 737, 334 )
 
 [node name="MegaRay" parent="." instance=ExtResource( 11 )]
 position = Vector2( 512, 592 )

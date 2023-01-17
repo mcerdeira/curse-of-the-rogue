@@ -2,6 +2,7 @@ extends Node2D
 
 func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.normal:
+		pass
 		destroy_all()
 	else:
 		leave_some()

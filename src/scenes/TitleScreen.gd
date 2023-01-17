@@ -78,6 +78,7 @@ func _physics_process(delta):
 					$Player/sprite.scale.y = 0
 
 func music_init():
+	Global.MainThemePlaying = false
 	Music.play(Global.TitleTheme, 0.7)
 
 func get_to_place():

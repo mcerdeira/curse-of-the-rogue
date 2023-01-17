@@ -18,6 +18,7 @@ var hit_ttl = 0
 var hit_ttl_total = 0.2
 export var enemy_type = ""
 var stoped = false
+var random_shooter = false
 var shoot_ttl = 0
 var shoot_ttl_total = 0
 var shoot_type = false
@@ -184,7 +185,13 @@ func shoot():
 			create_enemy_bullet(Vector2(-1, 0))
 			create_enemy_bullet(Vector2(-1, 1))
 			create_enemy_bullet(Vector2(-1, -1))
-		
+			
+		if enemy_type == "troll":
+			Global.play_sound(Global.TrollSfx)
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			get_parent().get_parent().add_child(fire_ball)
+			fire_ball.global_position = global_position
 		if enemy_type == "bat":
 			Global.play_sound(Global.BatsSfx)
 			var fire_ball = EnemyBullet.instance()
@@ -242,7 +249,7 @@ func enemy_behaviour(delta):
 			stop_fall()
 			
 		return
-	
+		
 	if Global.GAME_OVER:
 		if dead:
 			die()
@@ -290,6 +297,10 @@ func enemy_behaviour(delta):
 				troll_angle_dir = 1
 				
 		$sprite.rotation_degrees = troll_angle
+		
+	if random_shooter:
+		if randi() % 500 == 0:
+			shoot()
 		
 	if froze_effect > 0:
 		$sprite.modulate = Global.froze_color
@@ -427,6 +438,7 @@ func set_type(_type):
 		disapear = true
 		leave_trail = false
 		angle_walker = false
+		random_shooter = false
 	
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireSfx)
@@ -452,6 +464,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = true
 		angle_walker = false
+		random_shooter = false
 	
 	if enemy_type == "bat":
 		Global.play_sound(Global.BatsSfx)
@@ -476,6 +489,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = false
+		random_shooter = true
 		
 	if enemy_type == "troll":
 		Global.play_sound(Global.TrollSfx)
@@ -499,6 +513,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = true
+		random_shooter = true
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
@@ -529,6 +544,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = false
+		random_shooter = false
 		
 	if enemy_type == "spider" or enemy_type == "spider_xs":
 		if enemy_type == "spider":
@@ -567,6 +583,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = false
+		random_shooter = false
 		
 	elif enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleSfx)
@@ -590,6 +607,7 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = false
+		random_shooter = false
 		
 func OuchSfx():
 	if enemy_type == "troll":
