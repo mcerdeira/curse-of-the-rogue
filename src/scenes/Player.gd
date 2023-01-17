@@ -332,7 +332,9 @@ func eval_dead():
 	return true
 	
 func entering():
-	Global.play_sound(Global.PlayerEnteringSfx)
+	if !Global.flying:
+		Global.play_sound(Global.PlayerEnteringSfx)
+		
 	entering = true
 	Global.LOGIC_PAUSE = true
 	$sprite.material.set_shader_param("blackened", true)
@@ -507,6 +509,8 @@ func _physics_process(delta):
 			$shadow.position.y -= 8 * delta
 			
 	if dead:
+		$sprite.set_position(Vector2(0, 0))
+		
 		if turn_into_zombie_ttl != 0:
 			turn_into_zombie_ttl -= 1 * delta
 			if turn_into_zombie_ttl <= 0:
@@ -657,7 +661,7 @@ func _physics_process(delta):
 	if !move:
 		$sprite.frame = 0
 
-	if Global.flying:		
+	if Global.flying:
 		$sprite.playing = false
 		time += delta * frequency
 		$sprite.set_position(default_pos + Vector2(0, sin(time) * amplitude))
