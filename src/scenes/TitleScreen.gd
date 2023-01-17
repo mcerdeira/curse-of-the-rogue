@@ -82,6 +82,7 @@ func music_init():
 	Music.play(Global.TitleTheme, 0.7)
 
 func get_to_place():
+	$Sprite.play("default")
 	$AnimationPlayer.stop()
 	$Player/sprite.animation = "back"
 	$Player/sprite.playing = false
@@ -91,3 +92,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_PressAnimation_animation_finished(anim_name):
 	$Tilt.play("New Anim")
+
+func _on_Sprite_animation_finished():
+	$Sprite.playing = false
+	$Sprite.frame = 0
