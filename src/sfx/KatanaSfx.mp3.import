@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/KatanaSfx.mp3-59279f066cc6f3449ed7ca9e11d1a1b2.mp3str"
+
+[deps]
+
+source_file="res://sfx/KatanaSfx.mp3"
+dest_files=[ "res://.import/KatanaSfx.mp3-59279f066cc6f3449ed7ca9e11d1a1b2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

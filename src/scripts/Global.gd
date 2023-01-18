@@ -484,6 +484,7 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	primary_weapon = "katana"
 	Muted = false
 	SfxMuted = false
 	
@@ -601,7 +602,7 @@ func LoadSfxAndMusic():
 	TrollSfx = null
 	TrollHitSfx = null
 	
-	KatanaSfx = WhipSfx
+	KatanaSfx = load("res://sfx/KatanaSfx.mp3")
 	
 func init_timer():
 	TimerOn = true
