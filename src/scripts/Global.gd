@@ -7,6 +7,7 @@ var Hours = 0
 var TimerOn = false
 var KillerisMe = ""
 var shaker_obj = null
+var transition_obj = null
 
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -484,7 +485,6 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	primary_weapon = "katana"
 	Muted = false
 	SfxMuted = false
 	
@@ -537,6 +537,12 @@ func restart_pools():
 func _ready():
 	LoadSfxAndMusic()
 	boot_strap_game()
+	
+func set_visible_transition(val):
+	transition_obj.visible = val
+	
+func pixelate(val):
+	transition_obj.material.set_shader_param("factor", val)
 	
 func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")

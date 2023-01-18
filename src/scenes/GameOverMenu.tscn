@@ -86,7 +86,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
-"name": "lava_stream",
+"name": "lavastream",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],

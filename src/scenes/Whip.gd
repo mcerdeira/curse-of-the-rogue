@@ -1,5 +1,4 @@
 extends Area2D
-var hit = false
 var dmg = 1
 
 func _ready():
@@ -15,6 +14,5 @@ func _on_Whip_area_entered(area):
 	if area.is_in_group("decorations"):
 		area._destroy()
 	
-	if !hit and area.is_in_group("enemies"):
-		hit = true
+	if area.is_in_group("enemies"):
 		area.get_parent().hit(get_parent(), dmg, "player")

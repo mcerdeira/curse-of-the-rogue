@@ -87,7 +87,7 @@ func _physics_process(delta):
 			if randi() % 100 + 1 == 100:
 				emit()
 			
-			hit(null, 1 * delta, "")
+			hit(null, 1 * delta, "poison_fx")
 			
 		enemy_behaviour(delta)
 	else:
@@ -112,47 +112,48 @@ func create_enemy_bullet(pos):
 	fire_ball.set_position(position)
 	
 func shoot_die():
-	if enemy_type == "spider":
-		enemy = load("res://scenes/Enemy.tscn")
-		var options = {"pitch_scale": 2}
-		Global.play_sound(Global.SpiderSfx, options)
-		var count = Global.pick_random([5, 3, 7])
-		for i in range(count):
-			var type  = "spider_xs"
-			var enemy_inst = null
+	if !falled:
+		if enemy_type == "spider":
+			enemy = load("res://scenes/Enemy.tscn")
+			var options = {"pitch_scale": 2}
+			Global.play_sound(Global.SpiderSfx, options)
+			var count = Global.pick_random([5, 3, 7])
+			for i in range(count):
+				var type  = "spider_xs"
+				var enemy_inst = null
 
-			enemy_inst = enemy.instance()
-			enemy_inst.enemy_type = type
-			enemy_inst.iamasign_ttl = -1
+				enemy_inst = enemy.instance()
+				enemy_inst.enemy_type = type
+				enemy_inst.iamasign_ttl = -1
+				
+				var root = get_node("/root/Main")
+				root.add_child(enemy_inst)
+				
+				var m = Global.pick_random([1, -1])
+				
+				var pos = Vector2.ZERO
+				pos.x = global_position.x + i * 5 * m
+				pos.y = global_position.y + i * 5 * m
+				
+				enemy_inst.global_position = pos
 			
-			var root = get_node("/root/Main")
-			root.add_child(enemy_inst)
+		if enemy_type == "ghost":
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
 			
-			var m = Global.pick_random([1, -1])
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(1, 1))
+			create_enemy_bullet(Vector2(1, -1))
 			
-			var pos = Vector2.ZERO
-			pos.x = global_position.x + i * 5 * m
-			pos.y = global_position.y + i * 5 * m
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(-1, 1))
+			create_enemy_bullet(Vector2(-1, -1))
 			
-			enemy_inst.global_position = pos
-		
-	if enemy_type == "ghost":
-		create_enemy_bullet(Vector2(0, 1))
-		create_enemy_bullet(Vector2(0, -1))
-		
-		create_enemy_bullet(Vector2(1, 0))
-		create_enemy_bullet(Vector2(1, 1))
-		create_enemy_bullet(Vector2(1, -1))
-		
-		create_enemy_bullet(Vector2(-1, 0))
-		create_enemy_bullet(Vector2(-1, 1))
-		create_enemy_bullet(Vector2(-1, -1))
-		
-	if enemy_type == "dead_fire":
-		create_enemy_bullet(Vector2(1, 0))
-		create_enemy_bullet(Vector2(-1, 0))
-		create_enemy_bullet(Vector2(0, 1))
-		create_enemy_bullet(Vector2(0, -1))
+		if enemy_type == "dead_fire":
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
 		
 func in_water():
 	if visible and !iamasign:
@@ -273,7 +274,7 @@ func enemy_behaviour(delta):
 			if destiny and is_instance_valid(destiny):
 				if destiny.electric_effect <= 0:
 					destiny.electric_effect = electric_effect_total
-					destiny.hit(null, 0.5, "")
+					destiny.hit(null, 0.5, "electricity_fx")
 					
 				update()
 			else:
@@ -629,14 +630,20 @@ func OuchSfx():
 	if enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleHitSfx)
 		
+func effects(from):
+	return (from == "poison_fx" or from == "electricity_fx")
+		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
-		stop_moving = 0.01
+		if !effects(from):
+			stop_moving = 0.01
+			
 		life -= dmg
 		hit_ttl = hit_ttl_total
 		
 		if life > 0:
-			OuchSfx()
+			if !effects(from):
+				OuchSfx()
 		else:
 			if from == "player":
 				Global.kills += 1

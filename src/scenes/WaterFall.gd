@@ -2,6 +2,7 @@ extends Node2D
 
 func _ready():
 	add_to_group("waterfalls")
+	$area.add_to_group("waterfalls")
 	
 func hide_waterfall():
 	$spr2.visible = false

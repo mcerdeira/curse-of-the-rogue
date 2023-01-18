@@ -202,10 +202,10 @@ texture = ExtResource( 10 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
-frame = 3
-playing = true
+animation = "back"
 
 [node name="melee_bar" type="AnimatedSprite" parent="sprite"]
+visible = false
 position = Vector2( 0, -18 )
 frames = SubResource( 7 )
 speed_scale = 5.0

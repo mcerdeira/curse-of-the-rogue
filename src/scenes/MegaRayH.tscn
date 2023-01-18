@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/MegaRay.gd" type="Script" id=1]
 [ext_resource path="res://sprites/lava_throw1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://sprites/lava_agit_H_spr_2.png" type="Texture" id=7]
 [ext_resource path="res://sprites/canalH.png" type="Texture" id=8]
 [ext_resource path="res://scenes/particle2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/pos_check.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 640.25, 16 )
@@ -36,6 +37,13 @@ script = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 490, 0 )
 texture = ExtResource( 8 )
+
+[node name="pos_check" type="Area2D" parent="."]
+script = ExtResource( 10 )
+
+[node name="collider" type="CollisionShape2D" parent="pos_check"]
+position = Vector2( 623.75, 0 )
+shape = SubResource( 3 )
 
 [node name="area" type="Area2D" parent="."]
 

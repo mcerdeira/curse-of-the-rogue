@@ -1,5 +1,7 @@
 extends KinematicBody2D
 var movement = Vector2.ZERO
+var pixelated = 100
+var firstframe = true
 var hit_ttl = 0
 var hit_ttl_total = 0.2
 var inv_time = 0
@@ -23,7 +25,7 @@ var dashing_cool_down = 0
 var auto_move_angle = null
 var facing = 1
 var falling = false
-var safe_pos = Vector2.ZERO
+var safe_pos = []
 var _in_water = false
 var dash_pos = []
 onready var default_pos = $sprite.get_position() - Vector2(0, 10)
@@ -37,6 +39,8 @@ var dead = false
 var entering = false
 
 func _ready():
+	Global.pixelate(pixelated)
+	
 	add_to_group("players")
 	if Global.automatic_weapon != "empty":
 		$automatic_weapon.animation = Global.automatic_weapon
@@ -49,7 +53,7 @@ func _ready():
 		
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
-	
+			
 func add_gem(count):
 	if count > 0:
 		Global.play_sound(Global.GemSfx)
@@ -425,23 +429,26 @@ func shoot():
 			create_bullet(Vector2(xx, -1))
 			
 func fall():
-	Global.play_sound(Global.FallingSfx)
-	falling = true
-	$sprite.scale.x = 1
-	$sprite.scale.y = 1
-	$shadow.visible = false
-	$sprite.animation = "hit" + ani_aditional
+	if !falling:
+		Global.play_sound(Global.FallingSfx)
+		falling = true
+		$sprite.scale.x = 1
+		$sprite.scale.y = 1
+		$shadow.visible = false
+		$sprite.animation = "hit" + ani_aditional
 			
 func stop_fall():
-	falling = false
-	$shadow.visible = true
-	$sprite.animation = "default" + ani_aditional
-	$sprite.scale.x = 1
-	$sprite.scale.y = 1
-	$sprite.rotation = 0
-	position = safe_pos
-	out_water()
-	hit(1, "hole", false)
+	if falling:
+		falling = false
+		$shadow.visible = true
+		$sprite.animation = "default" + ani_aditional
+		$sprite.scale.x = 1
+		$sprite.scale.y = 1
+		$sprite.rotation = 0
+		position = safe_pos[safe_pos.size() - 3]
+		safe_pos = []
+		out_water()
+		hit(1, "hole", false)
 	
 func emit():
 	for i in range(2):
@@ -475,6 +482,14 @@ func melee_attack():
 		primary_inst.scale.x = facing
 			
 func _physics_process(delta):
+	if !entering and pixelated > 1:
+		pixelated -= 200 * delta
+		if pixelated <= 1:
+			pixelated = 1
+		Global.pixelate(pixelated)
+		if pixelated == 1:
+			Global.set_visible_transition(false)
+	
 	if falling:
 		$sprite.rotation += 5 * delta
 		$sprite.scale.x -= 2 * delta
@@ -484,13 +499,18 @@ func _physics_process(delta):
 			
 		return
 	
-	safe_pos = position
+	safe_pos.append(position)
 	
 	if Global.werewolf:
 		turn_into_werewolf()
 		
 	if Global.pay2win:
 		add_pay_2_win()
+		
+	if firstframe:
+		firstframe = false
+		back = true
+		$sprite.animation = "back" + ani_aditional
 	
 	if $automatic_weapon.visible:
 		if normalize_direction > 0:

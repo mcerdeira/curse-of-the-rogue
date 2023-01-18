@@ -65,7 +65,7 @@ func _on_area_body_entered(body):
 	if shooting > 0:
 		if body.is_in_group("players"):
 			if !Global.flying:
-				body.hit(dmg, "lavastream")
+				body.hit(1, "lavastream")
 
 func _on_area_area_entered(area):
 	if area.is_in_group("decorations"):

@@ -1,4 +1,6 @@
 extends Area2D
+var player_in_ttl = 0.3
+var player_in = null
 var _player = null
 var speed = 80
 var _enemy = []
@@ -32,14 +34,23 @@ func _physics_process(delta):
 		if e and is_instance_valid(e):
 			e.position = e.position.move_toward($collider.global_position, delta * (speed))
 	
+	if  !_player and player_in and !player_in.falling and player_in.inv_time <=0:
+		player_in_ttl -= 1 * delta
+		if player_in_ttl <= 0:
+			player_in_ttl = 2
+			_player = player_in
+			_player.fall()
+	
 	if _player:
 		_player.position = _player.position.move_toward($collider.global_position, delta * (speed))
 		if !_player.falling:
 			_player = null
+			var a = player_in
 
-func _on_BigBlock_body_entered(body):	
+func _on_BigBlock_body_entered(body):
 	if body.is_in_group("players"):
 		if !Global.flying:
+			player_in = body
 			_player = body
 			body.fall()
 
@@ -56,3 +67,9 @@ func _on_BigBlock_area_entered(area):
 		if !area.get_parent().flying:
 			if area.get_parent().fall():
 				_enemy.append(area.get_parent())
+
+func _on_BigBlock_body_exited(body):
+	if body.is_in_group("players"):
+		if !Global.flying:
+			player_in_ttl = 2
+			player_in = null

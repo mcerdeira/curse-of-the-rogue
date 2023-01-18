@@ -2,10 +2,12 @@ extends Area2D
 export var type = "shop"
 var particle = preload("res://scenes/particle2.tscn")
 var do_action = false
-var do_action_ttl = 1.5
+var do_action_ttl_total = 1.5
+var do_action_ttl = do_action_ttl_total
 var price_what = ""
 var price_amount = -1
 var opened = false
+var pixelated = 0
 
 func _ready():
 	add_to_group("doors")
@@ -32,6 +34,12 @@ func go_do_action():
 func _physics_process(delta):
 	if do_action:
 		do_action_ttl -= 1 * delta
+		
+		if do_action_ttl <= do_action_ttl_total / 2:
+			Global.set_visible_transition(true)
+			pixelated += 200 * delta
+			Global.pixelate(pixelated)
+		
 		if do_action_ttl <= 0:
 			go_do_action()
 	

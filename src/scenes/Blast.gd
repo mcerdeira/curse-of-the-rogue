@@ -10,7 +10,7 @@ func _on_sprite_animation_finished():
 
 func _on_Blast_body_entered(body):
 	if body.is_in_group("players"):
-		body.hit(dmg, "blast")
+		body.hit(1, "blast")
 
 func _on_Blast_area_entered(area):
 	if area.is_in_group("decorations"):
