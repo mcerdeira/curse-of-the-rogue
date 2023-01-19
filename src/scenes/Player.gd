@@ -163,7 +163,7 @@ func add_life_2_win():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 	
-func add_pay_2_win(original:=true):
+func add_pay_2_win(original:=false):
 	if original:
 		Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.gems

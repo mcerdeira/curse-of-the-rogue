@@ -522,7 +522,6 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	secondary_weapon = "explosive_item"
 	Muted = false
 	SfxMuted = false
 	
