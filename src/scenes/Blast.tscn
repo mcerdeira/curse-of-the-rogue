@@ -35,8 +35,8 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
-frame = 11
-speed_scale = 3.0
+frame = 1
+speed_scale = 2.0
 playing = true
 
 [connection signal="area_entered" from="." to="." method="_on_Blast_area_entered"]

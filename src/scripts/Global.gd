@@ -150,6 +150,15 @@ enum floor_types {
 	supershop
 }
 
+var explosive_item = {
+	"name": "explosive_item",
+	"description": "Kaboom!",
+	"long_description": "Explosive personality",
+	"price": 300,
+	"type": "active",
+	"oneshot": true,
+}
+
 var fly_item = {
 	"name": "fly_item",
 	"description": "Fly",
@@ -294,15 +303,6 @@ var tomahawk = {
 	"oneshot": true,
 }
 
-var key = {
-	"name": "key",
-	"description": "Key",
-	"long_description": "A Key",
-	"price": 150,
-	"type": "consumable",
-	"oneshot": false,
-}
-	
 var wolfe_bite =  {
 	"name": "wolfe_bite",
 	"description": "Wolf Bite",
@@ -336,7 +336,7 @@ var shoot_speed_up = {
 	"long_description": "Shoot Speed Up",
 	"price": 200,
 	"type": "passive",
-	"oneshot": false,
+	"oneshot": true,
 }
 
 var speedup = {
@@ -345,7 +345,7 @@ var speedup = {
 	"long_description": "Speed Up",
 	"price": 150,
 	"type": "passive",
-	"oneshot": false,
+	"oneshot": true,
 }
 
 var meleeup = {
@@ -354,7 +354,7 @@ var meleeup = {
 	"long_description": "Melee Speed Up",
 	"price": 150,
 	"type": "passive",
-	"oneshot": false,
+	"oneshot": true,
 }
 
 var damageup =  {
@@ -363,7 +363,7 @@ var damageup =  {
 	"long_description": "Damage Up",
 	"price": 150,
 	"type": "passive",
-	"oneshot": false,
+	"oneshot": true,
 }
 
 var luckup = {
@@ -372,7 +372,7 @@ var luckup = {
 	"long_description": "Luck Up",
 	"price": 150,
 	"type": "passive",
-	"oneshot": false,
+	"oneshot": true,
 }
 
 var blue_heart = {
@@ -408,6 +408,15 @@ var normal_heart = {
 	"long_description": "Fills a Heart",
 	"price": 25,
 	"type": "item",
+	"oneshot": false,
+}
+
+var key = {
+	"name": "key",
+	"description": "Key",
+	"long_description": "A Key",
+	"price": 150,
+	"type": "consumable",
 	"oneshot": false,
 }
 
@@ -494,6 +503,7 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	secondary_weapon = "explosive_item"
 	Muted = false
 	SfxMuted = false
 	
@@ -543,6 +553,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(spikeball)
 	PREMIUM_ITEMS.push_back(katana)
 	PREMIUM_ITEMS.push_back(plasma)
+	PREMIUM_ITEMS.push_back(explosive_item)
 	
 func _ready():
 	LoadSfxAndMusic()

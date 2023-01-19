@@ -9,6 +9,7 @@ var inv_time_total = 1.2
 var inv_togg_total = 0.1
 var inv_togg = 0
 var primary_inst = null
+var Blast = preload("res://scenes/Blast.tscn")
 var whip = preload("res://scenes/Whip.tscn")
 var katana = preload("res://scenes/Katana.tscn")
 var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
@@ -18,6 +19,7 @@ var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
 var normalize_direction = 0
+var explosive_item_ttl = 0
 var rolling_ttl = 0
 var dashing_ttl = 0
 var rolling_cool_down = 0
@@ -463,6 +465,18 @@ func _draw():
 		for p in dash_pos:
 			draw_texture(texture, to_local(p), Color(1, 1, 1, 0.3))
 			
+func blast():
+	emit()
+	emit()
+	emit()
+	Global.play_sound(Global.BombExplosionSfx)
+	explosive_item_ttl = 2.3
+	var b = Blast.instance()
+	var root = get_node("/root/Main")
+	root.add_child(b)
+	b.global_position = global_position
+	b.no_player_hit = true
+			
 func melee_attack():
 	var _z = z_index
 	if Global.primary_weapon == "whip":
@@ -556,6 +570,11 @@ func _physics_process(delta):
 			dashing_ttl = 0
 			auto_move_angle = null
 		
+	if explosive_item_ttl > 0:
+		explosive_item_ttl -= 1 * delta
+		if explosive_item_ttl <= 0:
+			explosive_item_ttl = 0 
+		
 	if rolling_ttl > 0:
 		rolling_ttl -= 1 * delta
 		$sprite.animation = "roll" + ani_aditional
@@ -617,6 +636,9 @@ func _physics_process(delta):
 			shoot()
 	
 	if action2:
+		if explosive_item_ttl <= 0 and Global.secondary_weapon == "explosive_item":
+			blast()
+		
 		if dashing_ttl <= 0 and dashing_cool_down <= 0 and Global.secondary_weapon == "dash":
 			dashing_ttl = Global.dashing_ttl
 			var mouse_pos = get_global_mouse_position()

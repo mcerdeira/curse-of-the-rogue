@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://sprites/fly_item.png" type="Texture" id=31]
 [ext_resource path="res://sprites/spike_ball.png" type="Texture" id=32]
 [ext_resource path="res://sprites/plasma_item.png" type="Texture" id=33]
+[ext_resource path="res://sprites/explosive_item.png" type="Texture" id=34]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -90,6 +91,11 @@ animations = [ {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "empty_heart",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 34 ) ],
+"loop": true,
+"name": "explosive_item",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 31 ) ],
@@ -228,6 +234,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "plasma"
+animation = "explosive_item"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

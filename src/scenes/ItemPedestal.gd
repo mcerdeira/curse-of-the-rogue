@@ -110,6 +110,8 @@ func do_item_effect(_player):
 		_player.add_damage(1)
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
+	elif item_name == "explosive_item":
+		_player.add_secondary_weapon(item_name)	
 	elif item_name == "electric_attack":
 		_player.add_electric()
 	elif item_name == "empty_heart":
