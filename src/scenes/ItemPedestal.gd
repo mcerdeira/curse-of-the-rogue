@@ -107,7 +107,7 @@ func do_item_effect(_player):
 	elif item_name == "brain":
 		_player.add_brain()
 	elif item_name == "damageup":
-		_player.add_damage(1)
+		_player.add_damage(2)
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
 	elif item_name == "explosive_item":
@@ -131,7 +131,13 @@ func do_item_effect(_player):
 	elif item_name == "plasma":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "luckup":
-		_player.add_luck(1)
+		_player.add_luck(5)
+	elif item_name == "cherry_item":
+		_player.add_cherry()
+	elif item_name == "blue_lobster":
+		_player.add_luck(2)
+		_player.add_shield(4)
+		_player.add_damage(1)
 	elif item_name == "meleeup":
 		_player.add_melee(0.1)
 	elif item_name == "normal_heart":

@@ -55,10 +55,19 @@ func _ready():
 		
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
+		
+func add_cherry():
+	Global.play_sound(Global.GemSfx)
+	Global.gems *= 2
+	Global.cherry = true
 			
 func add_gem(count):
 	if count > 0:
 		Global.play_sound(Global.GemSfx)
+	
+	if Global.cherry:
+		count *= 2
+		
 	Global.gems += count
 	
 func add_key(count):

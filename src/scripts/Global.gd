@@ -131,6 +131,7 @@ var altar_level = 0
 var altar_level_max = 0
 var magnet = false
 var werewolf = false
+var cherry = false
 
 var POINTS_BASE = 9
 var POINTS_X = 1
@@ -366,6 +367,24 @@ var damageup =  {
 	"oneshot": true,
 }
 
+var blue_lobster = {
+	"name": "blue_lobster",
+	"description": "Blue Lobster",
+	"long_description": "I'm Blue",
+	"price": 200,
+	"type": "passive",
+	"oneshot": true,
+}
+
+var cherry_item = {
+	"name": "cherry_item",
+	"description": "Cherry",
+	"long_description": "I'm seeing double",
+	"price": 350,
+	"type": "passive",
+	"oneshot": true,
+}
+
 var luckup = {
 	"name": "luckup",
 	"description": "Clover",
@@ -554,6 +573,8 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(katana)
 	PREMIUM_ITEMS.push_back(plasma)
 	PREMIUM_ITEMS.push_back(explosive_item)
+	PREMIUM_ITEMS.push_back(blue_lobster)
+	PREMIUM_ITEMS.push_back(cherry_item)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -819,6 +840,7 @@ func initialize():
 	got_brain = false
 	flying = false
 	kills = 0
+	cherry = false
 	
 	_data_overload()
 
