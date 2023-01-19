@@ -240,6 +240,15 @@ var shot_gun = {
 	"oneshot": true,
 }
 
+var plasma = {
+	"name": "plasma",
+	"description": "Plasma Balls",
+	"long_description": "Science!!",
+	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
 var spikeball = {
 	"name": "spikeball",
 	"description": "Spike-Balls",
@@ -442,14 +451,14 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
-		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
+#		["scorpion", "scorpion", "scorpion"],
+#		["ghost"],
+#		["bat"],
 		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
-		["spider"],
-		["troll", "troll", "troll"]
+#		["scorpion"],
+#		["skeleton"],
+#		["spider"],
+#		["troll", "troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -533,6 +542,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(fly_item)
 	PREMIUM_ITEMS.push_back(spikeball)
 	PREMIUM_ITEMS.push_back(katana)
+	PREMIUM_ITEMS.push_back(plasma)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -603,10 +613,10 @@ func LoadSfxAndMusic():
 	SpiderSfx = ScorpionSfx
 	SpiderHitSfx = ScorpionHitSfx
 	
-	SpikeBallSfx = null
+	SpikeBallSfx = load("res://sfx/SpikeBallSfx.wav")
 	
-	TrollSfx = null
-	TrollHitSfx = null
+	TrollSfx = GhostSfx
+	TrollHitSfx = GhostHitSfx
 	
 	KatanaSfx = load("res://sfx/KatanaSfx.mp3")
 	

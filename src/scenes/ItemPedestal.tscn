@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://sprites/magnet.png" type="Texture" id=30]
 [ext_resource path="res://sprites/fly_item.png" type="Texture" id=31]
 [ext_resource path="res://sprites/spike_ball.png" type="Texture" id=32]
+[ext_resource path="res://sprites/plasma_item.png" type="Texture" id=33]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -151,6 +152,11 @@ animations = [ {
 "name": "pay_2_win",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "plasma",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "poison",
@@ -222,6 +228,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "blue_heart"
+animation = "plasma"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

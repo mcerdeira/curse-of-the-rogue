@@ -127,6 +127,8 @@ func do_item_effect(_player):
 		_player.add_magnet()
 	elif item_name == "knife":
 		_player.add_automatic_weapon(item_name)
+	elif item_name == "plasma":
+		_player.add_automatic_weapon(item_name)
 	elif item_name == "luckup":
 		_player.add_luck(1)
 	elif item_name == "meleeup":

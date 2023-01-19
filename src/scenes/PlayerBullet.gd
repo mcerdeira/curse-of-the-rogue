@@ -28,8 +28,9 @@ func _initialize():
 		speed = 150
 		dmg = 2
 	if type == "plasma":
-		speed = 150
-		dmg = 1
+		$sprite.playing = true
+		speed = 350
+		dmg = 1.5
 	if type == "bomb":
 		speed = 10
 		dmg = 0
@@ -142,7 +143,8 @@ func _physics_process(delta):
 				$sprite.look_at(_chase[0].global_position)
 		
 	elif type == "plasma":
-		$sprite.rotation = position.angle_to_point(dir)
+		$sprite.look_at(to_global(dir))
+		
 	elif type == "tomahawk":
 		tomahawk_ttl -= 1 * delta
 		if tomahawk_ttl <= 0:

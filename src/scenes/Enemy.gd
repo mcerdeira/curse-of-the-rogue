@@ -493,7 +493,8 @@ func set_type(_type):
 		random_shooter = true
 		
 	if enemy_type == "troll":
-		Global.play_sound(Global.TrollSfx)
+		var options = {"pitch_scale": 0.5}
+		Global.play_sound(Global.TrollSfx, options)
 		life = Global.attack * 5
 		speed = 30
 		speed_total = 30
@@ -612,7 +613,8 @@ func set_type(_type):
 		
 func OuchSfx():
 	if enemy_type == "troll":
-		Global.play_sound(Global.TrollHitSfx)
+		var options = {"pitch_scale": 0.5}
+		Global.play_sound(Global.TrollHitSfx, options)
 	if enemy_type == "ghost":
 		Global.play_sound(Global.GhostHitSfx)
 	if enemy_type == "dead_fire":
@@ -639,7 +641,9 @@ func hit(origin, dmg, from):
 			stop_moving = 0.01
 			
 		life -= dmg
-		hit_ttl = hit_ttl_total
+		
+		if !effects(from):
+			hit_ttl = hit_ttl_total
 		
 		if life > 0:
 			if !effects(from):

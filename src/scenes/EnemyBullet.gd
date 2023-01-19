@@ -21,6 +21,7 @@ func emit():
 
 func _physics_process(delta):
 	if type == "fire_trail":
+		$sprite.animation = type
 		dmg = 1
 		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
 		ttl -= 1 * delta

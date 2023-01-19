@@ -47,7 +47,7 @@ func random_type():
 	if Global.FLOOR_TYPE == Global.floor_types.intro:
 		return "cant"
 	else:
-		return Global.pick_random(["altar", "altar","supershop"])
+		return Global.pick_random(["altar", "altar", "supershop"])
 
 func set_price():
 	randomize()
@@ -60,15 +60,14 @@ func set_price():
 		if randi()%Global.bad_luck == 0:
 			price_amount = 0
 		else:
-			var p = randi()%Global.health.size()+1
-			price_amount = p
+			price_amount = 1
 	elif price_what == "keys":
-		price_amount = Global.pick_random([1, 2, 3])
+		price_amount = Global.pick_random([1, 2])
 	elif price_what == "gems":
 		if randi()%Global.bad_luck == 0:
 			price_amount = 0
 		else: 
-			price_amount = Global.pick_random([10, 50, 100])
+			price_amount = Global.CURRENT_FLOOR * Global.pick_random([10, 15, 20, 25, 30, 35, 40, 45, 50])
 
 func trad_type():
 	if type == "shop":

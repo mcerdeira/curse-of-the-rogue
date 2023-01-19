@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -47,24 +47,25 @@
 [ext_resource path="res://sprites/checkpoint_on_spr_14.png" type="Texture" id=45]
 [ext_resource path="res://sprites/checkpoint_on_spr_6.png" type="Texture" id=46]
 [ext_resource path="res://sprites/checkpoint_on_spr_16.png" type="Texture" id=47]
-[ext_resource path="res://sprites/gun_spr_0.png" type="Texture" id=48]
-[ext_resource path="res://sprites/plasma.png" type="Texture" id=49]
-[ext_resource path="res://sprites/knife_spr_0.png" type="Texture" id=50]
+[ext_resource path="res://sprites/gun_mini.png" type="Texture" id=48]
+[ext_resource path="res://sprites/knife_item.png" type="Texture" id=49]
+[ext_resource path="res://sprites/plasma_item.png" type="Texture" id=50]
 [ext_resource path="res://sprites/bomb_small.png" type="Texture" id=51]
 [ext_resource path="res://sprites/empty_automatic_item.png" type="Texture" id=52]
 [ext_resource path="res://sprites/hourglass_2.png" type="Texture" id=53]
 [ext_resource path="res://sprites/dash_hud.png" type="Texture" id=54]
 [ext_resource path="res://sprites/roll_hud.png" type="Texture" id=55]
 [ext_resource path="res://scenes/Colums.gd" type="Script" id=56]
-[ext_resource path="res://sprites/tomahawk_item_spr_0.png" type="Texture" id=57]
+[ext_resource path="res://sprites/tomahawk_item.png" type="Texture" id=57]
 [ext_resource path="res://scenes/StatWheel.tscn" type="PackedScene" id=58]
 [ext_resource path="res://scenes/BigBlock.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/WaterFall.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/WaterFallGroup.gd" type="Script" id=61]
-[ext_resource path="res://sprites/spike_ball.png" type="Texture" id=62]
+[ext_resource path="res://sprites/spike_ball_item.png" type="Texture" id=62]
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=63]
 [ext_resource path="res://scenes/GameOverMenu.tscn" type="PackedScene" id=64]
 [ext_resource path="res://scenes/Transition.gd" type="Script" id=65]
+[ext_resource path="res://sprites/katana_item.png" type="Texture" id=66]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -88,7 +89,7 @@ animations = [ {
 "name": "empty",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ ExtResource( 66 ) ],
 "loop": true,
 "name": "katana",
 "speed": 5.0
@@ -129,12 +130,12 @@ animations = [ {
 "name": "empty",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 50 ) ],
+"frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "knife",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 49 ) ],
+"frames": [ ExtResource( 50 ) ],
 "loop": true,
 "name": "plasma",
 "speed": 5.0
@@ -332,7 +333,7 @@ texture = ExtResource( 16 )
 [node name="primary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
 position = Vector2( 10, 40 )
 frames = SubResource( 4 )
-animation = "katana"
+animation = "empty"
 centered = false
 
 [node name="secondary_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
@@ -341,7 +342,7 @@ frames = SubResource( 10 )
 animation = "empty"
 
 [node name="automatic_weapon" type="AnimatedSprite" parent="CanvasLayer/HUD"]
-position = Vector2( 82, 51 )
+position = Vector2( 80, 50 )
 frames = SubResource( 9 )
 animation = "empty"
 
@@ -361,13 +362,13 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 2
+frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 2
+frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
