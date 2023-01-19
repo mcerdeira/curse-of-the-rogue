@@ -764,6 +764,7 @@ func initialize():
 	rolling_ttl = 0.6
 	
 	water_speed = 140.00
+	
 	speed = 150.00
 	total_bad_luck = 100
 	bad_luck = total_bad_luck

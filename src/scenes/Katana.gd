@@ -1,6 +1,6 @@
 extends Area2D
 var hit = false
-var dmg = 1.5
+var dmg = 1
 var player = null
 
 func _ready():

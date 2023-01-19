@@ -97,7 +97,6 @@ func do_item_effect(_player):
 			Global.refresh_hud()
 		
 	if item_name == "katana":
-		_player.add_damage(0.5)
 		_player.add_primary_weapon()
 	if item_name == "blue_heart":
 		_player.add_shield(1)
