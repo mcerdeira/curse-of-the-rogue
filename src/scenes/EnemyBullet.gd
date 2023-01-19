@@ -7,6 +7,7 @@ var dmg = 0
 var particle = preload("res://scenes/particle2.tscn")
 var dir = Vector2.ZERO
 var ttl = 5
+var from = ""
 
 func _ready():
 	add_to_group("enemybullets")
@@ -57,5 +58,5 @@ func _on_area_body_entered(body):
 	if body.name == "Walls":
 		destroy()
 	if body.is_in_group("players"):
-		body.hit(dmg, type)
+		body.hit(dmg, from)
 		destroy()

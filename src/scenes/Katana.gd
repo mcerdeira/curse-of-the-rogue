@@ -4,7 +4,8 @@ var dmg = 1.5
 var player = null
 
 func _ready():
-	Global.play_sound(Global.KatanaSfx)
+	var options = {"pitch_scale": Global.pick_random([0.9, 1, 1.1, 1.2, 1.3])}
+	Global.play_sound(Global.KatanaSfx, options)
 	dmg = Global.attack
 
 func _physics_process(delta):

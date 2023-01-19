@@ -2,7 +2,8 @@ extends Area2D
 var dmg = 1
 
 func _ready():
-	Global.play_sound(Global.WhipSfx)
+	var options = {"pitch_scale": Global.pick_random([0.9, 1, 1.1, 1.2, 1.3])}
+	Global.play_sound(Global.WhipSfx, options)
 	$sprite.speed_scale = 4
 	$sprite.playing = true
 	dmg = Global.attack

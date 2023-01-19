@@ -353,6 +353,7 @@ frames = SubResource( 8 )
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 63 )]
 
 [node name="GameOverMenu" parent="CanvasLayer" instance=ExtResource( 64 )]
+position = Vector2( 0, 17 )
 
 [node name="Transition" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -362,13 +363,11 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
