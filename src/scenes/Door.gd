@@ -108,6 +108,8 @@ func reveal():
 func open_door():
 	opened = true
 	if type == "altar":
+		if price_amount > 0:
+			Global.play_sound(Global.AltarOpenedSfx)
 		$sprite.animation = "altaropened"
 	else:
 		$sprite.animation = "opened"

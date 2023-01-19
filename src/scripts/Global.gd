@@ -55,6 +55,7 @@ var BombExplosionSfx = null
 var TomaHawkSfx = null
 var WhipSfx = null
 var AltarSfx = null
+var AltarOpenedSfx = null
 var PropsSfx = null
 var WheelMoveSfx = null
 var WheelSfx = null
@@ -614,6 +615,9 @@ func LoadSfxAndMusic():
 	PropsSfx = load("res://sfx/PropsSfx.wav")
 	WheelMoveSfx = load("res://sfx/WheelMoveSfx.wav")
 	WheelSfx = load("res://sfx/WheelSfx.wav")
+	
+	AltarOpenedSfx = WheelSfx
+	
 	ChestOpenSfx = load("res://sfx/ChestOpenSfx.ogg")
 	ChestAnimationSfx = load("res://sfx/ChestAnimationSfx.wav")
 	LevelEndSfx = load("res://sfx/LevelEndSfx.wav")
