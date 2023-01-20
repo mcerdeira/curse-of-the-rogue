@@ -482,6 +482,7 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
+		["idol"],
 		["scorpion", "scorpion", "scorpion"],
 		["ghost"],
 		["bat"],

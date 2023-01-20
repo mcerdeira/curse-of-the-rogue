@@ -1,6 +1,8 @@
 extends KinematicBody2D
 var life = 0
 var dmg = 0
+var shoot_count_total = 0
+var shoot_count = 0
 var iamasign_ttl = 0.9
 var iamasign = true
 var impulse_speed = 120
@@ -203,6 +205,14 @@ func shoot():
 			fire_ball.from = enemy_type
 			get_parent().get_parent().add_child(fire_ball)
 			fire_ball.global_position = global_position
+			
+		if enemy_type == "idol":
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
+			
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(-1, 0))
+			
 		if enemy_type == "skeleton":
 			Global.play_sound(Global.SkeleShootSfx)
 			var bone = EnemyBullet.instance()
@@ -363,7 +373,12 @@ func enemy_behaviour(delta):
 				point_chase = spawner.get_random_point()
 				
 			shoot_ttl = shoot_ttl_total
-			if Global.pick_random([true, false]):
+			
+			shoot_count -= 1
+			
+			if shoot_count <= 0:
+				shoot_count = Global.pick_random(shoot_count_total)
+			else:
 				shoot_ttl = 0.1
 			
 			shoot()
@@ -424,19 +439,19 @@ func set_type(_type):
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
 	if enemy_type == "ghost":
-		$Line2D.visible = true
 		Global.play_sound(Global.GhostSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
-		
+		shoot_count_total = [1, 2]
+		shoot_count = Global.pick_random(shoot_count_total)
 		shoot_ttl_total = 7
 		shoot_ttl = shoot_ttl_total
 		shoot_type = true
 		speed = 100
 		speed_total = 100
 		life = 7
-		dmg = 2
+		dmg = 1
 		chase_player = false
 		flying = true
 		fireinmune = true
@@ -450,7 +465,6 @@ func set_type(_type):
 		random_shooter = false
 	
 	if enemy_type == "dead_fire":
-		$Line2D.queue_free()
 		Global.play_sound(Global.DeadFireSfx)
 		$area/collider.set_deferred("disabled", true)
 		$area/collider_dead_fire.set_deferred("disabled", false)
@@ -458,11 +472,15 @@ func set_type(_type):
 		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
+		
+		shoot_count_total = [1, 2]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
 		shoot_type = true
 		speed = 150
 		speed_total = 150
 		life = 5
-		dmg = 2
+		dmg = 1
 		chase_player = true
 		flying = false
 		fireinmune = true
@@ -477,7 +495,6 @@ func set_type(_type):
 		random_shooter = false
 	
 	if enemy_type == "bat":
-		$Line2D.queue_free()
 		Global.play_sound(Global.BatsSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
@@ -486,6 +503,10 @@ func set_type(_type):
 		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 15
 		shoot_ttl = shoot_ttl_total
+		
+		shoot_count_total = [5]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
 		shoot_type = true
 		speed = 0
 		speed_total = 0
@@ -502,8 +523,37 @@ func set_type(_type):
 		angle_walker = false
 		random_shooter = true
 		
+	if enemy_type == "idol":
+		var options = {"pitch_scale": 0.5}
+		Global.play_sound(Global.TrollSfx, options)
+		
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", false)
+		
+		shoot_count_total = [25]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
+		shoot_ttl_total = 7
+		shoot_ttl = shoot_ttl_total
+		shoot_type = true
+		speed = 60
+		speed_total = 60
+		life = Global.attack * 8
+		dmg = 1
+		chase_player = false
+		flying = true
+		fireinmune = true
+		is_enemy_group = false
+		stopandgo = true
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = true
+		disapear = false
+		leave_trail = false
+		angle_walker = false
+		random_shooter = false
+		
 	if enemy_type == "troll":
-		$Line2D.queue_free()
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollSfx, options)
 		life = Global.attack * 5
@@ -529,7 +579,6 @@ func set_type(_type):
 		random_shooter = true
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
-		$Line2D.queue_free()
 		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
 			life = 4
@@ -561,7 +610,6 @@ func set_type(_type):
 		random_shooter = false
 		
 	if enemy_type == "spider" or enemy_type == "spider_xs":
-		$Line2D.queue_free()
 		if enemy_type == "spider":
 			var options = {"pitch_scale": 0.5}
 			Global.play_sound(Global.SpiderSfx, options)
@@ -572,6 +620,10 @@ func set_type(_type):
 			shoot_ttl_total = 3
 			shoot_ttl = shoot_ttl_total
 			shoot_type = true
+			
+			shoot_count_total = [3, 6, 9]
+			shoot_count = Global.pick_random(shoot_count_total)
+			
 			stopandgo = true
 			$area/collider.set_deferred("disabled", false)
 			$area/collider_dead_fire.set_deferred("disabled", true)
@@ -601,7 +653,6 @@ func set_type(_type):
 		random_shooter = false
 		
 	elif enemy_type == "skeleton":
-		$Line2D.queue_free()
 		Global.play_sound(Global.SkeleSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
@@ -610,10 +661,14 @@ func set_type(_type):
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
 		shoot_type = true
+		
+		shoot_count_total = [1, 3, 5]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
 		speed = 80
 		speed_total = 80
 		life = 2
-		dmg = 2
+		dmg = 1
 		chase_player = Global.pick_random([true, false])
 		flying = false
 		fireinmune = false
