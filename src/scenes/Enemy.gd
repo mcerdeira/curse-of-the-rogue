@@ -681,6 +681,9 @@ func set_type(_type):
 		random_shooter = false
 		
 func OuchSfx():
+	if enemy_type == "idol":
+		var options = {"pitch_scale": 0.5}
+		Global.play_sound(Global.TrollHitSfx, options)
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollHitSfx, options)

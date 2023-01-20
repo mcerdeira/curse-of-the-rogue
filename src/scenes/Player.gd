@@ -57,7 +57,7 @@ func _ready():
 		Global.attack = get_life_for_attack()
 		
 func add_cherry():
-	Global.play_sound(Global.GemSfx)
+	Global.play_sound(Global.ItemSfx)
 	
 	Global.add_extra_display("gems", Global.gems)
 	yield(get_tree().create_timer(.5), "timeout") 
@@ -256,6 +256,7 @@ func add_damage(count):
 		Global.attack = 0
 		
 func add_fly():
+	Global.play_sound(Global.ItemSfx)
 	Global.flying = true
 	
 func in_water():
