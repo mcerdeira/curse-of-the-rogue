@@ -531,7 +531,7 @@ func set_type(_type):
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
 		
-		shoot_count_total = [25]
+		shoot_count_total = [45]
 		shoot_count = Global.pick_random(shoot_count_total)
 		
 		shoot_ttl_total = 7
