@@ -1,13 +1,29 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprites/katana.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Katana.gd" type="Script" id=2]
+[ext_resource path="res://scenes/katana_trail.gd" type="Script" id=3]
+
+[sub_resource type="Curve" id=2]
+min_value = 0.99
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 53.5, 4.5 )
 
 [node name="Katana" type="Area2D"]
 script = ExtResource( 2 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 107, 0 )
+
+[node name="katana_trail" type="Line2D" parent="Node2D"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+points = PoolVector2Array( 108, 0 )
+width = 100.0
+width_curve = SubResource( 2 )
+default_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 3 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2( 53.5, 0 )

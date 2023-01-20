@@ -480,14 +480,14 @@ var BOSS_ELEMENTS = {
 var ENEMY_PATTERNS = [
 	-1,
 	[
-#		["scorpion", "scorpion", "scorpion"],
-#		["ghost"],
-#		["bat"],
+		["scorpion", "scorpion", "scorpion"],
+		["ghost"],
+		["bat"],
 		["dead_fire"],
-#		["scorpion"],
-#		["skeleton"],
-#		["spider"],
-#		["troll", "troll", "troll"]
+		["scorpion"],
+		["skeleton"],
+		["spider"],
+		["troll", "troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -523,6 +523,7 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	primary_weapon = "katana"
 	Muted = false
 	SfxMuted = false
 	

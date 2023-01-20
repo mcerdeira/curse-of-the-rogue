@@ -424,6 +424,7 @@ func set_type(_type):
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
 	if enemy_type == "ghost":
+		$Line2D.visible = true
 		Global.play_sound(Global.GhostSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
@@ -449,6 +450,7 @@ func set_type(_type):
 		random_shooter = false
 	
 	if enemy_type == "dead_fire":
+		$Line2D.queue_free()
 		Global.play_sound(Global.DeadFireSfx)
 		$area/collider.set_deferred("disabled", true)
 		$area/collider_dead_fire.set_deferred("disabled", false)
@@ -475,6 +477,7 @@ func set_type(_type):
 		random_shooter = false
 	
 	if enemy_type == "bat":
+		$Line2D.queue_free()
 		Global.play_sound(Global.BatsSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
@@ -500,6 +503,7 @@ func set_type(_type):
 		random_shooter = true
 		
 	if enemy_type == "troll":
+		$Line2D.queue_free()
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollSfx, options)
 		life = Global.attack * 5
@@ -525,6 +529,7 @@ func set_type(_type):
 		random_shooter = true
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
+		$Line2D.queue_free()
 		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
 			life = 4
@@ -556,6 +561,7 @@ func set_type(_type):
 		random_shooter = false
 		
 	if enemy_type == "spider" or enemy_type == "spider_xs":
+		$Line2D.queue_free()
 		if enemy_type == "spider":
 			var options = {"pitch_scale": 0.5}
 			Global.play_sound(Global.SpiderSfx, options)
@@ -595,6 +601,7 @@ func set_type(_type):
 		random_shooter = false
 		
 	elif enemy_type == "skeleton":
+		$Line2D.queue_free()
 		Global.play_sound(Global.SkeleSfx)
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
