@@ -11,8 +11,32 @@ export var shield_poison : Texture
 export var shield_zombie : Texture
 
 func _ready():
+	hide_all_extras()
 	add_to_group("HUD")
 	$c/game_over.visible = false
+	
+func hide_all_extras():
+	$hud_attack_add.text = ""
+	$hud_gems_add.text = ""
+	$hud_speed_add.text = ""
+	$hud_luck_add.text = ""
+	$hud_keys_add.text = ""
+	$hud_melee_speed_add.text = ""
+	$hud_shoot_speed_add.text = ""
+	
+func hide_extras(name):
+	var node_name = "hud_" + name + "_add"
+	get_node(node_name).text = ""
+	
+func add_extra_display(name, count):
+	var node_name = "hud_" + name + "_add"
+	if count != 0:
+		if count > 0:
+			get_node(node_name).text = "+" + str(count)
+			get_node(node_name).add_color_override("font_color", Color8(64, 245, 67))
+		elif count < 0:
+			get_node(node_name).text = str(count)
+			get_node(node_name).add_color_override("font_color", Color8(243, 42, 42))
 	
 func _draw():
 	var w = 30
@@ -59,7 +83,7 @@ func set_message(title, msg):
 	$c/game_over.text = title
 	$c/subtitle.text = "\n\n\n\n" + msg
 	
-func _physics_process(delta):
+func _physics_process(delta):	
 	if !Global.GAME_OVER and message_ttl > 0:
 		message_ttl -= 1 * delta
 		if message_ttl <= 0:
@@ -99,7 +123,7 @@ func _physics_process(delta):
 	
 	$hud_speed.text =  str(space) + str(Global.speed/100.00)
 	$hud_attack.text = str(space) + str(Global.attack)
-	$hud_melee_speed.text = str(space) + str(Global.melee_rate_total)
+	$hud_melee_speed.text = str(space) + str(Global.melee_speed)
 	$hud_shoot_speed.text = str(space) + str(Global.shoot_speed_total)
 	$hud_combo_count.text = combo_text + str(Global.max_combo)
 	$hud_luck.text = str(space) + str(Global.total_bad_luck - Global.bad_luck) + "%"

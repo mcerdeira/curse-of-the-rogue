@@ -248,6 +248,15 @@ text = "       : "
 position = Vector2( 45, 4 )
 texture = ExtResource( 7 )
 
+[node name="hud_attack_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 96.0
+margin_right = 141.0
+margin_bottom = 104.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
+
 [node name="hud_gems" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
 margin_top = 75.0
@@ -255,6 +264,15 @@ margin_right = 97.0
 margin_bottom = 83.0
 custom_fonts/font = SubResource( 1 )
 text = "       : "
+
+[node name="hud_gems_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 75.0
+margin_right = 196.0
+margin_bottom = 83.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
 
 [node name="hud_speed" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
@@ -268,6 +286,15 @@ text = "       : "
 position = Vector2( 44, 3 )
 texture = ExtResource( 9 )
 
+[node name="hud_speed_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 115.0
+margin_right = 196.0
+margin_bottom = 123.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
+
 [node name="hud_luck" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
 margin_top = 172.0
@@ -279,6 +306,15 @@ text = "       : "
 [node name="CharacterPlace" type="Sprite" parent="CanvasLayer/HUD/hud_luck"]
 position = Vector2( 44, 3 )
 texture = ExtResource( 19 )
+
+[node name="hud_luck_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 172.0
+margin_right = 196.0
+margin_bottom = 180.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
 
 [node name="hud_keys" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
@@ -292,6 +328,15 @@ text = "       : "
 position = Vector2( 44, 3 )
 texture = ExtResource( 20 )
 
+[node name="hud_keys_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 188.0
+margin_right = 196.0
+margin_bottom = 196.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
+
 [node name="hud_melee_speed" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
 margin_top = 134.0
@@ -304,6 +349,15 @@ text = "       :"
 position = Vector2( 45, 3 )
 texture = ExtResource( 8 )
 
+[node name="hud_melee_speed_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 134.0
+margin_right = 196.0
+margin_bottom = 142.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
+
 [node name="hud_shoot_speed" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
 margin_top = 154.0
@@ -315,6 +369,15 @@ text = "       :"
 [node name="Hourglass" type="Sprite" parent="CanvasLayer/HUD/hud_shoot_speed"]
 position = Vector2( 45, 3 )
 texture = ExtResource( 53 )
+
+[node name="hud_shoot_speed_add" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 100.0
+margin_top = 154.0
+margin_right = 196.0
+margin_bottom = 162.0
+custom_colors/font_color = Color( 0.952941, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "+30"
 
 [node name="hud_combo_count" type="Label" parent="CanvasLayer/HUD"]
 margin_left = 1.0
@@ -369,13 +432,13 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 516, 293 )
@@ -457,6 +520,7 @@ rotation = 3.14159
 position = Vector2( 512, 544 )
 
 [node name="Blocks" type="Node2D" parent="."]
+z_index = -99
 
 [node name="BigBlock" parent="Blocks" instance=ExtResource( 59 )]
 position = Vector2( 68, 269 )

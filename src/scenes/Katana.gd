@@ -20,7 +20,7 @@ func _physics_process(delta):
 		if die_ttl <= 0:
 			queue_free()
 	else:
-		rotation_degrees += (1000 * -scale.x) * delta
+		rotation_degrees += (2000 * -scale.x) * delta
 		if abs(rotation_degrees) >= 360:
 			finish = true
 

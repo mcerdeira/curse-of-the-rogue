@@ -58,20 +58,35 @@ func _ready():
 		
 func add_cherry():
 	Global.play_sound(Global.GemSfx)
+	
+	Global.add_extra_display("gems", Global.gems)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("gems")
+	
 	Global.gems *= 2
 	Global.cherry = true
 			
 func add_gem(count):
 	if count > 0:
 		Global.play_sound(Global.GemSfx)
-	
-	if Global.cherry:
-		count *= 2
 		
+	Global.add_extra_display("gems", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("gems")
+	
+	if count > 0:
+		if Global.cherry:
+			count *= 2
+			
 	Global.gems += count
 	
 func add_key(count):
 	Global.play_sound(Global.KeySfx)
+	
+	Global.add_extra_display("keys", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("keys")
+	
 	Global.keys += count
 	
 func add_master_key():
@@ -197,25 +212,45 @@ func add_ice():
 	Global.frozen = true
 	
 func add_speed(count):
+	var mult = 50.0
 	Global.play_sound(Global.ItemSfx)
-	Global.speed += (count * 50)
+	
+	Global.add_extra_display("speed", (count * mult/ 100.0))
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("speed")
+	
+	Global.speed += (count * mult)
 	if Global.speed < 0:
 		Global.speed = 0
 	
 func add_shoot_speed(count):
 	Global.play_sound(Global.ItemSfx)
-	Global.shoot_speed_total -= count
+	Global.add_extra_display("shoot_speed", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("shoot_speed")
 	
+	Global.shoot_speed_speed += count
+
 func add_melee(count):
 	Global.play_sound(Global.ItemSfx)
-	Global.melee_rate_total -= count
+	Global.add_extra_display("melee_speed", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("melee_speed")
+	Global.melee_speed += count
 	
 func add_luck(count):
 	Global.play_sound(Global.ItemSfx)
+	Global.add_extra_display("luck", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("luck")
 	Global.bad_luck -= count
 	
 func add_damage(count):
 	Global.play_sound(Global.ItemSfx)
+	Global.add_extra_display("attack", count)
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("attack")
+	
 	Global.attack += count
 	if Global.attack < 0:
 		Global.attack = 0
@@ -505,6 +540,9 @@ func melee_attack():
 		primary_inst.scale.x = facing
 			
 func _physics_process(delta):
+#	if Input.is_action_just_pressed("debug_button1"):
+#		add_melee(0.1)
+	
 	if !entering and pixelated > 1:
 		pixelated -= 200 * delta
 		if pixelated <= 1:
@@ -543,7 +581,6 @@ func _physics_process(delta):
 	
 	if entering:
 		$automatic_weapon.visible = false
-		$sprite/melee_bar.visible = false
 		if !Global.flying:
 			$sprite.playing = true
 			
@@ -560,7 +597,6 @@ func _physics_process(delta):
 				turn_into_zombie()
 		else:
 			$automatic_weapon.visible = false
-			$sprite/melee_bar.visible = false
 		return
 		
 	if rolling_cool_down > 0:
@@ -626,20 +662,15 @@ func _physics_process(delta):
 	var action2 = Input.is_action_pressed("action2")
 	
 	if Global.melee_rate > 0:
-		$sprite/melee_bar.visible = true
-		Global.melee_rate -= 1 * delta
+		Global.melee_rate -= Global.melee_speed * delta
 		Global.melee_rate = max(0, Global.melee_rate)
-	else:
-		$sprite/melee_bar.playing = false
-		$sprite/melee_bar.frame = 0
-		$sprite/melee_bar.visible = false
 	
 	var move = (left or right or up or down)
 	
 	movement = Vector2.ZERO
 	
 	if Global.automatic_weapon != "":
-		Global.shoot_speed -= 1 * delta
+		Global.shoot_speed -= Global.shoot_speed_speed * delta
 		if Global.shoot_speed <= 0:
 			Global.shoot_speed = Global.shoot_speed_total
 			shoot()
@@ -669,7 +700,6 @@ func _physics_process(delta):
 	if auto_move_angle == null and action1 and Global.melee_rate <= 0:
 		if !is_instance_valid(primary_inst):
 			Global.melee_rate = Global.melee_rate_total
-			$sprite/melee_bar.playing = true
 			melee_attack()
 			
 	if left:
@@ -705,8 +735,6 @@ func _physics_process(delta):
 			$sprite.animation = "back" + ani_aditional
 		else:
 			$sprite.animation = "default" + ani_aditional
-	
-	$sprite/melee_bar.scale.x = $sprite.scale.x
 	
 	$sprite.playing = move
 	if !move:

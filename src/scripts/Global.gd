@@ -106,6 +106,7 @@ var frozen = false
 var temp_poison = false
 var got_brain = false
 var keys = 0
+var melee_speed = 0.0
 var melee_rate = 0.0
 var melee_rate_total = 0.0
 var attack = 0
@@ -122,6 +123,7 @@ var total_bad_luck = 0
 var zombie = false
 var shoot_speed = 0.0
 var shoot_speed_total = 0.0
+var shoot_speed_speed = 0.0
 var rolling_ttl = 0
 var dashing_ttl = 0
 
@@ -523,7 +525,6 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
-	primary_weapon = "katana"
 	Muted = false
 	SfxMuted = false
 	
@@ -813,9 +814,11 @@ func initialize():
 
 	melee_rate_total = 1.0
 	melee_rate = 0
+	melee_speed = 1
 	
+	shoot_speed_speed = 1.0
 	shoot_speed_total = 5.0
-	shoot_speed = 0.1
+	shoot_speed = 0.2
 	
 	gems = 0
 	
@@ -858,7 +861,15 @@ func add_combo():
 		max_combo = current_combo
 
 func get_floor_waves():
-	return FLOOR_WAVES[CURRENT_FLOOR]
+	return FLOOR_WAVES[CURRENT_FLOOR]	
+	
+func hide_hud_extras(name):
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.hide_extras(name)
+	
+func add_extra_display(what, count):
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.add_extra_display(what, count)
 	
 func refresh_hud():
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
