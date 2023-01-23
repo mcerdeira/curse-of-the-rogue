@@ -16,9 +16,13 @@ func _ready():
 		queue_free()
 		return
 		
-	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal:
+	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
 		type = "next"
-	
+
+	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal:
+		type = "boss"
+
+		
 	$lbl.visible = false
 	$price_lbl.visible = false
 	$amount_spr.visible = false
@@ -82,6 +86,8 @@ func trad_type():
 	elif type == "supershop":
 		set_price()
 		return "Shop++"
+	elif type == "boss":
+		return "BOSS"
 
 func emit():
 	for i in range(2):

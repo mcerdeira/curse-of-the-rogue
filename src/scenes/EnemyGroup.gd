@@ -4,7 +4,6 @@ var speed = 0
 var player_chase = null
 var enemy_list = null
 var ready = false
-var spawner = null
 var stop_moving = 0
 var die_ttl = 0.1
 var rot_speed = 1

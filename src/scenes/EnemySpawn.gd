@@ -10,6 +10,9 @@ var min_count = 3
 var WAVE_COUNT = 0
 var plants_created = false
 
+func _ready():
+	Global.SPAWNER = self
+
 func create_plants():
 	var vegetation = false
 	var count = 0
@@ -122,12 +125,16 @@ func spawn_chest_and_stuff(only_chest:=false):
 		get_parent().add_child(obj_inst)
 		obj_inst.set_position(to_global(obj_pos))
 		
-func spawn_enemy():
-	if WAVE_COUNT < Global.get_floor_waves():
+func spawn_enemy(fixed_enemies:=false):
+	if fixed_enemies or WAVE_COUNT < Global.get_floor_waves():
 		WAVE_COUNT += 1
 		var positions = get_children()
 		
-		var enemies = Global.enemy_by_floor()
+		var enemies
+		if !fixed_enemies:
+			enemies = Global.enemy_by_floor()
+		else:
+			enemies = Global.enemy_by_boss()
 		
 		for i in range(enemies.size()):
 			positions.shuffle()
@@ -139,7 +146,7 @@ func spawn_enemy():
 				enemy_inst = bat_group.instance()
 			else:
 				enemy_inst = enemy.instance()
-				if type == "scorpion":
+				if !fixed_enemies and type == "scorpion":
 					if Global.pick_random([1, 1, 1, 1, 0]) == 0:
 						type = "scorpion+"
 				
@@ -147,7 +154,6 @@ func spawn_enemy():
 				
 			get_parent().add_child(enemy_inst)
 			enemy_inst.global_position = p.global_position
-			enemy_inst.spawner = self
 	else:
 		if !Global.FLOOR_OVER and get_tree().get_nodes_in_group("enemies").size() == 0:
 			Global.FLOOR_OVER = true

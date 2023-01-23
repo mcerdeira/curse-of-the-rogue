@@ -8,6 +8,7 @@ var TimerOn = false
 var KillerisMe = ""
 var shaker_obj = null
 var transition_obj = null
+var SPAWNER = null
 
 var LOGIC_PAUSE = false
 var FIRST = true
@@ -144,6 +145,94 @@ var werewolf_speed = 100
 var werewolf_attack = 5
 
 var one_shot_items = []
+
+# Boss stuff
+var mov_type_pong = {
+	"name": "pong",
+	"ttl": -1,
+	"speed": 80,
+}
+var mov_type_follow = {
+	"name": "follow",
+	"ttl": 5,
+	"speed": 80,
+}
+var mov_type_random = {
+	"name": "random",
+	"ttl": 7,
+	"speed": 90,
+}
+var mov_type_horizontal = {
+	"name": "horizontal",
+	"ttl": -1,
+	"speed": 150,
+}
+var mov_type_none = {
+	"name": "none",
+	"ttl": -1,
+	"speed": 0,
+}
+
+var movement_types = [
+	mov_type_pong,
+	mov_type_follow,
+	mov_type_random,
+	mov_type_horizontal,
+	mov_type_none
+]
+
+var att_type_charge = {
+	name = "charge",
+	count = 3, 
+}
+var att_type_cross = {
+	name = "cross",
+	count = 50,
+}
+var att_type_spin_x = {
+	name = "spin_x",
+	count = 50,
+}
+var att_type_rain = {
+	name = "rain",
+	count = 10,
+}
+var att_type_melee = {
+	name = "melee",
+	count = 3, 
+}
+var att_type_jump = {
+	name = "jump",
+	count = 1,
+}
+
+var attack_types = [
+	att_type_charge,
+	att_type_cross,
+	att_type_spin_x,
+	att_type_rain,
+	att_type_melee,
+	att_type_jump
+]
+
+var dmg_type_normal = {
+	name = "normal",
+	bullet = "fireball"
+}
+var dmg_type_poison = {
+	name = "poison",
+	bullet = "poisonball"
+}
+var dmg_type_ice = {
+	name = "ice",
+	bullet = "iceball"
+}
+
+var damage_types = [
+	dmg_type_normal,
+	dmg_type_poison,
+	dmg_type_ice
+]
 
 enum floor_types {
 	intro,
@@ -479,6 +568,13 @@ var BOSS_ELEMENTS = {
 	}
 }
 
+var ENEMY_BOSS_PATTERNS = [
+	["skeleton"],
+	["scorpion"],
+	["bat"],
+	["spider_xs"]
+]
+
 var ENEMY_PATTERNS = [
 	-1,
 	[
@@ -699,6 +795,9 @@ func calc_points_level():
 	
 func _physics_process(delta):
 	timer_event(delta)
+	
+func enemy_by_boss():
+	return Global.pick_random(ENEMY_BOSS_PATTERNS)
 
 func enemy_by_floor():
 	randomize()
@@ -853,13 +952,15 @@ func initialize():
 	_data_overload()
 
 func sustain():
-	combo_time = 0.7
+	if FLOOR_TYPE == floor_types.normal:
+		combo_time = 0.7
 
 func add_combo():
-	combo_time = combo_time_total
-	current_combo += 1
-	if current_combo > max_combo:
-		max_combo = current_combo
+	if FLOOR_TYPE == floor_types.normal:
+		combo_time = combo_time_total
+		current_combo += 1
+		if current_combo > max_combo:
+			max_combo = current_combo
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]	
@@ -893,6 +994,8 @@ func next_floor(type):
 		FLOOR_TYPE = floor_types.supershop
 	elif type == "altar":
 		FLOOR_TYPE = floor_types.altar
+	elif type == "boss":
+		FLOOR_TYPE = floor_types.boss
 		
 	Global.FLOOR_OVER = false
 	Global.LOGIC_PAUSE = false

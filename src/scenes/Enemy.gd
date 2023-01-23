@@ -25,7 +25,6 @@ var shoot_ttl = 0
 var shoot_ttl_total = 0
 var shoot_type = false
 var stop_moving = 0
-var spawner = null
 var chase_player = true
 var flying = false
 var stopandgo = false
@@ -41,11 +40,10 @@ var trail_ttl = trail_ttl_total
 var invisible_time = 0
 var invisible_time_total = 1
 var froze_effect = 0
+var froze_effect_total = 3
 var electric_effect = 0
 var electric_effect_total = 2
 var destiny = null
-var saturate = 0
-var saturate_dir = 1
 var falling = false
 var dont_drop = false
 var fireinmune = false
@@ -370,7 +368,7 @@ func enemy_behaviour(delta):
 				visible = true
 			
 			if !chase_player:
-				point_chase = spawner.get_random_point()
+				point_chase = Global.SPAWNER.get_random_point()
 				
 			shoot_ttl = shoot_ttl_total
 			
@@ -403,7 +401,7 @@ func enemy_behaviour(delta):
 				move_and_slide(speed * direction)
 		else:
 			if point_chase == null:
-				point_chase = spawner.get_random_point()
+				point_chase = Global.SPAWNER.get_random_point()
 				
 			var direction = (point_chase.position - self.position).normalized()
 			if stop_moving <= 0:
@@ -730,7 +728,7 @@ func hit(origin, dmg, from):
 		
 		if from == "player" and Global.frozen:
 			Global.play_sound(Global.FrozeSfx)
-			froze_effect = 3
+			froze_effect = froze_effect_total
 		
 		if from == "player" and (Global.poison or Global.temp_poison):
 			Global.play_sound(Global.PoisonSfx)
