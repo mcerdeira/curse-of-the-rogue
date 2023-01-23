@@ -99,13 +99,14 @@ position = Vector2( 3, 35 )
 shape = SubResource( 6 )
 
 [node name="weapon" type="AnimatedSprite" parent="."]
-position = Vector2( 63, 30 )
+position = Vector2( 16, 31 )
 frames = SubResource( 4 )
+offset = Vector2( 47, -1 )
 
 [node name="weapon_area" type="Area2D" parent="weapon"]
 
 [node name="collider" type="CollisionShape2D" parent="weapon/weapon_area"]
-position = Vector2( -2, 0 )
+position = Vector2( 46, -1 )
 shape = SubResource( 7 )
 
 [node name="area_start" type="Area2D" parent="."]

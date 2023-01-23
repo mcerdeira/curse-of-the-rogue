@@ -9,7 +9,6 @@ var KillerisMe = ""
 var shaker_obj = null
 var transition_obj = null
 var SPAWNER = null
-
 var LOGIC_PAUSE = false
 var FIRST = true
 var TOTAL_FLOORS = 7
@@ -184,26 +183,32 @@ var movement_types = [
 var att_type_charge = {
 	name = "charge",
 	count = 3, 
+	ttl = 4,
 }
 var att_type_cross = {
 	name = "cross",
-	count = 50,
+	count = -1,
+	ttl = 5,
 }
 var att_type_spin_x = {
 	name = "spin_x",
-	count = 50,
+	count = -1,
+	ttl = 5,
 }
 var att_type_rain = {
 	name = "rain",
-	count = 10,
+	count = -1,
+	ttl = 8,
 }
 var att_type_melee = {
 	name = "melee",
-	count = 3, 
+	count = 3,
+	ttl = 5,
 }
 var att_type_jump = {
 	name = "jump",
 	count = 1,
+	ttl = 3,
 }
 
 var attack_types = [
@@ -217,7 +222,7 @@ var attack_types = [
 
 var dmg_type_normal = {
 	name = "normal",
-	bullet = "fireball"
+	bullet = "fire_ball"
 }
 var dmg_type_poison = {
 	name = "poison",
@@ -230,8 +235,8 @@ var dmg_type_ice = {
 
 var damage_types = [
 	dmg_type_normal,
-	dmg_type_poison,
-	dmg_type_ice
+#	dmg_type_poison,
+#	dmg_type_ice
 ]
 
 enum floor_types {

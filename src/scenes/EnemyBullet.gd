@@ -1,11 +1,14 @@
 extends KinematicBody2D
-var type = ""
+export var type = ""
 var player_chase = null
 var player_direction = null
+var fake = false
 var speed = 0
 var dmg = 0
 var particle = preload("res://scenes/particle2.tscn")
-var dir = Vector2.ZERO
+export var dir = Vector2.ZERO
+export var lander = false
+
 var ttl = 5
 var from = ""
 
@@ -14,13 +17,27 @@ func _ready():
 
 func emit():
 	var p = particle.instance()
-	get_parent().add_child(p)
+	var parent = get_parent()
+	if lander:
+		parent = get_parent().get_parent()
+	
+	parent.add_child(p)	
 	p.global_position = global_position
 	p = particle.instance()
-	get_parent().add_child(p)
+	parent.add_child(p)
 	p.global_position = global_position
 
+func init_fake():
+	fake = true
+	speed = Global.pick_random([400, 350, 500])
+	var sca = Global.pick_random([1, 2.5, 2])
+	$sprite.scale.x = sca
+	$sprite.scale.y = sca
+
 func _physics_process(delta):
+	if fake and position.y <= -1000:
+		queue_free()
+	
 	if type == "fire_trail":
 		$sprite.animation = type
 		dmg = 1
@@ -31,7 +48,7 @@ func _physics_process(delta):
 	
 	if type == "bone" or type == "fire_ball":
 		z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
-		if player_chase == null:
+		if !fake and player_chase == null:
 			if type == "fire_ball":
 				speed = 200
 			else:
@@ -41,22 +58,32 @@ func _physics_process(delta):
 			player_direction = (player_chase.position - self.position).normalized()
 			$sprite.look_at(player_chase.global_position)
 		
+		if lander:
+			speed = 300
+		
 		$sprite.animation = type
 		if dir != Vector2.ZERO:
 			move_and_slide(speed * dir)
-			$sprite.rotation = get_angle_to(dir)
+			$sprite.look_at(to_global(dir))
 		else:
 			move_and_slide(speed * player_direction)
 			if type != "fire_ball":
 				$sprite.rotation += 10 * delta
 
 func destroy():
+	if lander:
+		get_parent().queue_free()
+		
 	emit()
 	queue_free()
 
 func _on_area_body_entered(body):
-	if body.name == "Walls":
+	if !fake and !lander and body.name == "Walls":
 		destroy()
-	if body.is_in_group("players"):
+	if !fake and body.is_in_group("players"):
 		body.hit(dmg, from)
+		destroy()
+
+func _on_area_area_entered(area):
+	if lander and area.is_in_group("lander"):
 		destroy()

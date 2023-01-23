@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var bullet = ""
+var shoot_ttl = 0
+var shoot_ttl_total = 0.2
 var pong_dir = Vector2.ZERO
 var destiny = null
 var dead = false
@@ -12,12 +15,14 @@ var point_chase = null
 var intro_ttl = 0
 var active = false
 var particle = preload("res://scenes/particle2.tscn")
+var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
+var BulletLander = preload("res://scenes/BulletLander.tscn")
 var move_dir = 1
 var movement_type = null
 var attack_type = null
 var damage_type = null
 var state_moving = true
-var state_attacking = false
+var state_attacking = true
 var moving_ttl = 0
 var moving_ttl_total = 0
 var attacking_ttl = 0
@@ -43,9 +48,14 @@ func generate_boss():
 	moving_ttl_total = movement_type.ttl
 	moving_ttl = moving_ttl_total
 	
+	attacking_ttl_total = attack_type.ttl
+	attacking_ttl = 0
+	
 	attacking_count_total = attack_type.count
 	attacking_count = 0
 	speed = movement_type.speed
+	
+	bullet = damage_type.bullet
 	
 	$area.add_to_group("bosses")
 	add_to_group("enemy_objects")
@@ -169,8 +179,8 @@ func _physics_process(delta):
 	
 	z_index = position.y
 	if active:
-		if attacking_count_total != -1:
-			attacking_count -= 1 * delta
+		if attacking_ttl_total != -1:
+			attacking_ttl -= 1 * delta
 			
 		if moving_ttl_total != -1:
 			moving_ttl -= 1 * delta
@@ -190,9 +200,9 @@ func _physics_process(delta):
 				$area_start.queue_free()
 		
 func check_state(delta):
-	if attacking_count <= 0:
-		attacking_count = attacking_count_total
-		if attacking_count_total == -1:
+	if attacking_ttl <= 0:
+		attacking_ttl = attacking_ttl_total
+		if attacking_ttl_total == -1:
 			state_attacking = true
 		else:
 			state_attacking = !state_attacking
@@ -212,23 +222,90 @@ func got_there(point):
 
 func find_player():
 	return get_tree().get_nodes_in_group("players")[0]
+	
+func create_enemy_bullet(pos):
+	var fire_ball = EnemyBullet.instance()
+	fire_ball.type = bullet
+	fire_ball.dir = pos
+	fire_ball.from = boss_type
+	get_parent().add_child(fire_ball)
+	fire_ball.set_position(position)
+	
+func create_enemy_fake_bullet(pos):
+	var fire_ball = EnemyBullet.instance()
+	fire_ball.type = bullet
+	fire_ball.dir = pos
+	fire_ball.from = boss_type
+	fire_ball.init_fake()
+	get_parent().add_child(fire_ball)
+	fire_ball.set_position(position)
+	
+func shoot_cross(delta):
+	shoot_ttl -= 1 * delta
+	stop_moving = 0.1
+	if shoot_ttl <= 0:
+		shoot_ttl = shoot_ttl_total
+		create_enemy_bullet(Vector2(0, 1))
+		create_enemy_bullet(Vector2(0, -1))
+		
+		create_enemy_bullet(Vector2(1, 0))
+		create_enemy_bullet(Vector2(-1, 0))
+		
+func shoot_spinx(delta):
+	shoot_ttl -= 1 * delta
+	stop_moving = 0.1
+		
+	if shoot_ttl <= 0:
+		shoot_ttl = shoot_ttl_total
+		create_enemy_bullet(Vector2(0, 1))
+		create_enemy_bullet(Vector2(0, -1))
+		
+		create_enemy_bullet(Vector2(1, 0))
+		create_enemy_bullet(Vector2(1, 1))
+		create_enemy_bullet(Vector2(1, -1))
+		
+		create_enemy_bullet(Vector2(-1, 0))
+		create_enemy_bullet(Vector2(-1, 1))
+		create_enemy_bullet(Vector2(-1, -1))
+		
+func shoot_rain(delta):
+	shoot_ttl -= 1 * delta
+	stop_moving = 0.1
+	if shoot_ttl <= 0:
+		if Global.pick_random([true, false]):
+			var fire_ball = BulletLander.instance()
+			get_parent().add_child(fire_ball)
+			var p = Global.SPAWNER.get_random_point()
+			fire_ball.set_position(p.position)
+		
+		shoot_ttl = shoot_ttl_total
+		create_enemy_fake_bullet(Vector2(0, -1))
+		
+func attack_melee(delta):
+	pass
+	
+func jump_attack(delta):
+	pass
+	
+func attack_charge(delta):
+	pass
 
 func boss_attack(delta):
 	if froze_effect > 0:
 		return
 		
 	if attack_type.name == "charge":
-		pass
+		attack_charge(delta)
 	if attack_type.name == "cross":
-		pass
+		shoot_cross(delta)
 	if attack_type.name == "spin_x":
-		pass
+		shoot_spinx(delta)
 	if attack_type.name == "rain":
-		pass
+		shoot_rain(delta)
 	if attack_type.name == "melee":
-		pass
+		attack_melee(delta)
 	if attack_type.name == "jump":
-		pass
+		jump_attack(delta)
 
 func boss_movement(delta):
 	if stop_moving > 0:
@@ -236,7 +313,7 @@ func boss_movement(delta):
 		return 
 		
 	if spawn_enemies:
-		if randi() % 150 == 0:
+		if randi() % 250 == 0:
 			emit()
 			Global.SPAWNER.spawn_enemy(true)
 	
