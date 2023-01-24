@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var weapon_rotate_speed_base = 600
+var weapon_rotate_speed = weapon_rotate_speed_base
 var bullet = ""
 var shoot_ttl = 0
 var shoot_ttl_total = 0.2
@@ -10,8 +12,10 @@ var hit_ttl = 0
 var hit_ttl_total = 0.2
 var stop_moving = 0
 var poisoned = false
-var life = 90
+var total_life = 100.00
+var life = total_life
 var point_chase = null
+var introl_ttl_total = 4.5
 var intro_ttl = 0
 var active = false
 var particle = preload("res://scenes/particle2.tscn")
@@ -38,11 +42,26 @@ var froze_effect = 0
 var froze_effect_total = 1
 var electric_effect = 0
 var electric_effect_total = 2
+var boss_name = ""
+var _player_obj = null
+
+func _ready():
+	Global.FLOOR_TYPE = Global.floor_types.boss
+	if Global.FLOOR_TYPE != Global.floor_types.boss:
+		queue_free()
+		return
+	else:
+		generate_boss()
 
 func generate_boss():
 	randomize()
-	spawn_enemies = Global.pick_random([false, false, false, true])
 	movement_type = Global.pick_random(Global.movement_types)
+	
+	if movement_type.name == "none":
+		spawn_enemies = true
+	else:
+		spawn_enemies = Global.pick_random([false, false, true])
+	
 	attack_type = Global.pick_random(Global.attack_types)
 	damage_type = Global.pick_random(Global.damage_types)
 	moving_ttl_total = movement_type.ttl
@@ -56,6 +75,14 @@ func generate_boss():
 	speed = movement_type.speed
 	
 	bullet = damage_type.bullet
+	
+	boss_name = movement_type.name3 + " " + attack_type.name3 + " " + damage_type.name3
+	
+	$head.animation = attack_type.name3
+	$body.animation = attack_type.name3
+	$extra.animation = movement_type.name3
+	
+	#TODO: Falta hacer algo con damage_type.name3
 	
 	$area.add_to_group("bosses")
 	add_to_group("enemy_objects")
@@ -78,6 +105,8 @@ func hit(origin, dmg, from):
 			stop_moving = 0.1
 			
 		life -= dmg
+		
+		Global.update_boss_life(life, total_life)
 		
 		if !effects(from):
 			hit_ttl = hit_ttl_total
@@ -110,14 +139,6 @@ func hit(origin, dmg, from):
 			if from == "player":
 				Global.sustain()
 		
-func _ready():
-	Global.FLOOR_TYPE = Global.floor_types.boss
-	if Global.FLOOR_TYPE != Global.floor_types.boss:
-		queue_free()
-		return
-	else:
-		generate_boss()
-
 func _physics_process(delta):
 	if poisoned:
 		if randi() % 100 + 1 == 100:
@@ -195,9 +216,14 @@ func _physics_process(delta):
 		if intro_ttl > 0:
 			intro_ttl -= 1 * delta
 			if intro_ttl <= 0:
-				active = true
-				intro_ttl = 0
-				$area_start.queue_free()
+				start_boss_battle()
+		
+func start_boss_battle():
+	active = true
+	intro_ttl = 0
+	Global.start_boss_batle()
+	Global.LOGIC_PAUSE = false
+	$area_start.queue_free()
 		
 func check_state(delta):
 	if attacking_ttl <= 0:
@@ -206,6 +232,7 @@ func check_state(delta):
 			state_attacking = true
 		else:
 			state_attacking = !state_attacking
+			weapon_rotate_speed = weapon_rotate_speed_base
 	
 	if moving_ttl <= 0:
 		moving_ttl = moving_ttl_total
@@ -272,17 +299,28 @@ func shoot_rain(delta):
 	shoot_ttl -= 1 * delta
 	stop_moving = 0.1
 	if shoot_ttl <= 0:
-		if Global.pick_random([true, false]):
+		var chance = Global.pick_random([0, 1, 1, 1, 2, 2])
+		if chance == 1:
 			var fire_ball = BulletLander.instance()
 			get_parent().add_child(fire_ball)
 			var p = Global.SPAWNER.get_random_point()
 			fire_ball.set_position(p.position)
+		elif chance == 2:
+			if _player_obj == null:
+				_player_obj = find_player()
+			
+			var fire_ball = BulletLander.instance()
+			get_parent().add_child(fire_ball)
+			fire_ball.set_position(_player_obj.position)
+		else:
+			pass
 		
 		shoot_ttl = shoot_ttl_total
 		create_enemy_fake_bullet(Vector2(0, -1))
 		
 func attack_melee(delta):
-	pass
+	weapon_rotate_speed += 1000 * delta
+	$weapon.rotation_degrees += weapon_rotate_speed * delta
 	
 func jump_attack(delta):
 	pass
@@ -328,8 +366,8 @@ func boss_movement(delta):
 		pong_dir = move_and_slide(pong_dir)
 		
 		if get_slide_count() > 0:
+			emit()
 			pong_dir = prev_velocity.bounce(get_slide_collision(0).normal)
-		
 		
 	if movement_type.name == "follow":
 		if point_chase == null:
@@ -346,7 +384,19 @@ func boss_movement(delta):
 		move_and_slide(speed * direction)
 
 	if movement_type.name == "horizontal":
-		move_and_slide(Vector2(speed * move_dir, 0))
+		if pong_dir == Vector2.ZERO:
+			var xx = speed * move_dir
+			var yy = 0
+			
+			pong_dir = Vector2(xx, yy)
+			
+		var prev_velocity = pong_dir
+		pong_dir = move_and_slide(pong_dir)
+		
+		if get_slide_count() > 0:
+			emit()
+			move_dir *= -1
+		
 	if movement_type.name == "none":
 		pass
 		
@@ -392,10 +442,6 @@ func emit():
 	p.global_position = global_position
 
 func _on_area_body_entered(body):
-	if body.name == "Walls":
-		move_dir *= -1
-		emit()
-	
 	if body.is_in_group("players"):
 		if Global.zombie:
 			$sprite.modulate = Global.infected_color
@@ -408,4 +454,6 @@ func _on_weapon_area_body_entered(body):
 
 func _on_area_start_body_entered(body):
 	if !active and intro_ttl <= 0 and body.is_in_group("players"):
-		intro_ttl = 3
+		intro_ttl = introl_ttl_total
+		Global.show_boss_name(boss_name)
+		Global.LOGIC_PAUSE = true

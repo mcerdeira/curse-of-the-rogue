@@ -16,7 +16,7 @@ func _ready():
 		$Colums.queue_free()
 
 func music_init():
-	if Global.FLOOR_TYPE == Global.floor_types.altar:
+	if Global.FLOOR_TYPE == Global.floor_types.altar or Global.FLOOR_TYPE == Global.floor_types.boss:
 		Global.MainThemePlaying = false
 		Music.play(Global.ShopAlterTheme, 0.7)
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/Boss.gd" type="Script" id=1]
 [ext_resource path="res://sprites/boss_head.png" type="Texture" id=2]
@@ -51,6 +51,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="CircleShape2D" id=5]
 radius = 20.0
 
@@ -69,7 +77,7 @@ animations = [ {
 extents = Vector2( 47, 4 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 912.5, 141 )
+extents = Vector2( 1518.5, 91.5 )
 
 [sub_resource type="CircleShape2D" id=13]
 radius = 48.2597
@@ -87,6 +95,9 @@ frames = SubResource( 3 )
 [node name="head" type="AnimatedSprite" parent="."]
 material = SubResource( 12 )
 frames = SubResource( 2 )
+
+[node name="extra" type="AnimatedSprite" parent="."]
+frames = SubResource( 15 )
 
 [node name="area" type="Area2D" parent="."]
 
@@ -112,7 +123,7 @@ shape = SubResource( 7 )
 [node name="area_start" type="Area2D" parent="."]
 
 [node name="collider" type="CollisionShape2D" parent="area_start"]
-position = Vector2( 79.5, 111 )
+position = Vector2( 58.5, 61.5 )
 shape = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

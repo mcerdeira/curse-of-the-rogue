@@ -51,6 +51,10 @@ func _physics_process(delta):
 				first_time = false
 				current_timer = Global.reset_spawn_timer()
 				spawn_enemy()
+	elif Global.FLOOR_TYPE == Global.floor_types.boss:
+		if get_tree().get_nodes_in_group("enemy_objects").size() == 0:
+			spawn_chest_and_stuff()
+			swpawn_idol()
 	else:
 		if first_time:
 			if Global.FLOOR_TYPE == Global.floor_types.altar:
@@ -97,6 +101,9 @@ func find_closest_player(buff):
 			obj_pos = pos.position
 	
 	return obj_pos
+	
+func swpawn_idol():
+	pass
 	
 func spawn_chest_and_stuff(only_chest:=false):
 	randomize()

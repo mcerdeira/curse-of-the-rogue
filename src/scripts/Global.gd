@@ -33,6 +33,7 @@ var MainThemePlaying = false
 var Muted = false
 var SfxMuted = false
 var TitleTheme = null
+var BossTheme = null
 
 var FallingSfx = null
 var AcceptSfx = null
@@ -150,26 +151,31 @@ var mov_type_pong = {
 	"name": "pong",
 	"ttl": -1,
 	"speed": 80,
+	name3 = "King"
 }
 var mov_type_follow = {
 	"name": "follow",
 	"ttl": 5,
 	"speed": 80,
+	name3 = "Cursed"
 }
 var mov_type_random = {
 	"name": "random",
 	"ttl": 7,
 	"speed": 90,
+	name3 = "Blind"
 }
 var mov_type_horizontal = {
 	"name": "horizontal",
 	"ttl": -1,
 	"speed": 150,
+	name3 = "Queen"
 }
 var mov_type_none = {
 	"name": "none",
 	"ttl": -1,
 	"speed": 0,
+	name3 = "Prisoner"
 }
 
 var movement_types = [
@@ -184,31 +190,37 @@ var att_type_charge = {
 	name = "charge",
 	count = 3, 
 	ttl = 4,
+	name3 = "demon"
 }
 var att_type_cross = {
 	name = "cross",
 	count = -1,
 	ttl = 5,
+	name3 = "pig"
 }
 var att_type_spin_x = {
 	name = "spin_x",
 	count = -1,
 	ttl = 5,
+	name3 = "wolf"
 }
 var att_type_rain = {
 	name = "rain",
 	count = -1,
 	ttl = 8,
+	name3 = "thunder god"
 }
 var att_type_melee = {
 	name = "melee",
 	count = 3,
 	ttl = 5,
+	name3 = "knight"
 }
 var att_type_jump = {
 	name = "jump",
 	count = 1,
 	ttl = 3,
+	name3 = "frog"
 }
 
 var attack_types = [
@@ -222,15 +234,18 @@ var attack_types = [
 
 var dmg_type_normal = {
 	name = "normal",
-	bullet = "fire_ball"
+	bullet = "fire_ball",
+	name3 = "of fire"
 }
 var dmg_type_poison = {
 	name = "poison",
-	bullet = "poisonball"
+	bullet = "poisonball",
+	name3 = "of venom"
 }
 var dmg_type_ice = {
 	name = "ice",
-	bullet = "iceball"
+	bullet = "iceball",
+	name3 = "of ice"
 }
 
 var damage_types = [
@@ -694,6 +709,7 @@ func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	TitleTheme = load("res://music/TitleTheme.ogg")
+	BossTheme = MainTheme
 	
 	FallingSfx = load("res://sfx/FallingSfx.wav")
 	AcceptSfx = load("res://sfx/Accept.mp3")
@@ -968,7 +984,19 @@ func add_combo():
 			max_combo = current_combo
 
 func get_floor_waves():
-	return FLOOR_WAVES[CURRENT_FLOOR]	
+	return FLOOR_WAVES[CURRENT_FLOOR]
+	
+func show_boss_name(boss_name):
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.show_boss_name(boss_name)
+	
+func update_boss_life(life, total_life):
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.update_boss_life(life, total_life)
+	
+func start_boss_batle():
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.start_boss_batle()
 	
 func hide_hud_extras(name):
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]

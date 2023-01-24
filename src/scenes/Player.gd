@@ -653,6 +653,8 @@ func _physics_process(delta):
 			$sprite.visible = true
 	
 	if Global.LOGIC_PAUSE:
+		if !entering:
+			$sprite.playing = false
 		return 
 	
 	var left = Input.is_action_pressed("left")
