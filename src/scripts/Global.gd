@@ -151,84 +151,89 @@ var mov_type_pong = {
 	"name": "pong",
 	"ttl": -1,
 	"speed": 80,
+	"stop_on_shoot": true,
 	name3 = "King"
 }
 var mov_type_follow = {
 	"name": "follow",
 	"ttl": 5,
 	"speed": 80,
+	"stop_on_shoot": true,
 	name3 = "Cursed"
 }
 var mov_type_random = {
 	"name": "random",
 	"ttl": 7,
 	"speed": 90,
+	"stop_on_shoot": true,
 	name3 = "Blind"
 }
 var mov_type_horizontal = {
 	"name": "horizontal",
 	"ttl": -1,
 	"speed": 150,
+	"stop_on_shoot": false,
 	name3 = "Queen"
 }
 var mov_type_none = {
 	"name": "none",
 	"ttl": -1,
 	"speed": 0,
+	"stop_on_shoot": false,
 	name3 = "Prisoner"
 }
 
 var movement_types = [
-	mov_type_pong,
-	mov_type_follow,
+#	mov_type_pong,
+#	mov_type_follow,
 	mov_type_random,
-	mov_type_horizontal,
-	mov_type_none
+#	mov_type_horizontal,
+#	mov_type_none
 ]
 
 var att_type_charge = {
 	name = "charge",
 	count = 3, 
 	ttl = 4,
-	name3 = "demon"
+	name3 = "Demon"
 }
 var att_type_cross = {
 	name = "cross",
 	count = -1,
 	ttl = 5,
-	name3 = "pig"
+	name3 = "Pig"
 }
 var att_type_spin_x = {
 	name = "spin_x",
 	count = -1,
 	ttl = 5,
-	name3 = "wolf"
+	name3 = "Wolf"
 }
 var att_type_rain = {
 	name = "rain",
 	count = -1,
 	ttl = 8,
-	name3 = "thunder god"
+	name3 = "Soul"
 }
 var att_type_melee = {
 	name = "melee",
 	count = 3,
-	ttl = 5,
-	name3 = "knight"
+	ttl = 3.7,
+	name3 = "Knight"
 }
 var att_type_jump = {
 	name = "jump",
 	count = 1,
-	ttl = 3,
-	name3 = "frog"
+	ttl = 5.6,
+	name3 = "Frog"
 }
 
 var attack_types = [
-	att_type_charge,
-	att_type_cross,
-	att_type_spin_x,
-	att_type_rain,
-	att_type_melee,
+#	att_type_charge,
+#	att_type_cross,
+#	att_type_spin_x,
+#	att_type_rain,
+#	att_type_melee,
 	att_type_jump
 ]
 

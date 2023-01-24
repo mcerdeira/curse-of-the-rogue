@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var jump_height = 0
+var jump_dir = -1
+var jumping = false
 var weapon_rotate_speed_base = 600
 var weapon_rotate_speed = weapon_rotate_speed_base
 var bullet = ""
@@ -146,7 +149,6 @@ func _physics_process(delta):
 		
 		hit(null, 1 * delta, "poison_fx")
 		
-		
 	if electric_effect > 0:
 		var dests = get_tree().get_nodes_in_group("enemy_objects")
 		while(true):
@@ -226,20 +228,21 @@ func start_boss_battle():
 	$area_start.queue_free()
 		
 func check_state(delta):
-	if attacking_ttl <= 0:
-		attacking_ttl = attacking_ttl_total
-		if attacking_ttl_total == -1:
-			state_attacking = true
-		else:
-			state_attacking = !state_attacking
-			weapon_rotate_speed = weapon_rotate_speed_base
+	if !jumping:
+		if attacking_ttl <= 0:
+			attacking_ttl = attacking_ttl_total
+			if attacking_ttl_total == -1:
+				state_attacking = true
+			else:
+				state_attacking = !state_attacking
+				weapon_rotate_speed = weapon_rotate_speed_base
 	
-	if moving_ttl <= 0:
-		moving_ttl = moving_ttl_total
-		if moving_ttl_total == -1:
-			state_moving = true
-		else:
-			state_moving = !state_moving
+		if moving_ttl <= 0:
+			moving_ttl = moving_ttl_total
+			if moving_ttl_total == -1:
+				state_moving = true
+			else:
+				state_moving = !state_moving
 		
 func got_there(point):
 	if position.distance_to(point) <= 5:
@@ -269,7 +272,8 @@ func create_enemy_fake_bullet(pos):
 	
 func shoot_cross(delta):
 	shoot_ttl -= 1 * delta
-	stop_moving = 0.1
+	if movement_type.stop_on_shoot:
+		stop_moving = 0.1
 	if shoot_ttl <= 0:
 		shoot_ttl = shoot_ttl_total
 		create_enemy_bullet(Vector2(0, 1))
@@ -278,10 +282,22 @@ func shoot_cross(delta):
 		create_enemy_bullet(Vector2(1, 0))
 		create_enemy_bullet(Vector2(-1, 0))
 		
+func shoot_X():
+	create_enemy_bullet(Vector2(0, 1))
+	create_enemy_bullet(Vector2(0, -1))
+	
+	create_enemy_bullet(Vector2(1, 0))
+	create_enemy_bullet(Vector2(1, 1))
+	create_enemy_bullet(Vector2(1, -1))
+	
+	create_enemy_bullet(Vector2(-1, 0))
+	create_enemy_bullet(Vector2(-1, 1))
+	create_enemy_bullet(Vector2(-1, -1))
+		
 func shoot_spinx(delta):
 	shoot_ttl -= 1 * delta
-	stop_moving = 0.1
-		
+	if movement_type.stop_on_shoot:
+		stop_moving = 0.1
 	if shoot_ttl <= 0:
 		shoot_ttl = shoot_ttl_total
 		create_enemy_bullet(Vector2(0, 1))
@@ -297,7 +313,8 @@ func shoot_spinx(delta):
 		
 func shoot_rain(delta):
 	shoot_ttl -= 1 * delta
-	stop_moving = 0.1
+	if movement_type.stop_on_shoot:
+		stop_moving = 0.1
 	if shoot_ttl <= 0:
 		var chance = Global.pick_random([0, 1, 1, 1, 2, 2])
 		if chance == 1:
@@ -323,7 +340,33 @@ func attack_melee(delta):
 	$weapon.rotation_degrees += weapon_rotate_speed * delta
 	
 func jump_attack(delta):
-	pass
+	moving_ttl_total = -1
+	if !jumping:
+		jump_dir = -1
+		jump_height = 0
+		jumping = true
+		stop_moving = 900
+		
+	if jump_dir == -1:
+		position.y -= 500 * delta
+		jump_height += 100 * delta
+		if jump_height >= 100:
+			if _player_obj == null:
+				_player_obj = find_player()
+			
+			position.x = _player_obj.position.x
+			jump_height = _player_obj.position.y
+			jump_dir = 1
+	else:
+		
+		position.y += 1200 * delta
+		if position.y >= jump_height:
+			attacking_ttl = 0
+			Global.shaker_obj.shake(10, 0.6)
+			jumping = false
+			stop_moving = 0.3
+			shoot_X()
+			position.y == jump_height
 	
 func attack_charge(delta):
 	pass
@@ -348,7 +391,7 @@ func boss_attack(delta):
 func boss_movement(delta):
 	if stop_moving > 0:
 		stop_moving -= 1 * delta
-		return 
+		return
 		
 	if spawn_enemies:
 		if randi() % 250 == 0:
