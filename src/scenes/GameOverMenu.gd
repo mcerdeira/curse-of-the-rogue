@@ -16,7 +16,7 @@ func _physics_process(delta):
 			
 func format_description(text):
 	var tmp = text
-	tmp = tmp.replace("_", " ").replace("+", "")
+	tmp = tmp.replace("_", " ").replace("+", "").capitalize()
 	return tmp
 
 func display_kills():
