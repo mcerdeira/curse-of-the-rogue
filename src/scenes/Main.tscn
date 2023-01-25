@@ -441,9 +441,9 @@ centered = false
 [node name="lbl_boss_name" type="Label" parent="CanvasLayer/HUD"]
 visible = false
 margin_left = -3.0
-margin_top = 55.0
+margin_top = 41.0
 margin_right = 1035.0
-margin_bottom = 79.0
+margin_bottom = 65.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 13 )
 text = "NOMBRE"
@@ -452,9 +452,9 @@ align = 1
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD/lbl_boss_name"]
 show_behind_parent = true
 margin_left = -602.0
-margin_top = -196.0
+margin_top = -207.0
 margin_right = 1747.0
-margin_bottom = 48.0
+margin_bottom = 37.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer/HUD/lbl_boss_name"]
@@ -478,13 +478,13 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 515, 293 )
@@ -566,7 +566,7 @@ rotation = 3.14159
 position = Vector2( 512, 544 )
 
 [node name="Boss" parent="." instance=ExtResource( 68 )]
-position = Vector2( 503, 205 )
+position = Vector2( 503, 265 )
 
 [node name="Blocks" type="Node2D" parent="."]
 z_index = -99

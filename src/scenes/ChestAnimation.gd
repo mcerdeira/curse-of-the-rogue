@@ -18,9 +18,10 @@ func _ready():
 		adi = " x 2"
 	
 	Global.add_extra_display("gems", reward_total)
-	yield(get_tree().create_timer(.5), "timeout") 
-	Global.hide_hud_extras("gems")
 	
-	Global.gems += reward_total
 	$gems_total.text = str(reward_total)
 	$gems.text = str(Global.get_reward_floor()) + " x " + str(Global.max_combo) + "(combo)" + adi
+
+	yield(get_tree().create_timer(.5), "timeout") 
+	Global.hide_hud_extras("gems")
+	Global.gems += reward_total

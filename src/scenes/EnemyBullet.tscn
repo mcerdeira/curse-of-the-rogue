@@ -57,8 +57,8 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "ice_ball"
-frame = 2
+animation = "fire_trail"
+frame = 1
 playing = true
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
