@@ -614,12 +614,13 @@ func _physics_process(delta):
 	if poisoned > 0:
 		$sprite.modulate = Global.poisoned_color
 		if randi() % 100 + 1 == 100:
-			poisoned -= 1
-			emit()
-			hit(1, "poison_fx", false, "")
-			if poisoned <= 0:
-				$sprite.modulate = Color8(255, 255, 255)
-				poisoned = 0
+			if !entering and inv_time <= 0:
+				poisoned -= 1
+				emit()
+				hit(1, "poison_fx", false, "")
+				if poisoned <= 0:
+					$sprite.modulate = Color8(255, 255, 255)
+					poisoned = 0
 		
 	if freeze_ttl > 0:
 		freeze_ttl -= 1 * delta
