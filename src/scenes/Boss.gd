@@ -61,8 +61,6 @@ var boss_name = ""
 var _player_obj = null
 
 func _ready():
-#	Global.CURRENT_FLOOR = 1
-#	Global.FLOOR_TYPE = Global.floor_types.boss
 	if Global.FLOOR_TYPE != Global.floor_types.boss:
 		queue_free()
 		return
@@ -101,6 +99,8 @@ func generate_boss():
 	$head.animation = attack_type.name3
 	$body.animation = attack_type.name3
 	$extra.animation = movement_type.name3
+		
+	#TODO:aplicar efecto dmg_type_normal.name3
 		
 	$area.add_to_group("bosses")
 	add_to_group("enemy_objects")

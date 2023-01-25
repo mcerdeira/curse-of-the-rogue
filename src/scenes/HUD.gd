@@ -15,7 +15,31 @@ func _ready():
 	add_to_group("HUD")
 	$c/game_over.visible = false
 	
+func show_hud(val):
+	$hud_attack.visible = val
+	$hud_attack_add.visible = val
+	$hud_gems.visible = val
+	$hud_gems_add.visible = val
+	$hud_speed.visible = val
+	$hud_speed_add.visible = val
+	$hud_luck.visible = val
+	$hud_luck_add.visible = val
+	$hud_keys.visible = val
+	$hud_keys_add.visible = val
+	$hud_melee_speed.visible = val
+	$hud_melee_speed_add.visible = val
+	$hud_shoot_speed.visible = val
+	$hud_shoot_speed_add.visible = val
+	$hud_combo_count.visible = val
+	$combo.visible = val
+	$SmallGem.visible = val
+	$primary_weapon.visible = val
+	$secondary_weapon.visible = val
+	$automatic_weapon.visible = val
+	$automatic_weapon_frame.visible = val
+	
 func start_boss_batle():
+	show_hud(true)
 	Music.play(Global.BossBattle, 0.7)
 	$boss_bar.visible = true
 	$boss_bar_frame.visible = true
@@ -29,7 +53,7 @@ func update_boss_life(life, total_life):
 	$boss_bar.scale.x = scale
 	
 func show_boss_name(boss_name):
-	
+	show_hud(false)
 	$lbl_boss_name/ColorRect.visible = true
 	$lbl_boss_name/ColorRect2.visible = true
 	$lbl_boss_name.visible = true

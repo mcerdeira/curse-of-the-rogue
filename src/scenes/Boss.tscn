@@ -1,9 +1,24 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/Boss.gd" type="Script" id=1]
-[ext_resource path="res://sprites/boss_head.png" type="Texture" id=2]
-[ext_resource path="res://sprites/boss_body.png" type="Texture" id=3]
+[ext_resource path="res://sprites/boss_head_frog.png" type="Texture" id=2]
+[ext_resource path="res://sprites/boss_body_frog.png" type="Texture" id=3]
 [ext_resource path="res://sprites/boss_weapon.png" type="Texture" id=4]
+[ext_resource path="res://sprites/boss_head_demon.png" type="Texture" id=5]
+[ext_resource path="res://sprites/boss_body_demon.png" type="Texture" id=6]
+[ext_resource path="res://sprites/boss_head_pig.png" type="Texture" id=7]
+[ext_resource path="res://sprites/boss_body_pig.png" type="Texture" id=8]
+[ext_resource path="res://sprites/boss_head_knight.png" type="Texture" id=9]
+[ext_resource path="res://sprites/boss_body_knight.png" type="Texture" id=10]
+[ext_resource path="res://sprites/boss_head_soul.png" type="Texture" id=11]
+[ext_resource path="res://sprites/boss_body_soul.png" type="Texture" id=12]
+[ext_resource path="res://sprites/boss_body_wolf.png" type="Texture" id=13]
+[ext_resource path="res://sprites/boss_head_wolf.png" type="Texture" id=14]
+[ext_resource path="res://sprites/extra_king.png" type="Texture" id=15]
+[ext_resource path="res://sprites/extra_queen.png" type="Texture" id=16]
+[ext_resource path="res://sprites/extra_cursed.png" type="Texture" id=17]
+[ext_resource path="res://sprites/extra_blind.png" type="Texture" id=18]
+[ext_resource path="res://sprites/extra_prisoner.png" type="Texture" id=19]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -22,9 +37,34 @@ shader_param/hitted = null
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Demon",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "default",
+"name": "Frog",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "Knight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "Pig",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Soul",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Wolf",
 "speed": 5.0
 } ]
 
@@ -45,25 +85,70 @@ shader_param/hitted = null
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Demon",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "default",
+"name": "Frog",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Knight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Pig",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Soul",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Wolf",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 18 ) ],
 "loop": true,
-"name": "default",
+"name": "Blind",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Cursed",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "King",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "Prisoner",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Queen",
 "speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 20.0
+radius = 35.0143
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 25.02
+radius = 37.0
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -74,13 +159,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 47, 4 )
+extents = Vector2( 92.5, 8 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 1518.5, 91.5 )
 
-[sub_resource type="CircleShape2D" id=13]
-radius = 48.2597
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 33.5, 68 )
 
 [node name="Boss" type="KinematicBody2D"]
 collision_layer = 2
@@ -89,41 +174,46 @@ script = ExtResource( 1 )
 
 [node name="body" type="AnimatedSprite" parent="."]
 material = SubResource( 10 )
-position = Vector2( -3, -8 )
+position = Vector2( 2, -5 )
 frames = SubResource( 3 )
+animation = "Wolf"
 
 [node name="head" type="AnimatedSprite" parent="."]
 material = SubResource( 12 )
-position = Vector2( -3, -44 )
+position = Vector2( 2, -69 )
 frames = SubResource( 2 )
+animation = "Demon"
 
 [node name="extra" type="AnimatedSprite" parent="."]
-position = Vector2( -3, -44 )
+position = Vector2( 2, -69 )
 frames = SubResource( 15 )
+animation = "Cursed"
 
 [node name="area" type="Area2D" parent="."]
+visible = false
 position = Vector2( -3, -44 )
 
 [node name="collider" type="CollisionShape2D" parent="area"]
-position = Vector2( 2, 1 )
+position = Vector2( 7, -27 )
 shape = SubResource( 5 )
 
 [node name="collider2" type="CollisionShape2D" parent="area"]
-position = Vector2( 3, 35 )
+position = Vector2( 6, 37 )
 shape = SubResource( 6 )
 
 [node name="weapon" type="AnimatedSprite" parent="."]
-position = Vector2( 13, -13 )
+position = Vector2( 30, -12 )
 frames = SubResource( 4 )
-offset = Vector2( 47, -1 )
+offset = Vector2( 96, -1 )
 
 [node name="weapon_area" type="Area2D" parent="weapon"]
 
 [node name="collider" type="CollisionShape2D" parent="weapon/weapon_area"]
-position = Vector2( 46, -1 )
+position = Vector2( 93.5, -1 )
 shape = SubResource( 7 )
 
 [node name="area_start" type="Area2D" parent="."]
+visible = false
 position = Vector2( -3, -44 )
 
 [node name="collider" type="CollisionShape2D" parent="area_start"]
@@ -131,8 +221,9 @@ position = Vector2( 58.5, 61.5 )
 shape = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2, -20 )
-shape = SubResource( 13 )
+visible = false
+position = Vector2( 2.5, -32 )
+shape = SubResource( 16 )
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
 [connection signal="body_entered" from="weapon/weapon_area" to="." method="_on_weapon_area_body_entered"]
