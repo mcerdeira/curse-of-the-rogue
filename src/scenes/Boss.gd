@@ -1,5 +1,14 @@
 extends KinematicBody2D
 
+var charge_bounce_count = 0
+var charging = false
+var charging_ttl_total = 1.8
+var charging_ttl = charging_ttl_total
+var attacking_charge = false
+var charge_direction = null
+var speed_charge_total = 700
+var speed_charge = speed_charge_total
+
 var jump_height = 0
 var jump_dir = -1
 var jumping = false
@@ -11,6 +20,7 @@ var shoot_ttl_total = 0.2
 var pong_dir = Vector2.ZERO
 var destiny = null
 var dead = false
+var dead_ttl = 2
 var hit_ttl = 0
 var hit_ttl_total = 0.2
 var stop_moving = 0
@@ -24,6 +34,8 @@ var active = false
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var BulletLander = preload("res://scenes/BulletLander.tscn")
+var ChargeAttack = preload("res://scenes/ChargeAttack.tscn")
+var charge_inst = null
 var move_dir = 1
 var movement_type = null
 var attack_type = null
@@ -49,7 +61,8 @@ var boss_name = ""
 var _player_obj = null
 
 func _ready():
-	Global.FLOOR_TYPE = Global.floor_types.boss
+#	Global.CURRENT_FLOOR = 1
+#	Global.FLOOR_TYPE = Global.floor_types.boss
 	if Global.FLOOR_TYPE != Global.floor_types.boss:
 		queue_free()
 		return
@@ -58,6 +71,10 @@ func _ready():
 
 func generate_boss():
 	randomize()
+	
+	total_life = Global.get_boss_life()
+	life = total_life
+	
 	movement_type = Global.pick_random(Global.movement_types)
 	
 	if movement_type.name == "none":
@@ -78,17 +95,19 @@ func generate_boss():
 	speed = movement_type.speed
 	
 	bullet = damage_type.bullet
-	
+
 	boss_name = movement_type.name3 + " " + attack_type.name3 + " " + damage_type.name3
 	
 	$head.animation = attack_type.name3
 	$body.animation = attack_type.name3
 	$extra.animation = movement_type.name3
-	
-	#TODO: Falta hacer algo con damage_type.name3
-	
+		
 	$area.add_to_group("bosses")
 	add_to_group("enemy_objects")
+	
+	boss_type = "boss"
+	
+	Global.CURRENT_BOSS_NAME = boss_name
 	
 	if attack_type.name == "melee":
 		$weapon.visible = true
@@ -137,7 +156,7 @@ func hit(origin, dmg, from):
 		if life <= 0:
 			if from == "player":
 				Global.add_combo()
-			dead = true
+			die()
 		else:
 			if from == "player":
 				Global.sustain()
@@ -201,24 +220,33 @@ func _physics_process(delta):
 			$body.playing = true
 	
 	z_index = position.y
-	if active:
-		if attacking_ttl_total != -1:
-			attacking_ttl -= 1 * delta
+	
+	face_player()
+	
+	if dead:
+		dead_ttl -= 1 * delta
+		if randi() % 10 == 0:
+			emit()
 			
-		if moving_ttl_total != -1:
-			moving_ttl -= 1 * delta
+		$body.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
+		$head.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
+		$extra.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
+		if dead_ttl <= 0:
+			explode()
 		
-		check_state(delta)
-		
-		if state_moving:
-			boss_movement(delta)
-		if state_attacking:
-			boss_attack(delta)
 	else:
-		if intro_ttl > 0:
-			intro_ttl -= 1 * delta
-			if intro_ttl <= 0:
-				start_boss_battle()
+		if active:
+			check_state(delta)
+			
+			if state_moving:
+				boss_movement(delta)
+			if state_attacking:
+				boss_attack(delta)
+		else:
+			if intro_ttl > 0:
+				intro_ttl -= 1 * delta
+				if intro_ttl <= 0:
+					start_boss_battle()
 		
 func start_boss_battle():
 	active = true
@@ -226,9 +254,18 @@ func start_boss_battle():
 	Global.start_boss_batle()
 	Global.LOGIC_PAUSE = false
 	$area_start.queue_free()
+	
+func die():
+	dead = true
 		
-func check_state(delta):
-	if !jumping:
+func check_state(delta):	
+	if !jumping and !charging and !attacking_charge:
+		if attacking_ttl_total != -1:
+			attacking_ttl -= 1 * delta
+			
+		if moving_ttl_total != -1:
+			moving_ttl -= 1 * delta
+		
 		if attacking_ttl <= 0:
 			attacking_ttl = attacking_ttl_total
 			if attacking_ttl_total == -1:
@@ -258,6 +295,7 @@ func create_enemy_bullet(pos):
 	fire_ball.type = bullet
 	fire_ball.dir = pos
 	fire_ball.from = boss_type
+	fire_ball.effect_name = damage_type.name
 	get_parent().add_child(fire_ball)
 	fire_ball.set_position(position)
 	
@@ -266,6 +304,7 @@ func create_enemy_fake_bullet(pos):
 	fire_ball.type = bullet
 	fire_ball.dir = pos
 	fire_ball.from = boss_type
+	fire_ball.effect_name = damage_type.name
 	fire_ball.init_fake()
 	get_parent().add_child(fire_ball)
 	fire_ball.set_position(position)
@@ -319,6 +358,8 @@ func shoot_rain(delta):
 		var chance = Global.pick_random([0, 1, 1, 1, 2, 2])
 		if chance == 1:
 			var fire_ball = BulletLander.instance()
+			fire_ball.type = bullet
+			fire_ball.effect_name = damage_type.name
 			get_parent().add_child(fire_ball)
 			var p = Global.SPAWNER.get_random_point()
 			fire_ball.set_position(p.position)
@@ -327,6 +368,8 @@ func shoot_rain(delta):
 				_player_obj = find_player()
 			
 			var fire_ball = BulletLander.instance()
+			fire_ball.type = bullet
+			fire_ball.effect_name = damage_type.name
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(_player_obj.position)
 		else:
@@ -340,7 +383,7 @@ func attack_melee(delta):
 	$weapon.rotation_degrees += weapon_rotate_speed * delta
 	
 func jump_attack(delta):
-	moving_ttl_total = -1
+	state_moving = false
 	if !jumping:
 		jump_dir = -1
 		jump_height = 0
@@ -369,7 +412,43 @@ func jump_attack(delta):
 			position.y == jump_height
 	
 func attack_charge(delta):
-	pass
+	stop_moving = 900
+	state_moving = false
+	if !attacking_charge and !charging and (charge_inst == null or !is_instance_valid(charge_inst)):
+		charge_inst = ChargeAttack.instance()
+		charge_inst.rotation_degrees = randi()% 360
+		add_child(charge_inst)
+	elif attacking_charge:
+		if charge_direction == null:
+			charge_direction = Vector2(1, 0).rotated(charge_inst.rotation)
+			charge_inst.queue_free()
+		
+		move_and_slide(speed_charge * charge_direction)
+		if get_slide_count() > 0:
+			speed_charge -= 100
+			charge_bounce_count += 1
+			charge_direction = charge_direction.bounce(get_slide_collision(0).normal)
+			if charge_bounce_count >= 3:
+				speed_charge = speed_charge_total
+				charging = false
+				charging_ttl = charging_ttl_total
+				charge_direction = null
+				state_moving = true
+				emit()
+				Global.shaker_obj.shake(10, 0.6)
+				shoot_X()
+				stop_moving = 0.3
+				charge_bounce_count = 0
+				attacking_charge = false
+	else:
+		charging = true
+		charging_ttl -= 1 * delta
+		if charging_ttl <= 0:
+			attacking_ttl = 0
+			charging = false
+			attacking_charge = true
+			charging_ttl = charging_ttl_total
+			attacking_charge = true
 
 func boss_attack(delta):
 	if froze_effect > 0:
@@ -443,6 +522,20 @@ func boss_movement(delta):
 	if movement_type.name == "none":
 		pass
 		
+func face_player():
+	if froze_effect <= 0:
+		if _player_obj == null:
+			_player_obj = find_player()
+		
+		if position.x > _player_obj.position.x:
+			$body.scale.x = 1
+			$head.scale.x = 1
+			$extra.scale.x = 1
+		else:
+			$body.scale.x = -1
+			$head.scale.x = -1
+			$extra.scale.x = -1
+		
 func _draw():
 	if electric_effect > 0 and destiny:
 		var des_pos = to_local(destiny.position)
@@ -477,6 +570,10 @@ func _draw():
 			draw_line(Vector2(xx,yy),Vector2(last_x,last_y), Color8(255, 255, 255), 1)
 			last_x = xx
 			last_y = yy
+			
+func explode():
+	Global.shaker_obj.shake(15, 1.3)
+	queue_free()
 		
 func emit():
 	var p = particle.instance()
@@ -489,11 +586,11 @@ func _on_area_body_entered(body):
 		if Global.zombie:
 			$sprite.modulate = Global.infected_color
 			infected = true
-		body.hit(dmg, boss_type)
+		body.hit(dmg, boss_type, false, damage_type.name)
 
 func _on_weapon_area_body_entered(body):
 	if body.is_in_group("players"):
-		body.hit(dmg, boss_type)
+		body.hit(dmg, boss_type, false, damage_type.name)
 
 func _on_area_start_body_entered(body):
 	if !active and intro_ttl <= 0 and body.is_in_group("players"):

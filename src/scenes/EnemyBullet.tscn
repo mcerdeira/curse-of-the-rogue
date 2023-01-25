@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/EnemyBullet.gd" type="Script" id=1]
 [ext_resource path="res://sprites/bone.png" type="Texture" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://sprites/player_dead_fire_spr_2.png" type="Texture" id=6]
 [ext_resource path="res://sprites/player_dead_fire_spr_0.png" type="Texture" id=7]
 [ext_resource path="res://sprites/player_dead_fire_spr_1.png" type="Texture" id=8]
+[ext_resource path="res://sprites/lava_splash_green_spr_2.png" type="Texture" id=9]
+[ext_resource path="res://sprites/lava_splash_green_spr_0.png" type="Texture" id=10]
+[ext_resource path="res://sprites/lava_splash_green_spr_1.png" type="Texture" id=11]
+[ext_resource path="res://sprites/lava_splash_blue_spr_1.png" type="Texture" id=12]
+[ext_resource path="res://sprites/lava_splash_blue_spr_2.png" type="Texture" id=13]
+[ext_resource path="res://sprites/lava_splash_blue_spr_0.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 4 )
@@ -28,6 +34,16 @@ animations = [ {
 "loop": true,
 "name": "fire_trail",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "ice_ball",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "poison_ball",
+"speed": 5.0
 } ]
 
 [node name="EnemyBullet" type="KinematicBody2D"]
@@ -41,7 +57,8 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "fire_ball"
+animation = "ice_ball"
+frame = 2
 playing = true
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

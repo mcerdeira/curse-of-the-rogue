@@ -15,7 +15,7 @@ export var local_altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
-func _ready():
+func _ready():	
 	if Global.altar_level == Global.altar_level_max and Global.FLOOR_TYPE == Global.floor_types.intro:
 		Global.FLOOR_TYPE = Global.floor_types.altar
 	

@@ -1,4 +1,5 @@
 extends KinematicBody2D
+var sleep = false
 var life = 0
 var dmg = 0
 var shoot_count_total = 0
@@ -266,6 +267,9 @@ func enemy_behaviour(delta):
 			
 		return
 		
+	if sleep:
+		return
+		
 	if Global.GAME_OVER:
 		if dead:
 			die()
@@ -436,6 +440,7 @@ func set_type(_type):
 	enemy_type = _type
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
+	
 	if enemy_type == "ghost":
 		Global.play_sound(Global.GhostSfx)
 		$area/collider.set_deferred("disabled", false)
@@ -575,6 +580,32 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = true
 		random_shooter = true
+		
+
+	if enemy_type == "chest_closed":
+		life = 4
+		speed = 180
+		speed_total = 200
+		stopandgo = false
+		
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+		sleep = true
+		shoot_ttl_total = 0
+		shoot_ttl = shoot_ttl_total
+		shoot_type = false
+		dmg = 1
+		chase_player = true
+		flying = false
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = false
+		disapear = false
+		leave_trail = false
+		angle_walker = false
+		random_shooter = false
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
@@ -758,6 +789,11 @@ func die():
 		if !dont_drop and shoot_on_die:
 			shoot_die()
 		queue_free()
+		
+func awake():
+	Global.play_sound(Global.ScorpionSfx)
+	$sprite.animation = "mimic"
+	sleep = false
 
 func _on_area_body_entered(body):
 	if visible and !iamasign and body.is_in_group("players"):
@@ -765,6 +801,8 @@ func _on_area_body_entered(body):
 			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg, enemy_type)
+		if sleep:
+			awake()
 		
 func _draw():
 	if electric_effect > 0 and destiny:

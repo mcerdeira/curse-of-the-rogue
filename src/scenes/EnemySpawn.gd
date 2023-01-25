@@ -6,6 +6,8 @@ var enemy = preload("res://scenes/Enemy.tscn")
 var bat_group = preload("res://scenes/EnemyGroup.tscn")
 var chest = preload("res://scenes/Chest.tscn")
 var plant = preload("res://scenes/Plants.tscn")
+var mimic = preload("res://scenes/Enemy.tscn")
+var idol = preload("res://scenes/Idol.tscn")
 var min_count = 3
 var WAVE_COUNT = 0
 var plants_created = false
@@ -53,8 +55,9 @@ func _physics_process(delta):
 				spawn_enemy()
 	elif Global.FLOOR_TYPE == Global.floor_types.boss:
 		if get_tree().get_nodes_in_group("enemy_objects").size() == 0:
-			spawn_chest_and_stuff()
-			swpawn_idol()
+			if !Global.GAME_OVER and !Global.FLOOR_OVER:
+				Global.FLOOR_OVER = true
+				spawn_chest_and_stuff(false, true)
 	else:
 		if first_time:
 			if Global.FLOOR_TYPE == Global.floor_types.altar:
@@ -102,10 +105,21 @@ func find_closest_player(buff):
 	
 	return obj_pos
 	
-func swpawn_idol():
-	pass
+func get_idol():
+	return idol.instance()
 	
-func spawn_chest_and_stuff(only_chest:=false):
+func get_chest():
+	if randi() % 11 == 0:
+		var type  = "chest_closed"
+		var enemy_inst = null
+		enemy_inst = enemy.instance()
+		enemy_inst.enemy_type = type
+		enemy_inst.iamasign_ttl = -1
+		return enemy_inst
+	else:
+		return chest.instance()
+	
+func spawn_chest_and_stuff(only_chest:=false, only_idol:=false):
 	randomize()
 	reveal_doors()
 	var do_chest = true
@@ -115,13 +129,21 @@ func spawn_chest_and_stuff(only_chest:=false):
 		buff = 96
 		do_chest = false
 	
-	var obj_pos = find_closest_player(buff)
+	var obj_pos = null
+	if only_chest and Global.FLOOR_TYPE == Global.floor_types.altar:
+		obj_pos = $pos20.position
+	else:
+		obj_pos = find_closest_player(buff)
+		
 	var obj_inst = null
 
-	if only_chest or do_chest:
-		obj_inst = chest.instance()
+	if only_idol and !Global.IDOLS[Global.CURRENT_FLOOR] == 1:
+		obj_inst = get_idol()
 	else:
-		obj_inst = ItemPedestal.instance()
+		if only_chest or do_chest:
+			obj_inst = get_chest()
+		else:
+			obj_inst = ItemPedestal.instance()
 	
 	get_parent().add_child(obj_inst)
 	obj_inst.set_position(to_global(obj_pos))

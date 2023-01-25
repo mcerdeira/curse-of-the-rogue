@@ -1,5 +1,6 @@
 extends KinematicBody2D
 export var type = ""
+var effect_name = ""
 var player_chase = null
 var player_direction = null
 var fake = false
@@ -26,11 +27,18 @@ func emit():
 	p = particle.instance()
 	parent.add_child(p)
 	p.global_position = global_position
+	
+func is_fire_ball():
+	return type == "poison_ball" or type == "ice_ball" or type == "fire_ball"
 
+func init_again():
+	$sprite.animation = type
+	
 func init_fake():
 	fake = true
 	speed = Global.pick_random([400, 350, 500])
 	var sca = Global.pick_random([1, 2.5, 2])
+	$sprite.animation = type
 	$sprite.scale.x = sca
 	$sprite.scale.y = sca
 
@@ -38,7 +46,7 @@ func _physics_process(delta):
 	if fake and position.y <= -1000:
 		queue_free()
 	
-	if type == "fire_trail":
+	if is_fire_ball():
 		$sprite.animation = type
 		dmg = 1
 		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
@@ -46,10 +54,10 @@ func _physics_process(delta):
 		if ttl <= 0:
 			destroy()
 	
-	if type == "bone" or type == "fire_ball":
+	if type == "bone" or is_fire_ball():
 		z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
 		if !fake and player_chase == null:
-			if type == "fire_ball":
+			if is_fire_ball():
 				speed = 200
 			else:
 				speed = 150
@@ -67,7 +75,7 @@ func _physics_process(delta):
 			$sprite.look_at(to_global(dir))
 		else:
 			move_and_slide(speed * player_direction)
-			if type != "fire_ball":
+			if !is_fire_ball():
 				$sprite.rotation += 10 * delta
 
 func destroy():
@@ -81,7 +89,7 @@ func _on_area_body_entered(body):
 	if !fake and !lander and body.name == "Walls":
 		destroy()
 	if !fake and body.is_in_group("players"):
-		body.hit(dmg, from)
+		body.hit(dmg, from, false, effect_name)
 		destroy()
 
 func _on_area_area_entered(area):

@@ -485,21 +485,21 @@ rotation = 3.14159
 scale = Vector2( 1, -1 )
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
-position = Vector2( 516, 293 )
+position = Vector2( 515, 293 )
 local_altar_level = 1
 noforshop = true
 
 [node name="ItemPedestal4" parent="." instance=ExtResource( 22 )]
-position = Vector2( 427, 367 )
+position = Vector2( 404, 340 )
 local_altar_level = 2
 
 [node name="ItemPedestal2" parent="." instance=ExtResource( 22 )]
-position = Vector2( 516, 441 )
+position = Vector2( 515, 413 )
 local_altar_level = 4
 noforshop = true
 
 [node name="ItemPedestal3" parent="." instance=ExtResource( 22 )]
-position = Vector2( 597, 356 )
+position = Vector2( 606, 340 )
 local_altar_level = 3
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
@@ -564,7 +564,7 @@ rotation = 3.14159
 position = Vector2( 512, 544 )
 
 [node name="Boss" parent="." instance=ExtResource( 68 )]
-position = Vector2( 503, 144 )
+position = Vector2( 503, 205 )
 
 [node name="Blocks" type="Node2D" parent="."]
 z_index = -99

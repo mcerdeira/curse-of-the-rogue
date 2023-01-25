@@ -8,7 +8,7 @@ func _physics_process(delta):
 		hide()
 
 func _input(event):
-	if !Global.GAME_OVER:
+	if !Global.GAME_OVER and !Global.transition_obj.visible:
 		if event.is_action_pressed("quit_game"):
 			if !get_tree().paused:
 				Global.normal_cursor()

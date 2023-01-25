@@ -1,4 +1,7 @@
 extends KinematicBody2D
+var poisoned = 0
+var poisoned_ttl = 0
+var freeze_ttl = 0
 var movement = Vector2.ZERO
 var pixelated = 100
 var firstframe = true
@@ -265,9 +268,17 @@ func in_water():
 func out_water():
 	_in_water = false
 	
-func hit(dmg, from, can_zombie:=false):
+func hit(dmg, from, can_zombie:=false, effect_name:=""):
 	if !entering and inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
+		
+		if effect_name == "poison":
+			Global.play_sound(Global.PoisonSfx)
+			poisoned = 1
+		
+		if effect_name == "ice":
+			Global.play_sound(Global.FrozeSfx)
+			freeze_ttl = 2.5
 		
 		Global.shaker_obj.shake(2, 0.2)
 		
@@ -599,6 +610,24 @@ func _physics_process(delta):
 		else:
 			$automatic_weapon.visible = false
 		return
+		
+	if poisoned > 0:
+		$sprite.modulate = Global.poisoned_color
+		if randi() % 100 + 1 == 100:
+			poisoned -= 1
+			emit()
+			hit(1, "poison_fx", false, "")
+			if poisoned <= 0:
+				$sprite.modulate = Color8(255, 255, 255)
+				poisoned = 0
+		
+	if freeze_ttl > 0:
+		freeze_ttl -= 1 * delta
+		Global.LOGIC_PAUSE = true
+		$sprite.modulate = Global.froze_color
+		if freeze_ttl <= 0:
+			$sprite.modulate = Color8(255, 255, 255)
+			Global.LOGIC_PAUSE = false
 		
 	if rolling_cool_down > 0:
 		rolling_cool_down -= 1 * delta

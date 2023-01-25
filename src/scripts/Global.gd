@@ -10,6 +10,7 @@ var shaker_obj = null
 var transition_obj = null
 var SPAWNER = null
 var LOGIC_PAUSE = false
+var CURRENT_BOSS_NAME = ""
 var FIRST = true
 var TOTAL_FLOORS = 7
 var CURRENT_FLOOR = 0
@@ -33,7 +34,7 @@ var MainThemePlaying = false
 var Muted = false
 var SfxMuted = false
 var TitleTheme = null
-var BossTheme = null
+var BossBattle = null
 
 var FallingSfx = null
 var AcceptSfx = null
@@ -184,11 +185,11 @@ var mov_type_none = {
 }
 
 var movement_types = [
-#	mov_type_pong,
-#	mov_type_follow,
+	mov_type_pong,
+	mov_type_follow,
 	mov_type_random,
-#	mov_type_horizontal,
-#	mov_type_none
+	mov_type_horizontal,
+	mov_type_none
 ]
 
 var att_type_charge = {
@@ -229,34 +230,34 @@ var att_type_jump = {
 }
 
 var attack_types = [
-#	att_type_charge,
-#	att_type_cross,
-#	att_type_spin_x,
-#	att_type_rain,
-#	att_type_melee,
+	att_type_charge,
+	att_type_cross,
+	att_type_spin_x,
+	att_type_rain,
+	att_type_melee,
 	att_type_jump
 ]
 
 var dmg_type_normal = {
 	name = "normal",
 	bullet = "fire_ball",
-	name3 = "of fire"
+	name3 = "of Fire"
 }
 var dmg_type_poison = {
 	name = "poison",
-	bullet = "poisonball",
-	name3 = "of venom"
+	bullet = "poison_ball",
+	name3 = "of Venom"
 }
 var dmg_type_ice = {
 	name = "ice",
-	bullet = "iceball",
-	name3 = "of ice"
+	bullet = "ice_ball",
+	name3 = "of Ice"
 }
 
 var damage_types = [
 	dmg_type_normal,
-#	dmg_type_poison,
-#	dmg_type_ice
+	dmg_type_poison,
+	dmg_type_ice
 ]
 
 enum floor_types {
@@ -600,6 +601,8 @@ var ENEMY_BOSS_PATTERNS = [
 	["spider_xs"]
 ]
 
+var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
+
 var ENEMY_PATTERNS = [
 	-1,
 	[
@@ -643,7 +646,20 @@ var ENEMY_PATTERNS = [
 		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
 		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
 	],
-	[],
+	[
+		["ghost", "ghost", "troll"],
+		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
+		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
+		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
+	],
+	[
+		["ghost", "ghost", "troll"],
+		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
+		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
+		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
+	],
 ]
 
 func _data_overload():
@@ -661,6 +677,9 @@ func boot_strap_game():
 	custom_cursor()
 	initialize()
 	init_room()
+	
+func idol_acquired():
+	Global.IDOLS[Global.CURRENT_FLOOR] = 1
 	
 func restart_pools():
 	ITEMS = []
@@ -714,7 +733,7 @@ func LoadSfxAndMusic():
 	MainTheme = load("res://music/main_theme_option2.ogg")
 	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
 	TitleTheme = load("res://music/TitleTheme.ogg")
-	BossTheme = MainTheme
+	BossBattle = load("res://music/BossBattle.wav")
 	
 	FallingSfx = load("res://sfx/FallingSfx.wav")
 	AcceptSfx = load("res://sfx/Accept.mp3")
@@ -824,6 +843,9 @@ func _physics_process(delta):
 	
 func enemy_by_boss():
 	return Global.pick_random(ENEMY_BOSS_PATTERNS)
+	
+func get_boss_life():
+	return 14.50 * CURRENT_FLOOR
 
 func enemy_by_floor():
 	randomize()
@@ -1070,8 +1092,6 @@ func _input(event):
 	else:
 		if event.is_action_pressed("toggle_fullscreen"):
 			OS.window_fullscreen = !OS.window_fullscreen
-		#if event.is_action_pressed("restart_game"):
-		#	restart_game()
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

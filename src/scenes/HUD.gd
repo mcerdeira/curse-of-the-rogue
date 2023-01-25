@@ -16,16 +16,20 @@ func _ready():
 	$c/game_over.visible = false
 	
 func start_boss_batle():
-	Music.play(Global.BossTheme, 0.7)
+	Music.play(Global.BossBattle, 0.7)
 	$boss_bar.visible = true
 	$boss_bar_frame.visible = true
 	$lbl_boss_name.queue_free()
 	
 func update_boss_life(life, total_life):
+	if life <= 0:
+		life = 0
+		
 	var scale = life / total_life
 	$boss_bar.scale.x = scale
 	
 func show_boss_name(boss_name):
+	
 	$lbl_boss_name/ColorRect.visible = true
 	$lbl_boss_name/ColorRect2.visible = true
 	$lbl_boss_name.visible = true
