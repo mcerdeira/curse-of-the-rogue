@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -30,23 +30,6 @@
 [ext_resource path="res://sprites/skull_table_spr_0.png" type="Texture" id=28]
 [ext_resource path="res://scenes/ShopTable.gd" type="Script" id=29]
 [ext_resource path="res://scenes/Altar.tscn" type="PackedScene" id=30]
-[ext_resource path="res://sprites/checkpoint_on_spr_4.png" type="Texture" id=31]
-[ext_resource path="res://sprites/checkpoint_on_spr_11.png" type="Texture" id=32]
-[ext_resource path="res://sprites/checkpoint_on_spr_15.png" type="Texture" id=33]
-[ext_resource path="res://sprites/checkpoint_on_spr_0.png" type="Texture" id=34]
-[ext_resource path="res://sprites/checkpoint_on_spr_2.png" type="Texture" id=35]
-[ext_resource path="res://sprites/checkpoint_on_spr_12.png" type="Texture" id=36]
-[ext_resource path="res://sprites/checkpoint_on_spr_7.png" type="Texture" id=37]
-[ext_resource path="res://sprites/checkpoint_on_spr_5.png" type="Texture" id=38]
-[ext_resource path="res://sprites/checkpoint_on_spr_13.png" type="Texture" id=39]
-[ext_resource path="res://sprites/checkpoint_on_spr_3.png" type="Texture" id=40]
-[ext_resource path="res://sprites/checkpoint_on_spr_10.png" type="Texture" id=41]
-[ext_resource path="res://sprites/checkpoint_on_spr_8.png" type="Texture" id=42]
-[ext_resource path="res://sprites/checkpoint_on_spr_9.png" type="Texture" id=43]
-[ext_resource path="res://sprites/checkpoint_on_spr_1.png" type="Texture" id=44]
-[ext_resource path="res://sprites/checkpoint_on_spr_14.png" type="Texture" id=45]
-[ext_resource path="res://sprites/checkpoint_on_spr_6.png" type="Texture" id=46]
-[ext_resource path="res://sprites/checkpoint_on_spr_16.png" type="Texture" id=47]
 [ext_resource path="res://sprites/gun_mini.png" type="Texture" id=48]
 [ext_resource path="res://sprites/knife_item.png" type="Texture" id=49]
 [ext_resource path="res://sprites/plasma_item.png" type="Texture" id=50]
@@ -70,7 +53,7 @@
 [ext_resource path="res://scenes/Boss.tscn" type="PackedScene" id=68]
 [ext_resource path="res://sprites/boss_bar.png" type="Texture" id=69]
 [ext_resource path="res://sprites/boss_bar_frame.png" type="Texture" id=70]
-[ext_resource path="res://scenes/Idol.tscn" type="PackedScene" id=71]
+[ext_resource path="res://scenes/AltarProgress.tscn" type="PackedScene" id=72]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -197,14 +180,6 @@ shader_param/factor = 1.0
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 60.5, 10 )
-
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ ExtResource( 47 ), ExtResource( 34 ), ExtResource( 44 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 31 ), ExtResource( 38 ), ExtResource( 46 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 41 ), ExtResource( 32 ), ExtResource( 36 ), ExtResource( 39 ), ExtResource( 45 ), ExtResource( 33 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 21 )
@@ -480,13 +455,13 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 1
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 1
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 515, 293 )
@@ -760,29 +735,8 @@ position = Vector2( 198, 198 )
 position = Vector2( 530, 94 )
 script = ExtResource( 56 )
 
-[node name="col1" type="AnimatedSprite" parent="Colums"]
-position = Vector2( -175, 40 )
-frames = SubResource( 7 )
-speed_scale = 0.0
-playing = true
-
-[node name="col2" type="AnimatedSprite" parent="Colums"]
-position = Vector2( -66, 40 )
-frames = SubResource( 7 )
-speed_scale = 0.0
-playing = true
-
-[node name="col3" type="AnimatedSprite" parent="Colums"]
-position = Vector2( 52, 40 )
-frames = SubResource( 7 )
-speed_scale = 0.0
-playing = true
-
-[node name="col4" type="AnimatedSprite" parent="Colums"]
-position = Vector2( 166, 40 )
-frames = SubResource( 7 )
-speed_scale = 0.0
-playing = true
+[node name="AltarProgress" parent="Colums" instance=ExtResource( 72 )]
+position = Vector2( -571, 23 )
 
 [node name="WaterFallGroup" type="Node2D" parent="."]
 script = ExtResource( 61 )
@@ -792,12 +746,3 @@ position = Vector2( 387, 14 )
 
 [node name="WaterFall2" parent="WaterFallGroup" instance=ExtResource( 60 )]
 position = Vector2( 644, 14 )
-
-[node name="Idol" parent="." instance=ExtResource( 71 )]
-position = Vector2( 95, 503 )
-
-[node name="Idol2" parent="." instance=ExtResource( 71 )]
-position = Vector2( 162, 554 )
-
-[node name="Idol3" parent="." instance=ExtResource( 71 )]
-position = Vector2( 182, 456 )

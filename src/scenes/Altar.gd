@@ -45,11 +45,14 @@ func level_up_altar():
 	Global.play_sound(Global.AltarSfx)
 	if altar_type == "blood":
 		Global.altar_lifes += 1
-		Global.altar_points += 10
+		Global.altar_points += 4
 	if altar_type == "gem":
 		Global.altar_gems += 1
-		Global.altar_points += 1
+		Global.altar_points += 0.2
 	set_values()
+	var need = Global.calc_points_level()
+	if Global.altar_points > need:
+		Global.altar_level_up()
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("players"):

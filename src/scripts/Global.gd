@@ -854,6 +854,13 @@ func normal_cursor():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Input.set_custom_mouse_cursor(null)
 	
+func altar_level_up():
+	Global.play_sound(Global.AltarSfx)
+	altar_points = 0
+	altar_level += 1
+	if altar_level > altar_level_max:
+		altar_level = altar_level_max
+	
 func calc_points_level():
 	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
 	
@@ -1081,6 +1088,9 @@ func next_floor(type):
 	get_tree().reload_current_scene()
 	
 func pay_price(_player, price_what, price_amount):
+	if price_what == "life" and _player.inv_time > 0:
+		return false
+	
 	if price_amount == 0:
 		return true
 		

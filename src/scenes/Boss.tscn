@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/Boss.gd" type="Script" id=1]
 [ext_resource path="res://sprites/boss_head_frog.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://sprites/extra_cursed.png" type="Texture" id=17]
 [ext_resource path="res://sprites/extra_blind.png" type="Texture" id=18]
 [ext_resource path="res://sprites/extra_prisoner.png" type="Texture" id=19]
+[ext_resource path="res://sprites/player_shadow.png" type="Texture" id=20]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -171,6 +172,11 @@ extents = Vector2( 33.5, 68 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
+
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( -1, 47 )
+scale = Vector2( 2.90625, 2.6 )
+texture = ExtResource( 20 )
 
 [node name="body" type="AnimatedSprite" parent="."]
 material = SubResource( 10 )
