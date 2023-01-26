@@ -176,7 +176,7 @@ script = ExtResource( 1 )
 material = SubResource( 10 )
 position = Vector2( 2, -5 )
 frames = SubResource( 3 )
-animation = "Wolf"
+animation = "Demon"
 
 [node name="head" type="AnimatedSprite" parent="."]
 material = SubResource( 12 )
