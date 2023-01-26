@@ -185,10 +185,10 @@ var mov_type_none = {
 }
 
 var movement_types = [
-#	mov_type_pong,
-#	mov_type_follow,
-#	mov_type_random,
-#	mov_type_horizontal,
+	mov_type_pong,
+	mov_type_follow,
+	mov_type_random,
+	mov_type_horizontal,
 	mov_type_none
 ]
 
@@ -230,12 +230,12 @@ var att_type_jump = {
 }
 
 var attack_types = [
-#	att_type_charge,
-#	att_type_cross,
-#	att_type_spin_x,
+	att_type_charge,
+	att_type_cross,
+	att_type_spin_x,
 	att_type_rain,
-#	att_type_melee,
-#	att_type_jump
+	att_type_melee,
+	att_type_jump
 ]
 
 var dmg_type_normal = {
@@ -255,9 +255,9 @@ var dmg_type_ice = {
 }
 
 var damage_types = [
-#	dmg_type_normal,
+	dmg_type_normal,
 	dmg_type_poison,
-#	dmg_type_ice
+	dmg_type_ice
 ]
 
 enum floor_types {
