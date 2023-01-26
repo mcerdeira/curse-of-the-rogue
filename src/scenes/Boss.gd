@@ -116,9 +116,13 @@ func generate_boss():
 		
 func effects(from):
 	return (from == "poison_fx" or from == "electricity_fx")
+	
+func AttackSfx():
+	var options = {"pitch_scale": 0.3}
+	Global.play_sound(Global.TrollSfx, options)
 		
 func OuchSfx():
-	var options = {"pitch_scale": 0.5}
+	var options = {"pitch_scale": 0.3}
 	Global.play_sound(Global.TrollHitSfx, options)
 		
 func hit(origin, dmg, from):
@@ -226,6 +230,7 @@ func _physics_process(delta):
 	if dead:
 		dead_ttl -= 1 * delta
 		if randi() % 10 == 0:
+			OuchSfx()
 			emit()
 			
 		$body.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
@@ -272,6 +277,9 @@ func check_state(delta):
 				state_attacking = true
 			else:
 				state_attacking = !state_attacking
+				if state_attacking:
+					AttackSfx()
+					
 				weapon_rotate_speed = weapon_rotate_speed_base
 	
 		if moving_ttl <= 0:
@@ -572,6 +580,8 @@ func _draw():
 			last_y = yy
 			
 func explode():
+	OuchSfx()
+	Global.play_sound(Global.BombSxf)
 	Global.shaker_obj.shake(15, 1.3)
 	queue_free()
 		

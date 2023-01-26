@@ -7,15 +7,16 @@ var rolling = false
 var effect_name = ""
 var effect_description = ""
 var _player = null
+var zoom = 1
 
 func _ready():
-	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
-		queue_free()
-		return	
-
-	if Global.pick_random([1, 1, 1, 0]) == 1:
-		queue_free()
-		return
+#	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
+#		queue_free()
+#		return	
+#
+#	if Global.pick_random([1, 1, 1, 0]) == 1:
+#		queue_free()
+#		return
 	
 	$price_lbl.text = "x" + str(price_amount)
 	$wheel.rotation_degrees = rand_range(0, 360)
@@ -26,10 +27,17 @@ func _physics_process(delta):
 	if rolling:
 		$wheel.rotation_degrees += 3 * ttl
 		ttl -= Global.pick_random([1, 2]) * delta
+		zoom -= 0.07 * delta
+		_player.camera_zoom(zoom, zoom)
 		if ttl <= 0:
+			zoom = 1
 			ttl = 0
 			rolling = false
+			Global.LOGIC_PAUSE = false
+			yield(get_tree().create_timer(.6), "timeout") 
 			eval_result()
+			_player.restore_zoom()
+			
 	
 func eval_result():
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
@@ -63,6 +71,7 @@ func eval_result():
 		_player.add_speed(-1)
 	
 func start_roll():
+	Global.LOGIC_PAUSE = true
 	rolling = true
 	randomize()
 	var a = rand_range(1, 3)

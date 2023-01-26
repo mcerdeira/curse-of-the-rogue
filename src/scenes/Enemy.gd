@@ -453,7 +453,7 @@ func set_type(_type):
 		shoot_type = true
 		speed = 100
 		speed_total = 100
-		life = 7
+		life = 3
 		dmg = 1
 		chase_player = false
 		flying = true
@@ -783,9 +783,9 @@ func hit(origin, dmg, from):
 func die():
 	if visible and !iamasign:
 		OuchSfx()
+		emit()
 		if !dont_drop and Global.pick_random([true, false]):
 			drop_gem()
-		emit()
 		if !dont_drop and shoot_on_die:
 			shoot_die()
 		queue_free()

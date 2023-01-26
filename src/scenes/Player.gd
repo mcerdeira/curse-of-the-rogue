@@ -39,9 +39,17 @@ var frequency = 2.0
 var time = 0
 var bulletonetimecreated = false
 var back = false
+var restzoom = false
 
 var dead = false
 var entering = false
+
+func restore_zoom():
+	restzoom = true
+
+func camera_zoom(x, y):
+	$Camera2D.zoom.x = x
+	$Camera2D.zoom.y = y
 
 func _ready():
 	Global.pixelate(pixelated)
@@ -256,7 +264,7 @@ func add_damage(count):
 	
 	Global.attack += count
 	if Global.attack < 0:
-		Global.attack = 0
+		Global.attack = 0.1
 		
 func add_fly():
 	Global.play_sound(Global.ItemSfx)
@@ -554,6 +562,14 @@ func melee_attack():
 func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug_button1"):
 #		add_melee(0.1)
+
+	if restzoom:
+		if $Camera2D.zoom.x <= 1:
+			$Camera2D.zoom.x += 1 * delta
+			$Camera2D.zoom.y = $Camera2D.zoom.x
+			if $Camera2D.zoom.x >= 1:
+				$Camera2D.zoom.x = 1
+				$Camera2D.zoom.y = 1
 	
 	if !entering and pixelated > 1:
 		pixelated -= 200 * delta

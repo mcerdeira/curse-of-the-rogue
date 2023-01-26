@@ -665,6 +665,7 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
+	gems = 999
 	
 func restart_game():
 	restart_pools()
