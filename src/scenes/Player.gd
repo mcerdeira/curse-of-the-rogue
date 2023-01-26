@@ -562,7 +562,6 @@ func melee_attack():
 func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug_button1"):
 #		add_melee(0.1)
-
 	if restzoom:
 		if $Camera2D.zoom.x <= 1:
 			$Camera2D.zoom.x += 1 * delta

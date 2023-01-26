@@ -1,5 +1,7 @@
 extends KinematicBody2D
 var sleep = false
+var pingpong = false
+var pong_dir = Vector2.ZERO
 var life = 0
 var dmg = 0
 var shoot_count_total = 0
@@ -396,7 +398,22 @@ func enemy_behaviour(delta):
 			impulse = null
 	
 	if !dead and hit_ttl <= 0:
-		if chase_player:
+		if pingpong:
+			if stop_moving <= 0:
+				if pong_dir == Vector2.ZERO:
+					var xx = speed * rand_range(2, 4) * Global.pick_random([1,-1])
+					var yy = speed * rand_range(2, 4) * Global.pick_random([1,-1])
+					
+					pong_dir = Vector2(xx, yy)
+					
+				var prev_velocity = pong_dir
+				pong_dir = move_and_slide(pong_dir)
+				
+				if get_slide_count() > 0:
+					emit()
+					pong_dir = prev_velocity.bounce(get_slide_collision(0).normal)
+			
+		elif chase_player:
 			var direction = (player_chase.position - self.position).normalized()
 			if player_chase.position.distance_to(position) <= 2:
 				stop_moving = 1
@@ -440,6 +457,41 @@ func set_type(_type):
 	enemy_type = _type
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
+	
+	if enemy_type != "bloby":
+		$Line2D.queue_free()
+	else:
+		$Line2D.visible = true
+	
+	if enemy_type == "bloby":
+		var options = {"pitch_scale": 2.5}
+		Global.play_sound(Global.SpiderSfx, options)
+		life = 4
+		speed = 100
+		speed_total = 100
+		shoot_on_die = false
+		shoot_ttl_total = 3
+		shoot_ttl = shoot_ttl_total
+		shoot_type = false
+		pingpong = true
+		shoot_count_total = [3, 6, 9]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
+		stopandgo = false
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+
+		dmg = 1
+		chase_player = false
+		flying = true
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		disapear = false
+		leave_trail = false
+		angle_walker = false
+		random_shooter = false
 	
 	if enemy_type == "ghost":
 		Global.play_sound(Global.GhostSfx)
@@ -581,7 +633,6 @@ func set_type(_type):
 		angle_walker = true
 		random_shooter = true
 		
-
 	if enemy_type == "chest_closed":
 		life = 4
 		speed = 180

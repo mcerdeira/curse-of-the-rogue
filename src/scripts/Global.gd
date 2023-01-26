@@ -606,6 +606,7 @@ var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
 var ENEMY_PATTERNS = [
 	-1,
 	[
+		["bloby"],
 		["idol"],
 		["scorpion", "scorpion", "scorpion"],
 		["ghost"],
@@ -614,58 +615,75 @@ var ENEMY_PATTERNS = [
 		["scorpion"],
 		["skeleton"],
 		["spider"],
-		["troll", "troll", "troll"]
+		["troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["scorpion", "scorpion", "scorpion", "bat"],
-		["scorpion", "scorpion", "bat", "bat"],
+		["scorpion", "scorpion", "bat", "bat", "bloby"],
 		["scorpion", "scorpion", "troll"],
 		["spider", "spider"],
-		["spider", "spider", "bat", "bat"],
+		["spider", "bat", "bat"],
+		["spider", "idol", "bat"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["bat", "scorpion", "bat", "bat"],
 		["bat", "bat", "troll", "troll"],
 		["ghost", "ghost"],
-		["spider", "spider", "spider"],
+		["spider", "bloby", "bloby"],
+		["bloby", "bat", "bloby"],
+		["idol", "idol", "idol"],
 	],
 	[	
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
+		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],
 		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
+		["idol", "idol", "idol", "bloby", "bloby"],
 	],
 	[
-		["ghost", "ghost", "troll"],
-		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
-		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
-		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
-		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
+		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
+		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
+		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
+		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["spider", "spider", "spider", "dead_fire", "dead_fire"],
+		["idol", "idol", "idol", "bloby", "bloby"],
 	],
 	[
-		["ghost", "ghost", "troll"],
-		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
-		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
-		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
-		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
+		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
+		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
+		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
+		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["spider", "spider", "spider", "dead_fire", "dead_fire"],
+		["idol", "idol", "idol", "bloby", "bloby"],
 	],
 	[
-		["ghost", "ghost", "troll"],
-		["troll", "dead_fire", "dead_fire", "ghost", "ghost", "ghost"],
-		["skeleton", "skeleton", "skeleton", "skeleton", "ghost"],
-		["ghost", "scorpion", "scorpion", "scorpion", "scorpion", "scorpion"],
-		["spider", "spider", "scorpion", "scorpion", "skeleton", "skeleton"],
+		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
+		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],
+		["skeleton", "skeleton", "skeleton", "skeleton", "dead_fire"],
+		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
+		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
+		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["spider", "spider", "spider", "dead_fire", "dead_fire"],
+		["idol", "idol", "idol", "bloby", "bloby"],
 	],
 ]
 
 func _data_overload():
 	Muted = false
 	SfxMuted = false
-	gems = 999
 	
 func restart_game():
 	restart_pools()

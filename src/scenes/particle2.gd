@@ -13,7 +13,8 @@ func _physics_process(delta):
 	if one_shot and infinite:
 		one_shot = false
 	
-func init():
+func init(_amount=8):
+	amount = _amount
 	texture = _texture
 
 func _on_Timer_timeout():

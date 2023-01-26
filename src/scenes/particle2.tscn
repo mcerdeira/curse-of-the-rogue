@@ -19,11 +19,6 @@ curve = SubResource( 12 )
 
 [sub_resource type="ParticlesMaterial" id=11]
 lifetime_randomness = 1.0
-emission_shape = 5
-emission_ring_radius = 2.0
-emission_ring_inner_radius = 0.0
-emission_ring_height = 1.0
-emission_ring_axis = Vector3( 0, 0, 1 )
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 96, 0 )
@@ -34,13 +29,13 @@ angular_velocity_random = 0.64
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel_random = 0.33
-angle_random = 0.58
+angle_random = 0.66
 angle_curve = SubResource( 15 )
-scale_random = 0.9
+scale = 1.88
+scale_random = 1.0
 scale_curve = SubResource( 13 )
 
 [node name="particle" type="Particles2D"]
-amount = 3
 explosiveness = 0.5
 process_material = SubResource( 11 )
 texture = ExtResource( 1 )

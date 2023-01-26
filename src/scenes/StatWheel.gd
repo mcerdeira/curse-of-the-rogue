@@ -10,13 +10,13 @@ var _player = null
 var zoom = 1
 
 func _ready():
-#	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
-#		queue_free()
-#		return	
-#
-#	if Global.pick_random([1, 1, 1, 0]) == 1:
-#		queue_free()
-#		return
+	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
+		queue_free()
+		return	
+
+	if Global.pick_random([1, 1, 1, 0]) == 1:
+		queue_free()
+		return
 	
 	$price_lbl.text = "x" + str(price_amount)
 	$wheel.rotation_degrees = rand_range(0, 360)
@@ -37,7 +37,6 @@ func _physics_process(delta):
 			yield(get_tree().create_timer(.6), "timeout") 
 			eval_result()
 			_player.restore_zoom()
-			
 	
 func eval_result():
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]

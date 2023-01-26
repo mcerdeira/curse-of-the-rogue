@@ -580,6 +580,12 @@ func _draw():
 			last_y = yy
 			
 func explode():
+	var p = particle.instance()
+	var root = get_node("/root/Main")
+	root.add_child(p)
+	p.global_position = global_position
+	p.init(35)
+	
 	OuchSfx()
 	Global.play_sound(Global.BombSxf)
 	Global.shaker_obj.shake(15, 1.3)
