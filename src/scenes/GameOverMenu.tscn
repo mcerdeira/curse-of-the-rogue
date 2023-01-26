@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://sprites/blast_spr_10.png" type="Texture" id=22]
 [ext_resource path="res://sprites/boss_head.png" type="Texture" id=23]
 [ext_resource path="res://sprites/chest_mimic12png.png" type="Texture" id=24]
+[ext_resource path="res://sprites/bloby2.png" type="Texture" id=25]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -54,6 +55,11 @@ animations = [ {
 "frames": [ ExtResource( 22 ) ],
 "loop": true,
 "name": "blast",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 25 ) ],
+"loop": true,
+"name": "bloby",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 19 ) ],
@@ -230,7 +236,7 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "mimic"
+animation = "bloby"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

@@ -22,7 +22,7 @@ func _ready():
 	
 func _physics_process(delta):
 	if ignore_waterfall:
-		z_index = VisualServer.CANVAS_ITEM_Z_MAX
+		z_index = 1 #VisualServer.CANVAS_ITEM_Z_MIN
 		if !$waterfall.visible:
 			get_parent().hide_waterfall()
 			

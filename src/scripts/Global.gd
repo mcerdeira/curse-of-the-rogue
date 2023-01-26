@@ -607,15 +607,15 @@ var ENEMY_PATTERNS = [
 	-1,
 	[
 		["bloby"],
-		["idol"],
-		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
-		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
-		["spider"],
-		["troll", "troll"]
+#		["idol"],
+#		["scorpion", "scorpion", "scorpion"],
+#		["ghost"],
+#		["bat"],
+#		["dead_fire"],
+#		["scorpion"],
+#		["skeleton"],
+#		["spider"],
+#		["troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],

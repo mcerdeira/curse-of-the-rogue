@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://scenes/Line2D.tscn" type="PackedScene" id=32]
 [ext_resource path="res://sprites/bloby.png" type="Texture" id=33]
 [ext_resource path="res://sprites/bloby1.png" type="Texture" id=34]
+[ext_resource path="res://sprites/bloby2.png" type="Texture" id=35]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -80,7 +81,7 @@ animations = [ {
 "name": "bat",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 34 ), ExtResource( 33 ) ],
+"frames": [ ExtResource( 34 ), ExtResource( 33 ), ExtResource( 35 ), ExtResource( 35 ) ],
 "loop": true,
 "name": "bloby",
 "speed": 5.0

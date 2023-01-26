@@ -107,11 +107,15 @@ func _physics_process(delta):
 func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 	
-func create_enemy_bullet(pos):
+func create_enemy_bullet(pos, effect:=""):
 	var fire_ball = EnemyBullet.instance()
 	fire_ball.type = "fire_ball"
 	fire_ball.dir = pos
 	fire_ball.from = enemy_type
+	if effect:
+		fire_ball.effect_name = effect
+		fire_ball.type = effect + "_ball"
+	
 	get_parent().add_child(fire_ball)
 	fire_ball.set_position(position)
 	
@@ -180,6 +184,19 @@ func trail():
 func shoot():
 	if froze_effect <= 0:
 		emit()
+		if enemy_type == "bloby":
+			if Global.pick_random([true, false]):
+				create_enemy_bullet(Vector2(0, 1), "poison")
+				create_enemy_bullet(Vector2(0, -1), "poison")
+				
+				create_enemy_bullet(Vector2(1, 0), "poison")
+				create_enemy_bullet(Vector2(-1, 0), "poison")
+			else:
+				create_enemy_bullet(Vector2(1, 1), "poison")
+				create_enemy_bullet(Vector2(1, -1), "poison")
+				create_enemy_bullet(Vector2(-1, 1), "poison")
+				create_enemy_bullet(Vector2(-1, -1), "poison")
+				
 		if enemy_type == "spider":
 			create_enemy_bullet(Vector2(0, 1))
 			create_enemy_bullet(Vector2(0, -1))
@@ -410,6 +427,8 @@ func enemy_behaviour(delta):
 				pong_dir = move_and_slide(pong_dir)
 				
 				if get_slide_count() > 0:
+					if Global.pick_random([true, false]):
+						shoot()
 					emit()
 					pong_dir = prev_velocity.bounce(get_slide_collision(0).normal)
 			
@@ -761,6 +780,9 @@ func set_type(_type):
 		random_shooter = false
 		
 func OuchSfx():
+	if enemy_type == "bloby":
+		var options = {"pitch_scale": 2.5}
+		Global.play_sound(Global.SpiderHitSfx, options)
 	if enemy_type == "idol":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollHitSfx, options)

@@ -39,6 +39,7 @@ shape = SubResource( 1 )
 position = Vector2( 57, 13 )
 scale = Vector2( 1, -1 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 
 [connection signal="area_entered" from="." to="." method="_on_BigBlock_area_entered"]
