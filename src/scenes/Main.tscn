@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -70,6 +70,7 @@
 [ext_resource path="res://scenes/Boss.tscn" type="PackedScene" id=68]
 [ext_resource path="res://sprites/boss_bar.png" type="Texture" id=69]
 [ext_resource path="res://sprites/boss_bar_frame.png" type="Texture" id=70]
+[ext_resource path="res://scenes/Idol.tscn" type="PackedScene" id=71]
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -791,3 +792,12 @@ position = Vector2( 387, 14 )
 
 [node name="WaterFall2" parent="WaterFallGroup" instance=ExtResource( 60 )]
 position = Vector2( 644, 14 )
+
+[node name="Idol" parent="." instance=ExtResource( 71 )]
+position = Vector2( 95, 503 )
+
+[node name="Idol2" parent="." instance=ExtResource( 71 )]
+position = Vector2( 162, 554 )
+
+[node name="Idol3" parent="." instance=ExtResource( 71 )]
+position = Vector2( 182, 456 )
