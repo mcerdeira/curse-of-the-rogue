@@ -168,12 +168,13 @@ visible = false
 
 [node name="shadow" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-animation = "scorpion+"
+animation = "skeleton"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "bloby"
+animation = "mimic"
+frame = 1
 playing = true
 
 [node name="area" type="Area2D" parent="."]

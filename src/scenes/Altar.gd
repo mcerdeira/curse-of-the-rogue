@@ -22,6 +22,7 @@ func _ready():
 	if altar_type != "blood":
 		price_what = "gems"
 		$skull_spr.visible = false
+		$blood.visible = false
 	else:
 		$label.add_color_override("font_color", Color8(235, 40, 40))
 		

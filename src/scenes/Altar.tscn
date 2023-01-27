@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/Altar.gd" type="Script" id=1]
 [ext_resource path="res://sprites/altar_floor.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://sprites/skull_spr_0.png" type="Texture" id=4]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=5]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://sprites/blood_altar.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -43,6 +44,10 @@ position = Vector2( -32, -32 )
 rotation = -0.640536
 texture = ExtResource( 4 )
 
+[node name="blood" type="Sprite" parent="."]
+position = Vector2( 0, 31 )
+texture = ExtResource( 7 )
+
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "blood"
@@ -58,11 +63,9 @@ frames = SubResource( 1 )
 animation = "blood"
 
 [node name="collider" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 
 [node name="collider" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, 27 )
@@ -70,9 +73,9 @@ shape = SubResource( 3 )
 
 [node name="label" type="Label" parent="."]
 margin_left = -32.0
-margin_top = -56.0
+margin_top = -43.0
 margin_right = 32.0
-margin_bottom = -42.0
+margin_bottom = -29.0
 custom_fonts/font = SubResource( 4 )
 text = "0"
 align = 1

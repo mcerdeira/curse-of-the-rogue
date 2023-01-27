@@ -76,6 +76,15 @@ func add_cherry():
 	
 	Global.gems *= 2
 	Global.cherry = true
+	
+func add_gem_now(count):
+	if count > 0:
+		Global.play_sound(Global.GemSfx)	
+	if count > 0:
+		if Global.cherry:
+			count *= 2
+			
+	Global.gems += count
 			
 func add_gem(count):
 	if count > 0:
@@ -290,7 +299,12 @@ func hit(dmg, from, can_zombie:=false, effect_name:=""):
 		
 		Global.shaker_obj.shake(2, 0.2)
 		
-		Global.KillerisMe = from
+		if typeof(from) in [TYPE_ARRAY]:
+			Global.KillerisMe = from[0]
+			Global.KillerisMeExtra = from[1]
+		else:
+			Global.KillerisMe = from
+			Global.KillerisMeExtra = ""
 		
 		$sprite.animation = "hit" + ani_aditional
 		inv_time = inv_time_total

@@ -26,8 +26,11 @@ func display_kills():
 func display_killer():
 	$KillU.animation = Global.KillerisMe
 	var description = format_description(Global.KillerisMe)
-	if description == "boss":
+	
+	if Global.KillerisMeExtra != "":
+		$KillUExtra.animation = Global.KillerisMeExtra
 		description = Global.CURRENT_BOSS_NAME
+	
 	$Label4.text = description
 
 func display_time():

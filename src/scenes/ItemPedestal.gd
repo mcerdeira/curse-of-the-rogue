@@ -97,7 +97,7 @@ func do_item_effect(_player):
 			Global.refresh_hud()
 		
 	if item_name == "katana":
-		_player.add_primary_weapon()
+		_player.add_primary_weapon(item_name)
 	if item_name == "blue_heart":
 		_player.add_shield(1)
 	elif item_name == "spikeball":
@@ -111,7 +111,7 @@ func do_item_effect(_player):
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
 	elif item_name == "explosive_item":
-		_player.add_secondary_weapon(item_name)	
+		_player.add_secondary_weapon(item_name)
 	elif item_name == "electric_attack":
 		_player.add_electric()
 	elif item_name == "empty_heart":

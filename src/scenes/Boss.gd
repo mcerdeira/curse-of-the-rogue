@@ -50,6 +50,7 @@ var attacking_count = 0
 var attacking_count_total = 0
 var spawn_enemies = false
 var boss_type = ""
+var extra_type = ""
 var dmg = 1
 var infected = false
 var speed = 0
@@ -105,7 +106,8 @@ func generate_boss():
 	$area.add_to_group("bosses")
 	add_to_group("enemy_objects")
 	
-	boss_type = "boss"
+	boss_type = attack_type.name3
+	extra_type = movement_type.name3
 	
 	Global.CURRENT_BOSS_NAME = boss_name
 	
@@ -154,7 +156,10 @@ func hit(origin, dmg, from):
 		
 		if from == "player" and (Global.poison or Global.temp_poison):
 			Global.play_sound(Global.PoisonSfx)
-			$sprite.modulate = Global.poisoned_color
+			$head.modulate = Global.poisoned_color
+			$body.modulate = Global.poisoned_color
+			$extra.modulate = Global.poisoned_color
+			
 			poisoned = true
 					
 		if life <= 0:
@@ -203,11 +208,16 @@ func _physics_process(delta):
 			update()
 		
 	if froze_effect > 0:
-		$sprite.modulate = Global.froze_color
+		$head.modulate = Global.froze_color
+		$body.modulate = Global.froze_color
+		$extra.modulate = Global.froze_color
+		
 		stop_moving = 1
 		froze_effect -= 1 * delta
 		if froze_effect <= 0:
-			$sprite.modulate = Color8(255, 255, 255)
+			$head.modulate = Color8(255, 255, 255)
+			$body.modulate = Color8(255, 255, 255)
+			$extra.modulate = Color8(255, 255, 255)
 			stop_moving = 0
 	
 	if hit_ttl > 0:
@@ -227,11 +237,13 @@ func _physics_process(delta):
 	
 	face_player()
 	
+	$shadow.visible = !jumping
+	
 	if dead:
 		dead_ttl -= 1 * delta
 		if randi() % 10 == 0:
 			OuchSfx()
-			emit()
+			emit(45)
 			
 		$body.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
 		$head.rotation_degrees = randi() % 90 * Global.pick_random([1, -1])
@@ -302,7 +314,7 @@ func create_enemy_bullet(pos):
 	var fire_ball = EnemyBullet.instance()
 	fire_ball.type = bullet
 	fire_ball.dir = pos
-	fire_ball.from = boss_type
+	fire_ball.from = [boss_type, extra_type]
 	fire_ball.effect_name = damage_type.name
 	get_parent().add_child(fire_ball)
 	fire_ball.set_position(position)
@@ -311,7 +323,7 @@ func create_enemy_fake_bullet(pos):
 	var fire_ball = EnemyBullet.instance()
 	fire_ball.type = bullet
 	fire_ball.dir = pos
-	fire_ball.from = boss_type
+	fire_ball.from = [boss_type, extra_type]
 	fire_ball.effect_name = damage_type.name
 	fire_ball.init_fake()
 	get_parent().add_child(fire_ball)
@@ -368,6 +380,7 @@ func shoot_rain(delta):
 			var fire_ball = BulletLander.instance()
 			fire_ball.type = bullet
 			fire_ball.effect_name = damage_type.name
+			fire_ball.from = [boss_type, extra_type]
 			get_parent().add_child(fire_ball)
 			var p = Global.SPAWNER.get_random_point()
 			fire_ball.set_position(p.position)
@@ -378,6 +391,7 @@ func shoot_rain(delta):
 			var fire_ball = BulletLander.instance()
 			fire_ball.type = bullet
 			fire_ball.effect_name = damage_type.name
+			fire_ball.from = [boss_type, extra_type]
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(_player_obj.position)
 		else:
@@ -584,29 +598,33 @@ func explode():
 	var root = get_node("/root/Main")
 	root.add_child(p)
 	p.global_position = global_position
-	p.init(35)
+	p.init(55)
 	
 	OuchSfx()
 	Global.play_sound(Global.BombSxf)
 	Global.shaker_obj.shake(15, 1.3)
 	queue_free()
 		
-func emit():
+func emit(amount:=null):
 	var p = particle.instance()
 	var root = get_node("/root/Main")
 	root.add_child(p)
 	p.global_position = global_position
+	if amount != null:
+		p.init(amount)
 
 func _on_area_body_entered(body):
 	if body.is_in_group("players"):
 		if Global.zombie:
-			$sprite.modulate = Global.infected_color
+			$head.modulate = Global.infected_color
+			$body.modulate = Global.infected_color
+			$extra.modulate = Global.infected_color
 			infected = true
-		body.hit(dmg, boss_type, false, damage_type.name)
+		body.hit(dmg, [boss_type, extra_type], false, damage_type.name)
 
 func _on_weapon_area_body_entered(body):
 	if body.is_in_group("players"):
-		body.hit(dmg, boss_type, false, damage_type.name)
+		body.hit(dmg, [boss_type, extra_type], false, damage_type.name)
 
 func _on_area_start_body_entered(body):
 	if !active and intro_ttl <= 0 and body.is_in_group("players"):

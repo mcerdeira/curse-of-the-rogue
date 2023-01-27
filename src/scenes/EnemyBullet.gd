@@ -31,8 +31,9 @@ func emit():
 func is_fire_ball():
 	return type == "poison_ball" or type == "ice_ball" or type == "fire_ball"
 
-func init_again():
+func init_again(_from):
 	$sprite.animation = type
+	from = _from
 	
 func init_fake():
 	fake = true
@@ -46,8 +47,7 @@ func _physics_process(delta):
 	if fake and position.y <= -1000:
 		queue_free()
 	
-	if is_fire_ball():
-		$sprite.animation = type
+	if type == "fire_trail":
 		dmg = 1
 		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
 		ttl -= 1 * delta

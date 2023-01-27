@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 var red = 255
 var blue = 0
 var r_direction = -1
@@ -20,6 +20,8 @@ func calc_level():
 
 func _physics_process(delta):
 	calc_level()
+	
+	z_index = global_position.y + 16
 	
 	$bar2.modulate = Color8(red, 255, blue)
 	red += (50 * r_direction) * delta

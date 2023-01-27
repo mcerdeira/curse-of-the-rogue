@@ -6,6 +6,7 @@ var Minutes = 0
 var Hours = 0
 var TimerOn = false
 var KillerisMe = ""
+var KillerisMeExtra = ""
 var shaker_obj = null
 var transition_obj = null
 var SPAWNER = null
@@ -1096,7 +1097,12 @@ func pay_price(_player, price_what, price_amount):
 		
 	if price_what == "gems":
 		if Global.gems >= price_amount:
-			_player.add_gem(-price_amount)
+			_player.add_gem_now(-price_amount)
+			
+			Global.add_extra_display("gems", -price_amount)
+			yield(get_tree().create_timer(.5), "timeout") 
+			Global.hide_hud_extras("gems")
+			
 			return true
 	elif price_what == "life":
 			if Global.zombie:

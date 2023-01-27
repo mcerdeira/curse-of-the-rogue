@@ -108,6 +108,9 @@ func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 	
 func create_enemy_bullet(pos, effect:=""):
+	if randi() % 10 == 0:
+		emit()
+	
 	var fire_ball = EnemyBullet.instance()
 	fire_ball.type = "fire_ball"
 	fire_ball.dir = pos
