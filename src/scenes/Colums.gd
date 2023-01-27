@@ -1,4 +1,4 @@
 extends Node2D
 
 func _ready():
-	pass
+	z_index = global_position.y

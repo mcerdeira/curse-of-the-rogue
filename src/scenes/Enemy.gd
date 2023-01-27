@@ -2,6 +2,7 @@ extends KinematicBody2D
 var sleep = false
 var pingpong = false
 var pong_dir = Vector2.ZERO
+var rbull = null
 var life = 0
 var dmg = 0
 var shoot_count_total = 0
@@ -16,6 +17,7 @@ var player_chase = null
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
+var RotateBullets = preload("res://scenes/RotateBullets.tscn")
 var enemy = null
 var dead = false
 var impulse = null
@@ -183,6 +185,19 @@ func trail():
 			fire_ball.from = enemy_type
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(position)
+			
+func remove_rotate_bullet():
+	if rbull != null:
+		rbull.queue_free()
+		rbull = null
+		emit()
+			
+func add_rotatebullet():
+	if enemy_type == "idol" and rbull == null:
+		emit()
+		rbull = RotateBullets.instance()
+		rbull.from = enemy_type
+		add_child(rbull)
 
 func shoot():
 	if froze_effect <= 0:
@@ -400,12 +415,18 @@ func enemy_behaviour(delta):
 			
 			shoot_count -= 1
 			
+			var add_again = false
 			if shoot_count <= 0:
 				shoot_count = Global.pick_random(shoot_count_total)
+				add_again = true
 			else:
 				shoot_ttl = 0.1
 			
+			remove_rotate_bullet()
+			
 			shoot()
+			if add_again:
+				add_rotatebullet()
 	
 	if hit_ttl > 0:
 		$sprite.material.set_shader_param("hitted", true)
@@ -479,6 +500,8 @@ func set_type(_type):
 	enemy_type = _type
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
+	
+	add_rotatebullet()
 	
 	if enemy_type != "bloby":
 		$Line2D.queue_free()
@@ -787,7 +810,7 @@ func OuchSfx():
 		var options = {"pitch_scale": 2.5}
 		Global.play_sound(Global.SpiderHitSfx, options)
 	if enemy_type == "idol":
-		var options = {"pitch_scale": 0.5}
+		var options = {"pitch_scale": 0.3}
 		Global.play_sound(Global.TrollHitSfx, options)
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
@@ -814,6 +837,9 @@ func effects(from):
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
+		if sleep:
+			awake()
+		
 		if !effects(from):
 			stop_moving = 0.01
 			
@@ -869,6 +895,7 @@ func die():
 func awake():
 	Global.play_sound(Global.ScorpionSfx)
 	$sprite.animation = "mimic"
+	$shadow.animation = "mimic"
 	sleep = false
 
 func _on_area_body_entered(body):

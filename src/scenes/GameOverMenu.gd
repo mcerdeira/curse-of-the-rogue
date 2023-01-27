@@ -24,8 +24,12 @@ func display_kills():
 	$Label5.text += str(Global.kills) 
 
 func display_killer():
+	if Global.KillerisMe == "chest_closed":
+		Global.KillerisMe = "mimic"
+	
 	$KillU.animation = Global.KillerisMe
 	var description = format_description(Global.KillerisMe)
+	
 	
 	if Global.KillerisMeExtra != "":
 		$KillUExtra.animation = Global.KillerisMeExtra

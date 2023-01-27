@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/EnemyBullet.gd" type="Script" id=1]
 [ext_resource path="res://sprites/bone.png" type="Texture" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://sprites/lava_splash_blue_spr_1.png" type="Texture" id=12]
 [ext_resource path="res://sprites/lava_splash_blue_spr_2.png" type="Texture" id=13]
 [ext_resource path="res://sprites/lava_splash_blue_spr_0.png" type="Texture" id=14]
+[ext_resource path="res://sprites/flame_spr_1.png" type="Texture" id=15]
+[ext_resource path="res://sprites/flame_spr_2.png" type="Texture" id=16]
+[ext_resource path="res://sprites/flame_spr_0.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 4 )
@@ -33,6 +36,11 @@ animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "fire_trail",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "flame",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ],
@@ -58,6 +66,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "fire_trail"
+frame = 1
 playing = true
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

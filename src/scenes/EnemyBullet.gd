@@ -5,7 +5,7 @@ var player_chase = null
 var player_direction = null
 var fake = false
 var speed = 0
-var dmg = 0
+var dmg = 1
 var particle = preload("res://scenes/particle2.tscn")
 export var dir = Vector2.ZERO
 export var lander = false
@@ -15,6 +15,7 @@ var from = ""
 
 func _ready():
 	add_to_group("enemybullets")
+	visible = false
 
 func emit():
 	var p = particle.instance()
@@ -46,8 +47,15 @@ func init_fake():
 func _physics_process(delta):
 	if fake and position.y <= -1000:
 		queue_free()
+		
+	visible = true
+		
+	if type == "flame":
+		$sprite.animation = type
+		dmg = 1
 	
 	if type == "fire_trail":
+		$sprite.animation = type
 		dmg = 1
 		z_index = VisualServer.CANVAS_ITEM_Z_MIN + 1
 		ttl -= 1 * delta
@@ -86,11 +94,18 @@ func destroy():
 	queue_free()
 
 func _on_area_body_entered(body):
-	if !fake and !lander and body.name == "Walls":
-		destroy()
-	if !fake and body.is_in_group("players"):
-		body.hit(dmg, from, false, effect_name)
-		destroy()
+	if type == "flame":
+		if body.name == "Walls":
+			emit()
+		if body.is_in_group("players"):
+			emit()
+			body.hit(dmg, from, false, effect_name)
+	else:
+		if !fake and !lander and body.name == "Walls":
+			destroy()
+		if !fake and body.is_in_group("players"):
+			body.hit(dmg, from, false, effect_name)
+			destroy()
 
 func _on_area_area_entered(area):
 	if lander and area.is_in_group("lander"):

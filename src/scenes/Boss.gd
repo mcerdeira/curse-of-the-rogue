@@ -8,7 +8,6 @@ var attacking_charge = false
 var charge_direction = null
 var speed_charge_total = 700
 var speed_charge = speed_charge_total
-
 var jump_height = 0
 var jump_dir = -1
 var jumping = false
@@ -25,6 +24,7 @@ var hit_ttl = 0
 var hit_ttl_total = 0.2
 var stop_moving = 0
 var poisoned = false
+var poisoned_ttl = 3
 var total_life = 100.00
 var life = total_life
 var point_chase = null
@@ -54,6 +54,7 @@ var extra_type = ""
 var dmg = 1
 var infected = false
 var speed = 0
+var original_speed = 0
 var froze_effect = 0
 var froze_effect_total = 1
 var electric_effect = 0
@@ -92,6 +93,7 @@ func generate_boss():
 	attacking_count_total = attack_type.count
 	attacking_count = 0
 	speed = movement_type.speed
+	original_speed = speed
 	
 	bullet = damage_type.bullet
 
@@ -150,16 +152,17 @@ func hit(origin, dmg, from):
 			Global.play_sound(Global.ElectricSfx)
 			electric_effect = electric_effect_total
 		
-		if from == "player" and Global.frozen:
+		if from == "player" and Global.frozen and froze_effect <= 0:
 			Global.play_sound(Global.FrozeSfx)
+			speed = original_speed / 3
 			froze_effect = 3
 		
-		if from == "player" and (Global.poison or Global.temp_poison):
+		if from == "player" and !poisoned and (Global.poison or Global.temp_poison):
 			Global.play_sound(Global.PoisonSfx)
 			$head.modulate = Global.poisoned_color
 			$body.modulate = Global.poisoned_color
 			$extra.modulate = Global.poisoned_color
-			
+			poisoned_ttl = 3
 			poisoned = true
 					
 		if life <= 0:
@@ -175,7 +178,15 @@ func _physics_process(delta):
 		if randi() % 100 + 1 == 100:
 			emit()
 		
-		hit(null, 1 * delta, "poison_fx")
+		poisoned_ttl -= 1 * delta
+		hit(null, 0.3 * delta, "poison_fx")
+		if poisoned_ttl <= 0:
+			poisoned_ttl = 0
+			poisoned = false
+			$head.modulate = Color8(255, 255, 255)
+			$body.modulate = Color8(255, 255, 255)
+			$extra.modulate = Color8(255, 255, 255)
+		
 		
 	if electric_effect > 0:
 		var dests = get_tree().get_nodes_in_group("enemy_objects")
@@ -212,13 +223,12 @@ func _physics_process(delta):
 		$body.modulate = Global.froze_color
 		$extra.modulate = Global.froze_color
 		
-		stop_moving = 1
 		froze_effect -= 1 * delta
 		if froze_effect <= 0:
+			speed = original_speed
 			$head.modulate = Color8(255, 255, 255)
 			$body.modulate = Color8(255, 255, 255)
 			$extra.modulate = Color8(255, 255, 255)
-			stop_moving = 0
 	
 	if hit_ttl > 0:
 		$body.material.set_shader_param("hitted", true)
@@ -289,6 +299,9 @@ func check_state(delta):
 				state_attacking = true
 			else:
 				state_attacking = !state_attacking
+				if froze_effect > 0:
+					if randi() % 5 == 0:
+						state_attacking = false
 				if state_attacking:
 					AttackSfx()
 					
@@ -472,10 +485,7 @@ func attack_charge(delta):
 			charging_ttl = charging_ttl_total
 			attacking_charge = true
 
-func boss_attack(delta):
-	if froze_effect > 0:
-		return
-		
+func boss_attack(delta):		
 	if attack_type.name == "charge":
 		attack_charge(delta)
 	if attack_type.name == "cross":
@@ -545,18 +555,17 @@ func boss_movement(delta):
 		pass
 		
 func face_player():
-	if froze_effect <= 0:
-		if _player_obj == null:
-			_player_obj = find_player()
-		
-		if position.x > _player_obj.position.x:
-			$body.scale.x = 1
-			$head.scale.x = 1
-			$extra.scale.x = 1
-		else:
-			$body.scale.x = -1
-			$head.scale.x = -1
-			$extra.scale.x = -1
+	if _player_obj == null:
+		_player_obj = find_player()
+	
+	if position.x > _player_obj.position.x:
+		$body.scale.x = 1
+		$head.scale.x = 1
+		$extra.scale.x = 1
+	else:
+		$body.scale.x = -1
+		$head.scale.x = -1
+		$extra.scale.x = -1
 		
 func _draw():
 	if electric_effect > 0 and destiny:

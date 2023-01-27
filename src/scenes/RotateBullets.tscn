@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/EnemyBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/RotateBullets.gd" type="Script" id=2]
+
+[node name="RotateBullets" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="EnemyBullet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 84, 5 )
+scale = Vector2( 2, 2 )
+type = "flame"
+
+[node name="EnemyBullet2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1, 81 )
+scale = Vector2( 2, 2 )
+type = "flame"
+
+[node name="EnemyBullet3" parent="." instance=ExtResource( 1 )]
+position = Vector2( -79, 2 )
+scale = Vector2( 2, 2 )
+type = "flame"
+
+[node name="EnemyBullet4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -74 )
+scale = Vector2( 2, 2 )
+type = "flame"

@@ -661,7 +661,7 @@ position = Vector2( 588, 78 )
 type = ""
 
 [node name="ShopKeeper" parent="." instance=ExtResource( 27 )]
-position = Vector2( 2, -27 )
+position = Vector2( 511, 209 )
 
 [node name="ShopTable" type="Node2D" parent="."]
 position = Vector2( 0, -11 )
@@ -727,7 +727,7 @@ position = Vector2( 631, 260 )
 altar_type = "blood"
 
 [node name="StatWheel" parent="." instance=ExtResource( 58 )]
-position = Vector2( 198, 198 )
+position = Vector2( 141, 220 )
 
 [node name="Colums" type="Node2D" parent="."]
 position = Vector2( 530, 94 )

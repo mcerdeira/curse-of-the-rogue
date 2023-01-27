@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -36,6 +36,7 @@
 [ext_resource path="res://sprites/extra_king.png" type="Texture" id=34]
 [ext_resource path="res://sprites/extra_queen.png" type="Texture" id=35]
 [ext_resource path="res://sprites/extra_prisoner.png" type="Texture" id=36]
+[ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=37]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -136,6 +137,11 @@ animations = [ {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "hole",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 37 ) ],
+"loop": true,
+"name": "idol",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ) ],
@@ -310,7 +316,7 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "Wolf"
+animation = "idol"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
