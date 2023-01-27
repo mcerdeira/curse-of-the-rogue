@@ -35,7 +35,7 @@
 [ext_resource path="res://sprites/extra_cursed.png" type="Texture" id=33]
 [ext_resource path="res://sprites/extra_king.png" type="Texture" id=34]
 [ext_resource path="res://sprites/extra_queen.png" type="Texture" id=35]
-[ext_resource path="res://sprites/extra_prisoner.png" type="Texture" id=36]
+[ext_resource path="res://sprites/extra_prisoner_gameover.png" type="Texture" id=36]
 [ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=37]
 
 [sub_resource type="DynamicFont" id=1]
@@ -316,12 +316,12 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "idol"
+animation = "Pig"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 6 )
-animation = "none"
+animation = "Prisoner"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
