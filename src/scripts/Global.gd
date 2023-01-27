@@ -91,7 +91,7 @@ var KatanaSfx = null
 
 ############################################################################
 
-var max_combo = 0
+var max_combo = 1
 var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
@@ -888,7 +888,7 @@ func enemy_by_floor():
 	
 func get_reward_floor():
 	var reward = FLOOR_REWARD[CURRENT_FLOOR]
-	var rnd = pick_random([0, 1, 3, 5, 7, 9])
+	var rnd = pick_random([1, 3, 5, 7, 9, 11, 13, 15, 17])
 	return reward + rnd
 	
 func init_room():
@@ -960,7 +960,7 @@ func initialize():
 	FLOOR_TYPE = ""
 	CURRENT_FLOOR = 0
 	
-	max_combo = 0
+	max_combo = 1
 	current_combo = 0
 	combo_time = 0
 	combo_time_total = 2.3
@@ -1034,7 +1034,7 @@ func add_combo():
 	if FLOOR_TYPE == floor_types.normal:
 		combo_time = combo_time_total
 		current_combo += 1
-		if current_combo > max_combo:
+		if current_combo >= max_combo:
 			max_combo = current_combo
 
 func get_floor_waves():
