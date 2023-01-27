@@ -34,6 +34,8 @@ func display_killer():
 	if Global.KillerisMeExtra != "":
 		$KillUExtra.animation = Global.KillerisMeExtra
 		description = Global.CURRENT_BOSS_NAME
+	else:
+		$KillUExtra.animation = "none"
 	
 	$Label4.text = description
 
