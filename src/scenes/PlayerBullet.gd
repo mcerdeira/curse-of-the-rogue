@@ -13,13 +13,29 @@ var pierce_count = 0
 var tomahawk_ttl = 0
 var falling = false
 var _in_water = false
+var ttl = 3.3
 
 func _ready():
 	$Area2D.add_to_group("playerbullet")
 
 func _initialize():
 	$sprite.animation = type
+	$sprite2.animation = type
+	if type != "power_glove":
+		$Area2D/collider2.queue_free()
 	
+	if type == "power_glove":
+		$Area2D/collider2.set_deferred("disabled", false)
+		$Area2D/collider.queue_free()
+		$sprite.visible = false
+		$sprite2.visible = true
+		$sprite2.playing = true
+		speed = 0
+		dmg = 0.1
+	if type == "spells_book":
+		$sprite.playing = true
+		speed = 350
+		dmg = 1.5
 	if type == "spikeball":
 		speed = 0
 		dmg = 0.2
@@ -53,11 +69,14 @@ func out_water():
 	if type == "bomb":
 		_in_water = false
 		
-func emit():
+func emit(where:=null):
 	var p = particle.instance()
 	var root = get_node("/root/Main")
 	root.add_child(p)
-	p.global_position = global_position
+	if where == null:
+		p.global_position = global_position
+	else:
+		p.global_position = where
 		
 func emit_self():
 	var p = particle.instance()
@@ -116,7 +135,8 @@ func _physics_process(delta):
 	
 	z_index = position.y
 	
-	move_and_slide(speed * dir)
+	if speed != 0:
+		move_and_slide(speed * dir)
 	
 	if _in_water and type == "bomb":
 		move_and_slide(Vector2(0, Global.water_speed))
@@ -142,7 +162,7 @@ func _physics_process(delta):
 				dir = (_chase[0].global_position - self.global_position).normalized()
 				$sprite.look_at(_chase[0].global_position)
 		
-	elif type == "plasma":
+	elif type == "plasma" or type == "spells_book":
 		$sprite.look_at(to_global(dir))
 		
 	elif type == "tomahawk":
@@ -156,22 +176,59 @@ func _physics_process(delta):
 		$sprite.rotation += 100 * delta
 	elif type == "shot_gun":
 		$sprite.rotation += 100 * delta
+	elif type == "power_glove":
+		ttl -= 1 * delta
+		Global.shaker_obj.shake(2, 0.2)
+		var mouse_pos = get_global_mouse_position()
+		var angle = get_angle_to(mouse_pos)
+		$sprite2.rotation = angle
+		$Area2D.rotation = angle
+		$Area2D.scale.x = randi() % 2
+		dmg = Global.pick_random([0.1, 0.2, 0.3, 0.5, 1])
+		if get_parent().entering:
+			ttl = -1
+		
+		if ttl <= 0:
+			get_parent().bulletonetimecreated = false
+			queue_free()
 		
 func _on_Area2D_area_entered(area):
-	if dmg > 0 and area.is_in_group("enemies"):
-		emit()
-		area.get_parent().hit(get_parent(), dmg, "player")
+	var go_emit = false
+	if area.is_in_group("decorations"):
+		go_emit = true
+		area._destroy()
+		
+	if dmg > 0 and area.is_in_group("bosses"):
+		go_emit = true
+		area.get_parent().hit(get_parent(), 0.1, "player")
 		if !piercing:
-			if type != "spikeball":
+			if type != "spikeball" and type != "power_glove":
 				queue_free()
 		else:
 			pierce_count -= 1
 			if pierce_count <= 0:
 				if type != "spikeball":
 					queue_free()
+	
+	if dmg > 0 and area.is_in_group("enemies"):
+		go_emit = true
+		area.get_parent().hit(get_parent(), dmg, "player")
+		if !piercing:
+			if type != "spikeball" and type != "power_glove":
+				queue_free()
+		else:
+			pierce_count -= 1
+			if pierce_count <= 0:
+				if type != "spikeball":
+					queue_free()
+					
+	if go_emit:
+		if type != "power_glove":
+			emit()
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Walls":
-		emit()
-		if type != "spikeball" and type != "bomb":
+		if type != "power_glove":
+			emit()
+		if type != "spikeball" and type != "bomb" and type != "power_glove":
 			queue_free()

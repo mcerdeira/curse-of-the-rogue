@@ -67,6 +67,10 @@ func _ready():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 		
+func add_justice():
+	Global.play_sound(Global.ItemSfx)
+	Global.has_justice = true
+		
 func add_cherry():
 	Global.play_sound(Global.ItemSfx)
 	
@@ -134,8 +138,9 @@ func add_heart(count):
 	
 	Global.refresh_hud()
 	
-func add_total_hearts(count):
-	Global.play_sound(Global.LifeSfx)
+func add_total_hearts(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.LifeSfx)
 	while(count > 0):
 		for i in range(Global.health.size()-1, -1, -1):
 			if count > 0:
@@ -151,8 +156,10 @@ func add_total_hearts(count):
 		
 	Global.refresh_hud()
 	
-func add_shield(count):
-	Global.play_sound(Global.LifeSfx)
+func add_shield(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.LifeSfx)
+		
 	for i in range(count):
 		Global.health.push_back(2)
 		
@@ -223,6 +230,10 @@ func add_poison():
 	Global.play_sound(Global.ItemSfx)
 	Global.poison = true
 	
+func add_balloon():
+	Global.play_sound(Global.ItemSfx)
+	Global.has_balloon = true
+	
 func add_electric():
 	Global.play_sound(Global.ItemSfx)
 	Global.electric = true
@@ -231,9 +242,10 @@ func add_ice():
 	Global.play_sound(Global.ItemSfx)
 	Global.frozen = true
 	
-func add_speed(count):
+func add_speed(count, play_sound:=true):
 	var mult = 50.0
-	Global.play_sound(Global.ItemSfx)
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
 	
 	Global.add_extra_display("speed", (count * mult/ 100.0))
 	yield(get_tree().create_timer(.5), "timeout") 
@@ -243,30 +255,38 @@ func add_speed(count):
 	if Global.speed < 0:
 		Global.speed = 0
 	
-func add_shoot_speed(count):
-	Global.play_sound(Global.ItemSfx)
+func add_shoot_speed(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
+		
 	Global.add_extra_display("shoot_speed", count)
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("shoot_speed")
 	
 	Global.shoot_speed_speed += count
 
-func add_melee(count):
-	Global.play_sound(Global.ItemSfx)
+func add_melee(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
+		
 	Global.add_extra_display("melee_speed", count)
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("melee_speed")
 	Global.melee_speed += count
 	
-func add_luck(count):
-	Global.play_sound(Global.ItemSfx)
+func add_luck(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
+		
 	Global.add_extra_display("luck", count)
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("luck")
 	Global.bad_luck -= count
 	
-func add_damage(count):
-	Global.play_sound(Global.ItemSfx)
+func add_damage(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
+		
 	Global.add_extra_display("attack", count)
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("attack")
@@ -284,6 +304,11 @@ func in_water():
 	
 func out_water():
 	_in_water = false
+
+func do_justice():
+	var dests = get_tree().get_nodes_in_group("enemy_objects")
+	for d in dests:
+		d.hit(null, 0.5, "justice_fx")
 	
 func hit(dmg, from, can_zombie:=false, effect_name:=""):
 	if !entering and inv_time <= 0 and rolling_ttl <= 0:
@@ -296,6 +321,10 @@ func hit(dmg, from, can_zombie:=false, effect_name:=""):
 		if effect_name == "ice":
 			Global.play_sound(Global.FrozeSfx)
 			freeze_ttl = 2.5
+			
+		if effect_name == "":
+			if Global.has_justice:
+				do_justice()
 		
 		Global.shaker_obj.shake(2, 0.2)
 		
@@ -425,7 +454,7 @@ func entering():
 	$sprite.animation = "back" + ani_aditional
 	
 func get_random_enemy():
-	var _chase = get_tree().get_nodes_in_group("enemies")
+	var _chase = get_tree().get_nodes_in_group("enemy_objects")
 	var direction = null
 	if _chase.size() > 0:
 		randomize()
@@ -459,7 +488,13 @@ func create_bullet_nodir(_dir):
 		bullet.global_position = global_position
 
 func create_bullet(_dir):
-	if Global.automatic_weapon == "spikeball":
+	if Global.automatic_weapon == "power_glove":
+		var bullet = PlayerBullet.instance()
+		bullet.type = Global.automatic_weapon
+		bullet.dir = _dir
+		bullet.position = $automatic_weapon.position
+		add_child(bullet)
+	elif Global.automatic_weapon == "spikeball":
 		var bullet = BulletGroup.instance()
 		add_child(bullet)
 		bullet.global_position = global_position
@@ -476,6 +511,22 @@ func shoot():
 		Global.play_sound(Global.SpikeBallSfx)
 		bulletonetimecreated = true
 		create_bullet(null)
+		
+	if !bulletonetimecreated and Global.automatic_weapon == "power_glove":
+		Global.play_sound(Global.PlasmaSfx)
+		bulletonetimecreated = true
+		create_bullet(null)
+		
+	if Global.automatic_weapon == "spells_book":
+		Global.play_sound(Global.PlasmaSfx)
+		var _chase = get_tree().get_nodes_in_group("enemy_objects")
+		var direction = null
+		for c in _chase:
+			direction = (c.global_position - self.global_position).normalized()
+			create_bullet(direction)
+		
+		if direction:
+			emit()
 	
 	if Global.automatic_weapon == "plasma":
 		Global.play_sound(Global.PlasmaSfx)
@@ -576,6 +627,7 @@ func melee_attack():
 func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug_button1"):
 #		add_melee(0.1)
+
 	if restzoom:
 		if $Camera2D.zoom.x <= 1:
 			$Camera2D.zoom.x += 1 * delta
@@ -615,11 +667,17 @@ func _physics_process(delta):
 		$sprite.animation = "back" + ani_aditional
 	
 	if $automatic_weapon.visible:
-		if normalize_direction > 0:
-			normalize_direction -= 1 * delta
+		if Global.automatic_weapon == "power_glove":
+			var mouse_pos = get_global_mouse_position()
+			var angle = get_angle_to(mouse_pos)
+			$automatic_weapon.rotation = angle
+
 		else:
-			$automatic_weapon.rotation = lerp_angle($automatic_weapon.rotation, 0, 0.2)
-	
+			if normalize_direction > 0:
+				normalize_direction -= 1 * delta
+			else:
+				$automatic_weapon.rotation = lerp_angle($automatic_weapon.rotation, 0, 0.2)
+		
 	if entering:
 		$automatic_weapon.visible = false
 		if !Global.flying:
@@ -732,10 +790,11 @@ func _physics_process(delta):
 	movement = Vector2.ZERO
 	
 	if Global.automatic_weapon != "":
-		Global.shoot_speed -= Global.shoot_speed_speed * delta
-		if Global.shoot_speed <= 0:
-			Global.shoot_speed = Global.shoot_speed_total
-			shoot()
+		if !bulletonetimecreated:
+			Global.shoot_speed -= Global.shoot_speed_speed * delta
+			if Global.shoot_speed <= 0:
+				Global.shoot_speed = Global.shoot_speed_total
+				shoot()
 	
 	if action2:
 		if explosive_item_ttl <= 0 and Global.secondary_weapon == "explosive_item":

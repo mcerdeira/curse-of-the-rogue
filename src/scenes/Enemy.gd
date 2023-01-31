@@ -833,7 +833,7 @@ func OuchSfx():
 		Global.play_sound(Global.SkeleHitSfx)
 		
 func effects(from):
-	return (from == "poison_fx" or from == "electricity_fx")
+	return (from == "poison_fx" or from == "justice_fx" or from == "electricity_fx")
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
@@ -904,6 +904,11 @@ func _on_area_body_entered(body):
 			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg, enemy_type)
+		
+	if electric_effect <= 0 and Global.has_balloon:
+		Global.play_sound(Global.ElectricSfx)
+		electric_effect = electric_effect_total
+		
 		if sleep:
 			awake()
 		

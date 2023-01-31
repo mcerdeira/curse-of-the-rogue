@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://sprites/playerback_spr_3.png" type="Texture" id=8]
 [ext_resource path="res://sprites/playerback_spr_0.png" type="Texture" id=9]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=10]
+[ext_resource path="res://sprites/power_glove_weapon.png" type="Texture" id=11]
 [ext_resource path="res://sprites/player_pass_spr_0.png" type="Texture" id=13]
 [ext_resource path="res://sprites/player_falling_spr_0.png" type="Texture" id=14]
 [ext_resource path="res://sprites/zombieback_spr_2.png" type="Texture" id=15]
@@ -143,6 +144,11 @@ animations = [ {
 "name": "plasma",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "power_glove",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 25 ) ],
 "loop": true,
 "name": "shot_gun",
@@ -171,7 +177,7 @@ smoothing_enabled = true
 [node name="automatic_weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 11, 4 )
 frames = SubResource( 6 )
-animation = "plasma"
+animation = "power_glove"
 offset = Vector2( 14, 0 )
 
 [node name="collider" type="CollisionShape2D" parent="."]

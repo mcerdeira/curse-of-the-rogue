@@ -96,6 +96,8 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var has_justice = false
+var has_balloon = false
 var flying = false
 var masterkey = false
 var life2win = false
@@ -288,6 +290,15 @@ var fly_item = {
 	"oneshot": true,
 }
 
+var justice = {
+	"name": "justice",
+	"description": "Justice",
+	"long_description": "... and Justice for all...",
+	"price": 380,
+	"type": "consumable",
+	"oneshot": true,
+}
+
 var magnet_item = {
 	"name": "magnet",
 	"description": "Magnet",
@@ -321,6 +332,15 @@ var life_2_win = {
 	"long_description": "Attack depends on Life",
 	"price": 550,
 	"type": "active",
+	"oneshot": true,
+}
+
+var balloon = {
+	"name": "balloon",
+	"description": "Balloon",
+	"long_description": "Zap! Zap!",
+	"price": 120,
+	"type": "pasive",
 	"oneshot": true,
 }
 
@@ -373,6 +393,24 @@ var plasma = {
 	"name": "plasma",
 	"description": "Plasma Balls",
 	"long_description": "Science!!",
+	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
+var spells_book = {
+	"name": "spells_book",
+	"description": "Spells Book",
+	"long_description": "Spooky",
+	"price": 300,
+	"type": "gun",
+	"oneshot": true,
+}
+
+var power_glove = {
+	"name": "power_glove",
+	"description": "Gauntlet",
+	"long_description": "I don't feel so good",
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
@@ -473,6 +511,15 @@ var meleeup = {
 	"description": "Chocolate Bar",
 	"long_description": "Melee Speed Up",
 	"price": 150,
+	"type": "passive",
+	"oneshot": true,
+}
+
+var ice_cream =  {
+	"name": "ice_cream",
+	"description": "Ice Cream",
+	"long_description": "All Stats Up!",
+	"price": 200,
 	"type": "passive",
 	"oneshot": true,
 }
@@ -738,6 +785,11 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(explosive_item)
 	PREMIUM_ITEMS.push_back(blue_lobster)
 	PREMIUM_ITEMS.push_back(cherry_item)
+	PREMIUM_ITEMS.push_back(balloon)
+	PREMIUM_ITEMS.push_back(ice_cream)
+	PREMIUM_ITEMS.push_back(justice)
+	PREMIUM_ITEMS.push_back(spells_book)
+	PREMIUM_ITEMS.push_back(power_glove)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1023,6 +1075,8 @@ func initialize():
 	flying = false
 	kills = 0
 	cherry = false
+	has_balloon = false
+	has_justice = false
 	
 	_data_overload()
 

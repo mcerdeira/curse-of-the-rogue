@@ -96,9 +96,23 @@ func do_item_effect(_player):
 			Global.one_shot_items.append(texture)
 			Global.refresh_hud()
 		
-	if item_name == "katana":
+	if item_name == "ice_cream":
+		_player.add_total_hearts(1, true)
+		_player.add_shield(1, false)
+		_player.add_damage(1, true)
+		_player.add_luck(1, false)
+		_player.add_melee(0.1, false)
+		_player.add_speed(1, false)
+		_player.add_shoot_speed(0.5, false)
+	elif item_name == "power_glove":
+		_player.add_automatic_weapon(item_name)
+	elif item_name == "spells_book":
+		_player.add_automatic_weapon(item_name)
+	elif item_name == "justice":
+		_player.add_justice()
+	elif item_name == "katana":
 		_player.add_primary_weapon(item_name)
-	if item_name == "blue_heart":
+	elif item_name == "blue_heart":
 		_player.add_shield(1)
 	elif item_name == "spikeball":
 		_player.add_automatic_weapon(item_name)
@@ -106,12 +120,14 @@ func do_item_effect(_player):
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "brain":
 		_player.add_brain()
-	elif item_name == "damageup":
+	elif item_name == "damageup":#ramen
 		_player.add_damage(2)
 	elif item_name == "dash":
 		_player.add_secondary_weapon(item_name)
 	elif item_name == "explosive_item":
 		_player.add_secondary_weapon(item_name)
+	elif item_name == "balloon":
+		_player.add_balloon()
 	elif item_name == "electric_attack":
 		_player.add_electric()
 	elif item_name == "empty_heart":
@@ -135,9 +151,9 @@ func do_item_effect(_player):
 	elif item_name == "cherry_item":
 		_player.add_cherry()
 	elif item_name == "blue_lobster":
-		_player.add_luck(2)
-		_player.add_shield(4)
-		_player.add_damage(1)
+		_player.add_luck(2, true)
+		_player.add_shield(4, true)
+		_player.add_damage(1, false)
 	elif item_name == "meleeup":
 		_player.add_melee(0.1)
 	elif item_name == "normal_heart":
