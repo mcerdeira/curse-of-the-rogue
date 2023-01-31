@@ -96,6 +96,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var has_idol_mask = false
 var has_justice = false
 var has_balloon = false
 var flying = false
@@ -295,6 +296,15 @@ var justice = {
 	"description": "Justice",
 	"long_description": "... and Justice for all...",
 	"price": 380,
+	"type": "consumable",
+	"oneshot": true,
+}
+
+var idol_mask = {
+	"name": "idol_mask",
+	"description": "Mask of the Gods",
+	"long_description": "Fear of the Mask",
+	"price": 350,
 	"type": "consumable",
 	"oneshot": true,
 }
@@ -732,6 +742,7 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
+	has_idol_mask = true
 	
 func restart_game():
 	restart_pools()
@@ -790,6 +801,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(justice)
 	PREMIUM_ITEMS.push_back(spells_book)
 	PREMIUM_ITEMS.push_back(power_glove)
+	PREMIUM_ITEMS.push_back(idol_mask)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1077,6 +1089,7 @@ func initialize():
 	cherry = false
 	has_balloon = false
 	has_justice = false
+	has_idol_mask = false
 	
 	_data_overload()
 

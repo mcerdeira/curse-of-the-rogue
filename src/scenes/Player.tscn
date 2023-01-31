@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sprites/playerback_spr_0.png" type="Texture" id=9]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=10]
 [ext_resource path="res://sprites/power_glove_weapon.png" type="Texture" id=11]
+[ext_resource path="res://sprites/idol_mask1.png" type="Texture" id=12]
 [ext_resource path="res://sprites/player_pass_spr_0.png" type="Texture" id=13]
 [ext_resource path="res://sprites/player_falling_spr_0.png" type="Texture" id=14]
 [ext_resource path="res://sprites/zombieback_spr_2.png" type="Texture" id=15]
@@ -37,7 +38,36 @@
 [ext_resource path="res://sprites/player_spr_roll_0.png" type="Texture" id=36]
 [ext_resource path="res://sprites/werewolf_spr_roll_0.png" type="Texture" id=37]
 [ext_resource path="res://sprites/zombie_spr_roll_0.png" type="Texture" id=38]
+[ext_resource path="res://sprites/idol_mask_back.png" type="Texture" id=39]
 [ext_resource path="res://scenes/Shaker.gd" type="Script" id=69]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform float blackened;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(0,0,0), blackened), texture_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/blackened = null
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "idol_mask",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "idol_mask_back",
+"speed": 5.0
+} ]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -164,6 +194,12 @@ script = ExtResource( 4 )
 [node name="shadow" type="Sprite" parent="."]
 position = Vector2( 0, 15 )
 texture = ExtResource( 10 )
+
+[node name="masks" type="AnimatedSprite" parent="."]
+material = SubResource( 9 )
+position = Vector2( 0, -23 )
+frames = SubResource( 7 )
+animation = "idol_mask_back"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )

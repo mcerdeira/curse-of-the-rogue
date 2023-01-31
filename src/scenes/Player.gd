@@ -67,6 +67,11 @@ func _ready():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 		
+func add_idol_mask(play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.ItemSfx)
+	Global.has_idol_mask = true
+		
 func add_justice():
 	Global.play_sound(Global.ItemSfx)
 	Global.has_justice = true
@@ -452,6 +457,7 @@ func entering():
 	Global.LOGIC_PAUSE = true
 	$sprite.material.set_shader_param("blackened", true)
 	$sprite.animation = "back" + ani_aditional
+	$masks.material.set_shader_param("blackened", true)
 	
 func get_random_enemy():
 	var _chase = get_tree().get_nodes_in_group("enemy_objects")
@@ -655,6 +661,9 @@ func _physics_process(delta):
 	
 	safe_pos.append(position)
 	
+	if Global.has_idol_mask:
+		add_idol_mask(false)
+	
 	if Global.werewolf:
 		turn_into_werewolf()
 		
@@ -840,6 +849,15 @@ func _physics_process(delta):
 	elif up:
 		movement.y = -Global.speed
 		back = true
+		
+	if Global.has_idol_mask:
+		$masks.visible = true
+		if back:
+			$masks.animation = "idol_mask_back"
+			$masks.z_index = $sprite.z_index - 1
+		else:
+			$masks.animation = "idol_mask"
+			$masks.z_index = $sprite.z_index + 1
 		
 	if _in_water:
 		movement.y += Global.water_speed

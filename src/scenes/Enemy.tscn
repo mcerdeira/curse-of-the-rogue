@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://sprites/mimi_shadow.png" type="Texture" id=38]
 [ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=39]
 [ext_resource path="res://sprites/idol_shadow.png" type="Texture" id=40]
+[ext_resource path="res://sprites/weak_fx.png" type="Texture" id=41]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -225,8 +226,12 @@ animation = "chest_closed"
 material = SubResource( 6 )
 frames = SubResource( 2 )
 animation = "idol"
-frame = 1
 playing = true
+
+[node name="weak_fx" type="Sprite" parent="sprite"]
+visible = false
+position = Vector2( 0, -30 )
+texture = ExtResource( 41 )
 
 [node name="area" type="Area2D" parent="."]
 

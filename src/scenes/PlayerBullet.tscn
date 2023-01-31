@@ -77,7 +77,7 @@ script = ExtResource( 3 )
 [node name="sprite2" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
 animation = "power_glove"
-frame = 4
+frame = 3
 speed_scale = 2.0
 playing = true
 offset = Vector2( 298, -1 )

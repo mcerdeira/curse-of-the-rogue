@@ -108,6 +108,11 @@ func do_item_effect(_player):
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "spells_book":
 		_player.add_automatic_weapon(item_name)
+	elif item_name == "idol_mask":
+		_player.add_shield(1, false)
+		_player.add_damage(1, false)
+		_player.add_speed(1, false)
+		_player.add_idol_mask(true)
 	elif item_name == "justice":
 		_player.add_justice()
 	elif item_name == "katana":

@@ -501,6 +501,11 @@ func set_type(_type):
 	$sprite.position.y = 0
 	$sprite.animation = enemy_type
 	
+	var life_mult = 1
+	if Global.has_idol_mask:
+		$sprite/weak_fx.visible = true
+		life_mult = 0.5
+	
 	add_rotatebullet()
 	
 	if enemy_type != "bloby":
@@ -511,7 +516,7 @@ func set_type(_type):
 	if enemy_type == "bloby":
 		var options = {"pitch_scale": 2.5}
 		Global.play_sound(Global.SpiderSfx, options)
-		life = 4
+		life = 4 * life_mult
 		speed = 100
 		speed_total = 100
 		shoot_on_die = false
@@ -550,7 +555,7 @@ func set_type(_type):
 		shoot_type = true
 		speed = 100
 		speed_total = 100
-		life = 3
+		life = 3 * life_mult
 		dmg = 1
 		chase_player = false
 		flying = true
@@ -579,9 +584,13 @@ func set_type(_type):
 		shoot_type = true
 		speed = 150
 		speed_total = 150
-		life = 5
+		life = 5 * life_mult
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
 		flying = false
 		fireinmune = true
 		is_enemy_group = false
@@ -610,9 +619,13 @@ func set_type(_type):
 		shoot_type = true
 		speed = 0
 		speed_total = 0
-		life = 1
+		life = 1 * life_mult
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+		
 		flying = true
 		fireinmune = false
 		is_enemy_group = true
@@ -639,7 +652,7 @@ func set_type(_type):
 		shoot_type = true
 		speed = 60
 		speed_total = 60
-		life = Global.attack * 8
+		life = (Global.attack * 8) * life_mult
 		dmg = 1
 		chase_player = false
 		flying = true
@@ -656,7 +669,7 @@ func set_type(_type):
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollSfx, options)
-		life = Global.attack * 5
+		life = (Global.attack * 5) * life_mult
 		speed = 30
 		speed_total = 30
 		stopandgo = false
@@ -667,7 +680,11 @@ func set_type(_type):
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
 		flying = false
 		fireinmune = false
 		is_enemy_group = false
@@ -679,7 +696,7 @@ func set_type(_type):
 		random_shooter = true
 		
 	if enemy_type == "chest_closed":
-		life = 4
+		life = 4 * life_mult
 		speed = 180
 		speed_total = 200
 		stopandgo = false
@@ -692,7 +709,11 @@ func set_type(_type):
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
 		flying = false
 		fireinmune = false
 		is_enemy_group = false
@@ -706,12 +727,12 @@ func set_type(_type):
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
-			life = 4
+			life = 4 * life_mult
 			speed = 180
 			speed_total = 200
 			stopandgo = false
 		else:
-			life = 1
+			life = 1 * life_mult
 			speed = 100
 			speed_total = 200
 			stopandgo = true
@@ -723,7 +744,11 @@ func set_type(_type):
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
 		flying = false
 		fireinmune = false
 		is_enemy_group = false
@@ -738,7 +763,7 @@ func set_type(_type):
 		if enemy_type == "spider":
 			var options = {"pitch_scale": 0.5}
 			Global.play_sound(Global.SpiderSfx, options)
-			life = 6
+			life = 6 * life_mult
 			speed = 180
 			speed_total = 200
 			shoot_on_die = true
@@ -754,7 +779,7 @@ func set_type(_type):
 			$area/collider_dead_fire.set_deferred("disabled", true)
 			$area/collider_ghost.set_deferred("disabled", false)
 		else:
-			life = 1
+			life = 1 * life_mult
 			speed = 100
 			speed_total = 200
 			shoot_on_die = false
@@ -767,7 +792,11 @@ func set_type(_type):
 			$area/collider_ghost.set_deferred("disabled", true)
 
 		dmg = 1
-		chase_player = true
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
 		flying = false
 		fireinmune = false
 		is_enemy_group = false
@@ -792,9 +821,13 @@ func set_type(_type):
 		
 		speed = 80
 		speed_total = 80
-		life = 2
+		life = 2 * life_mult
 		dmg = 1
-		chase_player = Global.pick_random([true, false])
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = Global.pick_random([true, false])
+			
 		flying = false
 		fireinmune = false
 		is_enemy_group = false

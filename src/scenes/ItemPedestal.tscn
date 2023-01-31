@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://sprites/justice.png" type="Texture" id=40]
 [ext_resource path="res://sprites/spells_book.png" type="Texture" id=41]
 [ext_resource path="res://sprites/power_glove.png" type="Texture" id=42]
+[ext_resource path="res://sprites/idol_mask_item.png" type="Texture" id=43]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -139,6 +140,11 @@ animations = [ {
 "frames": [ ExtResource( 39 ) ],
 "loop": true,
 "name": "ice_cream",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "idol_mask",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 40 ) ],
@@ -282,6 +288,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "power_glove"
+animation = "idol_mask"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

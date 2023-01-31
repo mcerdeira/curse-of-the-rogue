@@ -178,7 +178,7 @@ func _physics_process(delta):
 		$sprite.rotation += 100 * delta
 	elif type == "power_glove":
 		ttl -= 1 * delta
-		Global.shaker_obj.shake(2, 0.2)
+		Global.shaker_obj.shake(Global.pick_random([2, 3, 4]), 0.2)
 		var mouse_pos = get_global_mouse_position()
 		var angle = get_angle_to(mouse_pos)
 		$sprite2.rotation = angle
