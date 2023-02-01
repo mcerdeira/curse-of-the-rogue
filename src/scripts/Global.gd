@@ -96,6 +96,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var has_bleed = false
 var has_idol_mask = false
 var has_justice = false
 var has_balloon = false
@@ -279,6 +280,15 @@ var explosive_item = {
 	"long_description": "Explosive personality",
 	"price": 300,
 	"type": "active",
+	"oneshot": true,
+}
+
+var pin_item = {
+	"name": "pin_item",
+	"description": "Pin",
+	"long_description": "Bleed, mother******s",
+	"price": 350,
+	"type": "consumable",
 	"oneshot": true,
 }
 
@@ -742,7 +752,7 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
-	has_idol_mask = true
+	has_bleed = true
 	
 func restart_game():
 	restart_pools()
@@ -802,6 +812,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(spells_book)
 	PREMIUM_ITEMS.push_back(power_glove)
 	PREMIUM_ITEMS.push_back(idol_mask)
+	PREMIUM_ITEMS.push_back(pin_item)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1090,6 +1101,7 @@ func initialize():
 	has_balloon = false
 	has_justice = false
 	has_idol_mask = false
+	has_bleed = false
 	
 	_data_overload()
 

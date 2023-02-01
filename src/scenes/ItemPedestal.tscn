@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scenes/ItemPedestal.gd" type="Script" id=1]
 [ext_resource path="res://sprites/pedestal.png" type="Texture" id=2]
@@ -43,6 +43,7 @@
 [ext_resource path="res://sprites/spells_book.png" type="Texture" id=41]
 [ext_resource path="res://sprites/power_glove.png" type="Texture" id=42]
 [ext_resource path="res://sprites/idol_mask_item.png" type="Texture" id=43]
+[ext_resource path="res://sprites/pin_item.png" type="Texture" id=44]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.9848
@@ -202,6 +203,11 @@ animations = [ {
 "name": "pay_2_win",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 44 ) ],
+"loop": true,
+"name": "pin_item",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 33 ) ],
 "loop": true,
 "name": "plasma",
@@ -288,6 +294,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "idol_mask"
+animation = "pin_item"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

@@ -300,6 +300,10 @@ func add_damage(count, play_sound:=true):
 	if Global.attack < 0:
 		Global.attack = 0.1
 		
+func add_pin():
+	Global.play_sound(Global.ItemSfx)
+	Global.has_bleed= true
+		
 func add_fly():
 	Global.play_sound(Global.ItemSfx)
 	Global.flying = true

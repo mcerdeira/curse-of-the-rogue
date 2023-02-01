@@ -47,8 +47,10 @@ func _on_Gem_body_entered(body):
 			taken = true
 			if type == "gem":
 				body.add_gem(gem_count)
-			else:
+			elif type == "key":
 				body.add_key(gem_count)
+			elif type == "life":
+				body.add_heart(gem_count)
 
 func _destroy():
 	emit()

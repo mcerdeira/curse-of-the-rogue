@@ -5,6 +5,7 @@ var pong_dir = Vector2.ZERO
 var rbull = null
 var life = 0
 var dmg = 0
+var bleeding = false
 var shoot_count_total = 0
 var shoot_count = 0
 var iamasign_ttl = 0.9
@@ -14,6 +15,7 @@ var speed = 0
 var speed_total = 0
 var point_chase = null
 var player_chase = null
+var Blood = preload("res://scenes/Blood.tscn")
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
@@ -64,6 +66,16 @@ func _ready():
 	$shadow.visible = false
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
+	
+func bleed():
+	if randi() % 7 == 0:
+		drop_life()
+	
+	for i in range(Global.pick_random([1, 2])):
+		var p = Blood.instance()
+		var root = get_node("/root/Main")
+		root.add_child(p)
+		p.global_position = global_position
 
 func emit(colored:=false):
 	for i in range(2):
@@ -77,17 +89,41 @@ func emit(colored:=false):
 			else:
 				p.color = Global.poisoned_color
 		
+func drop_life():
+	var p = Gem.instance()
+	p.type = "life"
+	p._init_sprite()
+	var root = get_node("/root/Main")
+	root.add_child(p)
+	p.global_position = global_position
+	
+func drop_key():
+	var p = Gem.instance()
+	p.type = "key"
+	p._init_sprite()
+	var root = get_node("/root/Main")
+	root.add_child(p)
+	p.global_position = global_position
+		
 func drop_gem():
 	var count = 1
 	
-	for i in range(count):
-		var p = Gem.instance()
-		var root = get_node("/root/Main")
-		root.add_child(p)
-		p.global_position = global_position
+	if randi() % 15 == 0:
+		drop_key()
+	else:
+		for i in range(count):
+			var p = Gem.instance()
+			var root = get_node("/root/Main")
+			root.add_child(p)
+			p.global_position = global_position
 
 func _physics_process(delta):
 	if !iamasign:
+		if bleeding:
+			if randi() % 100 + 1 == 100:
+				bleed()
+				hit(null, 1 * delta, "bleed_fx")
+		
 		if poisoned:
 			if randi() % 100 + 1 == 100:
 				emit()
@@ -728,9 +764,14 @@ func set_type(_type):
 		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
 			life = 4 * life_mult
-			speed = 180
-			speed_total = 200
-			stopandgo = false
+			if Global.has_idol_mask:
+				speed = 100
+				speed_total = 200
+				stopandgo = true
+			else:
+				speed = 180
+				speed_total = 200
+				stopandgo = false
 		else:
 			life = 1 * life_mult
 			speed = 100
@@ -866,7 +907,7 @@ func OuchSfx():
 		Global.play_sound(Global.SkeleHitSfx)
 		
 func effects(from):
-	return (from == "poison_fx" or from == "justice_fx" or from == "electricity_fx")
+	return (from == "poison_fx" or from == "justice_fx" or from == "bleed_fx" or from == "electricity_fx")
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
@@ -877,6 +918,10 @@ func hit(origin, dmg, from):
 			stop_moving = 0.01
 			
 		life -= dmg
+		
+		if !effects(from) and Global.has_bleed:
+			bleeding = true
+			bleed()
 		
 		if !effects(from):
 			hit_ttl = hit_ttl_total

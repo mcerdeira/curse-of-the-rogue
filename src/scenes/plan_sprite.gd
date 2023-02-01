@@ -28,13 +28,18 @@ func drop_scorpion():
 	enemy_inst.global_position = global_position
 	
 func drop_gem():
-	var count = 1
+	var item = "gem"
+	if Global.pick_random([true, true, true, false]):
+		item = "gem"
+	else:
+		item = Global.pick_random(["life", "key"])
 	
-	for i in range(count):
-		var p = Gem.instance()
-		var root = get_node("/root/Main")
-		root.add_child(p)
-		p.global_position = global_position
+	var p = Gem.instance()
+	p.type = item
+	p._init_sprite()
+	var root = get_node("/root/Main")
+	root.add_child(p)
+	p.global_position = global_position
 	
 func initialize_me():
 	var posi = []

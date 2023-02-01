@@ -196,6 +196,7 @@ position = Vector2( 0, 15 )
 texture = ExtResource( 10 )
 
 [node name="masks" type="AnimatedSprite" parent="."]
+visible = false
 material = SubResource( 9 )
 position = Vector2( 0, -23 )
 frames = SubResource( 7 )
