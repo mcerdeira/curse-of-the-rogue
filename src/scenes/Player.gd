@@ -126,8 +126,10 @@ func add_magnet():
 	Global.play_sound(Global.ItemSfx)
 	Global.magnet = true
 	
-func add_heart(count):
-	Global.play_sound(Global.LifeSfx)
+func add_heart(count, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.LifeSfx)
+		
 	for i in range(Global.health.size()):
 		if Global.health[i] == 0 and count > 0:
 			Global.health[i] = 1

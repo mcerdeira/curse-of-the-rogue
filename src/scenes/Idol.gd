@@ -20,6 +20,7 @@ func _on_Idol_body_entered(body):
 		if body.is_in_group("players"):
 			var texture = item_texture
 			Global.one_shot_items.append(texture)
+			body.add_heart(Global.health.size(), false)
 			Global.idol_acquired()
 			Global.play_sound(Global.WheelSfx)
 			Global.refresh_hud()
