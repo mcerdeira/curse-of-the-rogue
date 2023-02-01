@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var bleeding = false
 var charge_bounce_count = 0
 var charging = false
 var charging_ttl_total = 1.8
@@ -35,6 +36,8 @@ var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var BulletLander = preload("res://scenes/BulletLander.tscn")
 var ChargeAttack = preload("res://scenes/ChargeAttack.tscn")
+var Blood = preload("res://scenes/Blood.tscn")
+var Gem = preload("res://scenes/Gem.tscn")
 var charge_inst = null
 var move_dir = 1
 var movement_type = null
@@ -118,8 +121,16 @@ func generate_boss():
 	else:
 		$weapon.queue_free()
 		
+func drop_life():
+	var p = Gem.instance()
+	p.type = "life"
+	p._init_sprite()
+	var root = get_node("/root/Main")
+	root.add_child(p)
+	p.global_position = global_position
+		
 func effects(from):
-	return (from == "poison_fx" or from == "electricity_fx")
+	return (from == "poison_fx" or from == "justice_fx" or from == "bleed_fx" or from == "electricity_fx")
 	
 func AttackSfx():
 	var options = {"pitch_scale": 0.3}
@@ -140,6 +151,10 @@ func hit(origin, dmg, from):
 		
 		if !effects(from):
 			hit_ttl = hit_ttl_total
+			
+		if !effects(from) and Global.has_bleed:
+			bleeding = true
+			bleed()
 		
 		if life > 0:
 			if !effects(from):
@@ -174,6 +189,11 @@ func hit(origin, dmg, from):
 				Global.sustain()
 		
 func _physics_process(delta):
+	if bleeding:
+		if randi() % 100 + 1 == 100:
+			bleed()
+			hit(null, 0.1 * delta, "bleed_fx")
+	
 	if poisoned:
 		if randi() % 100 + 1 == 100:
 			emit()
@@ -601,6 +621,16 @@ func _draw():
 			draw_line(Vector2(xx,yy),Vector2(last_x,last_y), Color8(255, 255, 255), 1)
 			last_x = xx
 			last_y = yy
+			
+func bleed():
+	if randi() % 7 == 0:
+		drop_life()
+	
+	for i in range(Global.pick_random([1, 2])):
+		var p = Blood.instance()
+		var root = get_node("/root/Main")
+		root.add_child(p)
+		p.global_position = global_position
 			
 func explode():
 	var p = particle.instance()
