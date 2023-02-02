@@ -36,6 +36,7 @@ func shoot():
 			create_bullet_nodir()
 		
 func orbital_behaviour(delta):
+	z_index = global_position.y + 16
 	if type == "grandpa_photo":
 		shoot_ttl -= 1 * delta
 		if shoot_ttl <= 0:
