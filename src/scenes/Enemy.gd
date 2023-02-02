@@ -971,10 +971,11 @@ func die():
 		queue_free()
 		
 func awake():
-	Global.play_sound(Global.ScorpionSfx)
-	$sprite.animation = "mimic"
-	$shadow.animation = "mimic"
-	sleep = false
+	if sleep:
+		Global.play_sound(Global.ScorpionSfx)
+		$sprite.animation = "mimic"
+		$shadow.animation = "mimic"
+		sleep = false
 
 func _on_area_body_entered(body):
 	if visible and !iamasign and body.is_in_group("players"):
@@ -982,13 +983,11 @@ func _on_area_body_entered(body):
 			$sprite.modulate = Global.infected_color
 			infected = true
 		body.hit(dmg, enemy_type)
-		
+		awake()
+			
 	if electric_effect <= 0 and Global.has_balloon:
 		Global.play_sound(Global.ElectricSfx)
 		electric_effect = electric_effect_total
-		
-		if sleep:
-			awake()
 		
 func _draw():
 	if electric_effect > 0 and destiny:
