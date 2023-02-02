@@ -250,7 +250,7 @@ func add_brain(original:=true):
 		Global.play_sound(Global.ItemSfx)
 		
 	if Global.zombie:
-		Global.health = [4, 4, 4, 4]
+		Global.health = [4, 4, 4, 4, 4]
 	
 func add_poison():
 	Global.play_sound(Global.ItemSfx)
