@@ -762,7 +762,6 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
-	orbitals.append("grandpa_photo")
 	
 func restart_game():
 	restart_pools()
