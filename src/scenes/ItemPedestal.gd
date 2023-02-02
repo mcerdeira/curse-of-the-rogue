@@ -104,6 +104,8 @@ func do_item_effect(_player):
 		_player.add_melee(0.1, false)
 		_player.add_speed(1, false)
 		_player.add_shoot_speed(0.5, false)
+	elif item_description == "grandpa_photo":
+		_player.add_orbital(item_name)
 	elif item_name == "power_glove":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "spells_book":

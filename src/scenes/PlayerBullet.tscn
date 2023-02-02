@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://sprites/bomb_bullet2.png" type="Texture" id=1]
 [ext_resource path="res://sprites/bomb_bullet1.png" type="Texture" id=2]
@@ -19,6 +19,9 @@
 [ext_resource path="res://sprites/power_glove_bullet3.png" type="Texture" id=17]
 [ext_resource path="res://sprites/power_glove_bullet4.png" type="Texture" id=18]
 [ext_resource path="res://sprites/power_glove_bullet5.png" type="Texture" id=19]
+[ext_resource path="res://sprites/grandpa_photo_bullet2.png" type="Texture" id=20]
+[ext_resource path="res://sprites/grandpa_photo_bullet.png" type="Texture" id=21]
+[ext_resource path="res://sprites/grandpa_photo_bullet1.png" type="Texture" id=22]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -33,6 +36,11 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "bomb",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "grandpa_photo",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -75,6 +83,7 @@ extents = Vector2( 306.5, 11.375 )
 script = ExtResource( 3 )
 
 [node name="sprite2" type="AnimatedSprite" parent="."]
+visible = false
 frames = SubResource( 3 )
 animation = "power_glove"
 frame = 3
@@ -84,7 +93,7 @@ offset = Vector2( 298, -1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "bomb"
+animation = "grandpa_photo"
 
 [node name="Area2D" type="Area2D" parent="."]
 

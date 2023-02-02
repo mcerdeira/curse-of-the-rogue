@@ -43,6 +43,10 @@ func _initialize():
 		tomahawk_ttl = 0.8
 		speed = 150
 		dmg = 2
+	if type == "grandpa_photo":
+		$sprite.playing = true
+		speed = 350
+		dmg = 0.4
 	if type == "plasma":
 		$sprite.playing = true
 		speed = 350
@@ -152,6 +156,15 @@ func _physics_process(delta):
 		if explode_ttl <= 1:
 			$sprite.playing = true
 			$sprite.speed_scale = 2
+			
+	elif type == "grandpa_photo":
+		if !dir:
+			var _chase = get_tree().get_nodes_in_group("enemies")
+			if _chase.size() > 0:
+				randomize()
+				_chase.shuffle()
+				dir = (_chase[0].global_position - self.global_position).normalized()
+				$sprite.look_at(_chase[0].global_position)
 		
 	elif type == "knife":
 		if !dir:

@@ -12,12 +12,14 @@ var inv_time_total = 1.2
 var inv_togg_total = 0.1
 var inv_togg = 0
 var primary_inst = null
+var orbitals_created = false
 var Blast = preload("res://scenes/Blast.tscn")
 var whip = preload("res://scenes/Whip.tscn")
 var katana = preload("res://scenes/Katana.tscn")
 var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var particle = preload("res://scenes/particle2.tscn")
 var BulletGroup = preload("res://scenes/BulletGroup.tscn")
+var Orbital = preload("res://scenes/Orbital.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
@@ -125,6 +127,23 @@ func add_master_key():
 func add_magnet():
 	Global.play_sound(Global.ItemSfx)
 	Global.magnet = true
+	
+func add_orbital(item_name, play_sound:=true):
+	if play_sound:
+		Global.play_sound(Global.WheelSfx)
+		
+	Global.orbitals.append(item_name)
+	create_orbitals()
+	
+func create_orbitals():
+	for o in Global.orbitals:
+		var orbi = Orbital.instance()
+		orbi.type = o
+
+		var root = get_node("/root/Main")
+		root.add_child(orbi)
+		var pos = Global.SPAWNER.find_closest_player(64)
+		orbi.global_position = pos
 	
 func add_heart(count, play_sound:=true):
 	if play_sound:
@@ -664,6 +683,10 @@ func _physics_process(delta):
 			stop_fall()
 			
 		return
+		
+	if !orbitals_created:
+		create_orbitals()
+		orbitals_created = true
 	
 	safe_pos.append(position)
 	

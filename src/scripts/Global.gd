@@ -107,6 +107,7 @@ var pay2win = false
 var primary_weapon = ""
 var secondary_weapon = ""
 var automatic_weapon = ""
+var orbitals = []
 var poison = false
 var electric = false
 var frozen = false
@@ -272,6 +273,15 @@ enum floor_types {
 	altar,
 	shop,
 	supershop
+}
+
+var grandpa_photo = {
+	"name": "grandpa_photo",
+	"description": "Grandpa's Photo!",
+	"long_description": "I miss you, Grandpa",
+	"price": 300,
+	"type": "orbital",
+	"oneshot": true,
 }
 
 var explosive_item = {
@@ -752,7 +762,7 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
-	has_bleed = true
+	orbitals.append("grandpa_photo")
 	
 func restart_game():
 	restart_pools()
@@ -813,6 +823,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(power_glove)
 	PREMIUM_ITEMS.push_back(idol_mask)
 	PREMIUM_ITEMS.push_back(pin_item)
+	PREMIUM_ITEMS.push_back(grandpa_photo)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1043,6 +1054,8 @@ func initialize():
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
 	automatic_weapon = "empty"
+	
+	orbitals = []
 	
 	dash_speed = 500
 	dashing_ttl = 0.3

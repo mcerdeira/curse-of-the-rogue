@@ -165,7 +165,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="Player"]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
