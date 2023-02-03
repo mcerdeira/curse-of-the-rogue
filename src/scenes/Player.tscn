@@ -172,6 +172,11 @@ animations = [ {
 }, {
 "frames": [  ],
 "loop": true,
+"name": "empty",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
 "name": "knife",
 "speed": 5.0
 }, {
@@ -220,7 +225,7 @@ smoothing_enabled = true
 [node name="automatic_weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 11, 4 )
 frames = SubResource( 6 )
-animation = "backpack"
+animation = "empty"
 offset = Vector2( 14, 0 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
