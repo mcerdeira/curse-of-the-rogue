@@ -2,6 +2,12 @@ extends Area2D
 var taken = false
 var particle = preload("res://scenes/particle2.tscn")
 export var item_texture : Texture
+var item_description = ""
+var item_long_description = ""
+
+func _ready():
+	item_description = "GOLDEN IDOL"
+	item_long_description = "From Floor " + str(Global.CURRENT_FLOOR)
 
 func _physics_process(delta):
 	if taken:
@@ -18,6 +24,10 @@ func _physics_process(delta):
 func _on_Idol_body_entered(body):
 	if !taken:
 		if body.is_in_group("players"):
+			emit()
+			var HUD = get_tree().get_nodes_in_group("HUD")[0]
+			HUD.set_message(item_description, item_long_description)
+			
 			var texture = item_texture
 			Global.one_shot_items.append(texture)
 			body.add_heart(Global.health.size(), false)

@@ -300,6 +300,6 @@ texture = ExtResource( 4 )
 material = SubResource( 5 )
 position = Vector2( 0, -34 )
 frames = SubResource( 3 )
-animation = "grandpa_photo"
+animation = "key"
 
 [connection signal="body_entered" from="." to="." method="_on_ItemPedestal_body_entered"]

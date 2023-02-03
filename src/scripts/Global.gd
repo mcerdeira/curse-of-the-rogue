@@ -1011,13 +1011,11 @@ func init_pool(only_normal_items:= false):
 	else:
 		if PREMIUM_ITEMS.size() > 0 and Global.FLOOR_TYPE == Global.floor_types.altar:
 			ITEM_POOL = [] + PREMIUM_ITEMS
-			if randi()%Global.bad_luck != 0:
-				add_normals(5)
 		else:
 			ITEM_POOL = [] + ITEMS
 			if PREMIUM_ITEMS.size() > 0:
 				if randi()%Global.bad_luck == 0:
-					add_premiums(2)
+					add_premiums(5)
 			
 func remove_from_pool(_name):
 	for i in range(PREMIUM_ITEMS.size() - 1):
