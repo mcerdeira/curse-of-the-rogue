@@ -106,7 +106,7 @@ var life2win = false
 var pay2win = false
 var primary_weapon = ""
 var secondary_weapon = ""
-var automatic_weapon = ""
+var automatic_weapon = []
 var orbitals = []
 var poison = false
 var electric = false
@@ -1050,7 +1050,7 @@ func initialize():
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
-	automatic_weapon = "empty"
+	automatic_weapon.append("empty")
 	
 	orbitals = []
 	

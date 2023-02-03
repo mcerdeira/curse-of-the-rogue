@@ -163,7 +163,7 @@ func _physics_process(delta):
 	$hud_gems.text = str(space) + str(Global.gems)
 	$primary_weapon.animation = Global.primary_weapon
 	$secondary_weapon.animation = Global.secondary_weapon
-	$automatic_weapon.animation = Global.automatic_weapon
+	$automatic_weapon.animation = Global.automatic_weapon[0]
 	
 	$hud_speed.text =  str(space) + str(Global.speed/100.00)
 	$hud_attack.text = str(space) + str(Global.attack)
