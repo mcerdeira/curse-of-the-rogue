@@ -39,7 +39,9 @@ onready var default_pos = $sprite.get_position() - Vector2(0, 10)
 var amplitude = 5.0
 var frequency = 2.0
 var time = 0
-var bulletonetimecreated = false
+var bulletonetimecreated_spike = 0
+var bulletonetimecreated_glove = 1
+var bulletonetimecreated = [false, false]
 var back = false
 var restzoom = false
 
@@ -57,7 +59,7 @@ func _ready():
 	Global.pixelate(pixelated)
 	
 	add_to_group("players")
-	if Global.automatic_weapon != "empty":
+	if Global.automatic_weapon[0] != "empty":
 		$automatic_weapon.animation = Global.automatic_weapon[0]
 		$automatic_weapon.visible = true
 	else:
@@ -214,7 +216,18 @@ func add_shield_poision(count):
 	
 func add_automatic_weapon(weapon):
 	Global.play_sound(Global.WeaponSfx)
-	Global.automatic_weapon[0] = weapon
+	if Global.has_backpack:
+		Global.automatic_weapon.append(weapon)
+	else:
+		Global.automatic_weapon[0] = weapon
+		
+func add_backpack():
+	Global.play_sound(Global.ItemSfx)
+	Global.has_backpack = true
+	var prev_weapon = Global.automatic_weapon[0]
+	Global.automatic_weapon[0] = "backpack"
+	if prev_weapon != "empty":
+		add_automatic_weapon(prev_weapon)
 	
 func add_secondary_weapon(weapon):
 	Global.play_sound(Global.WeaponSfx)
@@ -509,86 +522,87 @@ func get_random_dir():
 		Vector2(-1, -1)
 		])
 		
-func create_bullet_nodir(_dir):
+func create_bullet_nodir(_dir, bu):
 	if _dir != null:
 		var bullet = PlayerBullet.instance()
-		bullet.type = Global.automatic_weapon[0]
+		bullet.type = bu
 
 		var root = get_node("/root/Main")
 		root.add_child(bullet)
 		bullet.global_position = global_position
 
-func create_bullet(_dir):
-	if Global.automatic_weapon[0] == "power_glove":
+func create_bullet(_dir, bu):
+	if bu == "power_glove":
 		var bullet = PlayerBullet.instance()
-		bullet.type = Global.automatic_weapon[0]
+		bullet.type = bu
 		bullet.dir = _dir
 		bullet.position = $automatic_weapon.position
 		add_child(bullet)
-	elif Global.automatic_weapon[0] == "spikeball":
+	elif bu == "spikeball":
 		var bullet = BulletGroup.instance()
 		add_child(bullet)
 		bullet.global_position = global_position
 	elif _dir != null:
 		var bullet = PlayerBullet.instance()
-		bullet.type = Global.automatic_weapon[0]
+		bullet.type = bu
 		bullet.dir = _dir
 		var root = get_node("/root/Main")
 		root.add_child(bullet)
 		bullet.global_position = global_position
 	
 func shoot():
-	if !bulletonetimecreated and Global.automatic_weapon[0] == "spikeball":
-		Global.play_sound(Global.SpikeBallSfx)
-		bulletonetimecreated = true
-		create_bullet(null)
+	for bu in Global.automatic_weapon:
+		if !bulletonetimecreated[bulletonetimecreated_spike] and bu == "spikeball":
+			Global.play_sound(Global.SpikeBallSfx)
+			bulletonetimecreated[bulletonetimecreated_spike] = true
+			create_bullet(null, bu)
+			
+		if !bulletonetimecreated[bulletonetimecreated_glove] and bu == "power_glove":
+			Global.play_sound(Global.PlasmaSfx)
+			bulletonetimecreated[bulletonetimecreated_glove] = true
+			create_bullet(null, bu)
+			
+		if bu == "spells_book":
+			Global.play_sound(Global.PlasmaSfx)
+			var _chase = get_tree().get_nodes_in_group("enemy_objects")
+			var direction = null
+			for c in _chase:
+				direction = (c.global_position - self.global_position).normalized()
+				create_bullet(direction, bu)
+			
+			if direction:
+				emit()
 		
-	if !bulletonetimecreated and Global.automatic_weapon[0] == "power_glove":
-		Global.play_sound(Global.PlasmaSfx)
-		bulletonetimecreated = true
-		create_bullet(null)
-		
-	if Global.automatic_weapon[0] == "spells_book":
-		Global.play_sound(Global.PlasmaSfx)
-		var _chase = get_tree().get_nodes_in_group("enemy_objects")
-		var direction = null
-		for c in _chase:
-			direction = (c.global_position - self.global_position).normalized()
-			create_bullet(direction)
-		
-		if direction:
-			emit()
-	
-	if Global.automatic_weapon[0] == "plasma":
-		Global.play_sound(Global.PlasmaSfx)
-		create_bullet(Vector2(0, 1))
-		create_bullet(Vector2(0, -1))
-		
-		create_bullet(Vector2(1, 0))
-		create_bullet(Vector2(1, 1))
-		create_bullet(Vector2(1, -1))
-		
-		create_bullet(Vector2(-1, 0))
-		create_bullet(Vector2(-1, 1))
-		create_bullet(Vector2(-1, -1))
-	else:
-		if Global.automatic_weapon[0] == "shot_gun":
-			var dir = get_random_enemy()
-			if (dir):
-				Global.play_sound(Global.ShotGunSfx)
-			create_bullet(dir)
-		elif Global.automatic_weapon[0] == "knife":
-			var dir = get_random_enemy()
-			if (dir):
-				Global.play_sound(Global.KnifeSfx)
-			create_bullet_nodir(dir)
-		elif Global.automatic_weapon[0] == "bomb":
-			Global.play_sound(Global.BombSxf)
-			create_bullet(get_random_dir())
-		elif Global.automatic_weapon[0] == "tomahawk":
-			Global.play_sound(Global.TomaHawkSfx)
-			var xx = 0.2 * $sprite.scale.x
-			create_bullet(Vector2(xx, -1))
+		if bu == "plasma":
+			Global.play_sound(Global.PlasmaSfx)
+			create_bullet(Vector2(0, 1), bu)
+			create_bullet(Vector2(0, -1), bu)
+			
+			create_bullet(Vector2(1, 0), bu)
+			create_bullet(Vector2(1, 1), bu)
+			create_bullet(Vector2(1, -1), bu)
+			
+			create_bullet(Vector2(-1, 0), bu)
+			create_bullet(Vector2(-1, 1), bu)
+			create_bullet(Vector2(-1, -1), bu)
+		else:
+			if bu == "shot_gun":
+				var dir = get_random_enemy()
+				if (dir):
+					Global.play_sound(Global.ShotGunSfx)
+				create_bullet(dir, bu)
+			elif bu == "knife":
+				var dir = get_random_enemy()
+				if (dir):
+					Global.play_sound(Global.KnifeSfx)
+				create_bullet_nodir(dir, bu)
+			elif bu == "bomb":
+				Global.play_sound(Global.BombSxf)
+				create_bullet(get_random_dir(), bu)
+			elif bu == "tomahawk":
+				Global.play_sound(Global.TomaHawkSfx)
+				var xx = 0.2 * $sprite.scale.x
+				create_bullet(Vector2(xx, -1), bu)
 			
 func fall():
 	if !falling:
@@ -654,6 +668,13 @@ func melee_attack():
 		add_child(primary_inst)
 		primary_inst.set_position(Vector2(0, 0))
 		primary_inst.scale.x = facing
+		
+func has_weapon_glove():
+	for w in Global.automatic_weapon:
+		if w == "power_glove":
+			return true
+			
+	return false
 			
 func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug_button1"):
@@ -705,11 +726,10 @@ func _physics_process(delta):
 		$sprite.animation = "back" + ani_aditional
 	
 	if $automatic_weapon.visible:
-		if Global.automatic_weapon == "power_glove":
+		if has_weapon_glove():
 			var mouse_pos = get_global_mouse_position()
 			var angle = get_angle_to(mouse_pos)
 			$automatic_weapon.rotation = angle
-
 		else:
 			if normalize_direction > 0:
 				normalize_direction -= 1 * delta
@@ -828,7 +848,7 @@ func _physics_process(delta):
 	movement = Vector2.ZERO
 	
 	if Global.automatic_weapon[0] != "empty":
-		if !bulletonetimecreated:
+		if !bulletonetimecreated[bulletonetimecreated_glove]:
 			Global.shoot_speed -= Global.shoot_speed_speed * delta
 			if Global.shoot_speed <= 0:
 				Global.shoot_speed = Global.shoot_speed_total

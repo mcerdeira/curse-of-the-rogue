@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -39,6 +39,7 @@
 [ext_resource path="res://sprites/werewolf_spr_roll_0.png" type="Texture" id=37]
 [ext_resource path="res://sprites/zombie_spr_roll_0.png" type="Texture" id=38]
 [ext_resource path="res://sprites/idol_mask_back.png" type="Texture" id=39]
+[ext_resource path="res://sprites/back_pack_gun.png" type="Texture" id=40]
 [ext_resource path="res://scenes/Shaker.gd" type="Script" id=69]
 
 [sub_resource type="Shader" id=8]
@@ -164,6 +165,11 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
+"frames": [ ExtResource( 40 ) ],
+"loop": true,
+"name": "backpack",
+"speed": 5.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "knife",
@@ -214,7 +220,7 @@ smoothing_enabled = true
 [node name="automatic_weapon" type="AnimatedSprite" parent="."]
 position = Vector2( 11, 4 )
 frames = SubResource( 6 )
-animation = "power_glove"
+animation = "backpack"
 offset = Vector2( 14, 0 )
 
 [node name="collider" type="CollisionShape2D" parent="."]

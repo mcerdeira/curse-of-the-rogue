@@ -96,6 +96,7 @@ var current_combo = 0
 var combo_time = 0
 var combo_time_total = 2.3
 
+var has_backpack = false
 var has_bleed = false
 var has_idol_mask = false
 var has_justice = false
@@ -491,6 +492,15 @@ var tomahawk = {
 	"oneshot": true,
 }
 
+var backpack = {
+	"name": "backpack",
+	"description": "Backpack",
+	"long_description": "Carry things!",
+	"price": 550,
+	"type": "item",
+	"oneshot": true,
+}
+
 var wolfe_bite =  {
 	"name": "wolfe_bite",
 	"description": "Wolf Bite",
@@ -823,6 +833,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(idol_mask)
 	PREMIUM_ITEMS.push_back(pin_item)
 	PREMIUM_ITEMS.push_back(grandpa_photo)
+	PREMIUM_ITEMS.push_back(backpack)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1112,6 +1123,7 @@ func initialize():
 	has_justice = false
 	has_idol_mask = false
 	has_bleed = false
+	has_backpack = false
 	
 	_data_overload()
 

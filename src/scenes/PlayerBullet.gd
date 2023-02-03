@@ -165,6 +165,8 @@ func _physics_process(delta):
 				_chase.shuffle()
 				dir = (_chase[0].global_position - self.global_position).normalized()
 				$sprite.look_at(_chase[0].global_position)
+			else:
+				queue_free()
 		
 	elif type == "knife":
 		if !dir:
@@ -174,6 +176,8 @@ func _physics_process(delta):
 				_chase.shuffle()
 				dir = (_chase[0].global_position - self.global_position).normalized()
 				$sprite.look_at(_chase[0].global_position)
+			else:
+				queue_free()
 		
 	elif type == "plasma" or type == "spells_book":
 		$sprite.look_at(to_global(dir))
@@ -202,7 +206,8 @@ func _physics_process(delta):
 			ttl = -1
 		
 		if ttl <= 0:
-			get_parent().bulletonetimecreated = false
+			var parent = get_parent()
+			parent.bulletonetimecreated[parent.bulletonetimecreated_glove] = false
 			queue_free()
 		
 func _on_Area2D_area_entered(area):
