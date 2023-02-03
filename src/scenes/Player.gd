@@ -176,11 +176,11 @@ func add_total_hearts(count, play_sound:=true):
 					Global.health.insert(i + 1, 0)
 					count -= 1
 					
-			if count > 0:
-				for e in range(count):
-					Global.health.push_front(0)
+		if count > 0:
+			for e in range(count):
+				Global.health.push_front(0)
 					
-				count = 0
+			count = 0
 		
 	Global.refresh_hud()
 	

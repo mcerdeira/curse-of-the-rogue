@@ -1044,7 +1044,8 @@ func get_random_item(force:=false):
 	var idx = -1
 	idx = randi() % ITEM_POOL.size()
 	var itm = ITEM_POOL.pop_at(idx)
-	return itm
+	#return itm
+	return empty_heart
 
 func initialize():
 	FIRST = true
