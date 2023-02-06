@@ -10,13 +10,16 @@ func _ready():
 	else:
 		eval_idols()
 
-func eval_idols():	
-	for i in Global.IDOLS:
-		if i == 1:
+func eval_idols():
+	if Global.IDOLS[7] == 2:
+		$AltarProgressDecoration.playing = true
+	
+	for i in range(Global.IDOLS.size()):
+		if Global.IDOLS[i] == 1:
 			got_idols = true
 			
-		if i == 2:
-			var slot = get_node("IdolSlot" + str(i + 1))
+		if Global.IDOLS[i] == 2:
+			var slot = get_node("IdolSlot" + str(i))
 			slot.activate_idol()
 			
 func create_animations(body):
@@ -29,6 +32,9 @@ func create_animations(body):
 			root.add_child(idol)
 			idol.global_position = body.global_position
 			idol.delay = 0.7 * i
+			var num = i
+			idol.num = num
+			idol.Chamber = self
 	
 	idol.last = true
 	

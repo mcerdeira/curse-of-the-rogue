@@ -774,13 +774,6 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
-	Global.IDOLS[1] = 1
-	Global.IDOLS[2] = 1
-	Global.IDOLS[3] = 1
-	Global.IDOLS[4] = 1
-	Global.IDOLS[5] = 1
-	Global.IDOLS[6] = 1
-	Global.IDOLS[7] = 1
 	
 func restart_game():
 	restart_pools()

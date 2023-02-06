@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/IdolSlot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Idols_Chamber.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://sprites/AltarProgressDecoration.png" type="Texture" id=4]
 [ext_resource path="res://sprites/AltarProgressDecoration2.png" type="Texture" id=5]
 [ext_resource path="res://sprites/AltarProgressDecoration5.png" type="Texture" id=6]
+[ext_resource path="res://scenes/Plants.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -55,5 +56,17 @@ shape = SubResource( 1 )
 position = Vector2( 356, -61 )
 frames = SubResource( 2 )
 speed_scale = 2.0
+
+[node name="Plants" parent="." instance=ExtResource( 7 )]
+position = Vector2( 207, 46 )
+
+[node name="Plants2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 545, -191 )
+
+[node name="Plants3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 672, -63 )
+
+[node name="Plants" parent="Plants3" instance=ExtResource( 7 )]
+position = Vector2( -289, 131 )
 
 [connection signal="body_entered" from="." to="." method="_on_Idols_Chamber_body_entered"]

@@ -36,7 +36,7 @@ func create_plants():
 		pinst.global_position = p.global_position
 
 func _physics_process(delta):
-	if Global.FLOOR_TYPE != Global.floor_types.intro:
+	if Global.FLOOR_TYPE != Global.floor_types.intro and Global.FLOOR_TYPE  != Global.floor_types.idols_chamber:       
 		if !plants_created:
 			plants_created = true
 			create_plants()
