@@ -8,20 +8,25 @@ var price_what = ""
 var price_amount = -1
 var opened = false
 var pixelated = 0
+var got_idols = false
 
 func _ready():
 	add_to_group("doors")
+	
+	for i in Global.IDOLS:
+		if i > 0:
+			got_idols = true
+			break
 	
 	if type == "" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
 		queue_free()
 		return
 		
-	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
+	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.idols_chamber or Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
 		type = "next"
 
-	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal:
+	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.idols_chamber:
 		type = "boss"
-
 		
 	$lbl.visible = false
 	$price_lbl.visible = false
@@ -49,7 +54,10 @@ func _physics_process(delta):
 	
 func random_type():
 	if Global.FLOOR_TYPE == Global.floor_types.intro:
-		return "cant"
+		if got_idols:
+			return "idols_chamber"
+		else:
+			return "cant"
 	else:
 		return Global.pick_random(["altar", "altar", "supershop"])
 
@@ -82,12 +90,14 @@ func trad_type():
 	if type == "shop":
 		return "Shop"
 	elif type == "next":
-		return "To Floor " + str(Global.CURRENT_FLOOR + 1)
+		return "Floor " + str(Global.CURRENT_FLOOR + 1)
 	elif type == "altar":
 		set_price()
 		return "Altar"
 	elif type == "cant":
 		return "???"
+	elif type == "idols_chamber":
+		return "CHAMBER"
 	elif type == "supershop":
 		set_price()
 		return "Shop++"

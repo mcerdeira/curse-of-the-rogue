@@ -14,6 +14,10 @@ func _input(event):
 				Global.normal_cursor()
 				get_tree().paused = true
 				show()
+			else:
+				Global.custom_cursor()
+				get_tree().paused = false
+				hide()
 
 func _on_Button_pressed():
 	Global.custom_cursor()

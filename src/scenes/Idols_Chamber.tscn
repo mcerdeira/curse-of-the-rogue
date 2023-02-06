@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/IdolSlot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Idols_Chamber.gd" type="Script" id=2]
+[ext_resource path="res://sprites/idol_slot_floor.png" type="Texture" id=3]
+[ext_resource path="res://sprites/AltarProgressDecoration.png" type="Texture" id=4]
+[ext_resource path="res://sprites/AltarProgressDecoration2.png" type="Texture" id=5]
+[ext_resource path="res://sprites/AltarProgressDecoration5.png" type="Texture" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 32.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Idols_Chamber" type="Area2D"]
+position = Vector2( 125, 295 )
+script = ExtResource( 2 )
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 356, -60 )
+texture = ExtResource( 3 )
+
+[node name="IdolSlot1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 262, 56 )
+
+[node name="IdolSlot2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 194, -35 )
+
+[node name="IdolSlot3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 220, -157 )
+
+[node name="IdolSlot4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 350, -215 )
+
+[node name="IdolSlot5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 488, -156 )
+
+[node name="IdolSlot6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 514, -41 )
+
+[node name="IdolSlot7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 450, 57 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2( 356, -60 )
+shape = SubResource( 1 )
+
+[node name="AltarProgressDecoration" type="AnimatedSprite" parent="."]
+position = Vector2( 356, -61 )
+frames = SubResource( 2 )
+speed_scale = 2.0
+
+[connection signal="body_entered" from="." to="." method="_on_Idols_Chamber_body_entered"]

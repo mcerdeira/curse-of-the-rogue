@@ -63,6 +63,10 @@ func _physics_process(delta):
 			if Global.FLOOR_TYPE == Global.floor_types.altar:
 				spawn_chest_and_stuff(true)
 			
+			if Global.FLOOR_TYPE == Global.floor_types.intro:
+				if randi() % 10 == 0:
+					spawn_chest_and_stuff(true)
+			
 			reveal_doors()
 			first_time = false
 			
