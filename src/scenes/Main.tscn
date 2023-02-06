@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://scenes/ShopTable.gd" type="Script" id=29]
 [ext_resource path="res://scenes/Altar.tscn" type="PackedScene" id=30]
 [ext_resource path="res://sprites/back_pack_item.png" type="Texture" id=31]
+[ext_resource path="res://scenes/Gem.tscn" type="PackedScene" id=32]
 [ext_resource path="res://sprites/gun_mini.png" type="Texture" id=48]
 [ext_resource path="res://sprites/knife_item.png" type="Texture" id=49]
 [ext_resource path="res://sprites/plasma_item.png" type="Texture" id=50]
@@ -752,3 +753,6 @@ position = Vector2( 387, 14 )
 
 [node name="WaterFall2" parent="WaterFallGroup" instance=ExtResource( 60 )]
 position = Vector2( 644, 14 )
+
+[node name="Gem" parent="." instance=ExtResource( 32 )]
+position = Vector2( 105, 528 )

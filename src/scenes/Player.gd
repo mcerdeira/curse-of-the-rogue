@@ -92,7 +92,9 @@ func add_cherry():
 	
 func add_gem_now(count):
 	if count > 0:
-		Global.play_sound(Global.GemSfx)	
+		var options = {"volume_db": Global.gem_volume}
+		Global.play_sound(Global.GemSfx, options)
+		
 	if count > 0:
 		if Global.cherry:
 			count *= 2
@@ -101,7 +103,8 @@ func add_gem_now(count):
 			
 func add_gem(count):
 	if count > 0:
-		Global.play_sound(Global.GemSfx)
+		var options = {"volume_db": Global.gem_volume}
+		Global.play_sound(Global.GemSfx, options)
 		
 	Global.add_extra_display("gems", count)
 	yield(get_tree().create_timer(.5), "timeout") 
