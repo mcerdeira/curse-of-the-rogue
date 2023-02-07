@@ -696,6 +696,7 @@ var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
 var ENEMY_PATTERNS = [
 	-1,
 	[
+		["tentacle"],
 		["bloby"],
 		["idol"],
 		["scorpion", "scorpion", "scorpion"],
@@ -709,6 +710,7 @@ var ENEMY_PATTERNS = [
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
+		["tentacle", "tentacle", "tentacle"],
 		["scorpion", "scorpion", "scorpion", "bat"],
 		["scorpion", "scorpion", "bat", "bat", "bloby"],
 		["scorpion", "scorpion", "troll"],
@@ -718,6 +720,7 @@ var ENEMY_PATTERNS = [
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
+		["idol", "idol", "idol", "tentacle", "tentacle"],
 		["bat", "scorpion", "bat", "bat"],
 		["bat", "bat", "troll", "troll"],
 		["ghost", "ghost"],
@@ -735,6 +738,8 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
+		["tentacle", "tentacle", "tentacle"],
+		["bloby", "tentacle", "bloby"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -746,6 +751,7 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
+		["bloby", "tentacle", "tentacle", "bloby"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -757,8 +763,10 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
+		["idol", "tentacle", "tentacle", "bloby"],
 	],
 	[
+		["dead_fire", "dead_fire", "dead_fire", "tentacle", "tentacle"],
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
 		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],

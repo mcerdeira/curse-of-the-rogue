@@ -60,6 +60,8 @@ var angle_walker = false
 var troll_angle_limit = 4.6
 var troll_angle = 0
 var troll_angle_dir = 1
+var inmune_while_moving = false
+var inmune_now = false
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -299,6 +301,14 @@ func shoot():
 			fire_ball.from = enemy_type
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(position)
+		if enemy_type == "tentacle":
+			Global.play_sound(Global.GhostShootSfx)
+			invisible_time = 0
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			fire_ball.from = enemy_type
+			get_parent().add_child(fire_ball)
+			fire_ball.set_position(position)
 		if enemy_type == "ghost":
 			Global.play_sound(Global.GhostShootSfx)
 			invisible_time = 0
@@ -505,6 +515,12 @@ func enemy_behaviour(delta):
 				
 			var direction = (point_chase.position - self.position).normalized()
 			if stop_moving <= 0:
+				if inmune_while_moving:
+					inmune_now = true
+					if randi() % 15 == 0:
+						emit()
+					$sprite.animation = enemy_type + "_inmune"
+					
 				if disapear:
 					invisible_time += 1 * delta
 					if invisible_time >= invisible_time_total:
@@ -513,6 +529,10 @@ func enemy_behaviour(delta):
 						visible = false
 	
 				move_and_slide(speed * direction)
+			else:
+				if inmune_while_moving:
+					inmune_now = false
+					$sprite.animation = enemy_type
 				
 	if _in_water:
 		move_and_slide(Vector2(0, Global.water_speed))
@@ -578,6 +598,35 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
+		
+	if enemy_type == "tentacle":
+		Global.play_sound(Global.GhostSfx)
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", false)
+		$sprite.animation = enemy_type + "_inmune"
+		shoot_count_total = [1, 2]
+		shoot_count = Global.pick_random(shoot_count_total)
+		shoot_ttl_total = 7
+		shoot_ttl = shoot_ttl_total
+		shoot_type = true
+		speed = 100
+		speed_total = 100
+		life = 3 * life_mult
+		dmg = 1
+		chase_player = false
+		flying = true
+		fireinmune = true
+		is_enemy_group = false
+		stopandgo = true
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = true
+		disapear = false
+		leave_trail = false
+		angle_walker = false
+		random_shooter = false
+		inmune_while_moving = true
 	
 	if enemy_type == "ghost":
 		Global.play_sound(Global.GhostSfx)
@@ -604,6 +653,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 	
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireSfx)
@@ -638,6 +688,7 @@ func set_type(_type):
 		leave_trail = true
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 	
 	if enemy_type == "bat":
 		Global.play_sound(Global.BatsSfx)
@@ -671,6 +722,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = true
+		inmune_while_moving = false
 		
 	if enemy_type == "idol":
 		var options = {"pitch_scale": 0.5}
@@ -701,6 +753,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 		
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
@@ -730,6 +783,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = true
 		random_shooter = true
+		inmune_while_moving = false
 		
 	if enemy_type == "chest_closed":
 		life = 4 * life_mult
@@ -759,6 +813,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 		
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
@@ -799,6 +854,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 		
 	if enemy_type == "spider" or enemy_type == "spider_xs":
 		if enemy_type == "spider":
@@ -846,6 +902,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 		
 	elif enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleSfx)
@@ -878,6 +935,7 @@ func set_type(_type):
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = false
 		
 func OuchSfx():
 	if enemy_type == "bloby":
@@ -911,6 +969,9 @@ func effects(from):
 		
 func hit(origin, dmg, from):
 	if visible and !iamasign:
+		if inmune_while_moving and inmune_now:
+			return
+		
 		if sleep:
 			awake()
 		

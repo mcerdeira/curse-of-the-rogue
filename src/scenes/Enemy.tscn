@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -41,6 +41,10 @@
 [ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=39]
 [ext_resource path="res://sprites/idol_shadow.png" type="Texture" id=40]
 [ext_resource path="res://sprites/weak_fx.png" type="Texture" id=41]
+[ext_resource path="res://sprites/tentacle_1.png" type="Texture" id=42]
+[ext_resource path="res://sprites/tentacle_2.png" type="Texture" id=43]
+[ext_resource path="res://sprites/tentacle_3.png" type="Texture" id=44]
+[ext_resource path="res://sprites/tentacle_4.png" type="Texture" id=45]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -102,6 +106,11 @@ animations = [ {
 "frames": [  ],
 "loop": true,
 "name": "spider_xs",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "tentacle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 36 ) ],
@@ -192,6 +201,16 @@ animations = [ {
 "name": "spider_xs",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 42 ), ExtResource( 43 ) ],
+"loop": true,
+"name": "tentacle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "tentacle_inmune",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "troll",
@@ -220,12 +239,13 @@ visible = false
 [node name="shadow" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -1 )
 frames = SubResource( 4 )
-animation = "chest_closed"
+animation = "tentacle"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "idol"
+animation = "tentacle_inmune"
+frame = 1
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]
