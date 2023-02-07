@@ -8,6 +8,7 @@ var go_back_ttl = 0.1
 var absorved = false
 var type = "gem"
 var dist = 60
+var animation_ended = false
 
 func _ready():
 	add_to_group("collectables")
@@ -30,7 +31,7 @@ func _physics_process(delta):
 		if $sprite.scale.y <= 0:
 			$sprite.scale.y = 0.1
 	else:
-		if !Global.GAME_OVER and !Global.LOGIC_PAUSE:
+		if !Global.GAME_OVER and !Global.LOGIC_PAUSE and animation_ended:
 			if !absorved and position.distance_to(player.position) <= dist:
 				absorved = true
 			elif absorved:
@@ -42,7 +43,7 @@ func _physics_process(delta):
 					speed += 1000 * delta
 			
 func _on_Gem_body_entered(body):
-	if !taken:
+	if !taken and animation_ended:
 		if body.is_in_group("players"):
 			taken = true
 			if type == "gem":
@@ -63,3 +64,6 @@ func emit():
 	p = particle.instance()
 	get_parent().add_child(p)
 	p.global_position = global_position
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	animation_ended = true
