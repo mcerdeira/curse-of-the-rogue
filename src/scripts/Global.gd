@@ -1071,6 +1071,7 @@ func initialize():
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
+	automatic_weapon = []
 	automatic_weapon.append("empty")
 	
 	orbitals = []
