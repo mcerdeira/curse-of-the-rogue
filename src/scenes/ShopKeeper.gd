@@ -3,10 +3,11 @@ var texts = [
 	"...",
 	"AAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHH",
 	"ZZZ...ZZZ...ZZZ...ZZZ...ZZZ...",
+	"Why do you keep coming here and don´t ever talk to me?",
 	"Sometimes, I feel so lonely...",
 	"I heard someone very brave came back from death",
 	"Have you found happiness?",
-	"How many floors there are?",
+	"How many floors are there?",
 	"This place seems to be different everyday, but nobody believes me.",
 	"I used to have a family... I think!",
 	"Do I have a name? I can't remember..."
