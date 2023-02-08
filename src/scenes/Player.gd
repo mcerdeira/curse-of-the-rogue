@@ -566,8 +566,10 @@ func shoot():
 			create_bullet(null, bu)
 			
 		if bu == "spells_book":
-			Global.play_sound(Global.PlasmaSfx)
 			var _chase = get_tree().get_nodes_in_group("enemy_objects")
+			if _chase:
+				Global.play_sound(Global.PlasmaSfx)
+				
 			var direction = null
 			for c in _chase:
 				direction = (c.global_position - self.global_position).normalized()

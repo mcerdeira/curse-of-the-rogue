@@ -59,7 +59,7 @@ func random_type():
 		else:
 			return "cant"
 	else:
-		return Global.pick_random(["altar", "altar", "supershop"])
+		return Global.pick_random(["altar", "altar", "altar", "altar", "altar", "altar", "supershop"])
 
 func set_price():
 	randomize()
