@@ -11,28 +11,30 @@ var particle = preload("res://scenes/particle2.tscn")
 var amplitude = 5.0
 var frequency = 2.0
 var time = 0
+var local_floor_type = null
 export var local_altar_level = 0
 export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
+	local_floor_type = Global.FLOOR_TYPE
 	if Global.altar_level == Global.altar_level_max and Global.FLOOR_TYPE == Global.floor_types.intro:
-		Global.FLOOR_TYPE = Global.floor_types.altar
+		local_floor_type = Global.floor_types.altar
 	
 	var chest_replacement = false
-	if !(Global.FLOOR_TYPE == Global.floor_types.normal and Global.FLOOR_OVER):
-		if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
+	if !(local_floor_type == Global.floor_types.normal and Global.FLOOR_OVER):
+		if local_floor_type != Global.floor_types.altar and local_floor_type != Global.floor_types.shop and local_floor_type != Global.floor_types.supershop:
 			queue_free()
 			return
 	else:
 		chest_replacement = true
 		
-	if Global.FLOOR_TYPE == Global.floor_types.altar:
+	if local_floor_type == Global.floor_types.altar:
 		if local_altar_level > Global.altar_level:
 			queue_free()
 			return
 		
-	if noforshop and Global.FLOOR_TYPE == Global.floor_types.shop:
+	if noforshop and local_floor_type == Global.floor_types.shop:
 		queue_free()
 		return
 		
@@ -46,7 +48,7 @@ func _ready():
 	
 	oneshot = item.oneshot
 	
-	if chest_replacement or Global.FLOOR_TYPE == Global.floor_types.altar:
+	if chest_replacement or local_floor_type == Global.floor_types.altar:
 		$gem.visible = false
 		$price_lbl.visible = false
 		price_amount = 0

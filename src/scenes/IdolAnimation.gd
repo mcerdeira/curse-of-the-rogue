@@ -22,7 +22,10 @@ func _physics_process(delta):
 			if last:
 				Chamber.eval_idols()
 				Global.play_sound(Global.AltarSfx)
-			Global.LOGIC_PAUSE = false
+				Global.LOGIC_PAUSE = false
+				
+			Global.one_shot_items.remove(0)
+			Global.refresh_hud()
 			queue_free()
 	
 	if last:

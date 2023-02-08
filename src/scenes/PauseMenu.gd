@@ -25,6 +25,7 @@ func _on_Button_pressed():
 	hide()
 
 func _on_Button2_pressed():
+	Global.save_game()
 	Global.custom_cursor()
 	get_tree().paused = false
 	Global.boot_strap_game()

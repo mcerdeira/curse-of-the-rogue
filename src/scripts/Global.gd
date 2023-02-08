@@ -21,6 +21,7 @@ var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 var poisoned_color = Color8(100, 196, 27)
 var infected_color = Color8(203, 54, 220)
 var froze_color = Color8(91, 173, 245)
+var item_texture = preload("res://sprites/idol_item.png")
 
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 1, 2, 3, 3, 4, 4, 5]
@@ -782,6 +783,11 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
+	load_game()
+	for i in range(Global.IDOLS.size()):
+		if Global.IDOLS[i] == 1:
+			var texture = item_texture
+			Global.one_shot_items.append(texture)
 	
 func restart_game():
 	restart_pools()
@@ -925,6 +931,34 @@ func LoadSfxAndMusic():
 	
 	KatanaSfx = load("res://sfx/KatanaSfx.mp3")
 	
+func save_game():
+	var save_game = File.new()
+	save_game.open("user://savegame.save", File.WRITE)
+	var save_dict = {
+		"altar_points" : altar_points,
+		"altar_lifes" : altar_lifes,
+		"altar_gems" : altar_gems,
+		"altar_level" : altar_level,
+		"IDOLS": Global.IDOLS,
+	}
+	save_game.store_line(to_json(save_dict))
+	save_game.close()
+	
+func load_game():
+	var save_game = File.new()
+	if not save_game.file_exists("user://savegame.save"):
+		return 
+	save_game.open("user://savegame.save", File.READ)
+	while save_game.get_position() < save_game.get_len():
+		var node_data = parse_json(save_game.get_line())
+		altar_points = node_data.altar_points
+		altar_lifes = node_data.altar_lifes
+		altar_gems = node_data.altar_gems
+		altar_level = node_data.altar_level
+		Global.IDOLS = node_data.IDOLS
+
+	save_game.close()
+	
 func init_timer():
 	TimerOn = true
 	Seconds = 0
@@ -1030,7 +1064,7 @@ func init_pool(only_normal_items:= false):
 	if only_normal_items:
 		ITEM_POOL = [] + ITEMS
 	else:
-		if PREMIUM_ITEMS.size() > 0 and Global.FLOOR_TYPE == Global.floor_types.altar:
+		if PREMIUM_ITEMS.size() > 0 and (Global.FLOOR_TYPE == Global.floor_types.intro or Global.FLOOR_TYPE == Global.floor_types.altar):
 			ITEM_POOL = [] + PREMIUM_ITEMS
 		else:
 			ITEM_POOL = [] + ITEMS
@@ -1182,6 +1216,7 @@ func reset_spawn_timer():
 	return ENEMY_SPAWN_TIMER
 	
 func next_floor(type):
+	save_game()
 	if type == "next":
 		FLOOR_TYPE = floor_types.normal
 		Global.FLOOR_OVER = false

@@ -475,6 +475,7 @@ func die():
 	Global.play_sound(Global.PlayerDieSfx)
 	$sprite.animation = "dead" + ani_aditional
 	dead = true
+	Global.save_game()
 	Global.GAME_OVER = true
 	Global.shaker_obj.shake(3, 0.2)
 	
