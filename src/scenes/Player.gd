@@ -851,7 +851,7 @@ func _physics_process(delta):
 	
 	var move = (left or right or up or down)
 	
-	movement = Vector2.ZERO
+	#movement = Vector2.ZERO
 	
 	if Global.automatic_weapon[0] != "empty":
 		if !bulletonetimecreated[bulletonetimecreated_glove]:
@@ -888,21 +888,21 @@ func _physics_process(delta):
 			melee_attack()
 			
 	if left:
-		movement.x = -Global.speed
+		movement.x = -Global.speed #lerp(movement.x, -Global.speed, 0.1)
 		$sprite.scale.x = -1
 		back = false
 	elif right:
-		movement.x = Global.speed
+		movement.x = Global.speed #lerp(movement.x, Global.speed, 0.1)
 		$sprite.scale.x = 1
 		back = false
 		
 	facing = $sprite.scale.x
 		
 	if down:
-		movement.y = Global.speed
+		movement.y = Global.speed#lerp(movement.y, Global.speed, 0.1)
 		back = false
 	elif up:
-		movement.y = -Global.speed
+		movement.y = -Global.speed #lerp(movement.y, -Global.speed, 0.1)
 		back = true
 		
 	if Global.has_idol_mask:
@@ -915,7 +915,7 @@ func _physics_process(delta):
 			$masks.z_index = $sprite.z_index + 1
 		
 	if _in_water:
-		movement.y += Global.water_speed
+		movement.y = Global.water_speed
 		
 	if auto_move_angle:
 		movement = move_and_slide(auto_move_angle)
@@ -923,6 +923,12 @@ func _physics_process(delta):
 		movement = move_and_slide(movement, Vector2.UP)
 	
 	z_index = global_position.y + 16
+	
+	if !up and !down:
+		movement.y = lerp(movement.y, 0, 0.2)
+		
+	if !left and !right:
+		movement.x = lerp(movement.x, 0, 0.2)
 	
 	if move and inv_time <= 0:
 		if up:
