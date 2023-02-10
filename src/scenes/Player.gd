@@ -683,9 +683,6 @@ func has_weapon_glove():
 	return false
 			
 func _physics_process(delta):
-#	if Input.is_action_just_pressed("debug_button1"):
-#		add_melee(0.1)
-
 	if restzoom:
 		if $Camera2D.zoom.x <= 1:
 			$Camera2D.zoom.x += 1 * delta
@@ -936,9 +933,17 @@ func _physics_process(delta):
 		else:
 			$sprite.animation = "default" + ani_aditional
 	
-	$sprite.playing = move
-	if !move:
-		$sprite.frame = 0
+	if move:
+		$sprite.playing = true
+	else:
+		if !_in_water:
+			if abs(round(movement.x)) > 0 or abs(round(movement.y)) > 0:
+				$sprite.playing = true
+			else:
+				$sprite.playing = false
+		else:
+			if !move:
+				$sprite.playing = false
 
 	if Global.flying:
 		$sprite.playing = false
