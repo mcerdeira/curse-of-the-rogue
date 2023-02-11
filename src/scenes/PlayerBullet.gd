@@ -63,7 +63,7 @@ func _initialize():
 		for i in range(4):
 			emit_self()
 		dmg = 2
-		speed = 250
+		speed = 450
 		
 func in_water():
 	if type == "bomb":
