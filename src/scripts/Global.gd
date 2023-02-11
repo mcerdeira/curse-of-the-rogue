@@ -147,9 +147,7 @@ var magnet = false
 var werewolf = false
 var cherry = false
 
-var POINTS_BASE = 9
-var POINTS_X = 1
-var POINTS_Y = 3
+var POINTS_PER_LEVEL = [-1, 260, 563, 1228, 4595]
 
 var werewolf_speed = 100
 var werewolf_attack = 5
@@ -781,6 +779,11 @@ var ENEMY_PATTERNS = [
 ]
 
 func _data_overload():
+	print(calc_points_level(1))
+	print(calc_points_level(2))
+	print(calc_points_level(3))
+	print(calc_points_level(4))
+	
 	Muted = false
 	SfxMuted = false
 	load_game()
@@ -1002,8 +1005,11 @@ func altar_level_up():
 	if altar_level > altar_level_max:
 		altar_level = altar_level_max
 	
-func calc_points_level():
-	return POINTS_BASE + pow((altar_level / POINTS_X), POINTS_Y)
+func calc_points_level(_level:=-1):
+	if _level == -1:
+		_level = altar_level
+		
+	return POINTS_PER_LEVEL[_level]
 	
 func _physics_process(delta):
 	timer_event(delta)
