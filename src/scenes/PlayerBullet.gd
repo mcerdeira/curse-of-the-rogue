@@ -45,11 +45,11 @@ func _initialize():
 		dmg = 2
 	if type == "grandpa_photo":
 		$sprite.playing = true
-		speed = 350
+		speed = 380
 		dmg = 0.4
 	if type == "plasma":
 		$sprite.playing = true
-		speed = 350
+		speed = 380
 		dmg = 1.5
 	if type == "bomb":
 		speed = 10
