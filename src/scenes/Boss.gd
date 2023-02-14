@@ -644,12 +644,12 @@ func explode():
 	Global.shaker_obj.shake(15, 1.3)
 	queue_free()
 		
-func emit(amount:=null):
+func emit(amount=0):
 	var p = particle.instance()
 	var root = get_node("/root/Main")
 	root.add_child(p)
 	p.global_position = global_position
-	if amount != null:
+	if amount != 0:
 		p.init(amount)
 
 func _on_area_body_entered(body):

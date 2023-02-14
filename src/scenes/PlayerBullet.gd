@@ -73,7 +73,7 @@ func out_water():
 	if type == "bomb":
 		_in_water = false
 		
-func emit(where:=null):
+func emit(where=null):
 	var p = particle.instance()
 	var root = get_node("/root/Main")
 	root.add_child(p)
