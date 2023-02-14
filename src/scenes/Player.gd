@@ -71,7 +71,7 @@ func _ready():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 		
-func add_idol_mask(play_sound:=true):
+func add_idol_mask(play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 	Global.has_idol_mask = true
@@ -133,7 +133,7 @@ func add_magnet():
 	Global.play_sound(Global.ItemSfx)
 	Global.magnet = true
 	
-func add_orbital(item_name, play_sound:=true):
+func add_orbital(item_name, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.WheelSfx)
 		
@@ -150,7 +150,7 @@ func create_orbitals():
 		var pos = Global.SPAWNER.find_closest_player(64)
 		orbi.global_position = pos
 	
-func add_heart(count, play_sound:=true):
+func add_heart(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.LifeSfx)
 		
@@ -169,7 +169,7 @@ func add_heart(count, play_sound:=true):
 	
 	Global.refresh_hud()
 	
-func add_total_hearts(count, play_sound:=true):
+func add_total_hearts(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.LifeSfx)
 	while(count > 0):
@@ -187,7 +187,7 @@ func add_total_hearts(count, play_sound:=true):
 		
 	Global.refresh_hud()
 	
-func add_shield(count, play_sound:=true):
+func add_shield(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.LifeSfx)
 		
@@ -247,7 +247,7 @@ func add_life_2_win():
 	if Global.life2win:
 		Global.attack = get_life_for_attack()
 	
-func add_pay_2_win(original:=false):
+func add_pay_2_win(original=false):
 	if original:
 		Global.play_sound(Global.ItemSfx)
 	Global.attack = Global.gems
@@ -260,7 +260,7 @@ func add_wolf_bite():
 	Global.play_sound(Global.ItemSfx)
 	Global.werewolf = true
 	
-func add_brain(original:=true):
+func add_brain(original=true):
 	if original:
 		Global.got_brain = true
 		Global.play_sound(Global.ItemSfx)
@@ -284,7 +284,7 @@ func add_ice():
 	Global.play_sound(Global.ItemSfx)
 	Global.frozen = true
 	
-func add_speed(count, play_sound:=true):
+func add_speed(count, play_sound=true):
 	var mult = 50.0
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
@@ -297,7 +297,7 @@ func add_speed(count, play_sound:=true):
 	if Global.speed < 0:
 		Global.speed = 0
 	
-func add_shoot_speed(count, play_sound:=true):
+func add_shoot_speed(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 		
@@ -307,7 +307,7 @@ func add_shoot_speed(count, play_sound:=true):
 	
 	Global.shoot_speed_speed += count
 
-func add_melee(count, play_sound:=true):
+func add_melee(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 		
@@ -316,7 +316,7 @@ func add_melee(count, play_sound:=true):
 	Global.hide_hud_extras("melee_speed")
 	Global.melee_speed += count
 	
-func add_luck(count, play_sound:=true):
+func add_luck(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 		
@@ -325,7 +325,7 @@ func add_luck(count, play_sound:=true):
 	Global.hide_hud_extras("luck")
 	Global.bad_luck -= count
 	
-func add_damage(count, play_sound:=true):
+func add_damage(count, play_sound=true):
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 		
@@ -356,7 +356,7 @@ func do_justice():
 	for d in dests:
 		d.hit(null, 0.5, "justice_fx")
 	
-func hit(dmg, from, can_zombie:=false, effect_name:=""):
+func hit(dmg, from, can_zombie=false, effect_name=""):
 	if !entering and inv_time <= 0 and rolling_ttl <= 0:
 		Global.play_sound(Global.PlayerHurt)
 		
@@ -457,7 +457,7 @@ func one_live():
 	Global.health = [1]
 	Global.refresh_hud()
 		
-func turn_into_zombie(original:=true):
+func turn_into_zombie(original=true):
 	Global.zombie = true
 	if original:
 		Global.play_sound(Global.ZombieSfx)

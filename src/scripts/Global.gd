@@ -1015,7 +1015,7 @@ func altar_level_up():
 	if altar_level > altar_level_max:
 		altar_level = altar_level_max
 	
-func calc_points_level(_level:=-1):
+func calc_points_level(_level=-1):
 	if _level == -1:
 		_level = altar_level
 		
@@ -1074,7 +1074,7 @@ func add_premiums(n ):
 		else:
 			break
 		
-func init_pool(only_normal_items:= false):
+func init_pool(only_normal_items= false):
 	randomize()
 	ITEM_POOL = []
 	if only_normal_items:
@@ -1093,7 +1093,7 @@ func remove_from_pool(_name):
 		if PREMIUM_ITEMS[i].name == _name:
 			PREMIUM_ITEMS.remove(i)
 	
-func get_random_item(force:=false):
+func get_random_item(force=false):
 	randomize()
 	if force:
 		init_pool(true)

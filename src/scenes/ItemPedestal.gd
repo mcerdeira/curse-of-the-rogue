@@ -83,7 +83,7 @@ func emit():
 		root.add_child(p)
 		p.global_position = global_position
 
-func choose_item(chest_replacement:=false):
+func choose_item(chest_replacement=false):
 	return Global.get_random_item(chest_replacement)
 
 func do_item_effect(_player):

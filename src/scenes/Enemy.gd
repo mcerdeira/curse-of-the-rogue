@@ -89,7 +89,7 @@ func bleed():
 		root.add_child(p)
 		p.global_position = global_position
 
-func emit(colored:=false):
+func emit(colored=false):
 	for i in range(2):
 		var p = particle.instance()
 		var root = get_node("/root/Main")
@@ -157,7 +157,7 @@ func _physics_process(delta):
 func find_player():
 	player_chase = get_tree().get_nodes_in_group("players")[0]
 	
-func create_enemy_bullet(pos, effect:=""):
+func create_enemy_bullet(pos, effect=""):
 	if randi() % 10 == 0:
 		emit()
 	

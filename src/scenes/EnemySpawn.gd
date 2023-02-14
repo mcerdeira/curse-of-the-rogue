@@ -123,7 +123,7 @@ func get_chest():
 	else:
 		return chest.instance()
 	
-func spawn_chest_and_stuff(only_chest:=false, only_idol:=false):
+func spawn_chest_and_stuff(only_chest=false, only_idol=false):
 	randomize()
 	reveal_doors()
 	var do_chest = true
@@ -158,7 +158,7 @@ func spawn_chest_and_stuff(only_chest:=false, only_idol:=false):
 		get_parent().add_child(obj_inst)
 		obj_inst.set_position(to_global(obj_pos))
 		
-func spawn_enemy(fixed_enemies:=false):
+func spawn_enemy(fixed_enemies=false):
 	if fixed_enemies or WAVE_COUNT < Global.get_floor_waves():
 		WAVE_COUNT += 1
 		var positions = get_children()
