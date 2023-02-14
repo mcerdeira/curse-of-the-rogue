@@ -16,6 +16,7 @@ var speed_total = 0
 var point_chase = null
 var player_chase = null
 var Blood = preload("res://scenes/Blood.tscn")
+var Ink = preload("res://scenes/Ink.tscn")
 var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
@@ -63,14 +64,20 @@ var troll_angle_dir = 1
 var inmune_while_moving = false
 var inmune_now = false
 var match_xy = false
-var match_x = false
-var match_y = false
+var match_coor = ""
 
 func _ready():
 	add_to_group("enemy_objects")
 	$shadow.visible = false
 	$sprite.animation = "sign"
 	$area.add_to_group("enemies")
+	
+func ink():
+	for i in range(Global.pick_random([1, 2])):
+		var p = Ink.instance()
+		var root = get_node("/root/Main")
+		root.add_child(p)
+		p.global_position = global_position
 	
 func bleed():
 	if randi() % 7 == 0:
@@ -219,13 +226,15 @@ func out_water():
 		
 func trail():
 	if !falled:
-		emit()
 		if enemy_type == "dead_fire":
+			emit()
 			var fire_ball = EnemyBullet.instance()
 			fire_ball.type = "fire_trail"
 			fire_ball.from = enemy_type
 			get_parent().add_child(fire_ball)
 			fire_ball.set_position(position)
+		if enemy_type == "squid":
+			ink()
 			
 func remove_rotate_bullet():
 	if rbull != null:
@@ -354,6 +363,14 @@ func stop_fall():
 	$sprite.scale.y = 0
 	$sprite.rotation = 0
 	hit(null, 999, "hole")
+	
+func flip_match_coor():
+	if match_coor == "":
+		match_coor = Global.pick_random(["x", "y"])
+	elif match_coor == "x":
+		match_coor = "y"
+	elif match_coor == "y":
+		match_coor = "x"
 
 func enemy_behaviour(delta):
 	if falling:
@@ -453,8 +470,7 @@ func enemy_behaviour(delta):
 			$sprite.playing = false
 		stop_moving -= 1 * delta
 		if stop_moving <= 0:
-			match_x = false
-			match_y = false
+			flip_match_coor()
 	else:
 		if speed < speed_total:
 			speed += 5 * delta
@@ -504,24 +520,21 @@ func enemy_behaviour(delta):
 	
 	if !dead and hit_ttl <= 0:
 		if match_xy:
-			if !match_x and !match_y:
-				var w = Global.pick_random(["y", "x"])
-				if w == "y":
-					match_y = true
-				else:
-					match_x = true
+			if match_coor == "":
+				flip_match_coor()
 			else:
 				var pos = Vector2.ZERO
-				if match_x:
+				if match_coor == "x":
 					pos.x = player_chase.position.x
 					pos.y = position.y
 					
-				elif match_y:
+				elif match_coor == "y":
 					pos.x = position.x
 					pos.y = player_chase.position.y
 			
 				var direction = (pos - self.position).normalized()
 				if pos.distance_to(position) <= 2:
+					flip_match_coor()
 					stop_moving = 1
 							
 				if stop_moving <= 0:
@@ -715,8 +728,8 @@ func set_type(_type):
 		shoot_count = Global.pick_random(shoot_count_total)
 		
 		shoot_type = true
-		speed = 350
-		speed_total = 350
+		speed = 130
+		speed_total = 130
 		life = 5 * life_mult
 		dmg = 1
 			
@@ -724,7 +737,7 @@ func set_type(_type):
 		fireinmune = true
 		is_enemy_group = false
 		stopandgo = false
-		shoot_on_die = true
+		shoot_on_die = false
 		$shadow.visible = true
 		disapear = false
 		leave_trail = true

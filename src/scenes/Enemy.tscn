@@ -246,7 +246,7 @@ extents = Vector2( 19, 13 )
 radius = 30.0
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 33, 77.5 )
+extents = Vector2( 17, 46 )
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 13.0384
@@ -268,6 +268,7 @@ animation = "squid"
 material = SubResource( 6 )
 frames = SubResource( 2 )
 animation = "squid"
+frame = 1
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]
@@ -292,7 +293,7 @@ position = Vector2( 3, -2 )
 shape = SubResource( 8 )
 
 [node name="collider_squid" type="CollisionShape2D" parent="area"]
-position = Vector2( -1, 10.5 )
+position = Vector2( -2, -1 )
 shape = SubResource( 9 )
 
 [node name="collider2" type="CollisionShape2D" parent="."]

@@ -696,7 +696,7 @@ var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
 var ENEMY_PATTERNS = [
 	-1,
 	[
-#		["squid"],
+		["squid"],
 		["tentacle"],
 		["bloby"],
 		["idol"],
@@ -718,6 +718,7 @@ var ENEMY_PATTERNS = [
 		["spider", "spider"],
 		["spider", "bat", "bat"],
 		["spider", "idol", "bat"],
+		["spider", "spider", "squid", "squid"],
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -728,6 +729,7 @@ var ENEMY_PATTERNS = [
 		["spider", "bloby", "bloby"],
 		["bloby", "bat", "bloby"],
 		["idol", "idol", "idol"],
+		["bat", "bat", "troll", "troll", "squid", "squid"],
 	],
 	[	
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -741,6 +743,8 @@ var ENEMY_PATTERNS = [
 		["idol", "idol", "idol", "bloby", "bloby"],
 		["tentacle", "tentacle", "tentacle"],
 		["bloby", "tentacle", "bloby"],
+		["bloby", "squid", "bloby"],
+		["squid", "squid", "squid", "squid", "squid"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -752,7 +756,10 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
-		["bloby", "tentacle", "tentacle", "bloby"],
+		["tentacle", "tentacle", "tentacle"],
+		["bloby", "tentacle", "bloby"],
+		["bloby", "squid", "bloby"],
+		["squid", "squid", "squid", "squid", "squid"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -764,10 +771,12 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
-		["idol", "tentacle", "tentacle", "bloby"],
+		["tentacle", "tentacle", "tentacle"],
+		["bloby", "tentacle", "bloby"],
+		["bloby", "squid", "bloby"],
+		["squid", "squid", "squid", "squid", "squid"],
 	],
 	[
-		["dead_fire", "dead_fire", "dead_fire", "tentacle", "tentacle"],
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "dead_fire", "bloby", "bloby"],
 		["skeleton", "skeleton", "skeleton", "bloby", "dead_fire"],
@@ -777,6 +786,10 @@ var ENEMY_PATTERNS = [
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
+		["tentacle", "tentacle", "tentacle"],
+		["bloby", "tentacle", "bloby"],
+		["bloby", "squid", "bloby"],
+		["squid", "squid", "squid", "squid", "squid"],
 	],
 ]
 
