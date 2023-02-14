@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -45,6 +45,11 @@
 [ext_resource path="res://sprites/tentacle_2.png" type="Texture" id=43]
 [ext_resource path="res://sprites/tentacle_3.png" type="Texture" id=44]
 [ext_resource path="res://sprites/tentacle_4.png" type="Texture" id=45]
+[ext_resource path="res://sprites/ghost_inmune_1.png" type="Texture" id=46]
+[ext_resource path="res://sprites/ghost_inmune_2.png" type="Texture" id=47]
+[ext_resource path="res://sprites/squid_spr_1.png" type="Texture" id=48]
+[ext_resource path="res://sprites/squid_spr_2.png" type="Texture" id=49]
+[ext_resource path="res://sprites/squid_shadow.png" type="Texture" id=50]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -108,6 +113,11 @@ animations = [ {
 "name": "spider_xs",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 50 ) ],
+"loop": true,
+"name": "squid",
+"speed": 5.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "tentacle",
@@ -161,6 +171,11 @@ animations = [ {
 "name": "ghost",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 46 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "ghost_inmune",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 29 ), ExtResource( 39 ) ],
 "loop": true,
 "name": "idol",
@@ -201,6 +216,11 @@ animations = [ {
 "name": "spider_xs",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 48 ), ExtResource( 49 ) ],
+"loop": true,
+"name": "squid",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 42 ), ExtResource( 43 ) ],
 "loop": true,
 "name": "tentacle",
@@ -225,6 +245,9 @@ extents = Vector2( 19, 13 )
 [sub_resource type="CircleShape2D" id=8]
 radius = 30.0
 
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 33, 77.5 )
+
 [sub_resource type="CircleShape2D" id=3]
 radius = 13.0384
 
@@ -239,13 +262,12 @@ visible = false
 [node name="shadow" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -1 )
 frames = SubResource( 4 )
-animation = "tentacle"
+animation = "squid"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "tentacle_inmune"
-frame = 1
+animation = "squid"
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]
@@ -268,6 +290,10 @@ shape = SubResource( 7 )
 visible = false
 position = Vector2( 3, -2 )
 shape = SubResource( 8 )
+
+[node name="collider_squid" type="CollisionShape2D" parent="area"]
+position = Vector2( -1, 10.5 )
+shape = SubResource( 9 )
 
 [node name="collider2" type="CollisionShape2D" parent="."]
 visible = false

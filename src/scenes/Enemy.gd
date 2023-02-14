@@ -62,6 +62,9 @@ var troll_angle = 0
 var troll_angle_dir = 1
 var inmune_while_moving = false
 var inmune_now = false
+var match_xy = false
+var match_x = false
+var match_y = false
 
 func _ready():
 	add_to_group("enemy_objects")
@@ -253,6 +256,18 @@ func shoot():
 				create_enemy_bullet(Vector2(-1, 1), "poison")
 				create_enemy_bullet(Vector2(-1, -1), "poison")
 				
+		if enemy_type == "squid":
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
+			
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(1, 1))
+			create_enemy_bullet(Vector2(1, -1))
+			
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(-1, 1))
+			create_enemy_bullet(Vector2(-1, -1))
+				
 		if enemy_type == "spider":
 			create_enemy_bullet(Vector2(0, 1))
 			create_enemy_bullet(Vector2(0, -1))
@@ -437,6 +452,9 @@ func enemy_behaviour(delta):
 		if !flying:
 			$sprite.playing = false
 		stop_moving -= 1 * delta
+		if stop_moving <= 0:
+			match_x = false
+			match_y = false
 	else:
 		if speed < speed_total:
 			speed += 5 * delta
@@ -485,7 +503,31 @@ func enemy_behaviour(delta):
 			impulse = null
 	
 	if !dead and hit_ttl <= 0:
-		if pingpong:
+		if match_xy:
+			if !match_x and !match_y:
+				var w = Global.pick_random(["y", "x"])
+				if w == "y":
+					match_y = true
+				else:
+					match_x = true
+			else:
+				var pos = Vector2.ZERO
+				if match_x:
+					pos.x = player_chase.position.x
+					pos.y = position.y
+					
+				elif match_y:
+					pos.x = position.x
+					pos.y = player_chase.position.y
+			
+				var direction = (pos - self.position).normalized()
+				if pos.distance_to(position) <= 2:
+					stop_moving = 1
+							
+				if stop_moving <= 0:
+					move_and_slide(speed * direction)
+		
+		elif pingpong:
 			if stop_moving <= 0:
 				if pong_dir == Vector2.ZERO:
 					var xx = speed * rand_range(2, 4) * Global.pick_random([1,-1])
@@ -587,6 +629,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 
 		dmg = 1
 		chase_player = false
@@ -605,6 +648,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
+		$area/collider_squid.set_deferred("disabled", true)
 		$sprite.animation = enemy_type + "_inmune"
 		shoot_count_total = [1, 2]
 		shoot_count = Global.pick_random(shoot_count_total)
@@ -633,6 +677,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
+		$area/collider_squid.set_deferred("disabled", true)
 		shoot_count_total = [1, 2]
 		shoot_count = Global.pick_random(shoot_count_total)
 		shoot_ttl_total = 7
@@ -649,17 +694,51 @@ func set_type(_type):
 		stopandgo = true
 		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
 		shoot_on_die = true
-		disapear = true
+		disapear = false
 		leave_trail = false
 		angle_walker = false
 		random_shooter = false
+		inmune_while_moving = true
+		
+
+	if enemy_type == "squid":
+		Global.play_sound(Global.DeadFireSfx)
+		$area/collider.set_deferred("disabled", true)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", false)
+		
+		shoot_ttl_total = Global.pick_random([5, 3, 2])
+		shoot_ttl = shoot_ttl_total
+		
+		shoot_count_total = [1, 2]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
+		shoot_type = true
+		speed = 350
+		speed_total = 350
+		life = 5 * life_mult
+		dmg = 1
+			
+		flying = true
+		fireinmune = true
+		is_enemy_group = false
+		stopandgo = false
+		shoot_on_die = true
+		$shadow.visible = true
+		disapear = false
+		leave_trail = true
+		angle_walker = false
+		random_shooter = false
 		inmune_while_moving = false
-	
+		match_xy = true
+		
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireSfx)
 		$area/collider.set_deferred("disabled", true)
 		$area/collider_dead_fire.set_deferred("disabled", false)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
@@ -695,6 +774,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		
 		$collider2.set_deferred("disabled", true)
 		shoot_ttl_total = 15
@@ -731,6 +811,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", false)
+		$area/collider_squid.set_deferred("disabled", true)
 		
 		shoot_count_total = [45]
 		shoot_count = Global.pick_random(shoot_count_total)
@@ -765,6 +846,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
@@ -794,6 +876,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		sleep = true
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
@@ -836,6 +919,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		shoot_ttl_total = 0
 		shoot_ttl = shoot_ttl_total
 		shoot_type = false
@@ -875,6 +959,7 @@ func set_type(_type):
 			$area/collider.set_deferred("disabled", false)
 			$area/collider_dead_fire.set_deferred("disabled", true)
 			$area/collider_ghost.set_deferred("disabled", false)
+			$area/collider_squid.set_deferred("disabled", true)
 		else:
 			life = 1 * life_mult
 			speed = 100
@@ -887,6 +972,7 @@ func set_type(_type):
 			$area/collider.set_deferred("disabled", false)
 			$area/collider_dead_fire.set_deferred("disabled", true)
 			$area/collider_ghost.set_deferred("disabled", true)
+			$area/collider_squid.set_deferred("disabled", true)
 
 		dmg = 1
 		if Global.has_idol_mask:
@@ -909,6 +995,7 @@ func set_type(_type):
 		$area/collider.set_deferred("disabled", false)
 		$area/collider_dead_fire.set_deferred("disabled", true)
 		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
 		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total

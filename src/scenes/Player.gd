@@ -885,21 +885,21 @@ func _physics_process(delta):
 			melee_attack()
 			
 	if left:
-		movement.x = -Global.speed #lerp(movement.x, -Global.speed, 0.1)
+		movement.x = -Global.speed / Global.slow_down
 		$sprite.scale.x = -1
 		back = false
 	elif right:
-		movement.x = Global.speed #lerp(movement.x, Global.speed, 0.1)
+		movement.x = Global.speed / Global.slow_down
 		$sprite.scale.x = 1
 		back = false
 		
 	facing = $sprite.scale.x
 		
 	if down:
-		movement.y = Global.speed#lerp(movement.y, Global.speed, 0.1)
+		movement.y = Global.speed / Global.slow_down
 		back = false
 	elif up:
-		movement.y = -Global.speed #lerp(movement.y, -Global.speed, 0.1)
+		movement.y = -Global.speed / Global.slow_down
 		back = true
 		
 	if Global.has_idol_mask:

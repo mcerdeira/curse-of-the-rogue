@@ -120,6 +120,7 @@ var keys = 0
 var melee_speed = 0.0
 var melee_rate = 0.0
 var melee_rate_total = 0.0
+var slow_down = 1
 var attack = 0
 var roll_speed = 0
 var dash_speed = 0
@@ -695,6 +696,7 @@ var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
 var ENEMY_PATTERNS = [
 	-1,
 	[
+#		["squid"],
 		["tentacle"],
 		["bloby"],
 		["idol"],
@@ -778,12 +780,7 @@ var ENEMY_PATTERNS = [
 	],
 ]
 
-func _data_overload():
-	print(calc_points_level(1))
-	print(calc_points_level(2))
-	print(calc_points_level(3))
-	print(calc_points_level(4))
-	
+func _data_overload():	
 	Muted = false
 	SfxMuted = false
 	load_game()
@@ -1175,6 +1172,7 @@ func initialize():
 	has_idol_mask = false
 	has_bleed = false
 	has_backpack = false
+	slow_down = 1
 	
 	_data_overload()
 

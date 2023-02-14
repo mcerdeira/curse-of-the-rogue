@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://sprites/spikes1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/spikes2.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Spikes.gd" type="Script" id=3]
+[ext_resource path="res://sprites/spider_web.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 16 )
@@ -12,6 +13,11 @@ animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "spider_web",
 "speed": 5.0
 } ]
 
@@ -23,6 +29,7 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+frame = 1
 speed_scale = 0.1
 playing = true
 
