@@ -6,9 +6,11 @@ var count = 1
 var last = false
 var num = -1
 var particle = preload("res://scenes/particle2.tscn")
+var LevelUp = preload("res://scenes/LevelUp.tscn")
 var done = false
 var done_ttl = 2.3
 var Chamber = null
+var total_idols = 0
 
 func _physics_process(delta):
 	if done:
@@ -22,7 +24,11 @@ func _physics_process(delta):
 			if last:
 				Chamber.eval_idols()
 				Global.play_sound(Global.AltarSfx)
-				Global.LOGIC_PAUSE = false
+				
+				var levelup = LevelUp.instance()
+				levelup.total_idols = total_idols
+				var root = get_node("/root/Main")
+				root.add_child(levelup)
 				
 			Global.one_shot_items.remove(0)
 			Global.refresh_hud()

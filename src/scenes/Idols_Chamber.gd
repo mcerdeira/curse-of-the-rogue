@@ -2,6 +2,7 @@ extends Area2D
 var got_idols = false
 var animations_created = false
 var IdolAnimation = preload("res://scenes/IdolAnimation.tscn")
+var total_idols = 0
 
 func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.idols_chamber:
@@ -11,6 +12,8 @@ func _ready():
 		eval_idols()
 
 func eval_idols():
+	total_idols = Global.IDOLS.size()
+	
 	if Global.IDOLS[7] == 2:
 		$AltarProgressDecoration.playing = true
 	
@@ -34,6 +37,7 @@ func create_animations(body):
 			idol.delay = 0.7 * i
 			var num = i
 			idol.num = num
+			idol.total_idols = total_idols
 			idol.Chamber = self
 	
 	idol.last = true

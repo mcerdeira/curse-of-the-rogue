@@ -14,6 +14,7 @@ var SPAWNER = null
 var LOGIC_PAUSE = false
 var CURRENT_BOSS_NAME = ""
 var FIRST = true
+var IDOL_PERKS = []
 var TOTAL_FLOORS = 7
 var CURRENT_FLOOR = 0
 var ENEMY_SPAWN_TIMER_TOTAL = 10
@@ -953,6 +954,7 @@ func save_game():
 		"altar_gems" : altar_gems,
 		"altar_level" : altar_level,
 		"IDOLS": Global.IDOLS,
+		"IDOL_PERKS": Global.IDOL_PERKS,
 	}
 	save_game.store_line(to_json(save_dict))
 	save_game.close()
@@ -969,6 +971,7 @@ func load_game():
 		altar_gems = node_data.altar_gems
 		altar_level = node_data.altar_level
 		Global.IDOLS = node_data.IDOLS
+		Global.IDOL_PERKS = node_data.IDOL_PERKS
 
 	save_game.close()
 	
