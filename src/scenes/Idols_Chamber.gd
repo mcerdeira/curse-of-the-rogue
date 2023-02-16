@@ -5,6 +5,7 @@ var IdolAnimation = preload("res://scenes/IdolAnimation.tscn")
 var total_idols = 0
 
 func _ready():
+	add_to_group("idols_chamber")
 	if Global.FLOOR_TYPE != Global.floor_types.idols_chamber:
 		queue_free()
 		return
@@ -12,13 +13,12 @@ func _ready():
 		eval_idols()
 
 func eval_idols():
-	total_idols = Global.IDOLS.size()
-	
 	if Global.IDOLS[7] == 2:
 		$AltarProgressDecoration.playing = true
 	
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
+			total_idols += 1
 			got_idols = true
 			
 		if Global.IDOLS[i] == 2:
@@ -46,5 +46,6 @@ func _on_Idols_Chamber_body_entered(body):
 	if !animations_created and got_idols and body.is_in_group("players"):
 		Global.play_sound(Global.LevelEndSfx)
 		Global.LOGIC_PAUSE = true
+		Global.GETTING_PERKS = true
 		$AltarProgressDecoration.playing = true
 		create_animations(body)

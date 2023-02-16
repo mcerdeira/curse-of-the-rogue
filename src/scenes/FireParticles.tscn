@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://sprites/fire_fx.png" type="Texture" id=1]
+[ext_resource path="res://scenes/FireParticles.gd" type="Script" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=13]
 blend_mode = 1
@@ -37,3 +38,4 @@ amount = 16
 explosiveness = 0.1
 process_material = SubResource( 10 )
 texture = ExtResource( 1 )
+script = ExtResource( 2 )

@@ -30,6 +30,7 @@ var FLOOR_REWARD = [-1, 10, 15, 20, 25, 30, 35, 50]
 
 var GAME_OVER = false
 var FLOOR_OVER = false
+var GETTING_PERKS = false
 
 #################################### Music & SFX #############################################
 var MainTheme = null
@@ -127,6 +128,7 @@ var roll_speed = 0
 var dash_speed = 0
 var attack_max = 0
 var speed = 0
+var speed_mult = 50.0
 var water_speed = 0
 var health = []
 var shield = 0
@@ -794,7 +796,7 @@ var ENEMY_PATTERNS = [
 	],
 ]
 
-func _data_overload():	
+func _data_overload():
 	Muted = false
 	SfxMuted = false
 	load_game()
@@ -802,6 +804,14 @@ func _data_overload():
 		if Global.IDOLS[i] == 1:
 			var texture = item_texture
 			Global.one_shot_items.append(texture)
+			
+	for p in range(Global.IDOL_PERKS.size()):
+		if Global.IDOL_PERKS[p] == "life":
+			health.append(1)
+		if Global.IDOL_PERKS[p] == "speed":
+			Global.speed += (1 * Global.speed_mult)
+		if Global.IDOL_PERKS[p] == "dmg":
+			Global.attack += 1
 	
 func restart_game():
 	restart_pools()
@@ -1114,6 +1124,7 @@ func initialize():
 	GAME_OVER = false
 	FLOOR_OVER = false
 	LOGIC_PAUSE = false
+	GETTING_PERKS = false
 	FLOOR_TYPE = ""
 	CURRENT_FLOOR = 0
 	

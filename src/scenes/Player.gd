@@ -61,6 +61,7 @@ func bleseed():
 	bless_mode = true
 	var fire = FireParticles.instance()
 	add_child(fire)
+	fire.position.y = -32
 
 func _ready():
 	Global.pixelate(pixelated)
@@ -292,7 +293,7 @@ func add_ice():
 	Global.frozen = true
 	
 func add_speed(count, play_sound=true):
-	var mult = 50.0
+	var mult = Global.speed_mult
 	if play_sound:
 		Global.play_sound(Global.ItemSfx)
 	
