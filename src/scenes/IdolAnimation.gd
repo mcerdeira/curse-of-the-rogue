@@ -27,7 +27,7 @@ func _physics_process(delta):
 				
 				var levelup = LevelUp.instance()
 				levelup.total_idols = total_idols
-				var root = get_node("/root/Main")
+				var root = get_node("/root/Main/CanvasLayer")
 				root.add_child(levelup)
 				
 			Global.one_shot_items.remove(0)

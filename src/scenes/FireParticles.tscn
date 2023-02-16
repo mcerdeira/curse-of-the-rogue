@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://sprites/fire_fx.png" type="Texture" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=13]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0, 0.17971, 0.837681, 1 )
+colors = PoolColorArray( 0.925781, 0.672412, 0.0723267, 1, 0.964844, 0.488193, 0.10553, 1, 0.941406, 0.057976, 0.0367737, 1, 0.046875, 0.00175781, 0.000732422, 0 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 12 )
+width = 100
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.3
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 30.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.4
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 653.9
+angle_random = 0.92
+scale = 0.7
+scale_random = 0.53
+color_ramp = SubResource( 11 )
+
+[node name="FireParticles" type="Particles2D"]
+material = SubResource( 13 )
+position = Vector2( 5, -12 )
+z_index = -1
+amount = 16
+explosiveness = 0.1
+process_material = SubResource( 10 )
+texture = ExtResource( 1 )

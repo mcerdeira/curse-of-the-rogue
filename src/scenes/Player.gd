@@ -20,6 +20,7 @@ var PlayerBullet = preload("res://scenes/PlayerBullet.tscn")
 var particle = preload("res://scenes/particle2.tscn")
 var BulletGroup = preload("res://scenes/BulletGroup.tscn")
 var Orbital = preload("res://scenes/Orbital.tscn")
+var FireParticles = preload("res://scenes/FireParticles.tscn")
 var ani_aditional = ""
 var turn_into_zombie_ttl = 0
 var turn_into_zombie_ttl_total = 1.3
@@ -44,6 +45,7 @@ var bulletonetimecreated_glove = 1
 var bulletonetimecreated = [false, false]
 var back = false
 var restzoom = false
+var bless_mode = false
 
 var dead = false
 var entering = false
@@ -54,6 +56,11 @@ func restore_zoom():
 func camera_zoom(x, y):
 	$Camera2D.zoom.x = x
 	$Camera2D.zoom.y = y
+	
+func bleseed():
+	bless_mode = true
+	var fire = FireParticles.instance()
+	add_child(fire)
 
 func _ready():
 	Global.pixelate(pixelated)
