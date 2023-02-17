@@ -797,7 +797,7 @@ var ENEMY_PATTERNS = [
 	],
 ]
 
-func _data_overload():	
+func _data_overload():
 	Muted = false
 	SfxMuted = false
 	load_game()
