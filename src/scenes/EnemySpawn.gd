@@ -141,7 +141,7 @@ func spawn_chest_and_stuff(only_chest=false, only_idol=false):
 		
 	var obj_inst = null
 
-	if only_idol and !Global.IDOLS[Global.CURRENT_FLOOR] == 1:
+	if only_idol and Global.IDOLS[Global.CURRENT_FLOOR] == 0:
 		obj_inst = get_idol()
 	else:
 		if only_chest or do_chest:
