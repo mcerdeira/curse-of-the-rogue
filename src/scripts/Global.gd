@@ -1103,9 +1103,14 @@ func init_pool(only_normal_items= false):
 					add_premiums(5)
 			
 func remove_from_pool(_name):
-	for i in range(PREMIUM_ITEMS.size() - 1):
+	var idx = -1
+	for i in range(PREMIUM_ITEMS.size()):
 		if PREMIUM_ITEMS[i].name == _name:
-			PREMIUM_ITEMS.remove(i)
+			idx = i
+			break
+			
+	if idx != -1:
+		PREMIUM_ITEMS.remove(idx)
 	
 func get_random_item(force=false):
 	randomize()
