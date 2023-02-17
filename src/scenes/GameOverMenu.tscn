@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -38,6 +38,7 @@
 [ext_resource path="res://sprites/extra_prisoner_gameover.png" type="Texture" id=36]
 [ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=37]
 [ext_resource path="res://sprites/squid_spr_2.png" type="Texture" id=38]
+[ext_resource path="res://sprites/poison.png" type="Texture" id=39]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -153,6 +154,11 @@ animations = [ {
 "frames": [ ExtResource( 24 ) ],
 "loop": true,
 "name": "mimic",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "poison_fx",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
@@ -322,7 +328,7 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "squid"
+animation = "poison_fx"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
