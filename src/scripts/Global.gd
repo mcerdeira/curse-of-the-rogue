@@ -1,5 +1,5 @@
 extends Node
-var VERSION = "0.0.2"
+var VERSION = "0.0.3"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -507,8 +507,8 @@ var backpack = {
 	"oneshot": true,
 }
 
-var wolfe_bite =  {
-	"name": "wolfe_bite",
+var wolf_bite =  {
+	"name": "wolf_bite",
 	"description": "Wolf Bite",
 	"long_description": "A wolf bite",
 	"price": 350,
@@ -797,7 +797,7 @@ var ENEMY_PATTERNS = [
 	],
 ]
 
-func _data_overload():
+func _data_overload():	
 	Muted = false
 	SfxMuted = false
 	load_game()
@@ -846,7 +846,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(shoot_speed_up)
 	PREMIUM_ITEMS.push_back(poison_itm)
 	PREMIUM_ITEMS.push_back(brain)
-	PREMIUM_ITEMS.push_back(wolfe_bite)
+	PREMIUM_ITEMS.push_back(wolf_bite)
 	PREMIUM_ITEMS.push_back(shot_gun)
 	PREMIUM_ITEMS.push_back(knife)
 	PREMIUM_ITEMS.push_back(bomb)

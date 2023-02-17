@@ -272,7 +272,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
-"name": "wolfe_bite",
+"name": "wolf_bite",
 "speed": 5.0
 } ]
 

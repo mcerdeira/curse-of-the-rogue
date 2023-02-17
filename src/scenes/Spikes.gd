@@ -4,10 +4,9 @@ var player = null
 var dmg = 1
 var spider_web = false
 
-
 func _ready():
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN
-	if randi() % 7 == 0:
+	if randi() % 5 == 0:
 		spider_web = true
 		$sprite.animation = "spider_web"
 
