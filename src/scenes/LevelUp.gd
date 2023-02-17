@@ -42,6 +42,7 @@ func _physics_process(delta):
 				root.add_child(levelup)
 			
 			if total_idols <= 0:
+				Global.custom_cursor()
 				Global.GETTING_PERKS = false
 				Global.LOGIC_PAUSE = false
 				var HUD = get_tree().get_nodes_in_group("HUD")[0]
