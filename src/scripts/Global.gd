@@ -1,4 +1,5 @@
 extends Node
+var VERSION = "0.0.2"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0

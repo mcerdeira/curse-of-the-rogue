@@ -7,7 +7,7 @@ var spider_web = false
 
 func _ready():
 	z_index = VisualServer.CANVAS_ITEM_Z_MIN
-	if true or randi()%10 == 0:
+	if randi() % 7 == 0:
 		spider_web = true
 		$sprite.animation = "spider_web"
 
@@ -19,7 +19,7 @@ func _physics_process(delta):
 			if $sprite.frame == 1:
 				player.hit(dmg, "spikes")
 
-func _on_Spikes_body_entered(body):	
+func _on_Spikes_body_entered(body):
 	if body.is_in_group("players"):
 		if !Global.flying:
 			Global.slow_down = 2

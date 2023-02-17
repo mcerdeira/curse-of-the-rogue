@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -145,6 +145,10 @@ tracks/0/keys = {
 "values": [ Vector2( 420, 691 ), Vector2( 420, 500 ) ]
 }
 
+[sub_resource type="DynamicFont" id=13]
+size = 8
+font_data = ExtResource( 14 )
+
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -165,7 +169,7 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="Player"]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -209,6 +213,15 @@ text = "PRESS START"
 
 [node name="PressAnimation" type="AnimationPlayer" parent="."]
 "anims/New Anim" = SubResource( 10 )
+
+[node name="lbl_build" type="Label" parent="."]
+margin_left = 686.0
+margin_top = 569.0
+margin_right = 1023.0
+margin_bottom = 577.0
+custom_fonts/font = SubResource( 13 )
+text = "build 0.0.1"
+align = 2
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

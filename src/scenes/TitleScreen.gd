@@ -8,6 +8,7 @@ var startgame = false
 var start_ttl = 1.3
 
 func _ready():
+	$lbl_build.text = "build " + Global.VERSION
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	$AnimationPlayer.play("Walking")
@@ -32,6 +33,7 @@ func _physics_process(delta):
 		
 	if !stop and !ui_canceled and Input.is_action_just_pressed("ui_accept"):
 		ui_canceled = true
+		$lbl_build.visible = true
 		$AnimationPlayer.seek(2)
 		$Player/sprite.animation = "back"
 		$Player/sprite.playing = true
