@@ -1,5 +1,5 @@
 extends Node
-var VERSION = "0.0.5"
+var VERSION = "0.0.6"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -887,74 +887,74 @@ func pixelate(val):
 	transition_obj.material.set_shader_param("factor", val)
 	
 func LoadSfxAndMusic():
-	MainTheme = load("res://music/main_theme_option2.ogg")
-	ShopAlterTheme = load("res://music/shop_altar_theme.mp3")
-	TitleTheme = load("res://music/TitleTheme.ogg")
-	BossBattle = load("res://music/BossBattle.wav")
+	MainTheme = preload("res://music/main_theme_option2.ogg")
+	ShopAlterTheme = preload("res://music/shop_altar_theme.mp3")
+	TitleTheme = preload("res://music/TitleTheme.ogg")
+	BossBattle = preload("res://music/BossBattle.wav")
 	
-	FallingSfx = load("res://sfx/FallingSfx.wav")
-	AcceptSfx = load("res://sfx/Accept.mp3")
-	GemSfx = load("res://sfx/GemSfx.wav")
-	MasterKeySfx = load("res://sfx/MasterKeySfx.ogg")
-	KeySfx = load("res://sfx/KeySfx.ogg")
-	ItemSfx = load("res://sfx/ItemSfx.wav")
-	LifeSfx = load("res://sfx/LifeSfx.wav")
-	WeaponSfx = load("res://sfx/WeaponSfx.ogg")
-	PlayerHurt = load("res://sfx/PlayerHurt.wav")
-	WereWolfSfx = load("res://sfx/WereWolfSfx.wav")
-	ZombieSfx = load("res://sfx/ZombieSfx.ogg")
-	PlayerDieSfx = load("res://sfx/PlayerDieSfx.wav")
-	PlayerEnteringSfx = load("res://sfx/PlayerEnteringSfx.wav")
-	PlasmaSfx = load("res://sfx/PlasmaSfx.ogg")
-	ShotGunSfx = load("res://sfx/ShotGunSfx.ogg")
-	KnifeSfx = load("res://sfx/KnifeSfx.wav")
-	BombSxf = load("res://sfx/BombSxf.wav")
-	BombExplosionSfx = load("res://sfx/BombExplosionSfx.wav")
-	TomaHawkSfx = load("res://sfx/TomaHawkSfx.wav")
-	WhipSfx = load("res://sfx/WhipSfx.wav")
-	AltarSfx = load("res://sfx/AltarSfx.wav")
-	PropsSfx = load("res://sfx/PropsSfx.wav")
-	WheelMoveSfx = load("res://sfx/WheelMoveSfx.wav")
-	WheelSfx = load("res://sfx/WheelSfx.wav")
+	FallingSfx = preload("res://sfx/FallingSfx.wav")
+	AcceptSfx = preload("res://sfx/Accept.mp3")
+	GemSfx = preload("res://sfx/GemSfx.wav")
+	MasterKeySfx = preload("res://sfx/MasterKeySfx.ogg")
+	KeySfx = preload("res://sfx/KeySfx.ogg")
+	ItemSfx = preload("res://sfx/ItemSfx.wav")
+	LifeSfx = preload("res://sfx/LifeSfx.wav")
+	WeaponSfx = preload("res://sfx/WeaponSfx.ogg")
+	PlayerHurt = preload("res://sfx/PlayerHurt.wav")
+	WereWolfSfx = preload("res://sfx/WereWolfSfx.wav")
+	ZombieSfx = preload("res://sfx/ZombieSfx.ogg")
+	PlayerDieSfx = preload("res://sfx/PlayerDieSfx.wav")
+	PlayerEnteringSfx = preload("res://sfx/PlayerEnteringSfx.wav")
+	PlasmaSfx = preload("res://sfx/PlasmaSfx.ogg")
+	ShotGunSfx = preload("res://sfx/ShotGunSfx.ogg")
+	KnifeSfx = preload("res://sfx/KnifeSfx.wav")
+	BombSxf = preload("res://sfx/BombSxf.wav")
+	BombExplosionSfx = preload("res://sfx/BombExplosionSfx.wav")
+	TomaHawkSfx = preload("res://sfx/TomaHawkSfx.wav")
+	WhipSfx = preload("res://sfx/WhipSfx.wav")
+	AltarSfx = preload("res://sfx/AltarSfx.wav")
+	PropsSfx = preload("res://sfx/PropsSfx.wav")
+	WheelMoveSfx = preload("res://sfx/WheelMoveSfx.wav")
+	WheelSfx = preload("res://sfx/WheelSfx.wav")
 	
 	AltarOpenedSfx = WheelSfx
 	
-	ChestOpenSfx = load("res://sfx/ChestOpenSfx.ogg")
-	ChestAnimationSfx = load("res://sfx/ChestAnimationSfx.wav")
-	LevelEndSfx = load("res://sfx/LevelEndSfx.wav")
-	#MegaRaySfx = load("res://sfx/file.wav")
+	ChestOpenSfx = preload("res://sfx/ChestOpenSfx.ogg")
+	ChestAnimationSfx = preload("res://sfx/ChestAnimationSfx.wav")
+	LevelEndSfx = preload("res://sfx/LevelEndSfx.wav")
+	#MegaRaySfx = preload("res://sfx/file.wav")
 	
-	DeadFireSfx = load("res://sfx/DeadFireSfx.wav")
-	DeadFireHitSfx = load("res://sfx/DeadFireHitSfx.wav")
+	DeadFireSfx = preload("res://sfx/DeadFireSfx.wav")
+	DeadFireHitSfx = preload("res://sfx/DeadFireHitSfx.wav")
 	DeadFireShootSfx = DeadFireSfx
 	
-	SkeleSfx = load("res://sfx/SkeleSfx.wav")
-	SkeleHitSfx = load("res://sfx/SkeleHitSfx.wav")
+	SkeleSfx = preload("res://sfx/SkeleSfx.wav")
+	SkeleHitSfx = preload("res://sfx/SkeleHitSfx.wav")
 	SkeleShootSfx = SkeleSfx
 	
-	BatsSfx = load("res://sfx/BatsSfx.ogg")
-	BatsHitSfx = load("res://sfx/BatsHitSfx.ogg")
+	BatsSfx = preload("res://sfx/BatsSfx.ogg")
+	BatsHitSfx = preload("res://sfx/BatsHitSfx.ogg")
 	
-	ScorpionSfx = load("res://sfx/ScorpionSfx.wav")
-	ScorpionHitSfx = load("res://sfx/ScorpionHitSfx.wav")
+	ScorpionSfx = preload("res://sfx/ScorpionSfx.wav")
+	ScorpionHitSfx = preload("res://sfx/ScorpionHitSfx.wav")
 	
-	GhostSfx = load("res://sfx/GhostSfx.wav")
-	GhostHitSfx = load("res://sfx/GhostHitSfx.wav")
+	GhostSfx = preload("res://sfx/GhostSfx.wav")
+	GhostHitSfx = preload("res://sfx/GhostHitSfx.wav")
 	GhostShootSfx = GhostSfx
 	
-	ElectricSfx = load("res://sfx/ElectricSfx.wav")
-	FrozeSfx = load("res://sfx/FrozeSfx.wav")
-	PoisonSfx = load("res://sfx/PoisonSfx.wav")
+	ElectricSfx = preload("res://sfx/ElectricSfx.wav")
+	FrozeSfx = preload("res://sfx/FrozeSfx.wav")
+	PoisonSfx = preload("res://sfx/PoisonSfx.wav")
 	
 	SpiderSfx = ScorpionSfx
 	SpiderHitSfx = ScorpionHitSfx
 	
-	SpikeBallSfx = load("res://sfx/SpikeBallSfx.wav")
+	SpikeBallSfx = preload("res://sfx/SpikeBallSfx.wav")
 	
 	TrollSfx = GhostSfx
 	TrollHitSfx = GhostHitSfx
 	
-	KatanaSfx = load("res://sfx/KatanaSfx.mp3")
+	KatanaSfx = preload("res://sfx/KatanaSfx.mp3")
 	
 func save_game():
 	var save_game = File.new()
