@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -39,6 +39,7 @@
 [ext_resource path="res://sprites/idol_enemy_1.png" type="Texture" id=37]
 [ext_resource path="res://sprites/squid_spr_2.png" type="Texture" id=38]
 [ext_resource path="res://sprites/poison.png" type="Texture" id=39]
+[ext_resource path="res://sprites/sho_guy.png" type="Texture" id=40]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -169,6 +170,11 @@ animations = [ {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "scorpion+",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ) ],
+"loop": true,
+"name": "shop_keeper",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ) ],
@@ -328,7 +334,7 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "poison_fx"
+animation = "idol"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )

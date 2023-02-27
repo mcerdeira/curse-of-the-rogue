@@ -197,6 +197,25 @@ func shoot_die():
 				pos.y = global_position.y + i * 5 * m
 				
 				enemy_inst.global_position = pos
+				
+		if enemy_type == "shop_keeper":
+			var doors = get_tree().get_nodes_in_group("doors")
+			for d in doors:
+				d.open_door()
+			
+			Global.only_supershops = true
+			Global.play_sound(Global.LevelEndSfx)
+			
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
+			
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(1, 1))
+			create_enemy_bullet(Vector2(1, -1))
+			
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(-1, 1))
+			create_enemy_bullet(Vector2(-1, -1))
 			
 		if enemy_type == "ghost":
 			create_enemy_bullet(Vector2(0, 1))
@@ -264,6 +283,18 @@ func shoot():
 				create_enemy_bullet(Vector2(1, -1), "poison")
 				create_enemy_bullet(Vector2(-1, 1), "poison")
 				create_enemy_bullet(Vector2(-1, -1), "poison")
+				
+		if enemy_type == "shop_keeper":
+			create_enemy_bullet(Vector2(0, 1))
+			create_enemy_bullet(Vector2(0, -1))
+			
+			create_enemy_bullet(Vector2(1, 0))
+			create_enemy_bullet(Vector2(1, 1))
+			create_enemy_bullet(Vector2(1, -1))
+			
+			create_enemy_bullet(Vector2(-1, 0))
+			create_enemy_bullet(Vector2(-1, 1))
+			create_enemy_bullet(Vector2(-1, -1))
 				
 		if enemy_type == "squid":
 			create_enemy_bullet(Vector2(0, 1))
@@ -712,7 +743,6 @@ func set_type(_type):
 		angle_walker = false
 		random_shooter = false
 		inmune_while_moving = true
-		
 
 	if enemy_type == "squid":
 		Global.play_sound(Global.DeadFireSfx)
@@ -846,6 +876,36 @@ func set_type(_type):
 		disapear = false
 		leave_trail = false
 		angle_walker = false
+		random_shooter = false
+		inmune_while_moving = false
+		
+	if enemy_type == "shop_keeper":
+		life = 25
+		speed = 230
+		speed_total = 260
+		shoot_on_die = true
+		shoot_ttl_total = 3
+		shoot_ttl = shoot_ttl_total
+		shoot_type = true
+		
+		shoot_count_total = [9, 12, 15]
+		shoot_count = Global.pick_random(shoot_count_total)
+		
+		stopandgo = true
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", false)
+		$area/collider_squid.set_deferred("disabled", true)
+
+		dmg = 1
+		chase_player = true
+		flying = false
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		disapear = false
+		leave_trail = false
+		angle_walker = true
 		random_shooter = false
 		inmune_while_moving = false
 		
@@ -1038,6 +1098,9 @@ func set_type(_type):
 		inmune_while_moving = false
 		
 func OuchSfx():
+	if enemy_type == "shop_keeper":
+		var options = {"pitch_scale": 0.6}
+		Global.play_sound(Global.PlayerHurt, options)
 	if enemy_type == "bloby":
 		var options = {"pitch_scale": 2.5}
 		Global.play_sound(Global.SpiderHitSfx, options)

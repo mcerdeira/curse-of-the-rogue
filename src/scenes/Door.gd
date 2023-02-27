@@ -28,6 +28,9 @@ func _ready():
 	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.idols_chamber:
 		type = "boss"
 		
+	if type == "shop" and Global.only_supershops:
+		type = "supershop"
+		
 	$lbl.visible = false
 	$price_lbl.visible = false
 	$amount_spr.visible = false
@@ -59,7 +62,10 @@ func random_type():
 		else:
 			return "cant"
 	else:
-		return Global.pick_random(["altar", "altar", "altar", "altar", "altar", "altar", "supershop"])
+		if Global.only_supershops:
+			return "altar"
+		else:
+			return Global.pick_random(["altar", "altar", "altar", "supershop"])
 
 func set_price():
 	randomize()
@@ -99,7 +105,8 @@ func trad_type():
 	elif type == "idols_chamber":
 		return "CHAMBER"
 	elif type == "supershop":
-		set_price()
+		if !Global.only_supershops:
+			set_price()
 		return "Shop++"
 	elif type == "boss":
 		return "BOSS"
@@ -113,7 +120,7 @@ func emit():
 		
 func reveal():
 	$lbl.visible = true
-	if type == "next" or type == "shop":
+	if type == "next" or type == "shop" or (type == "supershop" and Global.only_supershops):
 		open_door()
 	elif type != "cant":
 		if price_amount > 0:
@@ -124,6 +131,14 @@ func reveal():
 		else:
 			open_door()
 		
+	emit()
+	
+func close_door():
+	opened = false
+	if type == "altar":
+		$sprite.animation = "altar"
+	else:
+		$sprite.animation = "normal"
 	emit()
 
 func open_door():

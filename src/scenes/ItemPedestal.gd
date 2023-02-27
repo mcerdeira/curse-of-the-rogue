@@ -17,6 +17,7 @@ export var noforshop = false
 onready var default_pos = $item.get_position()
 
 func _ready():
+	add_to_group("items_pedestals")
 	local_floor_type = Global.FLOOR_TYPE
 	if Global.altar_level == Global.altar_level_max and Global.FLOOR_TYPE == Global.floor_types.intro:
 		local_floor_type = Global.floor_types.altar
@@ -55,6 +56,8 @@ func _ready():
 		price_what = ""
 	else:
 		if Global.CURRENT_FLOOR == 1:
+			item.price = item.price / 2 #Floor 1, 50% off!
+		elif Global.FLOOR_TYPE == Global.floor_types.supershop and Global.only_supershops:
 			item.price = item.price / 2 #Floor 1, 50% off!
 		
 		$price_lbl.text = "x" + str(item.price)

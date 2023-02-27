@@ -1,4 +1,5 @@
 extends Node
+var only_supershops = false
 var VERSION = "0.0.7"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
@@ -960,8 +961,10 @@ func save_game():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	var save_dict = {
+		
 		"altar_points" : altar_points,
 		"altar_lifes" : altar_lifes,
+		"only_supershops": only_supershops,
 		"altar_gems" : altar_gems,
 		"altar_level" : altar_level,
 		"IDOLS": Global.IDOLS,
@@ -977,6 +980,10 @@ func load_game():
 	save_game.open("user://savegame.save", File.READ)
 	while save_game.get_position() < save_game.get_len():
 		var node_data = parse_json(save_game.get_line())
+		
+		if "only_supershops" in node_data:
+			only_supershops = node_data.only_supershops
+			
 		altar_points = node_data.altar_points
 		altar_lifes = node_data.altar_lifes
 		altar_gems = node_data.altar_gems
@@ -1077,7 +1084,7 @@ func add_normals(n):
 		else:
 			break
 	
-func add_premiums(n ):
+func add_premiums(n):
 	var prem_copy = [] + PREMIUM_ITEMS
 	for i in range(n):
 		var idx = -1
@@ -1088,13 +1095,13 @@ func add_premiums(n ):
 		else:
 			break
 		
-func init_pool(only_normal_items= false):
+func init_pool(only_normal_items = false):
 	randomize()
 	ITEM_POOL = []
 	if only_normal_items:
 		ITEM_POOL = [] + ITEMS
 	else:
-		if PREMIUM_ITEMS.size() > 0 and (Global.FLOOR_TYPE == Global.floor_types.intro or Global.FLOOR_TYPE == Global.floor_types.altar):
+		if PREMIUM_ITEMS.size() > 0 and (Global.FLOOR_TYPE == Global.floor_types.supershop or Global.FLOOR_TYPE == Global.floor_types.intro or Global.FLOOR_TYPE == Global.floor_types.altar):
 			ITEM_POOL = [] + PREMIUM_ITEMS
 		else:
 			ITEM_POOL = [] + ITEMS
@@ -1206,6 +1213,7 @@ func initialize():
 	has_bleed = false
 	has_backpack = false
 	slow_down = 1
+	only_supershops = false
 	
 	_data_overload()
 

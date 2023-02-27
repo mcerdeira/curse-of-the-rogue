@@ -12,6 +12,9 @@ func _on_sprite_animation_finished():
 	queue_free()
 
 func _on_Whip_area_entered(area):
+	if area.is_in_group("shop_keeper"):
+		area.get_parent().hit(get_parent(), dmg, "player")
+	
 	if area.is_in_group("decorations"):
 		area._destroy()
 		

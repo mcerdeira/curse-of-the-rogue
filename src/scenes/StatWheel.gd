@@ -10,11 +10,19 @@ var _player = null
 var zoom = 1
 
 func _ready():
+	add_to_group("stat_wheel")
 	if Global.FLOOR_TYPE != Global.floor_types.altar and Global.FLOOR_TYPE != Global.floor_types.shop and Global.FLOOR_TYPE != Global.floor_types.supershop:
 		queue_free()
-		return	
+		return
+	
+	var chance = [1, 1, 1, 0]
+	if Global.altar_level >= Global.altar_level_max / 2:
+		chance = [1, 0, 0]
+		
+	if Global.altar_level == Global.altar_level_max:
+		chance = [0]
 
-	if Global.pick_random([1, 1, 1, 0]) == 1:
+	if Global.pick_random(chance) == 1:
 		queue_free()
 		return
 	
