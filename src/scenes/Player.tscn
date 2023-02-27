@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://sprites/zombie_spr_roll_0.png" type="Texture" id=38]
 [ext_resource path="res://sprites/idol_mask_back.png" type="Texture" id=39]
 [ext_resource path="res://sprites/back_pack_gun.png" type="Texture" id=40]
+[ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=41]
 [ext_resource path="res://scenes/Shaker.gd" type="Script" id=69]
 
 [sub_resource type="Shader" id=8]
@@ -198,6 +199,9 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=1]
 
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 41 )
+
 [node name="Player" type="KinematicBody2D"]
 z_index = 560
 script = ExtResource( 4 )
@@ -234,3 +238,13 @@ shape = SubResource( 1 )
 [node name="Shaker" type="Node" parent="."]
 script = ExtResource( 69 )
 _camera = NodePath("../Camera2D")
+
+[node name="lbl_combo" type="Label" parent="."]
+margin_left = -19.0
+margin_top = -35.0
+margin_right = 21.0
+margin_bottom = -19.0
+custom_colors/font_color = Color( 0.933333, 0.713726, 0.184314, 1 )
+custom_fonts/font = SubResource( 10 )
+align = 1
+valign = 1

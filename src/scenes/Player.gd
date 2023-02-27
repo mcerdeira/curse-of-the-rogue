@@ -691,6 +691,11 @@ func has_weapon_glove():
 	return false
 			
 func _physics_process(delta):
+	if Global.current_combo > 0:
+		$lbl_combo.text = str(Global.current_combo)
+	else:
+		$lbl_combo.text = ""
+	
 	if restzoom:
 		if $Camera2D.zoom.x <= 1:
 			$Camera2D.zoom.x += 1 * delta

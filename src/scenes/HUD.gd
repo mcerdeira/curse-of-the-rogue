@@ -125,7 +125,11 @@ func set_message(title, msg):
 	message_ttl = 1.5
 	$c/game_over.visible = true
 	$c/game_over.text = title
-	$c/subtitle.text = "\n\n\n\n" + msg
+	$c/game_over/game_over2.text = title
+	
+	$c/subtitle.text = msg
+	$c/subtitle/subtitle2.text = msg
+	
 	
 func _physics_process(delta):	
 	if !Global.GAME_OVER and message_ttl > 0:
@@ -133,12 +137,16 @@ func _physics_process(delta):
 		if message_ttl <= 0:
 			message_ttl = 0
 			$c/subtitle.text = ""
+			$c/subtitle/subtitle2.text = ""
 			$c/game_over.text = game_over_text
+			$c/game_over/game_over2.text = game_over_text
 			$c/game_over.visible = false
 	
 	if Global.GAME_OVER:
 		$c/subtitle.text = ""
+		$c/subtitle/subtitle2.text = ""
 		$c/game_over.text = game_over_text
+		$c/game_over/game_over2.text = game_over_text
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
 			$c/game_over.visible = true
@@ -147,6 +155,7 @@ func _physics_process(delta):
 	else:
 		if $c/game_over.visible and message_ttl <= 0:
 			$c/subtitle.text = ""
+			$c/subtitle/subtitle2.text = ""
 			$c/game_over.visible = false
 
 	if Global.combo_time > 0:

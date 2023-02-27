@@ -70,7 +70,7 @@ size = 8
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 56
+size = 72
 font_data = ExtResource( 3 )
 
 [sub_resource type="SpriteFrames" id=4]
@@ -210,24 +210,44 @@ shield_zombie = ExtResource( 24 )
 [node name="MiniHUDPos" type="Position2D" parent="CanvasLayer/HUD"]
 position = Vector2( 881, 10 )
 
-[node name="c" type="CenterContainer" parent="CanvasLayer/HUD"]
-margin_right = 1024.0
-margin_bottom = 376.0
+[node name="c" type="Node" parent="CanvasLayer/HUD"]
 
 [node name="subtitle" type="Label" parent="CanvasLayer/HUD/c"]
-margin_left = 512.0
-margin_top = 180.0
-margin_right = 512.0
-margin_bottom = 196.0
+margin_left = 332.0
+margin_top = 213.0
+margin_right = 716.0
+margin_bottom = 229.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 align = 1
 valign = 2
+autowrap = true
+
+[node name="subtitle2" type="Label" parent="CanvasLayer/HUD/c/subtitle"]
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 386.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 5 )
+align = 1
+valign = 2
+autowrap = true
 
 [node name="game_over" type="Label" parent="CanvasLayer/HUD/c"]
 margin_left = 352.0
 margin_top = 168.0
 margin_right = 672.0
 margin_bottom = 208.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "YOU DIED"
+align = 1
+
+[node name="game_over2" type="Label" parent="CanvasLayer/HUD/c/game_over"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 323.0
+margin_bottom = 42.0
 custom_fonts/font = SubResource( 2 )
 text = "YOU DIED"
 align = 1
@@ -384,11 +404,14 @@ custom_fonts/font = SubResource( 1 )
 text = "  COMBO:"
 
 [node name="combo" type="Label" parent="CanvasLayer/HUD"]
-margin_left = 803.0
+margin_left = 704.0
 margin_top = 26.0
-margin_right = 1027.0
-margin_bottom = 90.0
+margin_right = 992.0
+margin_bottom = 98.0
+custom_colors/font_color = Color( 0.933333, 0.713726, 0.184314, 1 )
 custom_fonts/font = SubResource( 3 )
+text = "x13"
+align = 2
 
 [node name="SmallGem" type="Sprite" parent="CanvasLayer/HUD"]
 position = Vector2( 45, 78 )

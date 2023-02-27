@@ -1214,7 +1214,7 @@ func sustain():
 		combo_time = 0.7
 
 func add_combo():
-	if FLOOR_TYPE == floor_types.normal:
+	if FLOOR_TYPE == floor_types.normal and !Global.FLOOR_OVER:
 		combo_time = combo_time_total
 		current_combo += 1
 		if current_combo >= max_combo:

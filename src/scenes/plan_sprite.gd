@@ -64,6 +64,7 @@ func destroy_silent():
 	queue_free()
 
 func _destroy():
+	Global.add_combo()
 	Global.play_sound(Global.PropsSfx)
 	emit()
 	if !destroyed:
