@@ -22,11 +22,11 @@ func _physics_process(delta):
 		if done_ttl <= 0:
 			Global.IDOLS[num] = 2
 			if last:
-				Chamber.eval_idols()
 				Global.play_sound(Global.AltarSfx)
 				
 				var levelup = LevelUp.instance()
 				levelup.total_idols = total_idols
+				levelup.Chamber = Chamber
 				var root = get_node("/root/Main/CanvasLayer")
 				root.add_child(levelup)
 				

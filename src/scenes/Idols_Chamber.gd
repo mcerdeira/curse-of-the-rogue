@@ -22,8 +22,9 @@ func eval_idols():
 			got_idols = true
 			
 		if Global.IDOLS[i] == 2:
-			var slot = get_node("IdolSlot" + str(i))
-			slot.activate_idol()
+			if range(Global.IDOL_PERKS.size()).has(i-1):
+				var slot = get_node("IdolSlot" + str(i))
+				slot.activate_idol(Global.IDOL_PERKS[i-1])
 			
 func create_animations(body):
 	var idol = null

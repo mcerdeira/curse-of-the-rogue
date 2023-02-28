@@ -1,6 +1,6 @@
 extends Node
 var only_supershops = false
-var VERSION = "0.0.7"
+var VERSION = "0.0.10"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -1236,7 +1236,7 @@ func initialize():
 
 func sustain():
 	if FLOOR_TYPE == floor_types.normal:
-		combo_time = 0.7
+		combo_time = 1
 
 func add_combo():
 	if FLOOR_TYPE == floor_types.normal and !Global.FLOOR_OVER:

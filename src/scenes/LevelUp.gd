@@ -6,6 +6,7 @@ var player = null
 var what = ""
 var done = false
 var LevelUp = null
+var Chamber = null
 
 func _ready():
 	LevelUp = load("res://scenes/LevelUp.tscn")
@@ -39,9 +40,12 @@ func _physics_process(delta):
 			
 			total_idols -= 1
 			
+			Chamber.eval_idols()
+			
 			if total_idols > 0:
 				var levelup = LevelUp.instance()
 				levelup.total_idols = total_idols
+				levelup.Chamber = Chamber
 				var root = get_node("/root/Main/CanvasLayer")
 				root.add_child(levelup)
 			
