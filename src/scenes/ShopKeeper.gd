@@ -28,7 +28,7 @@ func _ready():
 					"Thanks for helping me out!!!"
 				]
 			else:
-				texts = ["I want to eliminate my competence so I can lower the prices..."]
+				texts = ["I want to eliminate competition so I can lower the prices..."]
 			
 		elif Global.FLOOR_TYPE == Global.floor_types.shop:
 			texts = [

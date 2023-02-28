@@ -159,7 +159,7 @@ func _physics_process(delta):
 			
 	elif type == "grandpa_photo":
 		if !dir:
-			var _chase = get_tree().get_nodes_in_group("enemies")
+			var _chase = get_tree().get_nodes_in_group("enemy_objects")
 			if _chase.size() > 0:
 				randomize()
 				_chase.shuffle()
@@ -170,7 +170,7 @@ func _physics_process(delta):
 		
 	elif type == "knife":
 		if !dir:
-			var _chase = get_tree().get_nodes_in_group("enemies")
+			var _chase = get_tree().get_nodes_in_group("enemy_objects")
 			if _chase.size() > 0:
 				randomize()
 				_chase.shuffle()

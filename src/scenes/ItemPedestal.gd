@@ -106,9 +106,9 @@ func do_item_effect(_player):
 		_player.add_shield(1, false)
 		_player.add_damage(1, true)
 		_player.add_luck(1, false)
-		_player.add_melee(0.1, false)
+		_player.add_melee(0.5, false)
 		_player.add_speed(1, false)
-		_player.add_shoot_speed(0.5, false)
+		_player.add_shoot_speed(1, false)
 	elif item_name == "backpack":
 		_player.add_backpack()
 	elif item_name == "grandpa_photo":
@@ -169,7 +169,7 @@ func do_item_effect(_player):
 		_player.add_shield(4, true)
 		_player.add_damage(1, false)
 	elif item_name == "meleeup":
-		_player.add_melee(0.1)
+		_player.add_melee(0.5)
 	elif item_name == "normal_heart":
 		_player.add_heart(1)
 	elif item_name == "pay_2_win":
@@ -181,7 +181,7 @@ func do_item_effect(_player):
 	elif item_name == "roll":
 		_player.add_secondary_weapon(item_name)
 	elif item_name == "shoot_speed_up":
-		_player.add_shoot_speed(0.5)
+		_player.add_shoot_speed(1)
 	elif item_name == "shot_gun":
 		_player.add_automatic_weapon(item_name)
 	elif item_name == "speedup":
@@ -194,6 +194,8 @@ func do_item_effect(_player):
 		_player.add_fly()
 	elif item_name == "pin_item":
 		_player.add_pin()
+	elif item_name == "iron_fist":
+		_player.add_iron_fist()
 
 func _on_ItemPedestal_body_entered(body):
 	if body.is_in_group("players") and !taken and Global.pay_price(body, price_what, price_amount):

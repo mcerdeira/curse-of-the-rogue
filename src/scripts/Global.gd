@@ -107,6 +107,7 @@ var has_bleed = false
 var has_idol_mask = false
 var has_justice = false
 var has_balloon = false
+var has_iron_fist = false
 var flying = false
 var masterkey = false
 var life2win = false
@@ -306,6 +307,15 @@ var pin_item = {
 	"description": "Pin",
 	"long_description": "Bleed, mother******s",
 	"price": 350,
+	"type": "consumable",
+	"oneshot": true,
+}
+
+var iron_fist = {
+	"name": "iron_fist",
+	"description": "Iron Fist",
+	"long_description": "Critical Damage %",
+	"price": 400,
 	"type": "consumable",
 	"oneshot": true,
 }
@@ -802,6 +812,7 @@ func _data_overload():
 	Muted = false
 	SfxMuted = false
 	load_game()
+	
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
 			var texture = item_texture
@@ -814,6 +825,10 @@ func _data_overload():
 			Global.speed += (1 * Global.speed_mult)
 		if Global.IDOL_PERKS[p] == "dmg":
 			Global.attack += 1
+		if Global.IDOL_PERKS[p] == "melee_speed":
+			Global.melee_speed += 0.5
+		if Global.IDOL_PERKS[p] == "shoot_speed":
+			Global.shoot_speed_speed += 1
 	
 func restart_game():
 	restart_pools()
@@ -876,6 +891,7 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(pin_item)
 	PREMIUM_ITEMS.push_back(grandpa_photo)
 	PREMIUM_ITEMS.push_back(backpack)
+	PREMIUM_ITEMS.push_back(iron_fist)
 	
 func _ready():
 	LoadSfxAndMusic()
@@ -1172,8 +1188,8 @@ func initialize():
 	health = [1, 1, 1]
 
 	melee_rate_total = 1.0
-	melee_rate = 0
-	melee_speed = 1
+	melee_rate = 0.0
+	melee_speed = 1.0
 	
 	shoot_speed_speed = 1.0
 	shoot_speed_total = 5.0
@@ -1207,6 +1223,7 @@ func initialize():
 	flying = false
 	kills = 0
 	cherry = false
+	has_iron_fist = false
 	has_balloon = false
 	has_justice = false
 	has_idol_mask = false

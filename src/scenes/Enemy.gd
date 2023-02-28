@@ -21,6 +21,7 @@ var particle = preload("res://scenes/particle2.tscn")
 var EnemyBullet = preload("res://scenes/EnemyBullet.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
 var RotateBullets = preload("res://scenes/RotateBullets.tscn")
+var Sign = preload("res://scenes/Sign.tscn")
 var enemy = null
 var dead = false
 var impulse = null
@@ -1149,6 +1150,15 @@ func hit(origin, dmg, from):
 		
 		if !effects(from):
 			hit_ttl = hit_ttl_total
+			if Global.has_iron_fist:
+				if randi()%(Global.bad_luck/2) == 0:
+					var s = Sign.instance()
+					s.text = "CRITICAL HIT!"
+					s.shake = true
+					var root = get_node("/root/Main")
+					root.add_child(s)
+					s.global_position = global_position
+					life = 0
 		
 		if life > 0:
 			if !effects(from):

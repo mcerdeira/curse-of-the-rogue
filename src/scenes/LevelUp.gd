@@ -30,6 +30,10 @@ func _physics_process(delta):
 				player.add_heart(Global.health.size(), false)
 			elif what == "speed":
 				player.add_speed(1)
+			elif what == "melee_speed":
+				player.add_melee(0.5)
+			elif what == "shoot_speed":
+				player.add_shoot_speed(1)
 				
 			Global.IDOL_PERKS.append(what)
 			
@@ -53,18 +57,28 @@ func _physics_process(delta):
 func _on_btn_dmg_pressed():
 	if !some_pressed:
 		what = "dmg"
-		$bless_description.text = "Increases your melee damage, permanently..."
+		$bless_description.text = "Increases your Melee Damage, permanently..."
 	
 func _on_btn_life_pressed():
 	if !some_pressed:
 		what = "life"
-		$bless_description.text = "Gives your an extra heart, forever..."
+		$bless_description.text = "Gives your an Extra Heart, forever..."
 			
 func _on_btn_speed_pressed():
 	if !some_pressed:
 		what = "speed"
-		$bless_description.text = "Increases your speed, permanently"
+		$bless_description.text = "Increases your Speed, permanently"
 
 func _on_btn_OK_pressed():
 	if !some_pressed and what != "":
 		some_pressed = true
+
+func _on_btn_melee_speed_pressed():
+	if !some_pressed:
+		what = "melee_speed"
+		$bless_description.text = "Increases your Melee Attack Speed, permanently"
+
+func _on_btn_shoot_speed_pressed():
+	if !some_pressed:
+		what = "shoot_speed"
+		$bless_description.text = "Increases your Range Attack Speed, permanently"
