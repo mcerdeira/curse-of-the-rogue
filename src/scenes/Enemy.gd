@@ -272,6 +272,10 @@ func add_rotatebullet():
 func shoot():
 	if froze_effect <= 0:
 		emit()
+		$sprite.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.9), "timeout") 
+		$sprite.material.set_shader_param("shoot_prev", false)
+		
 		if enemy_type == "bloby":
 			if Global.pick_random([true, false]):
 				create_enemy_bullet(Vector2(0, 1), "poison")
@@ -1128,6 +1132,17 @@ func OuchSfx():
 	if enemy_type == "skeleton":
 		Global.play_sound(Global.SkeleHitSfx)
 		
+func create_sign(text, shake, color_override, disappear, goup):
+	var s = Sign.instance()
+	s.text = text
+	s.shake = shake
+	s.disappear = disappear
+	s.color_override = color_override
+	s.goup = goup
+	var root = get_node("/root/Main")
+	root.add_child(s)
+	s.global_position = global_position
+	
 func effects(from):
 	return (from == "poison_fx" or from == "justice_fx" or from == "bleed_fx" or from == "electricity_fx")
 		
@@ -1152,13 +1167,8 @@ func hit(origin, dmg, from):
 			hit_ttl = hit_ttl_total
 			if Global.has_iron_fist:
 				if randi()%(Global.bad_luck/2) == 0:
-					var s = Sign.instance()
-					s.text = "CRITICAL HIT!"
-					s.shake = true
-					var root = get_node("/root/Main")
-					root.add_child(s)
-					s.global_position = global_position
 					life = 0
+					create_sign("CRITICAL HIT!", true, null, false, false)
 		
 		if life > 0:
 			if !effects(from):
@@ -1188,7 +1198,9 @@ func hit(origin, dmg, from):
 			
 		if life <= 0:
 			if from == "player":
-				Global.add_combo()
+				var cur = Global.add_combo()
+				if cur > 0:
+					create_sign(str(cur), false, Color8(238, 182, 47), true, true)
 			dead = true
 		else:
 			if from == "player":

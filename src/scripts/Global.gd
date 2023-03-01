@@ -1245,6 +1245,10 @@ func add_combo():
 		current_combo += 1
 		if current_combo >= max_combo:
 			max_combo = current_combo
+			
+		return current_combo
+	else:
+		return 0
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]

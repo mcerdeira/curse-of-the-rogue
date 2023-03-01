@@ -11,17 +11,27 @@
 [sub_resource type="Shader" id=10]
 code = "shader_type canvas_item;
 
-uniform float hitted;
+uniform bool hitted;
+uniform bool shoot_prev;
 
 void fragment() {
     vec4 texture_color = texture(TEXTURE, UV);
-    COLOR = vec4(mix(texture_color.rgb, vec3(1,0,0), hitted), texture_color.a);
+	if(hitted){
+    	COLOR = vec4(mix(texture_color.rgb, vec3(1,1,1), 1), texture_color.a);
+	}
+	else if(shoot_prev){
+		COLOR = vec4(mix(texture_color.rgb, vec3(1,0,0), 1), texture_color.a);
+	}
+	else{
+		COLOR = vec4(texture_color.rgb, texture_color.a);
+	}
 }"
 
 [sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
 shader = SubResource( 10 )
 shader_param/hitted = null
+shader_param/shoot_prev = null
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {

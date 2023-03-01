@@ -138,17 +138,27 @@ animations = [ {
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
-uniform float hitted;
+uniform bool hitted;
+uniform bool shoot_prev;
 
 void fragment() {
     vec4 texture_color = texture(TEXTURE, UV);
-    COLOR = vec4(mix(texture_color.rgb, vec3(1,0,0), hitted), texture_color.a);
+	if(hitted){
+    	COLOR = vec4(mix(texture_color.rgb, vec3(1,1,1), 1), texture_color.a);
+	}
+	else if(shoot_prev){
+		COLOR = vec4(mix(texture_color.rgb, vec3(1,0,0), 1), texture_color.a);
+	}
+	else{
+		COLOR = vec4(texture_color.rgb, texture_color.a);
+	}
 }"
 
 [sub_resource type="ShaderMaterial" id=6]
 resource_local_to_scene = true
 shader = SubResource( 5 )
-shader_param/hitted = 0.0
+shader_param/hitted = false
+shader_param/shoot_prev = false
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -278,7 +288,8 @@ animation = "shop_keeper"
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "sign"
+animation = "skeleton"
+frame = 2
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]

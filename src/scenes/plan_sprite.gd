@@ -2,6 +2,7 @@ extends AnimatedSprite
 var destroyed = false
 var particle = preload("res://scenes/particle2.tscn")
 var vegetation = false
+var Sign = preload("res://scenes/Sign.tscn")
 var Gem = preload("res://scenes/Gem.tscn")
 var enemy = preload("res://scenes/Enemy.tscn")
 
@@ -63,8 +64,22 @@ func emit():
 func destroy_silent():
 	queue_free()
 
+func create_sign(text, shake, color_override, disappear, goup):
+	var s = Sign.instance()
+	s.text = text
+	s.shake = shake
+	s.disappear = disappear
+	s.color_override = color_override
+	s.goup = goup
+	var root = get_node("/root/Main")
+	root.add_child(s)
+	s.global_position = global_position
+
 func _destroy():
-	Global.add_combo()
+	var cur = Global.add_combo()
+	if cur > 0:
+		create_sign(str(cur), false, Color8(238, 182, 47), true, true)
+	
 	Global.play_sound(Global.PropsSfx)
 	emit()
 	if !destroyed:
