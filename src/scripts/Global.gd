@@ -99,8 +99,8 @@ var KatanaSfx = null
 
 var max_combo = 0
 var current_combo = 0
-var combo_time = 0
-var combo_time_total = 9999
+#var combo_time = 0
+#var combo_time_total = 9999
 
 var has_backpack = false
 var has_bleed = false
@@ -1159,8 +1159,8 @@ func initialize():
 	
 	max_combo = 0
 	current_combo = 0
-	combo_time = 0
-	combo_time_total = 9999
+#	combo_time = 0
+#	combo_time_total = 9999
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
@@ -1235,12 +1235,13 @@ func initialize():
 	_data_overload()
 
 func sustain():
-	if FLOOR_TYPE == floor_types.normal:
-		combo_time = 1
+	pass
+#	if FLOOR_TYPE == floor_types.normal:
+#		combo_time = 1
 
 func add_combo():
 	if FLOOR_TYPE == floor_types.normal and !Global.FLOOR_OVER:
-		combo_time = combo_time_total
+#		combo_time = combo_time_total
 		current_combo += 1
 		if current_combo >= max_combo:
 			max_combo = current_combo

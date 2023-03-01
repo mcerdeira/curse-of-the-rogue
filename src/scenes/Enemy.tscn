@@ -279,7 +279,6 @@ animation = "shop_keeper"
 material = SubResource( 6 )
 frames = SubResource( 2 )
 animation = "sign"
-frame = 1
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]

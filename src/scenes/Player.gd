@@ -413,7 +413,7 @@ func hit(dmg, from, can_zombie=false, effect_name=""):
 					Global.health.remove(i)
 					dmg -= 1
 		
-		Global.combo_time = 0
+#		Global.combo_time = 0
 		Global.current_combo = 0
 		
 		if can_zombie:

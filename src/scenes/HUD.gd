@@ -154,17 +154,17 @@ func _physics_process(delta):
 			$c/game_over.visible = false
 			
 	if Global.FLOOR_OVER or Global.GAME_OVER:
-		Global.combo_time = 0
+#		Global.combo_time = 0
 		Global.current_combo = 0
 
-	if Global.combo_time > 0:
-		Global.combo_time -= 1 * delta
-		if Global.combo_time <= 0:
-			Global.combo_time = 0
-			Global.current_combo = 0
+#	if Global.combo_time > 0:
+#		Global.combo_time -= 1 * delta
+#		if Global.combo_time <= 0:
+#			Global.combo_time = 0
+#			Global.current_combo = 0
 
 	if Global.current_combo > 0:
-		$combo.text = "x " + str(Global.current_combo)
+		$combo.text = "x" + str(Global.current_combo)
 	else:
 		$combo.text = ""
 	
