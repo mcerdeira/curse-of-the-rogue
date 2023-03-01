@@ -278,7 +278,8 @@ animation = "shop_keeper"
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "shop_keeper"
+animation = "sign"
+frame = 1
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]

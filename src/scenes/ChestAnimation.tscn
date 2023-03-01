@@ -58,6 +58,7 @@ texture = ExtResource( 5 )
 [node name="chest" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
 frames = SubResource( 1 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
