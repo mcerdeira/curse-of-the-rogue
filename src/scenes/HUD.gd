@@ -141,6 +141,8 @@ func _physics_process(delta):
 	if Global.GAME_OVER:
 		$c/subtitle.text = ""
 		$c/game_over.text = game_over_text
+		$c/game_over.add_color_override("font_color", Color8(255, 0, 0))
+
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
 			$c/game_over.visible = true

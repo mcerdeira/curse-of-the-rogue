@@ -21,14 +21,16 @@ func _physics_process(delta):
 func _on_Spikes_body_entered(body):
 	if body.is_in_group("players"):
 		if !Global.flying:
-			Global.slow_down = 2
+			if spider_web:
+				Global.slow_down = 2
 			player_in = true
 			player = body
 
 func _on_Spikes_body_exited(body):
 	if body.is_in_group("players"):
 		if !Global.flying:
-			Global.slow_down = 1
+			if spider_web:
+				Global.slow_down = 1
 			player_in = false
 			player = null
 

@@ -35,12 +35,13 @@ margin_bottom = 196.0
 color = Color( 0.101961, 0.0941176, 0.0941176, 1 )
 
 [node name="gems" type="Label" parent="."]
-margin_left = -86.0
+margin_left = -237.0
 margin_top = 135.0
-margin_right = 122.0
+margin_right = 251.0
 margin_bottom = 151.0
 custom_fonts/font = SubResource( 2 )
 text = "00 x combos"
+align = 1
 
 [node name="gems_total" type="Label" parent="."]
 margin_left = -11.0
