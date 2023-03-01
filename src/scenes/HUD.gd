@@ -11,6 +11,8 @@ export var shield_poison : Texture
 export var shield_zombie : Texture
 
 func _ready():
+	$hud_combo_count.text = ""
+	$combo.text = ""
 	hide_all_extras()
 	add_to_group("HUD")
 	$c/game_over.visible = false
