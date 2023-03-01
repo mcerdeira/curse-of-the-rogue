@@ -1,6 +1,6 @@
 extends Node
 var only_supershops = false
-var VERSION = "0.0.10"
+var VERSION = "0.0.11"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -97,10 +97,10 @@ var KatanaSfx = null
 
 ############################################################################
 
-var max_combo = 1
+var max_combo = 0
 var current_combo = 0
 var combo_time = 0
-var combo_time_total = 2.3
+var combo_time_total = 9999
 
 var has_backpack = false
 var has_bleed = false
@@ -1157,10 +1157,10 @@ func initialize():
 	FLOOR_TYPE = ""
 	CURRENT_FLOOR = 0
 	
-	max_combo = 1
+	max_combo = 0
 	current_combo = 0
 	combo_time = 0
-	combo_time_total = 2.3
+	combo_time_total = 9999
 
 	primary_weapon = "whip"
 	secondary_weapon = "empty"
@@ -1280,6 +1280,7 @@ func reset_spawn_timer():
 func next_floor(type):
 	save_game()
 	if type == "next":
+		max_combo = 0
 		FLOOR_TYPE = floor_types.normal
 		Global.FLOOR_OVER = false
 		if CURRENT_FLOOR < TOTAL_FLOORS:
@@ -1293,6 +1294,7 @@ func next_floor(type):
 	elif type == "altar":
 		FLOOR_TYPE = floor_types.altar
 	elif type == "boss":
+		max_combo = 0
 		FLOOR_TYPE = floor_types.boss
 		
 	Global.FLOOR_OVER = false

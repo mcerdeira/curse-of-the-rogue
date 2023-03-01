@@ -124,6 +124,14 @@ func get_chest():
 		return chest.instance()
 	
 func spawn_chest_and_stuff(only_chest=false, only_idol=false):
+	if Global.FLOOR_TYPE == Global.floor_types.normal:
+		var HUD = get_tree().get_nodes_in_group("HUD")[0]
+		HUD.set_message("ROOM Cleared!", "")
+		
+	if Global.FLOOR_TYPE == Global.floor_types.boss:
+		var HUD = get_tree().get_nodes_in_group("HUD")[0]
+		HUD.set_message("BOSS DEFEATED", "")
+	
 	randomize()
 	reveal_doors()
 	var do_chest = true

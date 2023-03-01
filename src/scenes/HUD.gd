@@ -2,7 +2,7 @@ extends Node2D
 var game_over_visible = 2.5
 var space = "       : "
 var message_ttl = 0
-var combo_text = "  COMBO: "
+var combo_text = "BEST x"
 var game_over_text = "YOU DIED"
 export var full_hearts : Texture
 export var empty_hearts : Texture
@@ -125,11 +125,7 @@ func set_message(title, msg):
 	message_ttl = 1.5
 	$c/game_over.visible = true
 	$c/game_over.text = title
-	$c/game_over/game_over2.text = title
-	
 	$c/subtitle.text = msg
-	$c/subtitle/subtitle2.text = msg
-	
 	
 func _physics_process(delta):	
 	if !Global.GAME_OVER and message_ttl > 0:
@@ -137,16 +133,12 @@ func _physics_process(delta):
 		if message_ttl <= 0:
 			message_ttl = 0
 			$c/subtitle.text = ""
-			$c/subtitle/subtitle2.text = ""
 			$c/game_over.text = game_over_text
-			$c/game_over/game_over2.text = game_over_text
 			$c/game_over.visible = false
 	
 	if Global.GAME_OVER:
 		$c/subtitle.text = ""
-		$c/subtitle/subtitle2.text = ""
 		$c/game_over.text = game_over_text
-		$c/game_over/game_over2.text = game_over_text
 		game_over_visible -= 1 * delta
 		if game_over_visible > 0:
 			$c/game_over.visible = true
@@ -155,8 +147,11 @@ func _physics_process(delta):
 	else:
 		if $c/game_over.visible and message_ttl <= 0:
 			$c/subtitle.text = ""
-			$c/subtitle/subtitle2.text = ""
 			$c/game_over.visible = false
+			
+	if Global.FLOOR_OVER or Global.GAME_OVER:
+		Global.combo_time = 0
+		Global.current_combo = 0
 
 	if Global.combo_time > 0:
 		Global.combo_time -= 1 * delta
@@ -178,6 +173,10 @@ func _physics_process(delta):
 	$hud_attack.text = str(space) + str(Global.attack)
 	$hud_melee_speed.text = str(space) + str(Global.melee_speed)
 	$hud_shoot_speed.text = str(space) + str(Global.shoot_speed_speed)
-	$hud_combo_count.text = combo_text + str(Global.max_combo)
+	if Global.max_combo > 0:
+		$hud_combo_count.text = combo_text + str(Global.max_combo)
+	else:
+		$hud_combo_count.text = ""
+		
 	$hud_luck.text = str(space) + str(Global.total_bad_luck - Global.bad_luck) + "%"
 	$hud_keys.text = str(space) + str(Global.keys)

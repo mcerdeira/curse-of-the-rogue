@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -65,11 +65,17 @@ size = 40
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
 size = 8
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=14]
+outline_size = 1
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 72
+outline_size = 4
 font_data = ExtResource( 3 )
 
 [sub_resource type="SpriteFrames" id=4]
@@ -213,17 +219,7 @@ margin_left = 332.0
 margin_top = 213.0
 margin_right = 716.0
 margin_bottom = 229.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 5 )
-align = 1
-valign = 2
-autowrap = true
-
-[node name="subtitle2" type="Label" parent="CanvasLayer/HUD/c/subtitle"]
-margin_left = 2.0
-margin_top = 1.0
-margin_right = 386.0
-margin_bottom = 17.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 align = 1
 valign = 2
@@ -234,16 +230,7 @@ margin_left = 352.0
 margin_top = 168.0
 margin_right = 672.0
 margin_bottom = 208.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "YOU DIED"
-align = 1
-
-[node name="game_over2" type="Label" parent="CanvasLayer/HUD/c/game_over"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 323.0
-margin_bottom = 42.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "YOU DIED"
 align = 1
@@ -392,21 +379,27 @@ custom_fonts/font = SubResource( 1 )
 text = "+30"
 
 [node name="hud_combo_count" type="Label" parent="CanvasLayer/HUD"]
-margin_left = 1.0
-margin_top = 203.0
-margin_right = 97.0
-margin_bottom = 211.0
-custom_fonts/font = SubResource( 1 )
-text = "  COMBO:"
+margin_left = 747.0
+margin_top = 585.0
+margin_right = 1003.0
+margin_bottom = 601.0
+custom_colors/font_color = Color( 0.933333, 0.713726, 0.184314, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "BESTx3"
+align = 2
 
 [node name="combo" type="Label" parent="CanvasLayer/HUD"]
-margin_left = 704.0
-margin_top = 26.0
-margin_right = 992.0
-margin_bottom = 98.0
+margin_left = 390.0
+margin_top = 513.0
+margin_right = 1020.0
+margin_bottom = 585.0
 custom_colors/font_color = Color( 0.933333, 0.713726, 0.184314, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "x13"
+text = "x12"
 align = 2
 
 [node name="SmallGem" type="Sprite" parent="CanvasLayer/HUD"]
@@ -487,13 +480,13 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
-frame = 2
+frame = 1
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-frame = 2
+frame = 1
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 515, 293 )

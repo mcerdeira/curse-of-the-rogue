@@ -21,7 +21,7 @@ func drop_scorpion():
 
 	enemy_inst = enemy.instance()
 	enemy_inst.enemy_type = type
-	enemy_inst.iamasign_ttl = -1
+	enemy_inst.iamasign_ttl = 0.5
 	
 	var root = get_node("/root/Main")
 	root.add_child(enemy_inst)

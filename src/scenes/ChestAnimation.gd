@@ -10,9 +10,13 @@ func _physics_process(delta):
 func _ready():
 	Global.play_sound(Global.ChestAnimationSfx)
 	Global.LOGIC_PAUSE = true
+	var max_combo = Global.max_combo
+	if Global.FLOOR_TYPE == Global.floor_types.intro:
+		max_combo = 1
+	
 	z_index = VisualServer.CANVAS_ITEM_Z_MAX
 	var reward_floor = Global.get_reward_floor()
-	var reward_total = reward_floor * Global.max_combo
+	var reward_total = reward_floor * max_combo
 	var adi = ""
 	if Global.cherry:
 		reward_total *= 2
@@ -21,7 +25,10 @@ func _ready():
 	Global.add_extra_display("gems", reward_total)
 	
 	$gems_total.text = str(reward_total)
-	$gems.text = str(reward_floor) + " x " + str(Global.max_combo) + "(combo)" + adi
+	if Global.FLOOR_TYPE != Global.floor_types.intro:
+		$gems.text = str(reward_floor) + " x " + str(Global.max_combo) + "(best combo)" + adi
+	else:
+		$gems.text = ""
 
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("gems")
