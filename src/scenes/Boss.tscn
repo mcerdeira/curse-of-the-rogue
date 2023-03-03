@@ -43,8 +43,8 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=10]
 resource_local_to_scene = true
 shader = SubResource( 9 )
-shader_param/hitted = null
-shader_param/shoot_prev = null
+shader_param/hitted = false
+shader_param/shoot_prev = false
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -101,7 +101,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=12]
 resource_local_to_scene = true
 shader = SubResource( 11 )
-shader_param/hitted = null
+shader_param/hitted = false
 shader_param/shoot_prev = null
 
 [sub_resource type="SpriteFrames" id=2]

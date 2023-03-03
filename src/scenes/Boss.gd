@@ -369,10 +369,16 @@ func shoot_cross(delta):
 	if shoot_ttl <= 0:
 		shoot_ttl = shoot_ttl_total
 		$body.material.set_shader_param("shoot_prev", true)
-		$body.material.set_shader_param("shoot_prev", true)
-		yield(get_tree().create_timer(0.9), "timeout") 
-		$head.material.set_shader_param("shoot_prev", false)
 		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
+		yield(get_tree().create_timer(0.2), "timeout") 
+		$body.material.set_shader_param("shoot_prev", true)
+		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
 		
 		create_enemy_bullet(Vector2(0, 1))
 		create_enemy_bullet(Vector2(0, -1))
@@ -382,10 +388,16 @@ func shoot_cross(delta):
 		
 func shoot_X():
 	$body.material.set_shader_param("shoot_prev", true)
-	$body.material.set_shader_param("shoot_prev", true)
-	yield(get_tree().create_timer(0.9), "timeout") 
-	$head.material.set_shader_param("shoot_prev", false)
 	$head.material.set_shader_param("shoot_prev", true)
+	yield(get_tree().create_timer(0.3), "timeout") 
+	$body.material.set_shader_param("shoot_prev", false)
+	$head.material.set_shader_param("shoot_prev", false)
+	yield(get_tree().create_timer(0.2), "timeout") 
+	$body.material.set_shader_param("shoot_prev", true)
+	$head.material.set_shader_param("shoot_prev", true)
+	yield(get_tree().create_timer(0.3), "timeout") 
+	$body.material.set_shader_param("shoot_prev", false)
+	$head.material.set_shader_param("shoot_prev", false)
 	
 	create_enemy_bullet(Vector2(0, 1))
 	create_enemy_bullet(Vector2(0, -1))
@@ -405,10 +417,16 @@ func shoot_spinx(delta):
 	if shoot_ttl <= 0:
 		shoot_ttl = shoot_ttl_total
 		$body.material.set_shader_param("shoot_prev", true)
-		$body.material.set_shader_param("shoot_prev", true)
-		yield(get_tree().create_timer(0.9), "timeout") 
-		$head.material.set_shader_param("shoot_prev", false)
 		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
+		yield(get_tree().create_timer(0.2), "timeout") 
+		$body.material.set_shader_param("shoot_prev", true)
+		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
 		
 		create_enemy_bullet(Vector2(0, 1))
 		create_enemy_bullet(Vector2(0, -1))
@@ -451,10 +469,16 @@ func shoot_rain(delta):
 		shoot_ttl = shoot_ttl_total
 
 		$body.material.set_shader_param("shoot_prev", true)
-		$body.material.set_shader_param("shoot_prev", true)
-		yield(get_tree().create_timer(0.9), "timeout") 
-		$head.material.set_shader_param("shoot_prev", false)
 		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
+		yield(get_tree().create_timer(0.2), "timeout") 
+		$body.material.set_shader_param("shoot_prev", true)
+		$head.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$body.material.set_shader_param("shoot_prev", false)
+		$head.material.set_shader_param("shoot_prev", false)
 		
 		create_enemy_fake_bullet(Vector2(0, -1))
 		

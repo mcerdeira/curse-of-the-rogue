@@ -273,8 +273,13 @@ func shoot():
 	if froze_effect <= 0:
 		emit()
 		$sprite.material.set_shader_param("shoot_prev", true)
-		yield(get_tree().create_timer(0.9), "timeout") 
+		yield(get_tree().create_timer(0.3), "timeout") 
 		$sprite.material.set_shader_param("shoot_prev", false)
+		yield(get_tree().create_timer(0.2), "timeout") 
+		$sprite.material.set_shader_param("shoot_prev", true)
+		yield(get_tree().create_timer(0.3), "timeout") 
+		$sprite.material.set_shader_param("shoot_prev", false)
+		
 		
 		if enemy_type == "bloby":
 			if Global.pick_random([true, false]):

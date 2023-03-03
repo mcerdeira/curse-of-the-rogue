@@ -1,6 +1,6 @@
 extends Node
 var only_supershops = false
-var VERSION = "0.0.11"
+var VERSION = "0.0.12"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
