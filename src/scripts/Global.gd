@@ -27,7 +27,7 @@ var froze_color = Color8(91, 173, 245)
 var item_texture = preload("res://sprites/idol_item.png")
 
 var FLOOR_TYPE = ""
-var FLOOR_WAVES = [-1, 1, 2, 3, 3, 4, 4, 5]
+var FLOOR_WAVES = [-1, 2, 3, 4, 5, 5, 5, 6]
 var FLOOR_REWARD = [-1, 10, 15, 20, 25, 30, 35, 50]
 
 var GAME_OVER = false
@@ -1082,7 +1082,7 @@ func enemy_by_floor():
 	
 func get_reward_floor():
 	var reward = FLOOR_REWARD[CURRENT_FLOOR]
-	var rnd = pick_random([1, 3, 5, 7, 9, 11, 13, 15, 17])
+	var rnd = pick_random([1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 22])
 	return reward + rnd
 	
 func init_room():
