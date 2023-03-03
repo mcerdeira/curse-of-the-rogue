@@ -282,6 +282,7 @@ enum floor_types {
 	shop,
 	supershop,
 	idols_chamber,
+	ending,
 }
 
 var grandpa_photo = {
@@ -1290,6 +1291,8 @@ func next_floor(type):
 		Global.FLOOR_OVER = false
 		if CURRENT_FLOOR < TOTAL_FLOORS:
 			CURRENT_FLOOR += 1
+	elif type == "ending":
+		FLOOR_TYPE = floor_types.ending
 	elif type == "idols_chamber":
 		FLOOR_TYPE = floor_types.idols_chamber
 	elif type == "shop":

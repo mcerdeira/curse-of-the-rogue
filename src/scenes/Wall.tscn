@@ -54,7 +54,7 @@ position = Vector2( -671, -1 )
 margin_left = -1190.0
 margin_top = -1748.0
 margin_right = 703.0
-margin_bottom = 1987.0
+margin_bottom = 1998.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect2" type="ColorRect" parent="BlackColor"]
@@ -66,16 +66,16 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect3" type="ColorRect" parent="BlackColor"]
 margin_left = 703.0
-margin_top = -1730.0
+margin_top = -1748.0
 margin_right = 1801.0
 margin_bottom = 9.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect4" type="ColorRect" parent="BlackColor"]
 margin_left = 1663.0
-margin_top = -1761.0
+margin_top = -1748.0
 margin_right = 3404.0
-margin_bottom = 1973.0
+margin_bottom = 1998.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="TileMap" type="TileMap" parent="."]

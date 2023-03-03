@@ -13,7 +13,7 @@ func _ready():
 		music_init()
 
 func music_init():
-	if Global.FLOOR_TYPE == Global.floor_types.idols_chamber or Global.FLOOR_TYPE == Global.floor_types.altar or Global.FLOOR_TYPE == Global.floor_types.boss:
+	if Global.FLOOR_TYPE == Global.floor_types.ending or Global.FLOOR_TYPE == Global.floor_types.idols_chamber or Global.FLOOR_TYPE == Global.floor_types.altar or Global.FLOOR_TYPE == Global.floor_types.boss:
 		Global.MainThemePlaying = false
 		Music.play(Global.ShopAlterTheme, 0.7)
 	else:

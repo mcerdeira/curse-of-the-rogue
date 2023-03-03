@@ -31,6 +31,9 @@ func _ready():
 	if type == "shop" and Global.only_supershops:
 		type = "supershop"
 		
+	if type == "next" and Global.CURRENT_FLOOR + 1 > Global.TOTAL_FLOORS:
+		type = "boss"
+		
 	$lbl.visible = false
 	$price_lbl.visible = false
 	$amount_spr.visible = false
@@ -95,6 +98,8 @@ func set_price():
 func trad_type():
 	if type == "shop":
 		return "Shop"
+	elif type == "ending":
+		return "Exit"
 	elif type == "next":
 		return "Floor " + str(Global.CURRENT_FLOOR + 1)
 	elif type == "altar":
@@ -109,7 +114,10 @@ func trad_type():
 			set_price()
 		return "Shop++"
 	elif type == "boss":
-		return "BOSS"
+		if Global.FLOOR_TYPE == Global.floor_types.boss and Global.CURRENT_FLOOR + 1 > Global.TOTAL_FLOORS:
+			return "???"
+		else:
+			return "BOSS"
 
 func emit():
 	for i in range(2):
