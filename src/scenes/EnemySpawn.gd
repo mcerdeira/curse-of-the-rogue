@@ -53,13 +53,16 @@ func _physics_process(delta):
 				first_time = false
 				current_timer = Global.reset_spawn_timer()
 				spawn_enemy()
-	elif Global.FLOOR_TYPE == Global.floor_types.boss:
+	elif Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.final_boss:
 		if get_tree().get_nodes_in_group("enemy_objects").size() == 0:
 			if !Global.GAME_OVER and !Global.FLOOR_OVER:
 				Global.FLOOR_OVER = true
 				spawn_chest_and_stuff(false, true)
 	else:
 		if first_time:
+			if Global.FLOOR_TYPE == Global.floor_types.ending:
+				spawn_last_idol()
+			
 			if Global.FLOOR_TYPE == Global.floor_types.altar:
 				spawn_chest_and_stuff(true)
 			
@@ -122,13 +125,22 @@ func get_chest():
 		return enemy_inst
 	else:
 		return chest.instance()
+		
+func spawn_last_idol():
+	var buff = 96
+	var obj_inst = null
+	var obj_pos = find_closest_player(buff)
+	obj_inst = get_idol()
+	obj_inst.set_last()
+	get_parent().add_child(obj_inst)
+	obj_inst.set_position(to_global(obj_pos))
 	
 func spawn_chest_and_stuff(only_chest=false, only_idol=false):
 	if Global.FLOOR_TYPE == Global.floor_types.normal:
 		var HUD = get_tree().get_nodes_in_group("HUD")[0]
 		HUD.set_message("ROOM Cleared!", "")
 		
-	if Global.FLOOR_TYPE == Global.floor_types.boss:
+	if Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.final_boss:
 		var HUD = get_tree().get_nodes_in_group("HUD")[0]
 		HUD.set_message("BOSS DEFEATED", "")
 	

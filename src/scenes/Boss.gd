@@ -66,7 +66,7 @@ var boss_name = ""
 var _player_obj = null
 
 func _ready():
-	if Global.FLOOR_TYPE != Global.floor_types.boss:
+	if Global.FLOOR_TYPE != Global.floor_types.boss and Global.FLOOR_TYPE != Global.floor_types.final_boss:
 		queue_free()
 		return
 	else:

@@ -14,11 +14,7 @@ func _on_Blast_body_entered(body):
 		body.hit(1, "blast")
 
 func _on_Blast_area_entered(area):
-	if area.is_in_group("decorations"):
-		area._destroy()
+	if no_player_hit:
+		dmg = 1
 	
-	if area.is_in_group("enemies"):
-		if no_player_hit:
-			dmg = 1
-			
-		area.get_parent().hit(get_parent(), dmg, "blast")
+	Global.handle_hits(area, dmg, "blast", get_parent())

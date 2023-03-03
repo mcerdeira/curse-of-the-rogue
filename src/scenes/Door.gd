@@ -13,6 +13,10 @@ var got_idols = false
 func _ready():
 	add_to_group("doors")
 	
+	if Global.FLOOR_TYPE == Global.floor_types.ending:
+		queue_free()
+		return
+	
 	for i in Global.IDOLS:
 		if i > 0:
 			got_idols = true
@@ -21,6 +25,9 @@ func _ready():
 	if type == "" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
 		queue_free()
 		return
+		
+	if type == "shop" and Global.FLOOR_TYPE == Global.floor_types.final_boss:
+		type = "ending"
 		
 	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.idols_chamber or Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
 		type = "next"
@@ -31,8 +38,8 @@ func _ready():
 	if type == "shop" and Global.only_supershops:
 		type = "supershop"
 		
-	if type == "next" and Global.CURRENT_FLOOR + 1 > Global.TOTAL_FLOORS:
-		type = "boss"
+	if Global.final_boss():
+		type = "final_boss"
 		
 	$lbl.visible = false
 	$price_lbl.visible = false
@@ -114,11 +121,10 @@ func trad_type():
 			set_price()
 		return "Shop++"
 	elif type == "boss":
-		if Global.FLOOR_TYPE == Global.floor_types.boss and Global.CURRENT_FLOOR + 1 > Global.TOTAL_FLOORS:
-			return "???"
-		else:
-			return "BOSS"
-
+		return "BOSS"
+	elif type == "final_boss":
+		return "???"
+			
 func emit():
 	for i in range(2):
 		var p = particle.instance()

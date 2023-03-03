@@ -84,7 +84,7 @@ func _destroy():
 	emit()
 	if !destroyed:
 		destroyed = true
-		if Global.pick_random([true, false]):
+		if Global.FLOOR_TYPE != Global.floor_types.ending and Global.pick_random([true, false]):
 			if Global.pick_random([true, true, true, true, false]):
 				drop_gem()
 			else:

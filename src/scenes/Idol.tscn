@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://sprites/loot_spr_5.png" type="Texture" id=1]
 [ext_resource path="res://sprites/loot_spr_2.png" type="Texture" id=2]
@@ -8,12 +8,24 @@
 [ext_resource path="res://scenes/Idol.gd" type="Script" id=6]
 [ext_resource path="res://sprites/player_shadow.png" type="Texture" id=7]
 [ext_resource path="res://sprites/idol_item.png" type="Texture" id=8]
+[ext_resource path="res://sprites/last_spr_1.png" type="Texture" id=9]
+[ext_resource path="res://sprites/last_spr_2.png" type="Texture" id=10]
+[ext_resource path="res://sprites/last_spr_5.png" type="Texture" id=11]
+[ext_resource path="res://sprites/last_spr_3.png" type="Texture" id=12]
+[ext_resource path="res://sprites/last_spr_4.png" type="Texture" id=13]
+[ext_resource path="res://scenes/FireParticles.tscn" type="PackedScene" id=14]
+[ext_resource path="res://sprites/idol_item_last.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "last_idol",
 "speed": 5.0
 } ]
 
@@ -23,6 +35,12 @@ radius = 28.0713
 [node name="Idol" type="Area2D"]
 script = ExtResource( 6 )
 item_texture = ExtResource( 8 )
+item_texture_last = ExtResource( 15 )
+
+[node name="FireParticles" parent="." instance=ExtResource( 14 )]
+visible = false
+position = Vector2( 0, -13 )
+scale = Vector2( 0.3, 0.3 )
 
 [node name="shadow" type="Sprite" parent="."]
 position = Vector2( 0, 11 )
@@ -32,7 +50,7 @@ texture = ExtResource( 7 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 1 )
 frames = SubResource( 1 )
-frame = 3
+frame = 4
 playing = true
 offset = Vector2( 1, -23 )
 

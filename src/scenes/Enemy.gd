@@ -280,7 +280,6 @@ func shoot():
 		yield(get_tree().create_timer(0.3), "timeout") 
 		$sprite.material.set_shader_param("shoot_prev", false)
 		
-		
 		if enemy_type == "bloby":
 			if Global.pick_random([true, false]):
 				create_enemy_bullet(Vector2(0, 1), "poison")

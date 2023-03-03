@@ -73,7 +73,7 @@ func hit(origin, dmg, from):
 func awake():
 	visible = false
 	destroy_items()
-	open_doors()
+	close_doors()
 	create_miniboss()
 	queue_free()
 	
@@ -86,7 +86,7 @@ func destroy_items():
 	for i in items:
 		i.queue_free()
 
-func open_doors():
+func close_doors():
 	var items = get_tree().get_nodes_in_group("doors")
 	for i in items:
 		i.close_door()

@@ -11,7 +11,7 @@ func _ready():
 	Global.play_sound(Global.ChestAnimationSfx)
 	Global.LOGIC_PAUSE = true
 	var max_combo = Global.max_combo
-	if Global.FLOOR_TYPE == Global.floor_types.intro:
+	if Global.FLOOR_TYPE == Global.floor_types.intro or Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.final_boss:
 		max_combo = 1
 	
 	z_index = VisualServer.CANVAS_ITEM_Z_MAX
@@ -25,10 +25,10 @@ func _ready():
 	Global.add_extra_display("gems", reward_total)
 	
 	$gems_total.text = str(reward_total)
-	if Global.FLOOR_TYPE != Global.floor_types.intro:
-		$gems.text = str(reward_floor) + " x " + str(Global.max_combo) + "(best combo)" + adi
-	else:
+	if Global.FLOOR_TYPE == Global.floor_types.intro or Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.final_boss:
 		$gems.text = ""
+	else:
+		$gems.text = str(reward_floor) + " x " + str(Global.max_combo) + "(best combo)" + adi
 
 	yield(get_tree().create_timer(.5), "timeout") 
 	Global.hide_hud_extras("gems")

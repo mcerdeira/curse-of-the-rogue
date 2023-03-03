@@ -1,4 +1,5 @@
 extends Node
+var ending_unlocked = false
 var only_supershops = false
 var VERSION = "0.0.12"
 var arrow = preload("res://sprites/crosshair.png")
@@ -17,7 +18,7 @@ var LOGIC_PAUSE = false
 var CURRENT_BOSS_NAME = ""
 var FIRST = true
 var IDOL_PERKS = []
-var TOTAL_FLOORS = 7
+var TOTAL_FLOORS = 1 #7
 var CURRENT_FLOOR = 0
 var ENEMY_SPAWN_TIMER_TOTAL = 10
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
@@ -282,6 +283,7 @@ enum floor_types {
 	shop,
 	supershop,
 	idols_chamber,
+	final_boss,
 	ending,
 }
 
@@ -813,6 +815,7 @@ func _data_overload():
 	Muted = false
 	SfxMuted = false
 	load_game()
+	attack = attack_max
 	
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
@@ -844,7 +847,10 @@ func boot_strap_game():
 	init_room()
 	
 func idol_acquired():
-	Global.IDOLS[Global.CURRENT_FLOOR] = 1
+	if Global.FLOOR_TYPE != Global.floor_types.ending:
+		Global.IDOLS[Global.CURRENT_FLOOR] = 1
+	else:
+		Global.ending_unlocked = true
 	
 func restart_pools():
 	ITEMS = []
@@ -903,6 +909,22 @@ func set_visible_transition(val):
 	
 func pixelate(val):
 	transition_obj.material.set_shader_param("factor", val)
+	
+func handle_hits(area, dmg, from, parent):
+	if area.is_in_group("big_head"):
+		area.get_parent().hit()
+	
+	if area.is_in_group("shop_keeper"):
+		area.get_parent().hit(parent, dmg, from)
+	
+	if area.is_in_group("decorations"):
+		area._destroy()
+		
+	if area.is_in_group("bosses"):
+		area.get_parent().hit(parent, dmg, from) 
+	
+	if area.is_in_group("enemies"):
+		area.get_parent().hit(parent, dmg, from)
 	
 func LoadSfxAndMusic():
 	MainTheme = preload("res://music/main_theme_option2.ogg")
@@ -982,6 +1004,7 @@ func save_game():
 		"altar_points" : altar_points,
 		"altar_lifes" : altar_lifes,
 		"only_supershops": only_supershops,
+		"ending_unlocked": ending_unlocked,
 		"altar_gems" : altar_gems,
 		"altar_level" : altar_level,
 		"IDOLS": Global.IDOLS,
@@ -1000,6 +1023,9 @@ func load_game():
 		
 		if "only_supershops" in node_data:
 			only_supershops = node_data.only_supershops
+			
+		if "ending_unlocked" in node_data:
+			ending_unlocked = node_data.ending_unlocked
 			
 		altar_points = node_data.altar_points
 		altar_lifes = node_data.altar_lifes
@@ -1232,6 +1258,7 @@ func initialize():
 	has_backpack = false
 	slow_down = 1
 	only_supershops = false
+	ending_unlocked = false
 	
 	_data_overload()
 
@@ -1283,6 +1310,9 @@ func reset_spawn_timer():
 	ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
 	return ENEMY_SPAWN_TIMER
 	
+func final_boss():
+	return (FLOOR_TYPE == floor_types.boss and CURRENT_FLOOR + 1 > TOTAL_FLOORS)
+
 func next_floor(type):
 	save_game()
 	if type == "next":
@@ -1291,6 +1321,8 @@ func next_floor(type):
 		Global.FLOOR_OVER = false
 		if CURRENT_FLOOR < TOTAL_FLOORS:
 			CURRENT_FLOOR += 1
+	elif type == "intro":
+		FLOOR_TYPE = floor_types.intro
 	elif type == "ending":
 		FLOOR_TYPE = floor_types.ending
 	elif type == "idols_chamber":
@@ -1304,6 +1336,9 @@ func next_floor(type):
 	elif type == "boss":
 		max_combo = 0
 		FLOOR_TYPE = floor_types.boss
+	elif type == "final_boss":
+		max_combo = 0
+		FLOOR_TYPE = floor_types.final_boss
 		
 	Global.FLOOR_OVER = false
 	Global.LOGIC_PAUSE = false
