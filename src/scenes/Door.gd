@@ -16,6 +16,10 @@ func _ready():
 	if Global.FLOOR_TYPE == Global.floor_types.ending:
 		queue_free()
 		return
+		
+	if Global.ending_unlocked and Global.FLOOR_TYPE == Global.floor_types.boss:
+		queue_free()
+		return
 	
 	for i in Global.IDOLS:
 		if i > 0:

@@ -6,7 +6,7 @@ export var item_texture_last : Texture
 var item_description = ""
 var item_long_description = ""
 var last_idol = false
-var do_action_ttl_total = 1.5
+var do_action_ttl_total = 3.5
 var do_action_ttl = do_action_ttl_total
 var pixelated = 0
 var do_action = false

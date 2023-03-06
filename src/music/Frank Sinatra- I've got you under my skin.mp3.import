@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Frank Sinatra- I've got you under my skin.mp3-5250f3c06b4ead3cceb5e4ccffa8426d.mp3str"
+
+[deps]
+
+source_file="res://music/Frank Sinatra- I've got you under my skin.mp3"
+dest_files=[ "res://.import/Frank Sinatra- I've got you under my skin.mp3-5250f3c06b4ead3cceb5e4ccffa8426d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -8,6 +8,7 @@ var chest = preload("res://scenes/Chest.tscn")
 var plant = preload("res://scenes/Plants.tscn")
 var mimic = preload("res://scenes/Enemy.tscn")
 var idol = preload("res://scenes/Idol.tscn")
+var ending = preload("res://scenes/Ending.tscn")
 var min_count = 3
 var WAVE_COUNT = 0
 var plants_created = false
@@ -57,7 +58,10 @@ func _physics_process(delta):
 		if get_tree().get_nodes_in_group("enemy_objects").size() == 0:
 			if !Global.GAME_OVER and !Global.FLOOR_OVER:
 				Global.FLOOR_OVER = true
-				spawn_chest_and_stuff(false, true)
+				if Global.ending_unlocked:
+					spawn_ending_obj()
+				else:
+					spawn_chest_and_stuff(false, true)
 	else:
 		if first_time:
 			if Global.FLOOR_TYPE == Global.floor_types.ending:
@@ -134,6 +138,13 @@ func spawn_last_idol():
 	obj_inst.set_last()
 	get_parent().add_child(obj_inst)
 	obj_inst.set_position(to_global(obj_pos))
+	
+func spawn_ending_obj():
+	var HUD = get_tree().get_nodes_in_group("HUD")[0]
+	HUD.set_message("BOSS? DEFEATED!", "")
+	
+	var obj_inst = ending.instance()
+	get_parent().add_child(obj_inst)
 	
 func spawn_chest_and_stuff(only_chest=false, only_idol=false):
 	if Global.FLOOR_TYPE == Global.floor_types.normal:

@@ -1,0 +1,252 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://sprites/boss_player_homunculus_body.png" type="Texture" id=1]
+[ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
+[ext_resource path="res://sprites/player_spr_1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/player_spr_3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/player_spr_0.png" type="Texture" id=5]
+[ext_resource path="res://scenes/Credits.gd" type="Script" id=6]
+[ext_resource path="res://sprites/title_text.png" type="Texture" id=13]
+[ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=14]
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=15]
+font_data = ExtResource( 14 )
+
+[sub_resource type="Animation" id=16]
+resource_name = "New Anim"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -480, 0 ), Vector2( 1000, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Node2D/Boss:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "New Anim_tiny"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D_tiny:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1500, -69 ), Vector2( -480, -69 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Node2D_tiny/Boss:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5, 10, 15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 720.0, 1440.0 ]
+}
+
+[node name="Credits" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+current = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -84.0
+margin_top = -78.0
+margin_right = 1108.0
+margin_bottom = 699.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( -480, 0 )
+
+[node name="Boss" type="AnimatedSprite" parent="Node2D"]
+position = Vector2( 188, 455 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 14 )
+
+[node name="Player" type="AnimatedSprite" parent="Node2D"]
+position = Vector2( 423, 543 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 13 )
+frame = 1
+playing = true
+
+[node name="Node2D_tiny" type="Node2D" parent="."]
+position = Vector2( 1500, -69 )
+scale = Vector2( -0.5, 0.5 )
+
+[node name="Boss" type="AnimatedSprite" parent="Node2D_tiny"]
+position = Vector2( 188, 455 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 14 )
+
+[node name="Player" type="AnimatedSprite" parent="Node2D_tiny"]
+position = Vector2( 423, 543 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 13 )
+playing = true
+
+[node name="CreditsNode" type="Node2D" parent="."]
+position = Vector2( 0, 881 )
+
+[node name="TitleSprite" type="AnimatedSprite" parent="CreditsNode"]
+position = Vector2( 515, -152 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 7 )
+
+[node name="lbl_credits" type="Label" parent="CreditsNode"]
+margin_left = -3.20842e-05
+margin_top = 82.0
+margin_right = 1024.0
+margin_bottom = 1827.0
+custom_fonts/font = SubResource( 15 )
+text = "Credits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A GAME BY
+Martin Cerdeira
+
+
+
+
+
+
+
+
+MUSIC
+Various Artists
+Intro song: FCingolani
+
+
+
+
+
+
+
+
+TOOLS THAT MADE  THIS GAME POSSIBLE
+Godot Game Engine
+Aseprite
+Paint.NET
+bfxr
+Audacity
+
+
+
+
+
+
+
+
+SPECIAL THANKS
+Jupitron & Feli
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+THANKS FOR PLAYING!!!!
+
+
+SEE YOU SOON...
+
+
+
+
+
+
+
+
+
+
+Follow me on
+@SuperTinchi
+@CurseOfRogue"
+align = 1
+autowrap = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 16 )
+"anims/New Anim_tiny" = SubResource( 17 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

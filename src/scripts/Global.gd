@@ -18,7 +18,7 @@ var LOGIC_PAUSE = false
 var CURRENT_BOSS_NAME = ""
 var FIRST = true
 var IDOL_PERKS = []
-var TOTAL_FLOORS = 1 #7
+var TOTAL_FLOORS = 7
 var CURRENT_FLOOR = 0
 var ENEMY_SPAWN_TIMER_TOTAL = 10
 var ENEMY_SPAWN_TIMER = ENEMY_SPAWN_TIMER_TOTAL
@@ -43,6 +43,7 @@ var Muted = false
 var SfxMuted = false
 var TitleTheme = null
 var BossBattle = null
+var EndingTheme = null
 
 var FallingSfx = null
 var AcceptSfx = null
@@ -827,7 +828,6 @@ func _data_overload():
 	Muted = false
 	SfxMuted = false
 	load_game()
-	attack = attack_max
 	
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
@@ -943,6 +943,7 @@ func LoadSfxAndMusic():
 	ShopAlterTheme = preload("res://music/shop_altar_theme.mp3")
 	TitleTheme = preload("res://music/TitleTheme.ogg")
 	BossBattle = preload("res://music/BossBattle.wav")
+	EndingTheme = preload("res://music/Frank Sinatra- I\'ve got you under my skin.mp3")
 	
 	FallingSfx = preload("res://sfx/FallingSfx.wav")
 	AcceptSfx = preload("res://sfx/Accept.mp3")
@@ -1324,6 +1325,17 @@ func reset_spawn_timer():
 	
 func final_boss():
 	return (FLOOR_TYPE == floor_types.boss and CURRENT_FLOOR + 1 > TOTAL_FLOORS)
+
+func goto_title():
+	Global.save_game()
+	Global.custom_cursor()
+	Global.boot_strap_game()
+	get_tree().change_scene("res://scenes/TitleScreen.tscn")
+
+func goto_credits():
+	save_game()
+	get_tree().change_scene("res://scenes/Credits.tscn")
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func next_floor(type):
 	save_game()
