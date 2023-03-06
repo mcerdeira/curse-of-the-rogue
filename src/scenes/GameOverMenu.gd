@@ -30,7 +30,6 @@ func display_killer():
 	$KillU.animation = Global.KillerisMe
 	var description = format_description(Global.KillerisMe)
 	
-	
 	if Global.KillerisMeExtra != "":
 		$KillUExtra.animation = Global.KillerisMeExtra
 		description = Global.CURRENT_BOSS_NAME

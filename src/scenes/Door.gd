@@ -21,6 +21,14 @@ func _ready():
 		if i > 0:
 			got_idols = true
 			break
+			
+	if Global.FLOOR_TYPE == Global.floor_types.idols_chamber:
+		if Global.ending_unlocked:
+			if type == "":
+				type = "boss"
+		else:
+			if type == "":
+				type = "cant"
 	
 	if type == "" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
 		queue_free()
@@ -29,7 +37,7 @@ func _ready():
 	if type == "shop" and Global.FLOOR_TYPE == Global.floor_types.final_boss:
 		type = "ending"
 		
-	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.idols_chamber or Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
+	if type == "shop" and (Global.FLOOR_TYPE == Global.floor_types.boss or Global.FLOOR_TYPE == Global.floor_types.intro):
 		type = "next"
 
 	if type == "shop" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.idols_chamber:
@@ -121,7 +129,10 @@ func trad_type():
 			set_price()
 		return "Shop++"
 	elif type == "boss":
-		return "BOSS"
+		if Global.ending_unlocked:
+			return "GO AWAY"
+		else:
+			return "BOSS"
 	elif type == "final_boss":
 		return "???"
 			
@@ -162,7 +173,15 @@ func open_door():
 			Global.play_sound(Global.AltarOpenedSfx)
 		$sprite.animation = "altaropened"
 	else:
-		$sprite.animation = "opened"
+		if Global.ending_unlocked:
+			if type != "shop" and type != "next":
+				$sprite.animation = "opened"
+			else:
+				opened = false
+		else:
+			$sprite.animation = "opened"
+			
+			
 	emit()
 	
 func _on_Door_body_entered(body):

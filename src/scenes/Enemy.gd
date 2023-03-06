@@ -873,7 +873,7 @@ func set_type(_type):
 		shoot_type = true
 		speed = 60
 		speed_total = 60
-		life = (Global.attack * 8) * life_mult
+		life = 8 * life_mult
 		dmg = 1
 		chase_player = false
 		flying = true
@@ -921,7 +921,7 @@ func set_type(_type):
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollSfx, options)
-		life = (Global.attack * 5) * life_mult
+		life = 6 * life_mult
 		speed = 30
 		speed_total = 30
 		stopandgo = false
@@ -950,7 +950,7 @@ func set_type(_type):
 		inmune_while_moving = false
 		
 	if enemy_type == "chest_closed":
-		life = 4 * life_mult
+		life = 3 * life_mult
 		speed = 180
 		speed_total = 200
 		stopandgo = false
@@ -983,7 +983,7 @@ func set_type(_type):
 	if enemy_type == "scorpion" or enemy_type == "scorpion+":
 		Global.play_sound(Global.ScorpionSfx)
 		if enemy_type == "scorpion+":
-			life = 4 * life_mult
+			life = 3 * life_mult
 			if Global.has_idol_mask:
 				speed = 100
 				speed_total = 200

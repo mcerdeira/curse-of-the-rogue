@@ -64,6 +64,8 @@ var electric_effect = 0
 var electric_effect_total = 2
 var boss_name = ""
 var _player_obj = null
+var fake_boss = false
+var real_final_boss = false
 
 func _ready():
 	if Global.FLOOR_TYPE != Global.floor_types.boss and Global.FLOOR_TYPE != Global.floor_types.final_boss:
@@ -74,52 +76,120 @@ func _ready():
 
 func generate_boss():
 	randomize()
-	
-	total_life = Global.get_boss_life()
-	life = total_life
-	
-	movement_type = Global.pick_random(Global.movement_types)
-	
-	if movement_type.name == "none":
-		spawn_enemies = true
-	else:
-		spawn_enemies = Global.pick_random([false, false, true])
-	
-	attack_type = Global.pick_random(Global.attack_types)
-	damage_type = Global.pick_random(Global.damage_types)
-	moving_ttl_total = movement_type.ttl
-	moving_ttl = moving_ttl_total
-	
-	attacking_ttl_total = attack_type.ttl
-	attacking_ttl = 0
-	
-	attacking_count_total = attack_type.count
-	attacking_count = 0
-	speed = movement_type.speed
-	original_speed = speed
-	
-	bullet = damage_type.bullet
-
-	boss_name = movement_type.name3 + " " + attack_type.name3 + " " + damage_type.name3
-	
-	$head.animation = attack_type.name3
-	$body.animation = attack_type.name3
-	$extra.animation = movement_type.name3
+	fake_boss = Global.FLOOR_TYPE == Global.floor_types.final_boss
+	real_final_boss = Global.ending_unlocked
+	if fake_boss:
+		$area_homunculus.set_deferred("disabled", false)
+		$CollisionShape2D_homunculus.set_deferred("disabled", false)
+		$area_homunculus.queue_free()
+		$CollisionShape2D_homunculus.queue_free()
 		
-	#TODO:aplicar efecto dmg_type_normal.name3
+		total_life = 5.0
+		life = total_life
+		spawn_enemies = false
+		movement_type = Global.mov_type_none
+		attack_type = Global.att_type_none
+		damage_type = Global.dmg_type_none
 		
-	$area.add_to_group("bosses")
-	add_to_group("enemy_objects")
-	
-	boss_type = attack_type.name3
-	extra_type = movement_type.name3
-	
-	Global.CURRENT_BOSS_NAME = boss_name
-	
-	if attack_type.name == "melee":
+		$head.animation = "old_fake"
+		$body.animation = "old_fake"
+		$extra.animation = "old_fake"
+		
+		boss_name = "Cursed Tower Beast"
+		boss_type = "Old"
+		extra_type = "Old"
+		
+		$area.add_to_group("bosses")
+		add_to_group("enemy_objects")
+		Global.CURRENT_BOSS_NAME = boss_name
 		$weapon.visible = true
-	else:
+		
+	elif real_final_boss:
+		$area.set_deferred("disabled", false)
+		$CollisionShape2D.set_deferred("disabled", false)
+		$area.queue_free()
+		$CollisionShape2D.queue_free()
+		
+		total_life = 400.0
+		life = total_life
+		spawn_enemies = false
+		movement_type = Global.mov_type_pong
+		attack_type = Global.att_type_spin_x
+		damage_type = Global.dmg_type_poison
+		
+		moving_ttl_total = movement_type.ttl
+		moving_ttl = moving_ttl_total
+		
+		attacking_ttl_total = attack_type.ttl
+		attacking_ttl = 0
+		
+		attacking_count_total = attack_type.count
+		attacking_count = 0
+		speed = movement_type.speed
+		original_speed = speed
+		
+		bullet = damage_type.bullet
+		
+		$head.animation = "player_homunculus"
+		$body.animation = "player_homunculus"
+		$extra.animation = "player_homunculus"
+		
+		boss_name = "WTF... I mean, WTF????!!?"
+		boss_type = "FinalBoss"
+		extra_type = "FinalBoss"
+		
+		$area_homunculus.add_to_group("bosses")
+		add_to_group("enemy_objects")
+		Global.CURRENT_BOSS_NAME = boss_name
 		$weapon.queue_free()
+	else:
+		$area_homunculus.set_deferred("disabled", false)
+		$CollisionShape2D_homunculus.set_deferred("disabled", false)
+		$area_homunculus.queue_free()
+		$CollisionShape2D_homunculus.queue_free()
+		
+		total_life = Global.get_boss_life()
+		life = total_life
+		
+		movement_type = Global.pick_random(Global.movement_types)
+		
+		spawn_enemies = true
+		
+		attack_type = Global.pick_random(Global.attack_types)
+		damage_type = Global.pick_random(Global.damage_types)
+		moving_ttl_total = movement_type.ttl
+		moving_ttl = moving_ttl_total
+		
+		attacking_ttl_total = attack_type.ttl
+		attacking_ttl = 0
+		
+		attacking_count_total = attack_type.count
+		attacking_count = 0
+		speed = movement_type.speed
+		original_speed = speed
+		
+		bullet = damage_type.bullet
+
+		boss_name = movement_type.name3 + " " + attack_type.name3 + " " + damage_type.name3
+		
+		$head.animation = attack_type.name3
+		$body.animation = attack_type.name3
+		$extra.animation = movement_type.name3
+			
+		#TODO:aplicar efecto dmg_type_normal.name3
+			
+		$area.add_to_group("bosses")
+		add_to_group("enemy_objects")
+		
+		boss_type = attack_type.name3
+		extra_type = movement_type.name3
+		
+		Global.CURRENT_BOSS_NAME = boss_name
+		
+		if attack_type.name == "melee":
+			$weapon.visible = true
+		else:
+			$weapon.queue_free()
 		
 func drop_life():
 	var p = Gem.instance()
@@ -133,8 +203,9 @@ func effects(from):
 	return (from == "poison_fx" or from == "justice_fx" or from == "bleed_fx" or from == "electricity_fx")
 	
 func AttackSfx():
-	var options = {"pitch_scale": 0.3}
-	Global.play_sound(Global.TrollSfx, options)
+	if !fake_boss:
+		var options = {"pitch_scale": 0.3}
+		Global.play_sound(Global.TrollSfx, options)
 		
 func OuchSfx():
 	var options = {"pitch_scale": 0.3}
@@ -265,7 +336,7 @@ func _physics_process(delta):
 	
 	z_index = position.y
 	
-	face_player()
+	face_player(delta)
 	
 	$shadow.visible = !jumping
 	
@@ -288,6 +359,8 @@ func _physics_process(delta):
 			if state_moving:
 				boss_movement(delta)
 			if state_attacking:
+				if real_final_boss:
+					attack_type = Global.pick_random([Global.att_type_rain, Global.att_type_cross, Global.att_type_spin_x])
 				boss_attack(delta)
 		else:
 			if intro_ttl > 0:
@@ -296,6 +369,10 @@ func _physics_process(delta):
 					start_boss_battle()
 		
 func start_boss_battle():
+	if fake_boss:
+		$dialog.visible = true
+		$dialog_text.visible = true
+		
 	active = true
 	intro_ttl = 0
 	Global.start_boss_batle()
@@ -554,7 +631,7 @@ func attack_charge(delta):
 			charging_ttl = charging_ttl_total
 			attacking_charge = true
 
-func boss_attack(delta):		
+func boss_attack(delta):
 	if attack_type.name == "charge":
 		attack_charge(delta)
 	if attack_type.name == "cross":
@@ -579,6 +656,9 @@ func boss_movement(delta):
 			Global.SPAWNER.spawn_enemy(true)
 	
 	if movement_type.name == "pong":
+		if real_final_boss:
+			$body.rotation_degrees += 300 * delta
+		
 		if pong_dir == Vector2.ZERO:
 			var xx = speed * rand_range(2, 4) * Global.pick_random([1,-1])
 			var yy = speed * rand_range(2, 4) * Global.pick_random([1,-1])
@@ -623,7 +703,7 @@ func boss_movement(delta):
 	if movement_type.name == "none":
 		pass
 		
-func face_player():
+func face_player(delta):
 	if _player_obj == null:
 		_player_obj = find_player()
 	
@@ -700,9 +780,9 @@ func emit(amount=0):
 	p.global_position = global_position
 	if amount != 0:
 		p.init(amount)
-
-func _on_area_body_entered(body):
-	if body.is_in_group("players"):
+		
+func on_area_body_entered_handler(body):
+	if body.is_in_group("players") and !fake_boss:
 		if Global.zombie:
 			$head.modulate = Global.infected_color
 			$body.modulate = Global.infected_color
@@ -710,8 +790,11 @@ func _on_area_body_entered(body):
 			infected = true
 		body.hit(dmg, [boss_type, extra_type], false, damage_type.name)
 
+func _on_area_body_entered(body):
+	on_area_body_entered_handler(body)
+
 func _on_weapon_area_body_entered(body):
-	if body.is_in_group("players"):
+	if body.is_in_group("players") and !fake_boss:
 		body.hit(dmg, [boss_type, extra_type], false, damage_type.name)
 
 func _on_area_start_body_entered(body):
@@ -719,3 +802,6 @@ func _on_area_start_body_entered(body):
 		intro_ttl = introl_ttl_total
 		Global.show_boss_name(boss_name)
 		Global.LOGIC_PAUSE = true
+
+func _on_area_homunculus_body_entered(body):
+	on_area_body_entered_handler(body)

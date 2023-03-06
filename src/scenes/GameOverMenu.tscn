@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -40,6 +40,8 @@
 [ext_resource path="res://sprites/squid_spr_2.png" type="Texture" id=38]
 [ext_resource path="res://sprites/poison.png" type="Texture" id=39]
 [ext_resource path="res://sprites/sho_guy.png" type="Texture" id=40]
+[ext_resource path="res://sprites/boss_head_old.png" type="Texture" id=41]
+[ext_resource path="res://sprites/boss_player_homunculus_body_itwm.png" type="Texture" id=42]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -62,6 +64,11 @@ animations = [ {
 "name": "Demon",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "FinalBoss",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 27 ) ],
 "loop": true,
 "name": "Frog",
@@ -70,6 +77,11 @@ animations = [ {
 "frames": [ ExtResource( 28 ) ],
 "loop": true,
 "name": "Knight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "Old",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 29 ) ],
@@ -225,9 +237,19 @@ animations = [ {
 "name": "Cursed",
 "speed": 5.0
 }, {
+"frames": [  ],
+"loop": true,
+"name": "FinalBoss",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 34 ) ],
 "loop": true,
 "name": "King",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Old",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 36 ) ],
@@ -334,12 +356,12 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "idol"
+animation = "bat"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 6 )
-animation = "none"
+animation = "Old"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

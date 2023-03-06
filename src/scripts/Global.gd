@@ -244,13 +244,20 @@ var att_type_jump = {
 	name3 = "Frog"
 }
 
+var att_type_none = {
+	name = "none",
+	count = 0,
+	ttl = 0,
+	name3 = "Old"
+}
+
 var attack_types = [
 	att_type_charge,
 	att_type_cross,
 	att_type_spin_x,
 	att_type_rain,
 	att_type_melee,
-	att_type_jump
+	att_type_jump,
 ]
 
 var dmg_type_normal = {
@@ -267,6 +274,11 @@ var dmg_type_ice = {
 	name = "ice",
 	bullet = "ice_ball",
 	name3 = "of Ice"
+}
+var dmg_type_none = {
+	name = "none",
+	bullet = "none",
+	name3 = "old"
 }
 
 var damage_types = [
@@ -1092,7 +1104,7 @@ func enemy_by_boss():
 	return Global.pick_random(ENEMY_BOSS_PATTERNS)
 	
 func get_boss_life():
-	return 14.50 * CURRENT_FLOOR
+	return 23.5 * CURRENT_FLOOR
 
 func enemy_by_floor():
 	randomize()
