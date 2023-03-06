@@ -118,7 +118,7 @@ frames = SubResource( 14 )
 position = Vector2( 423, 543 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 13 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Node2D_tiny" type="Node2D" parent="."]
@@ -134,6 +134,7 @@ frames = SubResource( 14 )
 position = Vector2( 423, 543 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="CreditsNode" type="Node2D" parent="."]
