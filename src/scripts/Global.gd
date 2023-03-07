@@ -1,7 +1,7 @@
 extends Node
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.0"
+var VERSION = "1.0.1"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
