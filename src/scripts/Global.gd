@@ -943,7 +943,7 @@ func LoadSfxAndMusic():
 	ShopAlterTheme = preload("res://music/shop_altar_theme.mp3")
 	TitleTheme = preload("res://music/TitleTheme.ogg")
 	BossBattle = preload("res://music/BossBattle.wav")
-	EndingTheme = preload("res://music/Frank Sinatra- I\'ve got you under my skin.mp3")
+	EndingTheme = preload("res://music/under_my_skin.mp3")
 	
 	FallingSfx = preload("res://sfx/FallingSfx.wav")
 	AcceptSfx = preload("res://sfx/Accept.mp3")

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/under_my_skin.mp3-14187da664feace97471639b060f0aeb.mp3str"
+
+[deps]
+
+source_file="res://music/under_my_skin.mp3"
+dest_files=[ "res://.import/under_my_skin.mp3-14187da664feace97471639b060f0aeb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
