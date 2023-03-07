@@ -178,7 +178,7 @@ func open_door():
 		$sprite.animation = "altaropened"
 	else:
 		if Global.ending_unlocked:
-			if type != "shop" and type != "next":
+			if type != "supershop" and type != "shop" and type != "next":
 				$sprite.animation = "opened"
 			else:
 				opened = false
