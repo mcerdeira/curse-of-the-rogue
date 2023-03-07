@@ -50,3 +50,8 @@ func _on_Idols_Chamber_body_entered(body):
 		Global.GETTING_PERKS = true
 		$AltarProgressDecoration.playing = true
 		create_animations(body)
+
+
+func _on_AltarOfKnowLedge_body_entered(body):
+	if body.is_in_group("players"):
+		Global.show_wiki()

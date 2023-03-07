@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://scenes/SpikeGroup.gd" type="Script" id=26]
 [ext_resource path="res://scenes/ShopKeeper.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/ShopKeeperClosed.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/Wiki.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/Altar.tscn" type="PackedScene" id=30]
 [ext_resource path="res://sprites/back_pack_item.png" type="Texture" id=31]
 [ext_resource path="res://scenes/Idols_Chamber.tscn" type="PackedScene" id=32]
@@ -465,6 +466,9 @@ margin_top = 313.0
 margin_right = 1747.0
 margin_bottom = 607.0
 color = Color( 0, 0, 0, 1 )
+
+[node name="Wiki" parent="CanvasLayer" instance=ExtResource( 29 )]
+visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 63 )]
 position = Vector2( 6, 0 )

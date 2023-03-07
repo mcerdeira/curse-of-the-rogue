@@ -1,7 +1,7 @@
 extends Node
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.1"
+var VERSION = "1.0.2"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -26,6 +26,7 @@ var poisoned_color = Color8(100, 196, 27)
 var infected_color = Color8(203, 54, 220)
 var froze_color = Color8(91, 173, 245)
 var item_texture = preload("res://sprites/idol_item.png")
+var WikiObj = null
 
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 2, 3, 4, 5, 5, 5, 6]
@@ -307,6 +308,7 @@ var grandpa_photo = {
 	"price": 300,
 	"type": "orbital",
 	"oneshot": true,
+	"long_description2": "The last photo of your dead Grandpa. Summons a spirit that helps you."
 }
 
 var explosive_item = {
@@ -316,6 +318,7 @@ var explosive_item = {
 	"price": 300,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "Gives you an ability for generating blasts around you."
 }
 
 var pin_item = {
@@ -325,6 +328,7 @@ var pin_item = {
 	"price": 350,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Generates bleeding in enemies. Enemies bleeding can drop hearts."
 }
 
 var iron_fist = {
@@ -334,6 +338,7 @@ var iron_fist = {
 	"price": 400,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Gives you a chance for critial damage."
 }
 
 var fly_item = {
@@ -343,6 +348,7 @@ var fly_item = {
 	"price": 500,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Gives you the ability for fly. Flying prevents you get hit from lava streams, spikes, spider-webs and falling into holes."
 }
 
 var justice = {
@@ -352,6 +358,7 @@ var justice = {
 	"price": 380,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Every time you get hit, you deal damage to every enemy in the room."
 }
 
 var idol_mask = {
@@ -361,6 +368,7 @@ var idol_mask = {
 	"price": 350,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Enemies now will fear you and get weak effect. Also grants you a blue heart, increases damage and speed."
 }
 
 var magnet_item = {
@@ -370,6 +378,7 @@ var magnet_item = {
 	"price": 350,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "Increases items attacktion range."
 }
 
 var master_key = {
@@ -379,6 +388,7 @@ var master_key = {
 	"price": 450,
 	"type": "consumable",
 	"oneshot": true,
+	"long_description2": "With this key, you can open every chest or door."
 }
 
 var pay_2_win = {
@@ -388,6 +398,7 @@ var pay_2_win = {
 	"price": 550,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "You damage stat scales with gems count."
 }
 
 var life_2_win = {
@@ -397,6 +408,7 @@ var life_2_win = {
 	"price": 550,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "You damage matches your hearts count."
 }
 
 var balloon = {
@@ -406,6 +418,7 @@ var balloon = {
 	"price": 120,
 	"type": "pasive",
 	"oneshot": true,
+	"long_description2": "Every time you get hit, enemies get electrified effect."
 }
 
 var electric_attack = {
@@ -415,6 +428,7 @@ var electric_attack = {
 	"price": 450,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "Enemies hit by you get electrified effect."
 }
 
 var ice_attack = {
@@ -424,6 +438,7 @@ var ice_attack = {
 	"price": 450,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "Enemies hit by you get frozen effect."
 }
 
 var dash_item = {
@@ -433,6 +448,7 @@ var dash_item = {
 	"price": 300,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "Gives you the ability to dash: move quickly in a direction"
 }
 
 var roll_item = {
@@ -442,6 +458,7 @@ var roll_item = {
 	"price": 300,
 	"type": "active",
 	"oneshot": true,
+	"long_description2": "Gives you the ability to roll. Rolling gives you temporal inmunity."
 }
 
 var shot_gun = {
@@ -451,6 +468,7 @@ var shot_gun = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically to a random enemy."
 }
 
 var plasma = {
@@ -460,6 +478,7 @@ var plasma = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically in all directions."
 }
 
 var spells_book = {
@@ -469,6 +488,7 @@ var spells_book = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically to every enemy in the room."
 }
 
 var power_glove = {
@@ -478,6 +498,7 @@ var power_glove = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically a ray that you can point to something."
 }
 
 var spikeball = {
@@ -487,6 +508,7 @@ var spikeball = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Spawns a set of spiked balls that protect you."
 }
 
 var katana = {
@@ -496,6 +518,7 @@ var katana = {
 	"price": 400,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "The coolest melee weapon."
 }
 
 var knife = {
@@ -505,6 +528,7 @@ var knife = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically a knife to a random enemy. It pierces them bodies."
 }
 
 var bomb = {
@@ -514,6 +538,7 @@ var bomb = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically a bomb in a random direction. BE CAREFULL."
 }
 
 var tomahawk = {
@@ -523,6 +548,7 @@ var tomahawk = {
 	"price": 300,
 	"type": "gun",
 	"oneshot": true,
+	"long_description2": "Shoots automatically a Tomahawk upwards."
 }
 
 var backpack = {
@@ -532,6 +558,7 @@ var backpack = {
 	"price": 550,
 	"type": "item",
 	"oneshot": true,
+	"long_description2": "Gives you the ability of carrying infinite automatic weapons."
 }
 
 var wolf_bite =  {
@@ -541,6 +568,7 @@ var wolf_bite =  {
 	"price": 350,
 	"type": "modifier",
 	"oneshot": true,
+	"long_description2": "A wolf bites you and for now on, if you have only 1 heart left you turn into a werewolf."
 }
 
 var brain =  {
@@ -550,6 +578,7 @@ var brain =  {
 	"price": 350,
 	"type": "modifier",
 	"oneshot": true,
+	"long_description2": "If you are a zombie, this if going to like you..."
 }
 
 var poison_itm =  {
@@ -559,6 +588,7 @@ var poison_itm =  {
 	"price": 250,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Enemies hit by you get poison effect."
 }
 
 var shoot_speed_up = {
@@ -568,15 +598,17 @@ var shoot_speed_up = {
 	"price": 200,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "An adrenaline shot that makes you shoot go faster."
 }
 
 var speedup = {
 	"name": "speedup",
 	"description": "Speed boots",
-	"long_description": "Speed Up",
+	"long_description": "This boots are made for walking",
 	"price": 150,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "A good pair of boots for going faster."
 }
 
 var meleeup = {
@@ -586,24 +618,27 @@ var meleeup = {
 	"price": 150,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Good chocolate, gives you a boost of melee speed."
 }
 
 var ice_cream =  {
 	"name": "ice_cream",
 	"description": "Ice Cream",
-	"long_description": "All Stats Up!",
+	"long_description": "Ice cream is the best!!",
 	"price": 200,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "All your stats up."
 }
 
 var damageup =  {
 	"name": "damageup",
 	"description": "Ramen Bowl",
-	"long_description": "Damage Up",
+	"long_description": "Ramen day!",
 	"price": 150,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Gives you a boost of damage."
 }
 
 var blue_lobster = {
@@ -613,6 +648,7 @@ var blue_lobster = {
 	"price": 200,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Grants you a couple of blue hearts, damage and luck increases."
 }
 
 var cherry_item = {
@@ -622,15 +658,17 @@ var cherry_item = {
 	"price": 350,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Duplicates gems you got and gems you get from now on."
 }
 
 var luckup = {
 	"name": "luckup",
 	"description": "Clover",
-	"long_description": "Luck Up",
+	"long_description": "I'm feeling lucky",
 	"price": 150,
 	"type": "passive",
 	"oneshot": true,
+	"long_description2": "Luck up!"
 }
 
 var blue_heart = {
@@ -640,6 +678,7 @@ var blue_heart = {
 	"price": 50,
 	"type": "item",
 	"oneshot": false,
+	"long_description2": "A blue (shield) heart. You lose it if you get hit."
 }
 
 var green_heart =  {
@@ -649,6 +688,7 @@ var green_heart =  {
 	"price": 75,
 	"type": "item",
 	"oneshot": false,
+	"long_description2": "A green (shield + poison) heart. You lose it if you get hit. You generate poison effect while you have it."
 }
 
 var empty_heart =  {
@@ -658,6 +698,7 @@ var empty_heart =  {
 	"price": 150,
 	"type": "item",
 	"oneshot": false,
+	"long_description2": "An empty heart container. You can fill it with a red heart."
 }
 
 var normal_heart = {
@@ -667,6 +708,7 @@ var normal_heart = {
 	"price": 25,
 	"type": "item",
 	"oneshot": false,
+	"long_description2": "Replenish a heart."
 }
 
 var key = {
@@ -676,6 +718,7 @@ var key = {
 	"price": 150,
 	"type": "consumable",
 	"oneshot": false,
+	"long_description2": "You can use it for opening chests or door. You lose it on use."
 }
 
 var ITEMS = []
@@ -1293,6 +1336,9 @@ func add_combo():
 
 func get_floor_waves():
 	return FLOOR_WAVES[CURRENT_FLOOR]
+	
+func show_wiki():
+	Global.WikiObj.activate_me()
 	
 func show_boss_name(boss_name):
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
