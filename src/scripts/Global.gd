@@ -770,18 +770,19 @@ var IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
 var ENEMY_PATTERNS = [
 	-1,
 	[
-		["squid"],
-		["tentacle"],
-		["bloby"],
-		["idol"],
-		["scorpion", "scorpion", "scorpion"],
-		["ghost"],
-		["bat"],
-		["dead_fire"],
-		["scorpion"],
-		["skeleton"],
-		["spider"],
-		["troll", "troll"]
+		["mushroom_guy"],
+#		["squid"],
+#		["tentacle"],
+#		["bloby"],
+#		["idol"],
+#		["scorpion", "scorpion", "scorpion"],
+#		["ghost"],
+#		["bat"],
+#		["dead_fire"],
+#		["scorpion"],
+#		["skeleton"],
+#		["spider"],
+#		["troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],

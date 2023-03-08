@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://scenes/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/scorpion_spr_0.png" type="Texture" id=2]
@@ -51,6 +51,8 @@
 [ext_resource path="res://sprites/squid_spr_2.png" type="Texture" id=49]
 [ext_resource path="res://sprites/squid_shadow.png" type="Texture" id=50]
 [ext_resource path="res://sprites/sho_guy.png" type="Texture" id=51]
+[ext_resource path="res://sprites/mushroom_guy.png" type="Texture" id=52]
+[ext_resource path="res://sprites/mushroom_shadow.png" type="Texture" id=53]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -87,6 +89,11 @@ animations = [ {
 "frames": [ ExtResource( 38 ) ],
 "loop": true,
 "name": "mimic",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "mushroom_guy",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -202,6 +209,11 @@ animations = [ {
 "name": "mimic",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "mushroom_guy",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "scorpion",
@@ -283,13 +295,12 @@ visible = false
 [node name="shadow" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -1 )
 frames = SubResource( 4 )
-animation = "shop_keeper"
+animation = "mushroom_guy"
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-animation = "skeleton"
-frame = 1
+animation = "mushroom_guy"
 playing = true
 
 [node name="weak_fx" type="Sprite" parent="sprite"]

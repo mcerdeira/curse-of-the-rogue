@@ -46,6 +46,7 @@ var bulletonetimecreated = [false, false]
 var back = false
 var restzoom = false
 var bless_mode = false
+var iammushroom = 0
 
 var dead = false
 var entering = false
@@ -383,6 +384,9 @@ func hit(dmg, from, can_zombie=false, effect_name=""):
 		if effect_name == "":
 			if Global.has_justice:
 				do_justice()
+				
+		if effect_name == "mushroom":
+			turn_into_mushroom()
 		
 		Global.shaker_obj.shake(2, 0.2)
 		
@@ -447,9 +451,25 @@ func last_life():
 			count += 1
 			
 	return (count <= 1)
-		
+	
+func turn_into_mushroom():
+	if ani_aditional == "_werewolf":
+		Global.speed -= Global.werewolf_speed
+		Global.attack -= Global.werewolf_attack
+	
+	emit()
+	iammushroom = 7
+	ani_aditional = "_mushroom"
+	$sprite.animation = $sprite.animation + ani_aditional
+	
+func turn_into_no_mushroom():
+	emit()
+	iammushroom = 0
+	ani_aditional = ""
+	$sprite.animation = $sprite.animation.replace("_mushroom", "")
+	
 func turn_into_werewolf():
-	if last_life():
+	if last_life() and iammushroom <= 0:
 		if ani_aditional != "_werewolf":
 			Global.play_sound(Global.WereWolfSfx)
 			ani_aditional = "_werewolf"
@@ -458,7 +478,7 @@ func turn_into_werewolf():
 			Global.attack += Global.werewolf_attack
 	
 func turn_into_no_werewolf():
-	if ani_aditional == "_werewolf" and !last_life():
+	if ani_aditional == "_werewolf" and iammushroom <= 0 and !last_life():
 		Global.play_sound(Global.WereWolfSfx)
 		ani_aditional = ""
 		$sprite.animation = $sprite.animation.replace("_werewolf", "")
@@ -737,6 +757,11 @@ func _physics_process(delta):
 	if Global.werewolf:
 		turn_into_werewolf()
 		
+	if iammushroom > 0:
+		iammushroom -= 1 * delta
+		if iammushroom <= 0:
+			turn_into_no_mushroom() 
+		
 	if Global.pay2win:
 		add_pay_2_win()
 		
@@ -859,6 +884,10 @@ func _physics_process(delta):
 	var action1 = Input.is_action_pressed("action1")
 	var action2 = Input.is_action_pressed("action2")
 	
+	if iammushroom > 0:
+		action1 = false
+		action2 = false
+	
 	if Global.melee_rate > 0:
 		Global.melee_rate -= Global.melee_speed * delta
 		Global.melee_rate = max(0, Global.melee_rate)
@@ -901,22 +930,26 @@ func _physics_process(delta):
 			Global.melee_rate = Global.melee_rate_total
 			melee_attack()
 			
+	var base_speed = Global.speed
+	if iammushroom > 0:
+		base_speed = 60
+			
 	if left:
-		movement.x = -Global.speed / Global.slow_down
+		movement.x = -base_speed / Global.slow_down
 		$sprite.scale.x = -1
 		back = false
 	elif right:
-		movement.x = Global.speed / Global.slow_down
+		movement.x = base_speed/ Global.slow_down
 		$sprite.scale.x = 1
 		back = false
 		
 	facing = $sprite.scale.x
-		
+	
 	if down:
-		movement.y = Global.speed / Global.slow_down
+		movement.y = base_speed / Global.slow_down
 		back = false
 	elif up:
-		movement.y = -Global.speed / Global.slow_down
+		movement.y = -base_speed / Global.slow_down
 		back = true
 		
 	if Global.has_idol_mask:

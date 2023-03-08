@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://sprites/sho_guy.png" type="Texture" id=40]
 [ext_resource path="res://sprites/boss_head_old.png" type="Texture" id=41]
 [ext_resource path="res://sprites/boss_player_homunculus_body_itwm.png" type="Texture" id=42]
+[ext_resource path="res://sprites/mushroom_guy.png" type="Texture" id=43]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -167,6 +168,11 @@ animations = [ {
 "frames": [ ExtResource( 24 ) ],
 "loop": true,
 "name": "mimic",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "mushroom_guy",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 39 ) ],
@@ -356,7 +362,7 @@ texture = ExtResource( 21 )
 [node name="KillU" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )
 frames = SubResource( 5 )
-animation = "bat"
+animation = "mushroom_guy"
 
 [node name="KillUExtra" type="AnimatedSprite" parent="."]
 position = Vector2( 499, 343 )

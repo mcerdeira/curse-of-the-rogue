@@ -336,6 +336,17 @@ func shoot():
 			fire_ball.from = enemy_type
 			get_parent().get_parent().add_child(fire_ball)
 			fire_ball.global_position = global_position
+			
+		if enemy_type == "mushroom_guy":
+			Global.play_sound(Global.TrollSfx)
+			var fire_ball = EnemyBullet.instance()
+			fire_ball.type = "fire_ball"
+			fire_ball.from = enemy_type
+			fire_ball.effect_name = "mushroom"
+			
+			get_parent().get_parent().add_child(fire_ball)
+			fire_ball.global_position = global_position
+	
 		if enemy_type == "bat":
 			Global.play_sound(Global.BatsSfx)
 			var fire_ball = EnemyBullet.instance()
@@ -918,6 +929,37 @@ func set_type(_type):
 		random_shooter = false
 		inmune_while_moving = false
 		
+	if enemy_type == "mushroom_guy":
+		var options = {"pitch_scale": 1.5}
+		Global.play_sound(Global.TrollSfx, options)
+		life = 8 * life_mult
+		speed = 30
+		speed_total = 30
+		stopandgo = false
+		$area/collider.set_deferred("disabled", false)
+		$area/collider_dead_fire.set_deferred("disabled", true)
+		$area/collider_ghost.set_deferred("disabled", true)
+		$area/collider_squid.set_deferred("disabled", true)
+		shoot_ttl_total = 0
+		shoot_ttl = shoot_ttl_total
+		shoot_type = false
+		dmg = 1
+		if Global.has_idol_mask:
+			chase_player = false
+		else:
+			chase_player = true
+			
+		flying = false
+		fireinmune = false
+		is_enemy_group = false
+		stopandgo_ttl = Global.pick_random([5, 3, 2, 6])
+		shoot_on_die = false
+		disapear = false
+		leave_trail = false
+		angle_walker = true
+		random_shooter = true
+		inmune_while_moving = false
+		
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollSfx, options)
@@ -1119,7 +1161,14 @@ func OuchSfx():
 	if enemy_type == "troll":
 		var options = {"pitch_scale": 0.5}
 		Global.play_sound(Global.TrollHitSfx, options)
+	if enemy_type == "mushroom_guy":
+		var options = {"pitch_scale": 1.5}
+		Global.play_sound(Global.TrollHitSfx, options)
 	if enemy_type == "ghost":
+		Global.play_sound(Global.GhostHitSfx)
+	if enemy_type == "squid":
+		Global.play_sound(Global.DeadFireHitSfx)
+	if enemy_type == "tentacle":
 		Global.play_sound(Global.GhostHitSfx)
 	if enemy_type == "dead_fire":
 		Global.play_sound(Global.DeadFireHitSfx)
