@@ -1,7 +1,7 @@
 extends Node
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.2"
+var VERSION = "1.0.3"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -771,18 +771,18 @@ var ENEMY_PATTERNS = [
 	-1,
 	[
 		["mushroom_guy"],
-#		["squid"],
-#		["tentacle"],
-#		["bloby"],
-#		["idol"],
-#		["scorpion", "scorpion", "scorpion"],
-#		["ghost"],
-#		["bat"],
-#		["dead_fire"],
-#		["scorpion"],
-#		["skeleton"],
-#		["spider"],
-#		["troll", "troll"]
+		["squid"],
+		["tentacle"],
+		["bloby"],
+		["idol"],
+		["scorpion", "scorpion", "scorpion"],
+		["ghost"],
+		["bat"],
+		["dead_fire"],
+		["scorpion"],
+		["skeleton"],
+		["spider"],
+		["troll", "troll"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
@@ -790,21 +790,25 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "scorpion", "bat"],
 		["scorpion", "scorpion", "bat", "bat", "bloby"],
 		["scorpion", "scorpion", "troll"],
+		["scorpion", "scorpion", "mushroom_guy"],
 		["spider", "spider"],
 		["spider", "bat", "bat"],
 		["spider", "idol", "bat"],
 		["spider", "spider", "squid", "squid"],
+		["mushroom_guy", "mushroom_guy", "mushroom_guy"]
 	],
 	[
 		["scorpion", "scorpion", "scorpion", "scorpion"],
 		["idol", "idol", "idol", "tentacle", "tentacle"],
 		["bat", "scorpion", "bat", "bat"],
 		["bat", "bat", "troll", "troll"],
+		["bat", "bat", "mushroom_guy", "mushroom_guy"],
 		["ghost", "ghost"],
 		["spider", "bloby", "bloby"],
 		["bloby", "bat", "bloby"],
 		["idol", "idol", "idol"],
 		["bat", "bat", "troll", "troll", "squid", "squid"],
+		["bat", "mushroom_guy", "mushroom_guy", "mushroom_guy", "squid", "squid"],
 	],
 	[	
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -814,12 +818,14 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["dead_fire", "dead_fire", "mushroom_guy", "mushroom_guy", "mushroom_guy"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
 		["tentacle", "tentacle", "tentacle"],
 		["bloby", "tentacle", "bloby"],
 		["bloby", "squid", "bloby"],
 		["squid", "squid", "squid", "squid", "squid"],
+		["mushroom_guy", "mushroom_guy", "squid", "squid", "squid"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -829,12 +835,14 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["dead_fire", "dead_fire", "mushroom_guy", "mushroom_guy", "mushroom_guy"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
 		["tentacle", "tentacle", "tentacle"],
 		["bloby", "tentacle", "bloby"],
 		["bloby", "squid", "bloby"],
 		["squid", "squid", "squid", "squid", "squid"],
+		["mushroom_guy", "mushroom_guy", "squid", "squid", "squid"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -844,12 +852,14 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["dead_fire", "dead_fire", "mushroom_guy", "mushroom_guy", "mushroom_guy"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
 		["tentacle", "tentacle", "tentacle"],
 		["bloby", "tentacle", "bloby"],
 		["bloby", "squid", "bloby"],
 		["squid", "squid", "squid", "squid", "squid"],
+		["mushroom_guy", "mushroom_guy", "squid", "squid", "squid"],
 	],
 	[
 		["dead_fire", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
@@ -859,12 +869,14 @@ var ENEMY_PATTERNS = [
 		["scorpion", "scorpion", "skeleton", "skeleton", "dead_fire"],
 		["bat", "dead_fire", "dead_fire", "dead_fire", "dead_fire"],
 		["dead_fire", "dead_fire", "troll", "troll", "troll"],
+		["dead_fire", "dead_fire", "mushroom_guy", "mushroom_guy", "mushroom_guy"],
 		["spider", "spider", "spider", "dead_fire", "dead_fire"],
 		["idol", "idol", "idol", "bloby", "bloby"],
 		["tentacle", "tentacle", "tentacle"],
 		["bloby", "tentacle", "bloby"],
 		["bloby", "squid", "bloby"],
 		["squid", "squid", "squid", "squid", "squid"],
+		["mushroom_guy", "mushroom_guy", "squid", "squid", "squid"],
 	],
 ]
 

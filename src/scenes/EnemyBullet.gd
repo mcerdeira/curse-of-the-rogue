@@ -76,8 +76,12 @@ func _physics_process(delta):
 		
 		if lander:
 			speed = 300
-		
-		$sprite.animation = type
+			
+		if effect_name == "mushroom":
+			$sprite.animation = effect_name
+		else:
+			$sprite.animation = type
+			
 		if dir != Vector2.ZERO:
 			move_and_slide(speed * dir)
 			$sprite.look_at(to_global(dir))
