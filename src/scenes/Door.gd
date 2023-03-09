@@ -30,9 +30,13 @@ func _ready():
 		if Global.ending_unlocked:
 			if type == "":
 				type = "boss"
+			if type == "shop":
+				type = "next"
 		else:
 			if type == "":
 				type = "cant"
+			if type == "shop":
+				type = "next"
 	
 	if type == "" and Global.FLOOR_TYPE != Global.floor_types.normal and Global.FLOOR_TYPE != Global.floor_types.intro:
 		queue_free()
