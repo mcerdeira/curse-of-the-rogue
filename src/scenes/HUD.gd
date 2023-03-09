@@ -100,11 +100,10 @@ func _draw():
 			acum.y += 32
 	
 	w = 30
-	acum = 0
 	i = 0
 	
 	for h in Global.health:
-		acum = 10 + (w * i)
+		acum = 35 + (w * i)
 		var tex = null
 		if h == 1:
 			tex = full_hearts
@@ -168,6 +167,7 @@ func _physics_process(delta):
 	else:
 		$combo.text = ""
 	
+	$player_lvl.text = str(Global.PLAYER_LVL)
 	$hud_gems.text = str(space) + str(Global.gems)
 	$primary_weapon.animation = Global.primary_weapon
 	$secondary_weapon.animation = Global.secondary_weapon

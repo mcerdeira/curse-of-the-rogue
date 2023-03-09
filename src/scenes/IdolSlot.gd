@@ -16,3 +16,5 @@ func trad_perk(perk):
 		return "Melee"
 	elif perk == "shoot_speed":
 		return "Shoot"
+	elif perk == "gems":
+		return "Gems"

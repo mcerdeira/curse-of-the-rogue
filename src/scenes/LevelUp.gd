@@ -35,8 +35,11 @@ func _physics_process(delta):
 				player.add_melee(0.5)
 			elif what == "shoot_speed":
 				player.add_shoot_speed(1)
+			elif what == "gems":
+				player.add_gem(1000)
 				
 			Global.IDOL_PERKS.append(what)
+			Global.PLAYER_LVL += 1
 			
 			total_idols -= 1
 			
@@ -86,3 +89,8 @@ func _on_btn_shoot_speed_pressed():
 	if !some_pressed:
 		what = "shoot_speed"
 		$bless_description.text = "Increases your Range Attack Speed, permanently"
+
+func _on_btn_gems_pressed():
+	if !some_pressed:
+		what = "gems"
+		$bless_description.text = "Gives you 1000 gems"
