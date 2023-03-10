@@ -1,7 +1,7 @@
 extends Node
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.4"
+var VERSION = "1.0.5"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -28,6 +28,7 @@ var infected_color = Color8(203, 54, 220)
 var froze_color = Color8(91, 173, 245)
 var item_texture = preload("res://sprites/idol_item.png")
 var WikiObj = null
+var BonFireDialog = null
 
 var FLOOR_TYPE = ""
 var FLOOR_WAVES = [-1, 2, 3, 4, 5, 5, 5, 6]
@@ -914,6 +915,13 @@ func boot_strap_game():
 	custom_cursor()
 	initialize()
 	init_room()
+	
+func reset_health():
+	health = [1, 1, 1]
+	for p in range(Global.IDOL_PERKS.size()):
+		if Global.IDOL_PERKS[p] == "life":
+			health.append(1)
+	refresh_hud()
 	
 func idol_acquired():
 	if Global.FLOOR_TYPE != Global.floor_types.ending:
