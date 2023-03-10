@@ -11,6 +11,8 @@ func get_floor_pos():
 	var c = str(Global.CURRENT_FLOOR)
 	if c == "0":
 		c = ""
+	if Global.CURRENT_FLOOR > 7:
+		c = "7"
 	var n = get_node("pos" + c)
 	if(n):
 		return n.position
