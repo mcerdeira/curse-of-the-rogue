@@ -8,34 +8,34 @@
 script = ExtResource( 3 )
 
 [node name="pos" type="Position2D" parent="."]
-position = Vector2( 499, 398 )
+position = Vector2( 590, 394 )
 
 [node name="pos1" type="Position2D" parent="."]
-position = Vector2( 499, 362 )
+position = Vector2( 573, 352 )
 
 [node name="pos2" type="Position2D" parent="."]
-position = Vector2( 499, 325 )
+position = Vector2( 564, 315 )
 
 [node name="pos3" type="Position2D" parent="."]
-position = Vector2( 499, 288 )
+position = Vector2( 557, 277 )
 
 [node name="pos4" type="Position2D" parent="."]
-position = Vector2( 499, 252 )
+position = Vector2( 552, 239 )
 
 [node name="pos5" type="Position2D" parent="."]
-position = Vector2( 499, 215 )
+position = Vector2( 542, 200 )
 
 [node name="pos6" type="Position2D" parent="."]
-position = Vector2( 499, 174 )
+position = Vector2( 527, 164 )
 
 [node name="pos7" type="Position2D" parent="."]
-position = Vector2( 499, 138 )
+position = Vector2( 529, 128 )
 
 [node name="Map" type="Sprite" parent="."]
 position = Vector2( 495, 194 )
 texture = ExtResource( 2 )
 
 [node name="Map_Sign" type="Sprite" parent="."]
-position = Vector2( 587, 398 )
+position = Vector2( 590, 394 )
 texture = ExtResource( 1 )
 offset = Vector2( 17, -13 )

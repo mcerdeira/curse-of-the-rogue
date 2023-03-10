@@ -35,6 +35,7 @@ func _physics_process(delta):
 			go_do_action()
 			
 func go_do_action():
+	Global.CURRENT_FLOOR = 0
 	Global.next_floor("intro")
 	
 func reset_player_status():

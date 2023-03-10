@@ -1,7 +1,11 @@
 extends Node2D
 
 func _ready():
-	$Map_Sign.position.y = get_floor_pos()
+	var pos = get_floor_pos()
+	if pos != Vector2.ZERO:
+		$Map_Sign.position = pos
+	else:
+		$Map_Sign.visible = false
 
 func get_floor_pos():
 	var c = str(Global.CURRENT_FLOOR)
@@ -9,6 +13,6 @@ func get_floor_pos():
 		c = ""
 	var n = get_node("pos" + c)
 	if(n):
-		return n.position.y
+		return n.position
 	else:
-		return 0
+		return Vector2.ZERO

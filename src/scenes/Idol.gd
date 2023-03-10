@@ -47,6 +47,7 @@ func _physics_process(delta):
 			$sprite.scale.y = 0.1
 			
 func go_do_action():
+	Global.CURRENT_FLOOR = 0
 	Global.next_floor("intro")
 
 func _on_Idol_body_entered(body):
