@@ -4,6 +4,7 @@ var space = "       : "
 var message_ttl = 0
 var combo_text = "BEST x"
 var game_over_text = "YOU DIED"
+var shaking_combo = 0
 export var full_hearts : Texture
 export var empty_hearts : Texture
 export var shield_hearts : Texture
@@ -13,6 +14,7 @@ export var shield_zombie : Texture
 func _ready():
 	$hud_combo_count.text = ""
 	$combo.text = ""
+	$combo_progress.visible = false
 	hide_all_extras()
 	add_to_group("HUD")
 	$c/game_over.visible = false
@@ -39,6 +41,7 @@ func show_hud(val):
 	$secondary_weapon.visible = val
 	$automatic_weapon.visible = val
 	$automatic_weapon_frame.visible = val
+	$player_lvl.visible = val
 	
 func start_boss_batle():
 	show_hud(true)
@@ -84,6 +87,9 @@ func add_extra_display(name, count):
 			get_node(node_name).text = str(count)
 			get_node(node_name).add_color_override("font_color", Color8(243, 42, 42))
 	
+func shake_combo():
+	shaking_combo = 1.2
+	
 func _draw():
 	var w = 30
 	var acum = $MiniHUDPos.position
@@ -128,7 +134,13 @@ func set_message(title, msg):
 	$c/game_over.text = title
 	$c/subtitle.text = msg
 	
-func _physics_process(delta):	
+func _physics_process(delta):
+	if shaking_combo > 0:
+		shaking_combo -= 1 * delta
+		$combo.rect_rotation = randi() % 2 *  Global.pick_random([1, -1])
+		if shaking_combo <= 0:
+			$combo.rect_rotation = 0
+	
 	if !Global.GAME_OVER and message_ttl > 0:
 		message_ttl -= 1 * delta
 		if message_ttl <= 0:
@@ -153,19 +165,24 @@ func _physics_process(delta):
 			$c/game_over.visible = false
 			
 	if Global.FLOOR_OVER or Global.GAME_OVER:
-#		Global.combo_time = 0
+		Global.combo_time = 0
 		Global.current_combo = 0
 
-#	if Global.combo_time > 0:
-#		Global.combo_time -= 1 * delta
-#		if Global.combo_time <= 0:
-#			Global.combo_time = 0
-#			Global.current_combo = 0
+	if Global.combo_time > 0:
+		Global.combo_time -= 1 * delta
+		if Global.combo_time <= 0:
+			Global.combo_time = 0
+			Global.current_combo = 0
+			
+	$combo_progress.max_value = Global.combo_time_total
+	$combo_progress.value = Global.combo_time
 
 	if Global.current_combo > 0:
 		$combo.text = "x" + str(Global.current_combo)
+		$combo_progress.visible = true
 	else:
 		$combo.text = ""
+		$combo_progress.visible = false
 	
 	$player_lvl.text = str(Global.PLAYER_LVL)
 	$hud_gems.text = str(space) + str(Global.gems)
