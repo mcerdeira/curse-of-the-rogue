@@ -398,7 +398,7 @@ texture_over = ExtResource( 36 )
 texture_progress = ExtResource( 36 )
 fill_mode = 4
 tint_under = Color( 1, 1, 1, 0 )
-tint_over = Color( 0, 0, 0, 0 )
+tint_over = Color( 0.658824, 0.0352941, 0.0352941, 0 )
 tint_progress = Color( 0.933333, 0.713726, 0.184314, 1 )
 
 [node name="combo" type="Label" parent="CanvasLayer/HUD"]
@@ -520,10 +520,12 @@ margin_bottom = 606.0
 script = ExtResource( 65 )
 
 [node name="BigHead" parent="." instance=ExtResource( 18 )]
+frame = 2
 
 [node name="BigHead2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 78, 80 )
 scale = Vector2( -1, 1 )
+frame = 2
 
 [node name="ItemPedestal" parent="." instance=ExtResource( 22 )]
 position = Vector2( 515, 293 )
