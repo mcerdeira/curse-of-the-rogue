@@ -1,4 +1,5 @@
 extends Node
+var saved_game = false
 var ending_unlocked = false
 var only_supershops = false
 var VERSION = "1.0.6"
@@ -885,6 +886,7 @@ var ENEMY_PATTERNS = [
 func _data_overload():
 	Muted = false
 	SfxMuted = false
+	load_options()
 	load_game()
 	
 	for i in range(Global.IDOLS.size()):
@@ -909,6 +911,11 @@ func restart_game():
 	initialize()
 	init_room()
 	get_tree().reload_current_scene()
+	
+func restart_game_save():
+	restart_pools()
+	initialize()
+	init_room()
 	
 func boot_strap_game():
 	restart_pools()
@@ -1074,11 +1081,20 @@ func LoadSfxAndMusic():
 	
 	KatanaSfx = preload("res://sfx/KatanaSfx.mp3")
 	
+func save_options():
+	var save_options = File.new()
+	save_options.open("user://options.save", File.WRITE)
+	var save_dict = {
+		"Muted": Global.Muted,
+		"SfxMuted": Global.SfxMuted,
+	}
+	save_options.store_line(to_json(save_dict))
+	save_options.close()
+	
 func save_game():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	var save_dict = {
-		
 		"altar_points" : altar_points,
 		"altar_lifes" : altar_lifes,
 		"only_supershops": only_supershops,
@@ -1091,28 +1107,65 @@ func save_game():
 	}
 	save_game.store_line(to_json(save_dict))
 	save_game.close()
+
+func delete_save():
+	default_values()
+	save_game()
+	restart_game_save()
+	
+func default_values():
+	only_supershops = false
+	ending_unlocked = false
+	altar_points = 0
+	altar_lifes = 0
+	altar_gems = 0
+	altar_level = 1
+	Global.IDOLS = [-1, 0, 0, 0, 0, 0, 0, 0]
+	Global.IDOL_PERKS = []
+	Global.PLAYER_LVL = 0
+	
+func load_options():
+	var save_options = File.new()
+	if not save_options.file_exists("user://options.save"):
+		return 
+		
+	save_options.open("user://options.save", File.READ)
+	while save_options.get_position() < save_options.get_len():
+		var node_data = parse_json(save_options.get_line())
+		if node_data:
+			if "Muted" in node_data:
+				Muted = node_data.Muted
+			
+			if "SfxMuted" in node_data:
+				SfxMuted = node_data.SfxMuted
+
+	save_options.close()
 	
 func load_game():
 	var save_game = File.new()
 	if not save_game.file_exists("user://savegame.save"):
+		saved_game = false
 		return 
+		
 	save_game.open("user://savegame.save", File.READ)
 	while save_game.get_position() < save_game.get_len():
+		saved_game = true
 		var node_data = parse_json(save_game.get_line())
 		
-		if "only_supershops" in node_data:
-			only_supershops = node_data.only_supershops
-			
-		if "ending_unlocked" in node_data:
-			ending_unlocked = node_data.ending_unlocked
-			
-		altar_points = node_data.altar_points
-		altar_lifes = node_data.altar_lifes
-		altar_gems = node_data.altar_gems
-		altar_level = node_data.altar_level
-		Global.IDOLS = node_data.IDOLS
-		Global.IDOL_PERKS = node_data.IDOL_PERKS
-		Global.PLAYER_LVL = node_data.PLAYER_LVL
+		if node_data:
+		
+			if "only_supershops" in node_data:
+				only_supershops = node_data.only_supershops
+				
+			if "ending_unlocked" in node_data:
+				ending_unlocked = node_data.ending_unlocked
+			altar_points = node_data.altar_points
+			altar_lifes = node_data.altar_lifes
+			altar_gems = node_data.altar_gems
+			altar_level = node_data.altar_level
+			Global.IDOLS = node_data.IDOLS
+			Global.IDOL_PERKS = node_data.IDOL_PERKS
+			Global.PLAYER_LVL = node_data.PLAYER_LVL
 
 	save_game.close()
 	
@@ -1498,6 +1551,7 @@ func play_sound(stream: AudioStream, options:= {}) -> AudioStreamPlayer:
 
 		add_child(audio_stream_player)
 		audio_stream_player.stream = stream
+		audio_stream_player.bus = "SFX"
 		
 		for prop in options.keys():
 			audio_stream_player.set(prop, options[prop])

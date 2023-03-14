@@ -3,7 +3,8 @@ extends Node2D
 func _init():
 	Global.init_pool()
 
-func _ready():	
+func _ready():
+	Global.custom_cursor()
 	if Global.FLOOR_TYPE == Global.floor_types.intro:
 		Global.init_timer()
 	else:
