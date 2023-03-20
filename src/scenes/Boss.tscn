@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://scenes/Boss.gd" type="Script" id=1]
 [ext_resource path="res://sprites/boss_head_frog.png" type="Texture" id=2]
@@ -26,6 +26,18 @@
 [ext_resource path="res://sprites/boss_head_old.png" type="Texture" id=24]
 [ext_resource path="res://sprites/boss_player_homunculus_body.png" type="Texture" id=25]
 [ext_resource path="res://sprites/player_homunculus_head.png" type="Texture" id=26]
+[ext_resource path="res://sprites/boss_head_demon1.png" type="Texture" id=27]
+[ext_resource path="res://sprites/boss_head_frog1.png" type="Texture" id=28]
+[ext_resource path="res://sprites/boss_head_pig1.png" type="Texture" id=29]
+[ext_resource path="res://sprites/boss_head_soul1.png" type="Texture" id=30]
+[ext_resource path="res://sprites/boss_head_wolf1.png" type="Texture" id=31]
+[ext_resource path="res://sprites/boss_head_knight1.png" type="Texture" id=32]
+[ext_resource path="res://sprites/boss_body_demon1.png" type="Texture" id=33]
+[ext_resource path="res://sprites/boss_body_frog1.png" type="Texture" id=34]
+[ext_resource path="res://sprites/boss_body_knight1.png" type="Texture" id=35]
+[ext_resource path="res://sprites/boss_body_pig1.png" type="Texture" id=36]
+[ext_resource path="res://sprites/boss_body_soul1.png" type="Texture" id=37]
+[ext_resource path="res://sprites/boss_body_wolf1.png" type="Texture" id=38]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -54,32 +66,32 @@ shader_param/shoot_prev = false
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 33 ) ],
 "loop": true,
 "name": "Demon",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 34 ) ],
 "loop": true,
 "name": "Frog",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 35 ) ],
 "loop": true,
 "name": "Knight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 36 ) ],
 "loop": true,
 "name": "Pig",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ ExtResource( 12 ), ExtResource( 37 ) ],
 "loop": true,
 "name": "Soul",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 38 ) ],
 "loop": true,
 "name": "Wolf",
 "speed": 5.0
@@ -122,32 +134,32 @@ shader_param/shoot_prev = null
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 27 ) ],
 "loop": true,
 "name": "Demon",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 28 ) ],
 "loop": true,
 "name": "Frog",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 32 ) ],
 "loop": true,
 "name": "Knight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 29 ) ],
 "loop": true,
 "name": "Pig",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 30 ) ],
 "loop": true,
 "name": "Soul",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 31 ) ],
 "loop": true,
 "name": "Wolf",
 "speed": 5.0
@@ -250,12 +262,16 @@ position = Vector2( 2, -5 )
 rotation = 0.0261799
 frames = SubResource( 3 )
 animation = "player_homunculus"
+speed_scale = 0.3
+playing = true
 
 [node name="head" type="AnimatedSprite" parent="."]
 material = SubResource( 12 )
-position = Vector2( 2, -69 )
+position = Vector2( 3, -65 )
 frames = SubResource( 2 )
 animation = "player_homunculus"
+speed_scale = 0.5
+playing = true
 
 [node name="extra" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -69 )
@@ -270,6 +286,7 @@ position = Vector2( -1, -5 )
 shape = SubResource( 19 )
 
 [node name="area" type="Area2D" parent="."]
+visible = false
 position = Vector2( -3, -44 )
 
 [node name="collider" type="CollisionShape2D" parent="area"]
@@ -300,10 +317,12 @@ position = Vector2( 58.5, 61.5 )
 shape = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 2.5, -32 )
 shape = SubResource( 16 )
 
 [node name="CollisionShape2D_homunculus" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -1, -6 )
 shape = SubResource( 18 )
 

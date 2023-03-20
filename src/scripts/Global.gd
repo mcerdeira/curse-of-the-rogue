@@ -2,7 +2,7 @@ extends Node
 var saved_game = false
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.6"
+var VERSION = "1.0.8"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -1225,7 +1225,13 @@ func enemy_by_boss():
 	return Global.pick_random(ENEMY_BOSS_PATTERNS)
 	
 func get_boss_life():
-	return 23.5 * CURRENT_FLOOR
+	var factor = 1
+	if attack == 2:
+		factor = 1.2
+	elif factor > 2:
+		factor = attack / 2.0
+	
+	return (23.5 * factor) * CURRENT_FLOOR
 
 func enemy_by_floor():
 	randomize()
