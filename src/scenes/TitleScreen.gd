@@ -161,7 +161,8 @@ func _on_btn_close_pressed():
 	$OptionsDialog.visible = false
 	$PressStartContainer/btn_quit.disabled = false
 	$PressStartContainer/btn_start.disabled = false
-	$PressStartContainer/btn_continue.disabled = false
+	if Global.saved_game:
+		$PressStartContainer/btn_continue.disabled = false
 	Global.save_options()
 
 func _on_chk_SFX_pressed():
