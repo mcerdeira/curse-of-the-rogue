@@ -2,7 +2,7 @@ extends Node
 var saved_game = false
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.0.8"
+var VERSION = "1.0.9"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -18,6 +18,7 @@ var SPAWNER = null
 var LOGIC_PAUSE = false
 var CURRENT_BOSS_NAME = ""
 var FIRST = true
+var UNLOCKED_ITEMS = []
 var IDOL_PERKS = []
 var PLAYER_LVL = 0
 var TOTAL_FLOORS = 7
@@ -883,11 +884,21 @@ var ENEMY_PATTERNS = [
 	],
 ]
 
+func unlock_item(item_name):
+	if !(item_name in UNLOCKED_ITEMS):
+		UNLOCKED_ITEMS.push_back(item_name)
+		save_items()
+
+func init_unlocked_items():
+	UNLOCKED_ITEMS = ["key", "blue_heart", "empty_heart", "normal_heart", "green_heart"]
+
 func _data_overload():
 	Muted = false
 	SfxMuted = false
+	init_unlocked_items()
 	load_options()
 	load_game()
+	load_items()
 	
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
@@ -1091,6 +1102,15 @@ func save_options():
 	save_options.store_line(to_json(save_dict))
 	save_options.close()
 	
+func save_items():
+	var items = File.new()
+	items.open("user://items.save", File.WRITE)
+	var save_dict = {
+		"UNLOCKED_ITEMS": Global.UNLOCKED_ITEMS,
+	}
+	items.store_line(to_json(save_dict))
+	items.close()
+	
 func save_game():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
@@ -1140,6 +1160,21 @@ func load_options():
 				SfxMuted = node_data.SfxMuted
 
 	save_options.close()
+	
+func load_items():
+	var items = File.new()
+	if not items.file_exists("user://items.save"):
+		return 
+		
+	items.open("user://items.save", File.READ)
+	while items.get_position() < items.get_len():
+		var node_data = parse_json(items.get_line())
+		
+		if node_data:
+			Global.UNLOCKED_ITEMS = node_data.UNLOCKED_ITEMS
+
+	items.close()
+	
 	
 func load_game():
 	var save_game = File.new()

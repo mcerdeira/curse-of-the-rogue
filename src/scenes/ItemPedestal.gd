@@ -94,6 +94,8 @@ func do_item_effect(_player):
 	var HUD = get_tree().get_nodes_in_group("HUD")[0]
 	HUD.set_message(item_description, item_long_description)
 	
+	Global.unlock_item(item_name)
+	
 	if oneshot:
 		Global.remove_from_pool(item_name)
 		if item_type != "gun":
