@@ -282,6 +282,15 @@ custom_fonts/font = SubResource( 16 )
 pressed = true
 text = "Sound FX"
 
+[node name="chk_gamepad" type="CheckButton" parent="OptionsDialog"]
+margin_left = 156.0
+margin_top = 223.0
+margin_right = 364.0
+margin_bottom = 263.0
+custom_fonts/font = SubResource( 16 )
+pressed = true
+text = "Gamepad"
+
 [node name="chk_Music" type="CheckButton" parent="OptionsDialog"]
 margin_left = 201.0
 margin_top = 154.0
@@ -329,4 +338,5 @@ selected = 0
 [connection signal="animation_finished" from="PressAnimation" to="." method="_on_PressAnimation_animation_finished"]
 [connection signal="pressed" from="OptionsDialog/btn_close" to="." method="_on_btn_close_pressed"]
 [connection signal="pressed" from="OptionsDialog/chk_SFX" to="." method="_on_chk_SFX_pressed"]
+[connection signal="pressed" from="OptionsDialog/chk_gamepad" to="." method="_on_chk_gamepad_pressed"]
 [connection signal="pressed" from="OptionsDialog/chk_Music" to="." method="_on_chk_Music_pressed"]

@@ -692,7 +692,7 @@ func blast():
 func melee_attack():
 	var _z = z_index
 	if Global.primary_weapon == "whip":
-		var mouse_pos = get_global_mouse_position()
+		var mouse_pos = to_global($CursorObj.position)#get_global_mouse_position()
 		var angle = get_angle_to(mouse_pos)
 		if $sprite.animation == "back" + ani_aditional:
 			_z = z_index - 10
@@ -713,7 +713,7 @@ func has_weapon_glove():
 			return true
 			
 	return false
-			
+	
 func _physics_process(delta):
 	if Global.current_combo > 0:
 		$lbl_combo.text = str(Global.current_combo)
@@ -772,7 +772,7 @@ func _physics_process(delta):
 	
 	if $automatic_weapon.visible:
 		if has_weapon_glove():
-			var mouse_pos = get_global_mouse_position()
+			var mouse_pos = to_global($CursorObj.position)  #get_global_mouse_position()
 			var angle = get_angle_to(mouse_pos)
 			$automatic_weapon.rotation = angle
 		else:
@@ -909,7 +909,7 @@ func _physics_process(delta):
 		
 		if dashing_ttl <= 0 and dashing_cool_down <= 0 and Global.secondary_weapon == "dash":
 			dashing_ttl = Global.dashing_ttl
-			var mouse_pos = get_global_mouse_position()
+			var mouse_pos = to_global($CursorObj.position) #get_global_mouse_position()
 			if mouse_pos.x > position.x:
 				$sprite.scale.x = 1
 			else:
@@ -918,7 +918,7 @@ func _physics_process(delta):
 			
 		if rolling_ttl <= 0 and rolling_cool_down <= 0 and Global.secondary_weapon == "roll":
 			rolling_ttl = Global.rolling_ttl
-			var mouse_pos = get_global_mouse_position()
+			var mouse_pos = to_global($CursorObj.position) #get_global_mouse_position()
 			if mouse_pos.x > position.x:
 				$sprite.scale.x = 1
 			else:

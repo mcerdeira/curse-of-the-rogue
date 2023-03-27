@@ -143,6 +143,7 @@ func _on_btn_options_pressed():
 	options_visible = true
 	$OptionsDialog/chk_Music.pressed = !Global.Muted
 	$OptionsDialog/chk_SFX.pressed = !Global.SfxMuted
+	$OptionsDialog/chk_gamepad.pressed = Global.UseGamePad
 	
 	$OptionsDialog.visible = true
 	$PressStartContainer/btn_quit.disabled = true
@@ -174,3 +175,6 @@ func _on_chk_Music_pressed():
 	Global.Muted = !$OptionsDialog/chk_Music.pressed
 	var music_idx = AudioServer.get_bus_index("Music")
 	AudioServer.set_bus_mute(music_idx, Global.Muted)
+
+func _on_chk_gamepad_pressed():
+	Global.UseGamePad = $OptionsDialog/chk_gamepad.pressed

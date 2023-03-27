@@ -1,4 +1,5 @@
 extends Node
+var UseGamePad = false
 var saved_game = false
 var ending_unlocked = false
 var only_supershops = false
@@ -1098,6 +1099,7 @@ func save_options():
 	var save_dict = {
 		"Muted": Global.Muted,
 		"SfxMuted": Global.SfxMuted,
+		"UseGamePad": Global.UseGamePad,
 	}
 	save_options.store_line(to_json(save_dict))
 	save_options.close()
@@ -1153,6 +1155,9 @@ func load_options():
 	while save_options.get_position() < save_options.get_len():
 		var node_data = parse_json(save_options.get_line())
 		if node_data:
+			if "UseGamePad" in node_data:
+				UseGamePad = node_data.UseGamePad
+			
 			if "Muted" in node_data:
 				Muted = node_data.Muted
 			
@@ -1233,7 +1238,7 @@ func timer_event(delta):
 			Hours += 1	
 		
 func custom_cursor():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Input.set_custom_mouse_cursor(arrow)
 	
 func normal_cursor():

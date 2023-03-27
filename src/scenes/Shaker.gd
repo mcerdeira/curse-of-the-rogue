@@ -41,7 +41,6 @@ func shake(intensity, duration, type = Type.Random):
 		camera_shake_duration = duration
 		camera_shake_type = type
 
-
 func _physics_process(delta):
 	
 	# Get the camera
