@@ -145,6 +145,9 @@ func _on_btn_options_pressed():
 	$OptionsDialog/chk_SFX.pressed = !Global.SfxMuted
 	$OptionsDialog/chk_gamepad.pressed = Global.UseGamePad
 	
+	if !Global.GamepadsExists:
+		$OptionsDialog/chk_gamepad.disabled = true
+	
 	$OptionsDialog.visible = true
 	$PressStartContainer/btn_quit.disabled = true
 	$PressStartContainer/btn_start.disabled = true

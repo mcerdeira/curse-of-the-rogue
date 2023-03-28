@@ -6,7 +6,7 @@ func _ready():
 	position = dirinput * buff
 	
 func _physics_process(delta):
-	if Global.UseGamePad:
+	if Global.UseGamePad and Global.GamepadsExists:
 		var dirinput = Input.get_vector("ui_axis_left", "ui_axis_right", "ui_axis_up", "ui_axis_down")
 		if dirinput != Vector2.ZERO:
 			dirinput = dirinput.normalized()

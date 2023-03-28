@@ -1,4 +1,5 @@
 extends Node
+var GamepadsExists = false
 var UseGamePad = false
 var saved_game = false
 var ending_unlocked = false
@@ -996,7 +997,22 @@ func restart_pools():
 	PREMIUM_ITEMS.push_back(backpack)
 	PREMIUM_ITEMS.push_back(iron_fist)
 	
+func CheckGamepad():
+	if Input.get_connected_joypads().size() > 0:
+		GamepadsExists = true
+	else:
+		GamepadsExists = false
+	
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	
+func _on_joy_connection_changed(device_id, connected):
+	if connected:
+		GamepadsExists = true
+	else:
+		GamepadsExists = false
+	
 func _ready():
+	CheckGamepad()
 	LoadSfxAndMusic()
 	boot_strap_game()
 	
