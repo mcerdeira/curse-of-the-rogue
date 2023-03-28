@@ -1200,7 +1200,7 @@ func effects(from):
 	return (from == "poison_fx" or from == "justice_fx" or from == "bleed_fx" or from == "electricity_fx")
 		
 func hit(origin, dmg, from):
-	if visible and !iamasign:
+	if visible and !iamasign and life > 0:
 		if inmune_while_moving and inmune_now:
 			return
 		
