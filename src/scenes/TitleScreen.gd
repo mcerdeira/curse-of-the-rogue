@@ -67,6 +67,7 @@ func _physics_process(delta):
 			$Player/sprite.animation = "back"
 			$Player/sprite.playing = true
 			$Player/sprite.material.set_shader_param("blackened", true)
+			$TitleSprite.material.set_shader_param("shine_speed", 3.5)
 			wait_ttl = 0
 			size_ttl = 0
 			goup = true
@@ -93,6 +94,7 @@ func _physics_process(delta):
 					else:
 						if !stop and $Player.position.y <= 519:
 							stop = true
+							$TitleSprite.material.set_shader_param("shine_speed", 3.5)
 							$TitleAnimation.play("New Anim")
 							$PressAnimation.play("New Anim")
 							
