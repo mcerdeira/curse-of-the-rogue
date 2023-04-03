@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scenes/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://sprites/player_spr_2.png" type="Texture" id=2]
@@ -171,6 +171,31 @@ font_data = ExtResource( 14 )
 [sub_resource type="DynamicFont" id=19]
 font_data = ExtResource( 14 )
 
+[sub_resource type="Shader" id=24]
+code = "shader_type canvas_item;
+
+uniform bool apply = true;
+uniform float amount = 0.1;
+uniform sampler2D offset_texture : hint_white;
+
+void fragment() {
+	vec4 texture_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 color = texture_color;
+	
+	if (apply == true) {
+		float adjusted_amount = amount * texture(offset_texture, SCREEN_UV).r / 100.0;
+		color.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + adjusted_amount, SCREEN_UV.y)).r;
+		color.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+		color.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - adjusted_amount, SCREEN_UV.y)).b;
+	}
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=25]
+shader = SubResource( 24 )
+shader_param/apply = true
+shader_param/amount = 0.1
+
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -191,7 +216,6 @@ shape = SubResource( 1 )
 [node name="sprite" type="AnimatedSprite" parent="Player"]
 material = SubResource( 6 )
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -348,6 +372,13 @@ disabled = true
 text = "English"
 items = [ "English", null, false, 0, null, "Spanish", null, false, 1, null, "Japanese", null, false, 2, null ]
 selected = 0
+
+[node name="ChromeAbrr" type="ColorRect" parent="."]
+material = SubResource( 25 )
+margin_left = -321.0
+margin_top = -87.0
+margin_right = 1288.0
+margin_bottom = 677.0
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
