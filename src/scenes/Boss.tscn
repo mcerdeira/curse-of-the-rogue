@@ -298,6 +298,7 @@ position = Vector2( 6, 37 )
 shape = SubResource( 6 )
 
 [node name="weapon" type="AnimatedSprite" parent="."]
+modulate = Color( 2, 2, 2, 1 )
 position = Vector2( 30, -12 )
 frames = SubResource( 4 )
 offset = Vector2( 96, -1 )

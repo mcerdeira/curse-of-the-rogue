@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -60,6 +60,11 @@
 [ext_resource path="res://sprites/boss_bar.png" type="Texture" id=69]
 [ext_resource path="res://sprites/boss_bar_frame.png" type="Texture" id=70]
 [ext_resource path="res://scenes/AltarProgress.tscn" type="PackedScene" id=72]
+
+[sub_resource type="Environment" id=18]
+background_mode = 4
+glow_enabled = true
+adjustment_brightness = 5.23
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 3 )
@@ -233,6 +238,9 @@ shader_param/factor = 1.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 21 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 18 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

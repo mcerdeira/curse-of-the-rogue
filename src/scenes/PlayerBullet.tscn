@@ -84,14 +84,16 @@ script = ExtResource( 3 )
 
 [node name="sprite2" type="AnimatedSprite" parent="."]
 visible = false
+modulate = Color( 2, 2, 2, 1 )
 frames = SubResource( 3 )
 animation = "power_glove"
-frame = 3
+frame = 2
 speed_scale = 2.0
 playing = true
 offset = Vector2( 298, -1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
+modulate = Color( 2, 2, 2, 1 )
 frames = SubResource( 2 )
 animation = "grandpa_photo"
 

@@ -52,9 +52,9 @@ position = Vector2( 623.75, 0 )
 shape = SubResource( 3 )
 
 [node name="sprite" type="AnimatedSprite" parent="area"]
+modulate = Color( 2, 2, 2, 1 )
 position = Vector2( 496, 0 )
 frames = SubResource( 4 )
-frame = 2
 speed_scale = 3.0
 playing = true
 

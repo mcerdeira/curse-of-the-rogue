@@ -1,13 +1,24 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://sprites/head_1.png" type="Texture" id=1]
 [ext_resource path="res://sprites/head_0.png" type="Texture" id=2]
 [ext_resource path="res://sprites/head_2.png" type="Texture" id=3]
 [ext_resource path="res://scenes/BigHead.gd" type="Script" id=4]
+[ext_resource path="res://sprites/head_eye_0.png" type="Texture" id=5]
+[ext_resource path="res://sprites/head_eye_1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/head_eye_2.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -22,9 +33,15 @@ extents = Vector2( 44, 46 )
 [node name="BigHead" type="AnimatedSprite"]
 position = Vector2( 946, 80 )
 frames = SubResource( 5 )
-frame = 1
+frame = 2
 playing = true
 script = ExtResource( 4 )
+
+[node name="eyes" type="AnimatedSprite" parent="."]
+modulate = Color( 2, 2, 2, 1 )
+frames = SubResource( 8 )
+frame = 2
+playing = true
 
 [node name="body" type="StaticBody2D" parent="."]
 

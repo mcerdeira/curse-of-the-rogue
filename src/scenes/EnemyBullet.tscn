@@ -70,8 +70,10 @@ position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
+modulate = Color( 2, 2, 2, 1 )
 frames = SubResource( 2 )
 animation = "fire_trail"
+frame = 2
 playing = true
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
