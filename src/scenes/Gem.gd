@@ -11,6 +11,7 @@ var dist = 60
 var animation_ended = false
 
 func _ready():
+	$sprite.material.set_shader_param("shine_speed", 0.0)
 	add_to_group("collectables")
 	player = get_tree().get_nodes_in_group("players")[0]
 	if Global.magnet:
@@ -18,6 +19,8 @@ func _ready():
 
 func _init_sprite():
 	$sprite.animation = type
+	if type != "gem":
+		$sprite.material.set_shader_param("shine_speed", 3.5)
 
 func _physics_process(delta):
 	if taken:
