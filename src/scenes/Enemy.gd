@@ -803,6 +803,7 @@ func set_type(_type):
 		$area/collider_dead_fire.set_deferred("disabled", false)
 		$area/collider_ghost.set_deferred("disabled", true)
 		$area/collider_squid.set_deferred("disabled", true)
+		$sprite.modulate = Color(2, 2, 2)
 		
 		shoot_ttl_total = Global.pick_random([5, 3, 2])
 		shoot_ttl = shoot_ttl_total
