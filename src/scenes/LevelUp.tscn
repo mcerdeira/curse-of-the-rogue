@@ -51,7 +51,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 513, 197 )
 frames = SubResource( 1 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="."]

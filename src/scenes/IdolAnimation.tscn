@@ -68,6 +68,7 @@ position = Vector2( 1, 183 )
 [node name="sprite" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 0, -200 )
 frames = SubResource( 1 )
+frame = 3
 playing = true
 
 [node name="particle" parent="Node2D" instance=ExtResource( 7 )]

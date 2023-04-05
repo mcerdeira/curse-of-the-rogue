@@ -104,6 +104,8 @@ var SpikeBallSfx = null
 var TrollSfx = null
 var TrollHitSfx = null
 var KatanaSfx = null
+var BonFireSfx = null
+var IdolBlessSfx = null
 
 ############################################################################
 
@@ -1116,6 +1118,9 @@ func LoadSfxAndMusic():
 	TrollHitSfx = GhostHitSfx
 	
 	KatanaSfx = preload("res://sfx/KatanaSfx.mp3")
+	
+	BonFireSfx = preload("res://sfx/bonfire_sfx.wav")
+	IdolBlessSfx = preload("res://sfx/idol_bless_sfx.wav")
 	
 func save_options():
 	var save_options = File.new()

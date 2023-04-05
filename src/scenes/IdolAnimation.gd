@@ -11,9 +11,14 @@ var done = false
 var done_ttl = 2.3
 var Chamber = null
 var total_idols = 0
+var sound_played = false
 
 func _physics_process(delta):
 	if done:
+		if !sound_played:
+			sound_played = true
+			Global.play_sound(Global.IdolBlessSfx)
+		
 		z_index = VisualServer.CANVAS_ITEM_Z_MAX
 		$Node2D/sprite.scale.x += 10 * delta
 		$Node2D/sprite.scale.y = $Node2D/sprite.scale.x

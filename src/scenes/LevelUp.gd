@@ -22,6 +22,7 @@ func _physics_process(delta):
 		var item_description = "BLESSED!!!"
 		var item_long_description = ""
 		if some_pressed_ttl <= 0:
+			Global.play_sound(Global.IdolBlessSfx)
 			done = true
 			player.bleseed()
 			if what == "dmg":

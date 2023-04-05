@@ -12,10 +12,12 @@ func _ready():
 			return
 
 func burn():
+	Global.play_sound(Global.BonFireSfx)
 	started = true
 	$FireParticles.visible = true
 	
 func burn_off():
+	Global.play_sound(Global.BonFireSfx)
 	started = false
 	$FireParticles.visible = false
 	
