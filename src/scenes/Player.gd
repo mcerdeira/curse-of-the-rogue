@@ -389,6 +389,7 @@ func hit(dmg, from, can_zombie=false, effect_name=""):
 			turn_into_mushroom()
 		
 		Global.shaker_obj.shake(2, 0.2)
+		Global.distort_obj.distort_all(0.2)
 		
 		if typeof(from) in [TYPE_ARRAY]:
 			Global.KillerisMe = from[0]
