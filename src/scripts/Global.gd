@@ -220,44 +220,51 @@ var att_type_charge = {
 	name = "charge",
 	count = 3, 
 	ttl = 4,
-	name3 = "Demon"
+	name3 = "Demon",
+	modulate = false
 }
 var att_type_cross = {
 	name = "cross",
 	count = -1,
 	ttl = 5,
-	name3 = "Pig"
+	name3 = "Pig",
+	modulate = false
 }
 var att_type_spin_x = {
 	name = "spin_x",
 	count = -1,
 	ttl = 5,
-	name3 = "Wolf"
+	name3 = "Wolf",
+	modulate = false
 }
 var att_type_rain = {
 	name = "rain",
 	count = -1,
 	ttl = 8,
-	name3 = "Soul"
+	name3 = "Soul",
+	modulate = true
 }
 var att_type_melee = {
 	name = "melee",
 	count = 3,
 	ttl = 3.7,
-	name3 = "Knight"
+	name3 = "Knight",
+	modulate = false
 }
 var att_type_jump = {
 	name = "jump",
 	count = 1,
 	ttl = 5.6,
-	name3 = "Frog"
+	name3 = "Frog",
+	modulate = false
 }
 
 var att_type_none = {
 	name = "none",
 	count = 0,
 	ttl = 0,
-	name3 = "Old"
+	name3 = "Old",
+	modulate = false
 }
 
 var attack_types = [

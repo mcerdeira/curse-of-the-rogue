@@ -175,6 +175,10 @@ func generate_boss():
 		$head.animation = attack_type.name3
 		$body.animation = attack_type.name3
 		$extra.animation = movement_type.name3
+		
+		if attack_type.modulate:
+			$head.modulate = Color(2, 2, 2)
+			$body.modulate = Color(2, 2, 2)
 			
 		#TODO:aplicar efecto dmg_type_normal.name3
 			
