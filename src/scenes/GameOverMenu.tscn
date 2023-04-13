@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scenes/GameOverMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/prstartk.ttf" type="DynamicFontData" id=2]
@@ -22,7 +22,6 @@
 [ext_resource path="res://sprites/player_dead_fire_spr_0.png" type="Texture" id=20]
 [ext_resource path="res://sprites/kill_back.png" type="Texture" id=21]
 [ext_resource path="res://sprites/blast_spr_10.png" type="Texture" id=22]
-[ext_resource path="res://sprites/boss_head.png" type="Texture" id=23]
 [ext_resource path="res://sprites/chest_mimic12png.png" type="Texture" id=24]
 [ext_resource path="res://sprites/bloby2.png" type="Texture" id=25]
 [ext_resource path="res://sprites/boss_head_demon1.png" type="Texture" id=26]
@@ -124,11 +123,6 @@ animations = [ {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "bone",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "boss",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
