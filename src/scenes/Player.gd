@@ -63,16 +63,19 @@ func bleseed():
 	var fire = FireParticles.instance()
 	add_child(fire)
 	fire.position.y = -32
-
-func _ready():
-	Global.pixelate(pixelated)
 	
-	add_to_group("players")
+func show_automatic_weapon():
 	if Global.automatic_weapon[0] != "empty":
 		$automatic_weapon.animation = Global.automatic_weapon[0]
 		$automatic_weapon.visible = true
 	else:
 		$automatic_weapon.visible = false
+
+func _ready():
+	Global.pixelate(pixelated)
+	
+	add_to_group("players")
+	show_automatic_weapon()
 		
 	if Global.zombie:
 		turn_into_zombie(false)
@@ -232,6 +235,8 @@ func add_automatic_weapon(weapon):
 		Global.automatic_weapon.append(weapon)
 	else:
 		Global.automatic_weapon[0] = weapon
+		
+	show_automatic_weapon()
 		
 func add_backpack():
 	Global.play_sound(Global.ItemSfx)
@@ -1000,3 +1005,4 @@ func _physics_process(delta):
 		$sprite.playing = false
 		time += delta * frequency
 		$sprite.set_position(default_pos + Vector2(0, sin(time) * amplitude))
+		$automatic_weapon.set_position(default_pos + Vector2(0, sin(time) * amplitude))

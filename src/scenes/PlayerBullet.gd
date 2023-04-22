@@ -212,6 +212,10 @@ func _physics_process(delta):
 		
 func _on_Area2D_area_entered(area):
 	var go_emit = false
+	
+	if area.is_in_group("big_head"):
+		area.get_parent().hit()
+	
 	if area.is_in_group("decorations"):
 		go_emit = true
 		area._destroy()
@@ -228,7 +232,7 @@ func _on_Area2D_area_entered(area):
 				if type != "spikeball":
 					queue_free()
 	
-	if dmg > 0 and area.is_in_group("enemies"):
+	if dmg > 0 and (area.is_in_group("enemies") or area.is_in_group("shop_keeper")):
 		go_emit = true
 		area.get_parent().hit(get_parent(), dmg, "player")
 		if !piercing:

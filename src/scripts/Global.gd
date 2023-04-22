@@ -4,7 +4,7 @@ var UseGamePad = false
 var saved_game = false
 var ending_unlocked = false
 var only_supershops = false
-var VERSION = "1.5.1"
+var VERSION = "1.5.2"
 var arrow = preload("res://sprites/crosshair.png")
 var gem_volume = -14
 var kills = 0
@@ -911,7 +911,7 @@ func _data_overload():
 	load_options()
 	load_game()
 	load_items()
-	
+		
 	for i in range(Global.IDOLS.size()):
 		if Global.IDOLS[i] == 1:
 			var texture = item_texture

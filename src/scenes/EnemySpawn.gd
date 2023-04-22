@@ -165,7 +165,7 @@ func spawn_chest_and_stuff(only_chest=false, only_idol=false):
 		do_chest = false
 	
 	var obj_pos = null
-	if only_chest and Global.FLOOR_TYPE == Global.floor_types.altar:
+	if only_chest and (Global.FLOOR_TYPE == Global.floor_types.altar or Global.FLOOR_TYPE == Global.floor_types.intro):
 		obj_pos = $pos20.position
 	else:
 		obj_pos = find_closest_player(buff)
